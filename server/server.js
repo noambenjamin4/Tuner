@@ -142,6 +142,11 @@ async function startJob(sanitizedUrl, quality, format, trimSilence) {
     // WAV is lossless PCM; bitrate only applies to MP3
     ...(format === "mp3" ? ["--audio-quality", `${quality}K`] : []),
     "--ffmpeg-location", FFMPEG_PATH,
+    // YouTube blocks datacenter IPs with a "sign in to confirm you're not a
+    // bot" wall. Requesting alternative player clients often clears it without
+    // cookies. Overridable via env for tuning without a redeploy; harmless for
+    // non-YouTube extractors (they ignore the youtube: namespace).
+    "--extractor-args", process.env.YTDLP_EXTRACTOR_ARGS || "youtube:player_client=web_safari,mweb,tv,web",
     "--match-filter", "duration <= 5400",
     "--max-filesize", "300M",
     "--no-mtime",

@@ -18,7 +18,10 @@ const { validateMediaUrl } = require("./media-url");
 const PORT = Number(process.env.PORT) || 8787;
 const API_KEY = process.env.API_KEY;
 const YTDLP_PATH = process.env.YTDLP_PATH || "/usr/local/bin/yt-dlp";
-const FFMPEG_PATH = process.env.FFMPEG_PATH || "ffmpeg";
+// Debian's apt package puts ffmpeg at /usr/bin/ffmpeg. A bare "ffmpeg" would
+// break yt-dlp: --ffmpeg-location treats it as a relative path, which
+// overrides normal PATH discovery and then fails.
+const FFMPEG_PATH = process.env.FFMPEG_PATH || "/usr/bin/ffmpeg";
 
 if (!API_KEY) {
   console.error("API_KEY environment variable is required. Refusing to start.");

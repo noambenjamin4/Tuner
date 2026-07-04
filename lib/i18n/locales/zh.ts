@@ -137,7 +137,7 @@ const zh: Record<keyof typeof en, string> = {
   "localConverter.failedFallback": "请尝试WAV、MP3、M4A、OGG或FLAC文件。",
 
   "ytDownloader.title": "链接转音频",
-  "ytDownloader.subtitle": "支持YouTube、SoundCloud、Bandcamp、Vimeo、Mixcloud、Audiomack — 仅限个人使用。首次转换可能需要约一分钟启动。",
+  "ytDownloader.subtitle": "支持YouTube、SoundCloud、Bandcamp、Vimeo、Mixcloud、Audiomack、Spotify — 仅限个人使用。首次转换可能需要约一分钟启动。",
   "ytDownloader.trackUrl": "曲目链接",
   "ytDownloader.urlPlaceholder": "粘贴YouTube或SoundCloud链接...",
   "ytDownloader.autoAnalyze": "下载后自动分析",
@@ -176,6 +176,9 @@ const zh: Record<keyof typeof en, string> = {
   "ytDownloader.playlistConvertAll": "转换整个播放列表",
   "ytDownloader.playlistItemFailed": "失败",
   "ytDownloader.playlistProgress": "已完成 {done} / {total}",
+  "ytDownloader.spotifyDetected": "检测到Spotify链接",
+  "ytDownloader.spotifyConvert": "转换Spotify播放列表",
+  "ytDownloader.spotifyNote": "Spotify曲目会先匹配再从YouTube下载。",
 
   "setup.title": "需要进行一次性设置",
   "setup.ytdlpMissing": "尚未安装yt-dlp",

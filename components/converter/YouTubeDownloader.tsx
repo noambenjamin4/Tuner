@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { useTuner } from "../TunerApp";
 import { useYouTubeJob } from "@/hooks/useYouTubeJob";
-import { validateMediaUrl } from "@/lib/media-url";
+import { validateMediaUrl, validateSpotifyUrl } from "@/lib/media-url";
 import { delayDivisions } from "@/lib/audio/delay";
 import { useI18n } from "@/lib/i18n";
 import { CheckRow } from "@/components/ui/CheckRow";
@@ -60,6 +60,15 @@ export function YouTubeDownloader() {
   const busy = state.phase === "starting" || state.phase === "working";
   const isVideo = format === "mp4";
   const hasPlaylistParam = /[?&]list=/.test(url);
+  const spotify = validateSpotifyUrl(url);
+  const isSpotify = Boolean(spotify);
+  // Spotify batches are audio-only — if the shared `quality` state currently
+  // holds a video resolution (mp4 was selected before pasting a Spotify
+  // link), fall back to the default audio bitrate for the picker + submit.
+  const spotifyQuality: Quality =
+    quality === "320" || quality === "256" || quality === "192" || quality === "128"
+      ? (quality as Quality)
+      : DEFAULT_AUDIO_QUALITY;
 
   useEffect(() => {
     // Any URL edit invalidates a previously enumerated playlist / toggle.
@@ -82,6 +91,45 @@ export function YouTubeDownloader() {
   const onSubmit = (event: FormEvent) => {
     event.preventDefault();
 
+    if (isSpotify) {
+      setInputError(null);
+      setPlaylistError(null);
+      setPlaylistItems(null);
+      setPlaylistLoading(true);
+      // Spotify tracks are audio only (matched + downloaded from YouTube) —
+      // if mp4 happens to be selected, fall back to mp3 for this batch.
+      const batchFormat: OutputFormat = format === "mp4" ? "mp3" : format;
+      void (async () => {
+        try {
+          const response = await fetch("/api/spotify", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ url }),
+          });
+          const payload = await response.json().catch(() => ({}));
+          if (!response.ok || !Array.isArray(payload.items)) {
+            setPlaylistError(payload.error || t("ytDownloader.couldNotStart"));
+            return;
+          }
+          const spotifyItems: PlaylistItem[] = payload.items.map(
+            (item: { title: string; artist: string }, index: number) => ({
+              kind: "spotify" as const,
+              id: `spotify-${index}`,
+              title: item.title,
+              artist: item.artist,
+            }),
+          );
+          setPlaylistItems(spotifyItems);
+          setPlaylistBatchConfig({ format: batchFormat, quality: spotifyQuality });
+        } catch {
+          setPlaylistError(t("ytDownloader.couldNotReachServer"));
+        } finally {
+          setPlaylistLoading(false);
+        }
+      })();
+      return;
+    }
+
     if (playlistMode) {
       setInputError(null);
       setPlaylistError(null);
@@ -99,7 +147,12 @@ export function YouTubeDownloader() {
             setPlaylistError(payload.error || t("ytDownloader.couldNotStart"));
             return;
           }
-          setPlaylistItems(payload.items);
+          const youtubeItems: PlaylistItem[] = payload.items.map((item: { id: string; title: string | null }) => ({
+            kind: "youtube" as const,
+            id: item.id,
+            title: item.title,
+          }));
+          setPlaylistItems(youtubeItems);
           setPlaylistBatchConfig({ format, quality });
         } catch {
           setPlaylistError(t("ytDownloader.couldNotReachServer"));
@@ -203,18 +256,20 @@ export function YouTubeDownloader() {
             disabled={busy}
           />
         </label>
-        {hasPlaylistParam ? (
+        {hasPlaylistParam && !isSpotify ? (
           <CheckRow checked={playlistMode} onChange={setPlaylistMode} disabled={busy || playlistLoading}>
             {t("ytDownloader.playlistConvertAll")}
           </CheckRow>
         ) : null}
-        <FormatPicker value={format} onChange={onFormatChange} formats={LINK_FORMATS} />
-        {isVideo ? (
+        {isSpotify ? null : <FormatPicker value={format} onChange={onFormatChange} formats={LINK_FORMATS} />}
+        {isSpotify ? (
+          <QualityPicker value={spotifyQuality} onChange={setQuality} />
+        ) : isVideo ? (
           <ResolutionPicker value={quality as Resolution} onChange={setQuality} />
         ) : format === "mp3" ? (
           <QualityPicker value={quality as Quality} onChange={setQuality} />
         ) : null}
-        {isVideo || playlistMode ? null : (
+        {isSpotify ? null : isVideo || playlistMode ? null : (
           <>
             <CheckRow checked={trimSilence} onChange={setTrimSilence} disabled={busy}>
               {t("converter.autoTrim")}
@@ -229,9 +284,11 @@ export function YouTubeDownloader() {
             ? t("ytDownloader.loading")
             : busy
               ? t("ytDownloader.loading")
-              : playlistMode
-                ? t("ytDownloader.playlistConvertAll")
-                : t("converter.convertTo", { format: format.toUpperCase() })}
+              : isSpotify
+                ? t("ytDownloader.spotifyConvert")
+                : playlistMode
+                  ? t("ytDownloader.playlistConvertAll")
+                  : t("converter.convertTo", { format: format.toUpperCase() })}
         </button>
       </form>
 
@@ -247,14 +304,19 @@ export function YouTubeDownloader() {
         </div>
       ) : playlistLoading ? (
         <div className="status-box" role="status">
-          <strong>{t("ytDownloader.playlistDetected")}</strong>
+          <strong>{isSpotify ? t("ytDownloader.spotifyDetected") : t("ytDownloader.playlistDetected")}</strong>
           <span>{t("ytDownloader.startingMessage")}</span>
         </div>
       ) : playlistItems && playlistBatchConfig ? (
         <div className="status-box" role="status">
-          <strong>{t("ytDownloader.playlistDetected")}</strong>
+          <strong>{isSpotify ? t("ytDownloader.spotifyDetected") : t("ytDownloader.playlistDetected")}</strong>
           <span>{t("ytDownloader.playlistTracks", { count: playlistItems.length })}</span>
           <PlaylistBatch items={playlistItems} format={playlistBatchConfig.format} quality={playlistBatchConfig.quality} />
+        </div>
+      ) : isSpotify ? (
+        <div className="status-box" role="status">
+          <strong>{t("ytDownloader.spotifyDetected")}</strong>
+          <span>{t("ytDownloader.spotifyNote")}</span>
         </div>
       ) : state.phase === "idle" ? (
         <div className="status-box" role="status">

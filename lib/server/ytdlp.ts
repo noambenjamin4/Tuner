@@ -67,11 +67,12 @@ function classifyError(stderr: string): string {
 }
 
 export async function startYouTubeJob(
-  sanitizedUrl: string,
+  sanitizedUrl: string | null,
   sourceLabel: string,
   quality: string,
   format: YtFormat,
   trimSilence: boolean,
+  searchQuery?: string | null,
 ): Promise<YtJob> {
   void sweepJobs();
   const ytdlpPath = await resolveYtdlp();
@@ -123,7 +124,11 @@ export async function startYouTubeJob(
     args.push("--postprocessor-args", `ExtractAudio:-af ${SILENCE_TRIM_FILTER}`);
   }
 
-  args.push("--", sanitizedUrl);
+  // Spotify-matched tracks (no direct URL) resolve via a yt-dlp search
+  // pseudo-URL. This is still a single argv element after `--`, spawned with
+  // shell:false — never interpolated into a shell string.
+  const target = searchQuery ? `ytsearch1:${searchQuery}` : sanitizedUrl;
+  args.push("--", target as string);
 
   const child = spawn(ytdlpPath, args, { shell: false, stdio: ["ignore", "pipe", "pipe"] });
   job.child = child;

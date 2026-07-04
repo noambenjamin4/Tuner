@@ -147,7 +147,7 @@ const en = {
 
   // YouTube downloader
   "ytDownloader.title": "Link to Audio",
-  "ytDownloader.subtitle": "YouTube, SoundCloud, Bandcamp, Vimeo, Mixcloud, Audiomack — personal use only. The first conversion may take a minute to wake up.",
+  "ytDownloader.subtitle": "YouTube, SoundCloud, Bandcamp, Vimeo, Mixcloud, Audiomack, Spotify — personal use only. The first conversion may take a minute to wake up.",
   "ytDownloader.trackUrl": "Track URL",
   "ytDownloader.urlPlaceholder": "Paste a YouTube or SoundCloud link...",
   "ytDownloader.autoAnalyze": "Auto-analyze after download",
@@ -186,6 +186,9 @@ const en = {
   "ytDownloader.playlistConvertAll": "Convert whole playlist",
   "ytDownloader.playlistItemFailed": "Failed",
   "ytDownloader.playlistProgress": "{done} / {total} done",
+  "ytDownloader.spotifyDetected": "Spotify link detected",
+  "ytDownloader.spotifyConvert": "Convert Spotify playlist",
+  "ytDownloader.spotifyNote": "Spotify tracks are matched and downloaded from YouTube.",
 
   // Setup notice
   "setup.title": "One-time setup needed",

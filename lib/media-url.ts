@@ -57,6 +57,40 @@ export function validatePlaylistUrl(input: string): string | null {
   return `https://www.youtube.com/playlist?list=${listId}`;
 }
 
+const SPOTIFY_ID_PATTERN = /^[A-Za-z0-9]{22}$/;
+
+// Recognizes a public Spotify playlist/album/track link (or spotify: URI) and
+// extracts its kind + base62 id. Deliberately strict — this id is embedded
+// directly into an `open.spotify.com/embed/...` fetch URL (see
+// app/api/spotify/route.ts), so it must never carry anything beyond the
+// validated base62 pattern.
+export function validateSpotifyUrl(input: string): { kind: "playlist" | "album" | "track"; id: string } | null {
+  const trimmed = input.trim();
+
+  const uriMatch = trimmed.match(/^spotify:(playlist|album|track):([A-Za-z0-9]+)$/);
+  if (uriMatch) {
+    const [, kind, id] = uriMatch;
+    if (!SPOTIFY_ID_PATTERN.test(id)) return null;
+    return { kind: kind as "playlist" | "album" | "track", id };
+  }
+
+  let parsed: URL;
+  try {
+    parsed = new URL(trimmed);
+  } catch {
+    return null;
+  }
+  if (parsed.protocol !== "https:" && parsed.protocol !== "http:") return null;
+  if (parsed.hostname.toLowerCase() !== "open.spotify.com") return null;
+
+  const pathMatch = parsed.pathname.match(/^\/(?:intl-[a-z]{2}\/)?(playlist|album|track)\/([A-Za-z0-9]+)/);
+  if (!pathMatch) return null;
+  const [, kind, id] = pathMatch;
+  if (!SPOTIFY_ID_PATTERN.test(id)) return null;
+
+  return { kind: kind as "playlist" | "album" | "track", id };
+}
+
 // Validates and canonicalizes a URL across all supported platforms. Raw user
 // input never reaches the yt-dlp child process — only the rebuilt, sanitized
 // URL returned here does.

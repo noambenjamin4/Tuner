@@ -138,7 +138,7 @@ const it: Record<keyof typeof en, string> = {
   "localConverter.failedFallback": "Prova un file WAV, MP3, M4A, OGG o FLAC.",
 
   "ytDownloader.title": "Link ad audio",
-  "ytDownloader.subtitle": "YouTube, SoundCloud, Bandcamp, Vimeo, Mixcloud, Audiomack — solo uso personale. La prima conversione può richiedere un minuto per avviarsi.",
+  "ytDownloader.subtitle": "YouTube, SoundCloud, Bandcamp, Vimeo, Mixcloud, Audiomack, Spotify — solo uso personale. La prima conversione può richiedere un minuto per avviarsi.",
   "ytDownloader.trackUrl": "URL della traccia",
   "ytDownloader.urlPlaceholder": "Incolla un link YouTube o SoundCloud...",
   "ytDownloader.autoAnalyze": "Analizza automaticamente dopo il download",
@@ -177,6 +177,9 @@ const it: Record<keyof typeof en, string> = {
   "ytDownloader.playlistConvertAll": "Converti tutta la playlist",
   "ytDownloader.playlistItemFailed": "Non riuscito",
   "ytDownloader.playlistProgress": "{done} / {total} completati",
+  "ytDownloader.spotifyDetected": "Link Spotify rilevato",
+  "ytDownloader.spotifyConvert": "Converti playlist Spotify",
+  "ytDownloader.spotifyNote": "I brani Spotify vengono abbinati e scaricati da YouTube.",
 
   "setup.title": "Configurazione iniziale necessaria",
   "setup.ytdlpMissing": "yt-dlp non è ancora installato",

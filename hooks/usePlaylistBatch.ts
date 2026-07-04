@@ -7,10 +7,12 @@ import { useI18n } from "@/lib/i18n";
 const POLL_MS = 1500;
 const MAX_CONCURRENT = 2;
 
-export interface PlaylistItem {
-  id: string;
-  title: string | null;
-}
+// A row is either a YouTube video (existing flow, downloaded by id) or a
+// Spotify-matched track (downloaded by a `${artist} ${title}` search query
+// against the existing yt-dlp pipeline — see /api/youtube's `query` field).
+export type PlaylistItem =
+  | { kind: "youtube"; id: string; title: string | null }
+  | { kind: "spotify"; id: string; title: string; artist: string };
 
 export type PlaylistRowPhase = "queued" | "working" | "done" | "error";
 
@@ -28,6 +30,11 @@ interface BatchOptions {
   quality: string;
 }
 
+function rowLabel(item: PlaylistItem): string | null {
+  if (item.kind === "youtube") return item.title;
+  return item.artist ? `${item.artist} - ${item.title}` : item.title;
+}
+
 // Client-orchestrated playlist batch: each row is a normal single-video job
 // against the EXISTING POST /api/youtube pipeline (same as useYouTubeJob),
 // just run through a small worker pool instead of one at a time. No
@@ -35,12 +42,12 @@ interface BatchOptions {
 export function usePlaylistBatch(items: PlaylistItem[], { format, quality }: BatchOptions) {
   const { t } = useI18n();
   const [rows, setRows] = useState<PlaylistRowState[]>(() =>
-    items.map((item) => ({ id: item.id, title: item.title, phase: "queued", progress: 0, jobId: null, error: null })),
+    items.map((item) => ({ id: item.id, title: rowLabel(item), phase: "queued", progress: 0, jobId: null, error: null })),
   );
   const cancelledRef = useRef(false);
 
   useEffect(() => {
-    setRows(items.map((item) => ({ id: item.id, title: item.title, phase: "queued", progress: 0, jobId: null, error: null })));
+    setRows(items.map((item) => ({ id: item.id, title: rowLabel(item), phase: "queued", progress: 0, jobId: null, error: null })));
     cancelledRef.current = false;
     // Only reset when the underlying item set changes — format/quality
     // changes are captured by the runBatch closure below, not here.
@@ -99,12 +106,21 @@ export function usePlaylistBatch(items: PlaylistItem[], { format, quality }: Bat
         response = await fetch("/api/youtube", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            url: `https://www.youtube.com/watch?v=${item.id}`,
-            quality,
-            format,
-            trimSilence: false,
-          }),
+          body: JSON.stringify(
+            item.kind === "youtube"
+              ? {
+                  url: `https://www.youtube.com/watch?v=${item.id}`,
+                  quality,
+                  format,
+                  trimSilence: false,
+                }
+              : {
+                  query: item.artist ? `${item.artist} ${item.title}` : item.title,
+                  quality,
+                  format,
+                  trimSilence: false,
+                },
+          ),
         });
       } catch {
         updateRow(item.id, { phase: "error", error: t("ytDownloader.couldNotReachServer") });

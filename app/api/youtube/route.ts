@@ -33,12 +33,24 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Provide a YouTube URL and a quality of 320, 256, 192, or 128." }, { status: 400 });
   }
 
-  const canonical = validateMediaUrl(parsed.data.url);
-  if (!canonical) {
-    return NextResponse.json(
-      { error: "Paste a YouTube, SoundCloud, Bandcamp, Vimeo, Mixcloud, or Audiomack link." },
-      { status: 400 },
-    );
+  // Two mutually-exclusive job shapes: a direct URL (existing flow) or a
+  // search query (Spotify-matched track — no direct URL, resolved via
+  // yt-dlp's ytsearch1: pseudo-URL). startJobSchema's refine guarantees
+  // exactly one of these is present.
+  const isSearchJob = Boolean(parsed.data.query);
+
+  let canonicalUrl: string | null = null;
+  let sourceLabel = "search";
+  if (!isSearchJob) {
+    const canonical = validateMediaUrl(parsed.data.url!);
+    if (!canonical) {
+      return NextResponse.json(
+        { error: "Paste a YouTube, SoundCloud, Bandcamp, Vimeo, Mixcloud, or Audiomack link." },
+        { status: 400 },
+      );
+    }
+    canonicalUrl = canonical.url;
+    sourceLabel = canonical.platform;
   }
 
   // Never forward unvalidated input — the body reaching a proxy backend is
@@ -57,7 +69,7 @@ export async function POST(request: NextRequest) {
         method: "POST",
         headers: { "Content-Type": "application/json", "x-api-key": backend.key },
         body: JSON.stringify({
-          url: canonical.url,
+          ...(isSearchJob ? { query: parsed.data.query } : { url: canonicalUrl }),
           quality: parsed.data.quality,
           format: parsed.data.format,
           trimSilence: parsed.data.trimSilence,
@@ -94,11 +106,12 @@ export async function POST(request: NextRequest) {
 
   try {
     const job = await startYouTubeJob(
-      canonical.url,
-      canonical.platform,
+      canonicalUrl,
+      sourceLabel,
       parsed.data.quality,
       parsed.data.format,
       parsed.data.trimSilence,
+      isSearchJob ? parsed.data.query : null,
     );
     return NextResponse.json({ jobId: job.id }, { status: 202 });
   } catch (error) {

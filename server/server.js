@@ -117,7 +117,7 @@ function classifyError(stderr) {
   return stripInternalPaths(lastLine.replace(/^ERROR:\s*/i, "")).slice(0, 300);
 }
 
-async function startJob(sanitizedUrl, quality, format, trimSilence) {
+async function startJob(sanitizedUrl, quality, format, trimSilence, searchQuery) {
   void sweepJobs();
 
   const id = crypto.randomUUID();
@@ -171,7 +171,12 @@ async function startJob(sanitizedUrl, quality, format, trimSilence) {
     args.push("--postprocessor-args", `ExtractAudio:-af ${SILENCE_TRIM_FILTER}`);
   }
 
-  args.push("--", sanitizedUrl);
+  // Spotify-matched tracks (no direct URL) resolve via a yt-dlp search
+  // pseudo-URL. This is still a single argv element after `--`, spawned with
+  // shell:false — never interpolated into a shell string. Mirrors
+  // lib/server/ytdlp.ts's startYouTubeJob.
+  const target = searchQuery ? `ytsearch1:${searchQuery}` : sanitizedUrl;
+  args.push("--", target);
 
   const child = spawn(YTDLP_PATH, args, { shell: false, stdio: ["ignore", "pipe", "pipe"] });
   job.child = child;
@@ -348,6 +353,9 @@ const AUDIO_QUALITY_VALUES = new Set(["320", "256", "192", "128"]);
 const VIDEO_QUALITY_VALUES = new Set(["1080", "720", "480"]);
 const FORMAT_VALUES = new Set(["mp3", "wav", "mp4"]);
 const CONTENT_TYPE_BY_FORMAT = { mp3: "audio/mpeg", wav: "audio/wav", mp4: "video/mp4" };
+// Mirrors lib/server/validate.ts's PRINTABLE_QUERY_PATTERN.
+// eslint-disable-next-line no-control-regex
+const PRINTABLE_QUERY_PATTERN = /^[^\x00-\x1f\x7f]+$/;
 
 async function handleRequest(req, res) {
   const url = new URL(req.url, `http://localhost:${PORT}`);
@@ -383,14 +391,33 @@ async function handleRequest(req, res) {
       return;
     }
 
-    const { url: rawUrl, quality, format = "mp3", trimSilence = true } = body;
+    const { url: rawUrl, query: rawQuery, quality, format = "mp3", trimSilence = true } = body;
 
-    if (typeof rawUrl !== "string" || rawUrl.length === 0 || rawUrl.length > 2048) {
+    // Two mutually-exclusive job shapes: a direct URL (existing flow) or a
+    // search query (Spotify-matched track, no direct URL — resolved via
+    // yt-dlp's ytsearch1: pseudo-URL). Exactly one of url/query must be
+    // present, mirroring lib/server/validate.ts's startJobSchema refine.
+    const hasUrl = typeof rawUrl === "string" && rawUrl.length > 0;
+    const hasQuery = typeof rawQuery === "string" && rawQuery.length > 0;
+
+    if (hasUrl === hasQuery) {
+      sendJson(res, 400, { error: "Provide exactly one of url or query." });
+      return;
+    }
+    if (hasUrl && rawUrl.length > 2048) {
       sendJson(res, 400, { error: "Provide a YouTube URL and a quality of 320, 256, 192, or 128." });
+      return;
+    }
+    if (hasQuery && (rawQuery.length > 300 || !PRINTABLE_QUERY_PATTERN.test(rawQuery))) {
+      sendJson(res, 400, { error: "Provide a valid search query." });
       return;
     }
     if (typeof format !== "string" || !FORMAT_VALUES.has(format)) {
       sendJson(res, 400, { error: "Provide a YouTube URL and a valid format (mp3, wav, or mp4)." });
+      return;
+    }
+    if (hasQuery && format === "mp4") {
+      sendJson(res, 400, { error: "Search-query downloads are audio only (mp3 or wav)." });
       return;
     }
     const validQualities = format === "mp4" ? VIDEO_QUALITY_VALUES : AUDIO_QUALITY_VALUES;
@@ -408,12 +435,16 @@ async function handleRequest(req, res) {
       return;
     }
 
-    const canonical = validateMediaUrl(rawUrl);
-    if (!canonical) {
-      sendJson(res, 400, {
-        error: "Paste a YouTube, SoundCloud, Bandcamp, Vimeo, Mixcloud, or Audiomack link.",
-      });
-      return;
+    let canonicalUrl = null;
+    if (hasUrl) {
+      const canonical = validateMediaUrl(rawUrl);
+      if (!canonical) {
+        sendJson(res, 400, {
+          error: "Paste a YouTube, SoundCloud, Bandcamp, Vimeo, Mixcloud, or Audiomack link.",
+        });
+        return;
+      }
+      canonicalUrl = canonical.url;
     }
 
     if (runningJobCount() >= MAX_CONCURRENT_JOBS) {
@@ -427,7 +458,7 @@ async function handleRequest(req, res) {
     }
 
     try {
-      const job = await startJob(canonical.url, quality, format, trimSilence);
+      const job = await startJob(canonicalUrl, quality, format, trimSilence, hasQuery ? rawQuery : undefined);
       sendJson(res, 202, { jobId: job.id });
     } catch (error) {
       console.error("Failed to start job:", error instanceof Error ? error.message : error);

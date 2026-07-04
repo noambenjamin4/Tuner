@@ -138,7 +138,7 @@ const ja: Record<keyof typeof en, string> = {
   "localConverter.failedFallback": "WAV、MP3、M4A、OGG、FLACのいずれかをお試しください。",
 
   "ytDownloader.title": "リンクから音声へ",
-  "ytDownloader.subtitle": "YouTube、SoundCloud、Bandcamp、Vimeo、Mixcloud、Audiomack — 個人利用のみ。初回の変換は起動に1分ほどかかることがあります。",
+  "ytDownloader.subtitle": "YouTube、SoundCloud、Bandcamp、Vimeo、Mixcloud、Audiomack、Spotify — 個人利用のみ。初回の変換は起動に1分ほどかかることがあります。",
   "ytDownloader.trackUrl": "トラックURL",
   "ytDownloader.urlPlaceholder": "YouTubeまたはSoundCloudのリンクを貼り付け...",
   "ytDownloader.autoAnalyze": "ダウンロード後に自動解析",
@@ -177,6 +177,9 @@ const ja: Record<keyof typeof en, string> = {
   "ytDownloader.playlistConvertAll": "プレイリスト全体を変換",
   "ytDownloader.playlistItemFailed": "失敗",
   "ytDownloader.playlistProgress": "{done} / {total} 件完了",
+  "ytDownloader.spotifyDetected": "Spotifyのリンクを検出しました",
+  "ytDownloader.spotifyConvert": "Spotifyのプレイリストを変換",
+  "ytDownloader.spotifyNote": "Spotifyの曲はYouTubeで一致する動画を探してダウンロードされます。",
 
   "setup.title": "初回セットアップが必要です",
   "setup.ytdlpMissing": "yt-dlpがまだインストールされていません",

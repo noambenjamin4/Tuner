@@ -122,7 +122,7 @@ export default function CopyrightPage() {
             </picture>
             <span className="site-footer-wordmark">TUNEBAD</span>
           </div>
-          <p className="site-footer-copyright">© 2026 TuneBad · Montréal</p>
+          <p className="site-footer-copyright">© 2026 TuneBad</p>
         </div>
       </footer>
     </div>

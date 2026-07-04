@@ -247,7 +247,7 @@ const zh: Record<keyof typeof en, string> = {
   "filePicker.empty": "未选择文件",
 
   "footer.tagline": "分析。转换。创作。",
-  "footer.copyright": "© 2026 TuneBad · 蒙特利尔",
+  "footer.copyright": "© 2026 TuneBad",
   "footer.copyrightLink": "版权声明",
 };
 

@@ -248,7 +248,7 @@ const pt: Record<keyof typeof en, string> = {
   "filePicker.empty": "Nenhum arquivo selecionado",
 
   "footer.tagline": "Analise. Converta. Crie.",
-  "footer.copyright": "© 2026 TuneBad · Montreal",
+  "footer.copyright": "© 2026 TuneBad",
   "footer.copyrightLink": "Aviso de direitos autorais",
 };
 

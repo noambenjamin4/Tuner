@@ -248,7 +248,7 @@ const ja: Record<keyof typeof en, string> = {
   "filePicker.empty": "ファイルが選択されていません",
 
   "footer.tagline": "解析。変換。創造。",
-  "footer.copyright": "© 2026 TuneBad · モントリオール",
+  "footer.copyright": "© 2026 TuneBad",
   "footer.copyrightLink": "著作権に関する免責事項",
 };
 

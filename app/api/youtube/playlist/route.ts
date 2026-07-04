@@ -4,10 +4,10 @@ import { validatePlaylistUrl } from "@/lib/media-url";
 import { isDownloaderEnabled, remoteDownloaderUrl, remoteDownloaderKey, homeDownloaderUrl, homeDownloaderKey } from "@/lib/runtime";
 import { pickBackend } from "@/lib/server/backends";
 import { enumeratePlaylist } from "@/lib/server/ytdlp";
+import { allowEnumerate } from "@/lib/server/rate-limit";
 
-// Enumerating a playlist is a metadata-only fetch (no ffmpeg, no job/workdir),
-// so this route deliberately does not run it through allowJobStart / the
-// job-start rate limiter — see server/server.js's /playlist handler.
+// Enumerating a playlist spawns yt-dlp (metadata only, no download/workdir);
+// rate-limited on a separate, tighter per-IP bucket so it can't be spun in a loop.
 export const maxDuration = 60;
 
 const playlistRequestSchema = z.object({
@@ -16,6 +16,11 @@ const playlistRequestSchema = z.object({
 
 export async function POST(request: NextRequest) {
   if (!isDownloaderEnabled) return new NextResponse("Not found", { status: 404 });
+
+  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
+  if (!allowEnumerate(ip)) {
+    return NextResponse.json({ error: "Too many requests. Wait a moment and try again." }, { status: 429 });
+  }
 
   let body: unknown;
   try {

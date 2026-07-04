@@ -14,3 +14,6 @@ tsconfig.tsbuildinfo
 .vercel
 .env*
 .venv*
+
+# Home Bridge secrets
+scripts/tunebad-bridge.env

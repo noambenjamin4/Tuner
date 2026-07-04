@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { validateSpotifyUrl } from "@/lib/media-url";
+import { isDownloaderEnabled } from "@/lib/runtime";
+import { allowEnumerate } from "@/lib/server/rate-limit";
 
 // Enumerates a Spotify playlist/album/track via Spotify's PUBLIC EMBED page —
 // no Spotify account, OAuth, or API credentials involved. This is a plain
@@ -85,6 +87,13 @@ function extractItems(trackList: unknown[]): SpotifyTrackItem[] {
 }
 
 export async function POST(request: NextRequest) {
+  if (!isDownloaderEnabled) return new NextResponse("Not found", { status: 404 });
+
+  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "local";
+  if (!allowEnumerate(ip)) {
+    return NextResponse.json({ error: "Too many requests. Wait a moment and try again." }, { status: 429 });
+  }
+
   let body: unknown;
   try {
     body = await request.json();

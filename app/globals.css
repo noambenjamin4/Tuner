@@ -1880,6 +1880,12 @@ tbody tr:last-child td {
   grid-template-columns: repeat(3, minmax(56px, 1fr));
 }
 
+@media (max-width: 480px) {
+  .resolution-options {
+    grid-template-columns: repeat(2, minmax(56px, 1fr));
+  }
+}
+
 .quality-button {
   display: inline-flex;
   flex-direction: column;
@@ -1939,11 +1945,26 @@ tbody tr:last-child td {
   align-items: flex-start;
   min-height: 54px;
   margin-top: 16px;
-  padding: 14px 16px;
+  padding: 14px 16px 14px 15px;
   border: 1px solid var(--line);
+  border-left-width: 1px;
   border-radius: var(--radius-card);
   color: var(--muted);
   font-size: 13px;
+}
+
+/* Tone is conveyed by border weight/opacity only — never color, per the
+   monochrome design rule. Warning gets a heavier ink-colored left border;
+   success gets a fully ink-colored border (still 1px) so it reads as
+   "settled" without introducing any hue. */
+.status-box[data-tone="warning"] {
+  padding-left: 13px;
+  border-left-width: 3px;
+  border-left-color: var(--ink);
+}
+
+.status-box[data-tone="success"] {
+  border-color: var(--ink);
 }
 
 .status-box strong {
@@ -1972,7 +1993,7 @@ tbody tr:last-child td {
 .progress-track {
   display: block;
   margin-top: 10px;
-  height: 4px;
+  height: 6px;
   border-radius: 999px;
   background: var(--line);
   overflow: hidden;
@@ -2063,16 +2084,22 @@ tbody tr:last-child td {
 
 .playlist-batch-row {
   display: grid;
-  grid-template-columns: 24px 1fr auto;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
   align-items: center;
   gap: 10px;
-  padding: 8px 0;
+  padding: 8px 6px;
   border-top: 1px solid var(--line);
+  border-radius: var(--radius-card);
   font-size: 13px;
+  transition: background 120ms ease;
 }
 
 .playlist-batch-row:first-child {
   border-top: none;
+}
+
+.playlist-batch-row:hover {
+  background: var(--hover);
 }
 
 .playlist-batch-index {
@@ -2083,21 +2110,25 @@ tbody tr:last-child td {
 }
 
 .playlist-batch-title {
+  display: -webkit-box;
   overflow: hidden;
   color: var(--ink);
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  min-width: 0;
+  line-height: 1.35;
 }
 
 .playlist-batch-status {
   display: flex;
   align-items: center;
   justify-self: end;
-  min-width: 90px;
+  min-width: 76px;
 }
 
 .playlist-batch-status .progress-track {
-  width: 90px;
+  width: 76px;
   margin-top: 0;
 }
 
@@ -2444,6 +2475,17 @@ tbody tr:last-child td {
   text-transform: uppercase;
   letter-spacing: 0.02em;
   font-size: 13px;
+}
+
+@media (max-width: 480px) {
+  .legal {
+    padding: 32px 16px 16px;
+  }
+
+  .legal h2 {
+    font-size: 15px;
+    margin: 24px 0 10px;
+  }
 }
 
 /* ---------------------------------------------------------------------

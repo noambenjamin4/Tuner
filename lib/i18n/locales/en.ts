@@ -1,6 +1,6 @@
 const en = {
   // Nav tabs
-  "nav.converter": "MP3 Converter",
+  "nav.converter": "Converter",
   "nav.analysis": "File Analysis",
   "nav.delay": "Delay/Reverb",
   "nav.bpm": "BPM Tool",
@@ -115,10 +115,10 @@ const en = {
   "pitch.cents": "{cents} cents",
 
   // Converter (shared)
-  "converter.title": "MP3 Converter",
+  "converter.title": "Converter",
   "converter.subtitle":
-    "Convert a link (YouTube, SoundCloud, Bandcamp, Vimeo, Mixcloud, Audiomack) or a local audio file to MP3 or sample-exact WAV.",
-  "converter.titleLocalOnly": "MP3 Converter",
+    "Download from YouTube, Spotify, SoundCloud and more — as MP3, WAV, or MP4. Or convert a local audio file.",
+  "converter.titleLocalOnly": "Converter",
   "converter.subtitleLocalOnly": "Convert a local audio file to MP3 or sample-exact WAV.",
   "converter.audioFile": "Audio File",
   "converter.formatLegend": "Format",
@@ -132,7 +132,7 @@ const en = {
   "converter.convertTo": "Convert to {format}",
 
   // Local file converter
-  "localConverter.title": "Audio File to MP3",
+  "localConverter.title": "Local Audio File",
   "localConverter.subtitle": "Convert local audio files entirely in your browser.",
   "localConverter.idleTitle": "Idle",
   "localConverter.idleMessage": "Upload WAV, M4A, OGG, FLAC, or another browser-readable audio file to create an MP3.",
@@ -146,7 +146,7 @@ const en = {
   "localConverter.failedFallback": "Try a WAV, MP3, M4A, OGG, or FLAC file.",
 
   // YouTube downloader
-  "ytDownloader.title": "Link to Audio",
+  "ytDownloader.title": "Paste a Link",
   "ytDownloader.subtitle": "YouTube, SoundCloud, Bandcamp, Vimeo, Mixcloud, Audiomack, Spotify — personal use only. The first conversion may take a minute to wake up.",
   "ytDownloader.trackUrl": "Track URL",
   "ytDownloader.urlPlaceholder": "Paste a YouTube or SoundCloud link...",
@@ -186,6 +186,7 @@ const en = {
   "ytDownloader.playlistConvertAll": "Convert whole playlist",
   "ytDownloader.playlistItemFailed": "Failed",
   "ytDownloader.playlistProgress": "{done} / {total} done",
+  "ytDownloader.batchSummary": "{total} tracks · {done} done · {failed} failed",
   "ytDownloader.spotifyDetected": "Spotify link detected",
   "ytDownloader.spotifyConvert": "Convert Spotify playlist",
   "ytDownloader.spotifyNote": "Spotify tracks are matched and downloaded from YouTube.",

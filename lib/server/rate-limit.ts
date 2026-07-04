@@ -6,18 +6,48 @@
 // starts (YTDLP_MAX_JOB_STARTS), so this is only a coarse abuse guard.
 const WINDOW_MS = 10 * 60 * 1000;
 const MAX_STARTS = 80;
+// Enumerate endpoints (playlist/spotify) spawn yt-dlp or fetch Spotify but don't
+// download — a separate, tighter bucket so they can't be spun in a loop.
+const MAX_ENUMERATE = 20;
 
-const globalStore = globalThis as unknown as { __tunerRateLimit?: Map<string, number[]> };
-const store = (globalStore.__tunerRateLimit ??= new Map<string, number[]>());
+type Buckets = { starts: Map<string, number[]>; enumerate: Map<string, number[]> };
+const globalStore = globalThis as unknown as { __tunerRateLimit?: Buckets };
+const buckets = (globalStore.__tunerRateLimit ??= { starts: new Map(), enumerate: new Map() });
 
-export function allowJobStart(key: string): boolean {
+function allow(store: Map<string, number[]>, key: string, max: number): boolean {
   const now = Date.now();
   const recent = (store.get(key) || []).filter((time) => now - time < WINDOW_MS);
-  if (recent.length >= MAX_STARTS) {
+  if (recent.length >= max) {
     store.set(key, recent);
     return false;
   }
   recent.push(now);
   store.set(key, recent);
   return true;
+}
+
+export function allowJobStart(key: string): boolean {
+  return allow(buckets.starts, key, MAX_STARTS);
+}
+
+export function allowEnumerate(key: string): boolean {
+  return allow(buckets.enumerate, key, MAX_ENUMERATE);
+}
+
+// Periodic sweep so buckets don't grow unbounded under many distinct IPs. Only
+// arm one interval per process (dev HMR re-imports this module).
+const timerHost = globalStore as unknown as { __tunerRateLimitSweep?: boolean };
+if (!timerHost.__tunerRateLimitSweep) {
+  timerHost.__tunerRateLimitSweep = true;
+  const timer = setInterval(() => {
+    const now = Date.now();
+    for (const store of [buckets.starts, buckets.enumerate]) {
+      for (const [key, times] of store) {
+        const recent = times.filter((t: number) => now - t < WINDOW_MS);
+        if (recent.length === 0) store.delete(key);
+        else store.set(key, recent);
+      }
+    }
+  }, WINDOW_MS);
+  timer.unref?.();
 }

@@ -1,7 +1,7 @@
 import type en from "./en";
 
 const ja: Record<keyof typeof en, string> = {
-  "nav.converter": "MP3変換",
+  "nav.converter": "コンバーター",
   "nav.analysis": "ファイル解析",
   "nav.delay": "ディレイ/リバーブ",
   "nav.bpm": "BPMツール",
@@ -108,10 +108,10 @@ const ja: Record<keyof typeof en, string> = {
   "pitch.frequency": "周波数",
   "pitch.cents": "{cents} セント",
 
-  "converter.title": "MP3変換",
+  "converter.title": "コンバーター",
   "converter.subtitle":
-    "リンク（YouTube、SoundCloud、Bandcamp、Vimeo、Mixcloud、Audiomack）またはローカルの音声ファイルをMP3またはサンプル精度のWAVに変換します。",
-  "converter.titleLocalOnly": "MP3変換",
+    "YouTube、Spotify、SoundCloudなどからMP3・WAV・MP4でダウンロード。ローカルの音声ファイルの変換にも対応。",
+  "converter.titleLocalOnly": "コンバーター",
   "converter.subtitleLocalOnly": "ローカルの音声ファイルをMP3またはサンプル精度のWAVに変換します。",
   "converter.audioFile": "音声ファイル",
   "converter.formatLegend": "形式",
@@ -124,7 +124,7 @@ const ja: Record<keyof typeof en, string> = {
   "converter.working": "変換中...",
   "converter.convertTo": "{format} に変換",
 
-  "localConverter.title": "音声ファイルをMP3に変換",
+  "localConverter.title": "ローカル音声ファイル",
   "localConverter.subtitle": "ローカルの音声ファイルをブラウザ内だけで変換します。",
   "localConverter.idleTitle": "待機中",
   "localConverter.idleMessage": "WAV、M4A、OGG、FLAC、またはブラウザが読み込める音声ファイルをアップロードしてMP3を作成します。",
@@ -137,7 +137,7 @@ const ja: Record<keyof typeof en, string> = {
   "localConverter.failedTitle": "変換に失敗しました",
   "localConverter.failedFallback": "WAV、MP3、M4A、OGG、FLACのいずれかをお試しください。",
 
-  "ytDownloader.title": "リンクから音声へ",
+  "ytDownloader.title": "リンクを貼り付け",
   "ytDownloader.subtitle": "YouTube、SoundCloud、Bandcamp、Vimeo、Mixcloud、Audiomack、Spotify — 個人利用のみ。初回の変換は起動に1分ほどかかることがあります。",
   "ytDownloader.trackUrl": "トラックURL",
   "ytDownloader.urlPlaceholder": "YouTubeまたはSoundCloudのリンクを貼り付け...",
@@ -177,6 +177,7 @@ const ja: Record<keyof typeof en, string> = {
   "ytDownloader.playlistConvertAll": "プレイリスト全体を変換",
   "ytDownloader.playlistItemFailed": "失敗",
   "ytDownloader.playlistProgress": "{done} / {total} 件完了",
+  "ytDownloader.batchSummary": "{total} 曲・完了 {done}・失敗 {failed}",
   "ytDownloader.spotifyDetected": "Spotifyのリンクを検出しました",
   "ytDownloader.spotifyConvert": "Spotifyのプレイリストを変換",
   "ytDownloader.spotifyNote": "Spotifyの曲はYouTubeで一致する動画を探してダウンロードされます。",

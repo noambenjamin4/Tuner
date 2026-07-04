@@ -17,16 +17,30 @@ export type Backend = { base: string; key: string; tag: BackendTag };
 let homeUrlCache: { value: string | null; at: number } | null = null;
 const HOME_URL_TTL_MS = 20_000;
 
+// Defense-in-depth: only ever route to the bridge's own tunnel host. Even if a
+// bad value reached Edge Config or the env, the proxy can't be pointed at an
+// attacker-controlled server (SSRF). The bridge always publishes a
+// `https://<random>.trycloudflare.com` URL.
+function isTrustedBridgeUrl(candidate: unknown): candidate is string {
+  if (typeof candidate !== "string" || candidate.length === 0) return false;
+  try {
+    const u = new URL(candidate);
+    return u.protocol === "https:" && (u.hostname === "trycloudflare.com" || u.hostname.endsWith(".trycloudflare.com"));
+  } catch {
+    return false;
+  }
+}
+
 async function resolveHomeUrl(): Promise<string | null> {
   if (homeUrlCache && Date.now() - homeUrlCache.at < HOME_URL_TTL_MS) return homeUrlCache.value;
   let value: string | null = null;
   try {
     const fromStore = await get<string>("bridgeUrl");
-    if (typeof fromStore === "string" && fromStore.startsWith("https://")) value = fromStore;
+    if (isTrustedBridgeUrl(fromStore)) value = fromStore;
   } catch {
     // Edge Config not configured/reachable — fall back to the env override.
   }
-  if (!value && homeDownloaderUrl?.startsWith("https://")) value = homeDownloaderUrl;
+  if (!value && isTrustedBridgeUrl(homeDownloaderUrl)) value = homeDownloaderUrl;
   homeUrlCache = { value, at: Date.now() };
   return value;
 }

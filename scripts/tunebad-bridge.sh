@@ -15,11 +15,19 @@ set -u
 
 DIR="$HOME/Code/Tuner"
 PORT=8080
-EDGE_CONFIG_ID="***REMOVED-EDGE-CONFIG-ID***"
 LOG=/tmp/tunebad-bridge.log
 
+# Secrets (API_KEY, EDGE_CONFIG_ID) live in a gitignored env file — never in
+# this tracked script. See scripts/tunebad-bridge.env.example.
+ENV_FILE="$DIR/scripts/tunebad-bridge.env"
+if [ ! -f "$ENV_FILE" ]; then
+  echo "Missing $ENV_FILE — copy tunebad-bridge.env.example and fill it in." >> "$LOG"
+  exit 1
+fi
+source "$ENV_FILE"
+
 export PORT HOST=127.0.0.1
-export API_KEY="***REMOVED-ROTATED-KEY***"
+export API_KEY
 export YTDLP_PATH="$DIR/bin/yt-dlp"
 export FFMPEG_PATH="$DIR/node_modules/ffmpeg-static/ffmpeg"
 export YTDLP_MAX_JOB_STARTS=60

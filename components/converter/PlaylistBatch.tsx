@@ -13,12 +13,12 @@ export function PlaylistBatch({
   quality: string;
 }) {
   const { t } = useI18n();
-  const { rows, doneCount, total } = usePlaylistBatch(items, { format, quality });
+  const { rows, doneCount, failedCount, total } = usePlaylistBatch(items, { format, quality });
 
   return (
     <div className="playlist-batch">
       <div className="playlist-batch-header">
-        <strong>{t("ytDownloader.playlistTracks", { count: total })}</strong>
+        <strong>{t("ytDownloader.batchSummary", { total, done: doneCount, failed: failedCount })}</strong>
         <span>{t("ytDownloader.playlistProgress", { done: doneCount, total })}</span>
       </div>
       <ol className="playlist-batch-list">

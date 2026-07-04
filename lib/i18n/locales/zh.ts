@@ -1,7 +1,7 @@
 import type en from "./en";
 
 const zh: Record<keyof typeof en, string> = {
-  "nav.converter": "MP3转换",
+  "nav.converter": "转换器",
   "nav.analysis": "文件分析",
   "nav.delay": "延迟/混响",
   "nav.bpm": "BPM工具",
@@ -108,9 +108,9 @@ const zh: Record<keyof typeof en, string> = {
   "pitch.frequency": "频率",
   "pitch.cents": "{cents} 音分",
 
-  "converter.title": "MP3转换",
-  "converter.subtitle": "将链接（YouTube、SoundCloud、Bandcamp、Vimeo、Mixcloud、Audiomack）或本地音频文件转换为MP3或采样精确的WAV。",
-  "converter.titleLocalOnly": "MP3转换",
+  "converter.title": "转换器",
+  "converter.subtitle": "从YouTube、Spotify、SoundCloud等平台下载为MP3、WAV或MP4。也可以转换本地音频文件。",
+  "converter.titleLocalOnly": "转换器",
   "converter.subtitleLocalOnly": "将本地音频文件转换为MP3或采样精确的WAV。",
   "converter.audioFile": "音频文件",
   "converter.formatLegend": "格式",
@@ -123,7 +123,7 @@ const zh: Record<keyof typeof en, string> = {
   "converter.working": "转换中...",
   "converter.convertTo": "转换为 {format}",
 
-  "localConverter.title": "音频文件转MP3",
+  "localConverter.title": "本地音频文件",
   "localConverter.subtitle": "完全在浏览器中转换本地音频文件。",
   "localConverter.idleTitle": "空闲",
   "localConverter.idleMessage": "上传WAV、M4A、OGG、FLAC或其他浏览器可读的音频文件以创建MP3。",
@@ -136,7 +136,7 @@ const zh: Record<keyof typeof en, string> = {
   "localConverter.failedTitle": "转换失败",
   "localConverter.failedFallback": "请尝试WAV、MP3、M4A、OGG或FLAC文件。",
 
-  "ytDownloader.title": "链接转音频",
+  "ytDownloader.title": "粘贴链接",
   "ytDownloader.subtitle": "支持YouTube、SoundCloud、Bandcamp、Vimeo、Mixcloud、Audiomack、Spotify — 仅限个人使用。首次转换可能需要约一分钟启动。",
   "ytDownloader.trackUrl": "曲目链接",
   "ytDownloader.urlPlaceholder": "粘贴YouTube或SoundCloud链接...",
@@ -176,6 +176,7 @@ const zh: Record<keyof typeof en, string> = {
   "ytDownloader.playlistConvertAll": "转换整个播放列表",
   "ytDownloader.playlistItemFailed": "失败",
   "ytDownloader.playlistProgress": "已完成 {done} / {total}",
+  "ytDownloader.batchSummary": "共 {total} 首 · 已完成 {done} · 失败 {failed}",
   "ytDownloader.spotifyDetected": "检测到Spotify链接",
   "ytDownloader.spotifyConvert": "转换Spotify播放列表",
   "ytDownloader.spotifyNote": "Spotify曲目会先匹配再从YouTube下载。",

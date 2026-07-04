@@ -146,7 +146,13 @@ export function usePlaylistBatch(items: PlaylistItem[], { format, quality }: Bat
       while (queue.length > 0 && !cancelledRef.current) {
         const next = queue.shift();
         if (!next) break;
-        await runOne(next);
+        // Belt-and-suspenders: runOne catches its own errors, but if anything
+        // unexpected throws it must not strand this worker's concurrency slot.
+        try {
+          await runOne(next);
+        } catch {
+          // already surfaced per-row inside runOne; keep draining the queue
+        }
       }
     });
     await Promise.all(workers);
@@ -165,6 +171,8 @@ export function usePlaylistBatch(items: PlaylistItem[], { format, quality }: Bat
   }, [items]);
 
   const doneCount = rows.filter((row) => row.phase === "done" || row.phase === "error").length;
+  const succeededCount = rows.filter((row) => row.phase === "done").length;
+  const failedCount = rows.filter((row) => row.phase === "error").length;
 
-  return { rows, doneCount, total: items.length };
+  return { rows, doneCount, succeededCount, failedCount, total: items.length };
 }

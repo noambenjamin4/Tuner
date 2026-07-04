@@ -354,7 +354,7 @@ export function YouTubeDownloader() {
                   disabled={handingOff}
                   onClick={() => void manualAnalyze(state.jobId, state.title)}
                 >
-                  {handingOff ? t("ytDownloader.loading") : t("ytDownloader.analyzeTrack")}
+                  {handingOff ? t("ytDownloader.analyzing") : t("ytDownloader.analyzeTrack")}
                 </button>
               )}
               <button className="text-button" type="button" onClick={reset}>

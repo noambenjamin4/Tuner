@@ -1,7 +1,7 @@
 import type en from "./en";
 
 const it: Record<keyof typeof en, string> = {
-  "nav.converter": "Convertitore MP3",
+  "nav.converter": "Convertitore",
   "nav.analysis": "Analisi file",
   "nav.delay": "Delay/Reverb",
   "nav.bpm": "Strumento BPM",
@@ -108,10 +108,10 @@ const it: Record<keyof typeof en, string> = {
   "pitch.frequency": "Frequenza",
   "pitch.cents": "{cents} cent",
 
-  "converter.title": "Convertitore MP3",
+  "converter.title": "Convertitore",
   "converter.subtitle":
-    "Converti un link (YouTube, SoundCloud, Bandcamp, Vimeo, Mixcloud, Audiomack) o un file audio locale in MP3 o WAV sample-exact.",
-  "converter.titleLocalOnly": "Convertitore MP3",
+    "Scarica da YouTube, Spotify, SoundCloud e altro — come MP3, WAV o MP4. Oppure converti un file audio locale.",
+  "converter.titleLocalOnly": "Convertitore",
   "converter.subtitleLocalOnly": "Converti un file audio locale in MP3 o WAV sample-exact.",
   "converter.audioFile": "File audio",
   "converter.formatLegend": "Formato",
@@ -124,7 +124,7 @@ const it: Record<keyof typeof en, string> = {
   "converter.working": "Conversione in corso...",
   "converter.convertTo": "Converti in {format}",
 
-  "localConverter.title": "File audio in MP3",
+  "localConverter.title": "File audio locale",
   "localConverter.subtitle": "Converti file audio locali interamente nel tuo browser.",
   "localConverter.idleTitle": "In attesa",
   "localConverter.idleMessage": "Carica un file WAV, M4A, OGG, FLAC o un altro formato leggibile dal browser per creare un MP3.",
@@ -137,7 +137,7 @@ const it: Record<keyof typeof en, string> = {
   "localConverter.failedTitle": "Conversione fallita",
   "localConverter.failedFallback": "Prova un file WAV, MP3, M4A, OGG o FLAC.",
 
-  "ytDownloader.title": "Link ad audio",
+  "ytDownloader.title": "Incolla un link",
   "ytDownloader.subtitle": "YouTube, SoundCloud, Bandcamp, Vimeo, Mixcloud, Audiomack, Spotify — solo uso personale. La prima conversione può richiedere un minuto per avviarsi.",
   "ytDownloader.trackUrl": "URL della traccia",
   "ytDownloader.urlPlaceholder": "Incolla un link YouTube o SoundCloud...",
@@ -177,6 +177,7 @@ const it: Record<keyof typeof en, string> = {
   "ytDownloader.playlistConvertAll": "Converti tutta la playlist",
   "ytDownloader.playlistItemFailed": "Non riuscito",
   "ytDownloader.playlistProgress": "{done} / {total} completati",
+  "ytDownloader.batchSummary": "{total} tracce · {done} completate · {failed} non riuscite",
   "ytDownloader.spotifyDetected": "Link Spotify rilevato",
   "ytDownloader.spotifyConvert": "Converti playlist Spotify",
   "ytDownloader.spotifyNote": "I brani Spotify vengono abbinati e scaricati da YouTube.",

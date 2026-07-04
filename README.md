@@ -12,7 +12,7 @@ A fast, private, browser-based music utility for producers. Analyze a track's BP
 - **Pitch** — frequency-to-note conversion via the MIDI formula.
 - **Loudness Penalty** — integrated LUFS (ITU-R BS.1770-4) with per-platform penalties (Spotify, YouTube, Apple Music, etc.) and a "preview at platform volume" player.
 - **Slowed + Reverb Studio** — speed, reverb, bass, and pitch-lock controls with a seekable preview and MP3/WAV export.
-- **Converter** — local audio → MP3 or sample-exact WAV with automatic silent-intro trimming. A link downloader (yt-dlp + ffmpeg) supports YouTube/SoundCloud/Bandcamp/Vimeo/Mixcloud/Audiomack, both locally and on the deployed site via an optional self-hosted, key-gated download server.
+- **Converter** — local audio → MP3 or sample-exact WAV with automatic silent-intro trimming. A link downloader (yt-dlp + ffmpeg) supports YouTube/SoundCloud/Bandcamp/Vimeo/Mixcloud/Audiomack as MP3, WAV, or **MP4 video** (H.264 up to 1080p), plus **YouTube playlist** and **Spotify** playlist/album/track batch conversion (Spotify tracks are read from Spotify's public embed and matched on YouTube — no Spotify account or API key). Runs locally, or on the deployed site via an optional key-gated download server (a Render fallback and/or a self-healing "Home Bridge" on your own Mac — see Deployment).
 - **Auto-analyze** — downloaded tracks are analyzed automatically and feed the delay tool.
 - **8 languages** — English, French, Spanish, German, Portuguese, Italian, Japanese, Chinese (auto-detected).
 - **Private by default** — all analysis runs client-side. History is stored on-device (localStorage), with optional Supabase sync.
@@ -63,3 +63,9 @@ The link downloader can still work on the deployed site via an optional self-hos
 3. Redeploy. `/api/youtube*` now proxies to the remote server instead of running locally; see `SECURITY.md` for the full trust chain.
 
 This is entirely optional — without it, the deployed site works normally minus the link downloader, and local dev is unaffected either way.
+
+### Home Bridge (route downloads through your own Mac)
+
+YouTube now bot-walls datacenter IPs (Render included), so downloads are most reliable through a residential IP. The **Home Bridge** runs the same `server/server.js` on your Mac behind a free Cloudflare tunnel, and the Vercel proxy prefers it (falling back to Render when it's unreachable). Because the tunnel URL rotates on restart, the bridge publishes its current URL to a Vercel **Edge Config** key (`bridgeUrl`); `lib/server/backends.ts` reads it (host-pinned to `*.trycloudflare.com`) so the site always routes to wherever the Mac currently is — no redeploy needed.
+
+Setup: copy `scripts/tunebad-bridge.env.example` → `scripts/tunebad-bridge.env` (gitignored) and fill in `API_KEY` (must equal the Vercel `DOWNLOADER_HOME_KEY` env) and `EDGE_CONFIG_ID`; put a `cloudflared` binary in `bin/`; load `scripts/tunebad-bridge.sh` via launchd (`com.tunebad.bridge`) to auto-start it. **Never commit `tunebad-bridge.env` or any real key.** Caveat: downloads via the bridge only work while that Mac is awake and online.

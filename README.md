@@ -12,7 +12,7 @@ A fast, private, browser-based music utility for producers. Analyze a track's BP
 - **Pitch** — frequency-to-note conversion via the MIDI formula.
 - **Loudness Penalty** — integrated LUFS (ITU-R BS.1770-4) with per-platform penalties (Spotify, YouTube, Apple Music, etc.) and a "preview at platform volume" player.
 - **Slowed + Reverb Studio** — speed, reverb, bass, and pitch-lock controls with a seekable preview and MP3/WAV export.
-- **Converter** — local audio → MP3 or sample-exact WAV with automatic silent-intro trimming. A local-only link downloader (yt-dlp + ffmpeg) supports YouTube/SoundCloud/Bandcamp/Vimeo/Mixcloud/Audiomack when running on your own machine.
+- **Converter** — local audio → MP3 or sample-exact WAV with automatic silent-intro trimming. A link downloader (yt-dlp + ffmpeg) supports YouTube/SoundCloud/Bandcamp/Vimeo/Mixcloud/Audiomack, both locally and on the deployed site via an optional self-hosted, key-gated download server.
 - **Auto-analyze** — downloaded tracks are analyzed automatically and feed the delay tool.
 - **8 languages** — English, French, Spanish, German, Portuguese, Italian, Japanese, Chinese (auto-detected).
 - **Private by default** — all analysis runs client-side. History is stored on-device (localStorage), with optional Supabase sync.
@@ -37,7 +37,9 @@ then install the media tools once:
 npm run setup:ytdlp   # downloads a verified yt-dlp binary into ./bin (gitignored)
 ```
 
-`ffmpeg` is provided by the `ffmpeg-static` npm package. The downloader is intentionally disabled in production deployments.
+`ffmpeg` is provided by the `ffmpeg-static` npm package.
+
+Or just run `./scripts/tunebad-local.sh` — it provisions `yt-dlp` and `node_modules` on first run, starts the dev server if it isn't already running, and opens the converter tab.
 
 ## Optional: cloud history (Supabase)
 
@@ -52,4 +54,12 @@ Row-level security scopes every row to its anonymous user; the anon key is safe 
 
 ## Deployment
 
-Deploys to Vercel as a standard Next.js app — no configuration required. Leave `ENABLE_LINK_DOWNLOADER` / `NEXT_PUBLIC_DOWNLOADER` unset in production so the downloader stays disabled. Add the Supabase environment variables if you want cloud history.
+Deploys to Vercel as a standard Next.js app — no configuration required. Leave `ENABLE_LINK_DOWNLOADER` unset in production (Vercel's serverless runtime can't shell out to `yt-dlp`). Add the Supabase environment variables if you want cloud history.
+
+The link downloader can still work on the deployed site via an optional self-hosted remote download server (`server/` + `render.yaml`), deployed separately (e.g. on Render) and key-gated with an API key the Vercel app sends server-side. To wire it up:
+
+1. Deploy `server/` (see `server/README.md`) and note its public URL.
+2. In the Vercel project, set `DOWNLOADER_REMOTE_URL` (the server's URL) and `DOWNLOADER_API_KEY` (matching its `API_KEY`), plus `NEXT_PUBLIC_DOWNLOADER=1` to surface the UI.
+3. Redeploy. `/api/youtube*` now proxies to the remote server instead of running locally; see `SECURITY.md` for the full trust chain.
+
+This is entirely optional — without it, the deployed site works normally minus the link downloader, and local dev is unaffected either way.

@@ -1,6 +1,7 @@
 {
   "name": "tunebad",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "TuneBad — browser-based music analysis, loudness, remix and conversion toolkit.",
   "private": true,
   "scripts": {
     "dev": "next dev",

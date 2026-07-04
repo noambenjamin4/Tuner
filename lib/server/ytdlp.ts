@@ -18,6 +18,13 @@ export class SetupError extends Error {
 export const SILENCE_TRIM_FILTER =
   "silenceremove=start_periods=1:start_threshold=-50dB:start_duration=0.02:start_silence=0.002:detection=rms";
 
+// Mirrors server/server.js's stripInternalPaths: error text can reach the
+// client, so absolute filesystem paths (e.g. the resolved yt-dlp binary in an
+// ENOENT message) must never leak through.
+function stripInternalPaths(message: string): string {
+  return message.split(YT_BASE_DIR).join("<workdir>").replace(/\B\/(?:[\w.-]+\/)+[\w.-]+/g, "<path>");
+}
+
 async function isExecutable(candidate: string): Promise<boolean> {
   try {
     await access(candidate, constants.X_OK);
@@ -55,7 +62,7 @@ function classifyError(stderr: string): string {
   if (lower.includes("sign in")) return "YouTube requires a sign-in for that video.";
   if (lower.includes("unsupported url") || lower.includes("is not a valid url")) return "That link isn't supported.";
   const lastLine = stderr.trim().split("\n").filter(Boolean).pop() || "Download failed.";
-  return lastLine.replace(/^ERROR:\s*/i, "").slice(0, 300);
+  return stripInternalPaths(lastLine.replace(/^ERROR:\s*/i, "")).slice(0, 300);
 }
 
 export async function startYouTubeJob(
@@ -133,7 +140,7 @@ export async function startYouTubeJob(
 
   child.on("error", (error) => {
     job.status = "error";
-    job.error = `Could not run yt-dlp: ${error.message}`;
+    job.error = `Could not run yt-dlp: ${stripInternalPaths(error.message)}`;
   });
 
   child.on("close", async (code) => {

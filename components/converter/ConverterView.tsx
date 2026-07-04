@@ -4,7 +4,7 @@ import { YouTubeDownloader } from "./YouTubeDownloader";
 import { LocalFileConverter } from "./LocalFileConverter";
 import { useI18n } from "@/lib/i18n";
 import { DownloadIcon } from "@/components/ui/icons";
-import { downloaderVisible } from "@/lib/runtime";
+import { downloaderVisible } from "@/lib/runtime.client";
 
 export function ConverterView() {
   const { t } = useI18n();

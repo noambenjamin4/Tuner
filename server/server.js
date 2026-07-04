@@ -34,6 +34,24 @@ const MAX_CONCURRENT_JOBS = 2;
 const JOB_TTL_MS = 30 * 60 * 1000;
 const SWEEP_INTERVAL_MS = 10 * 60 * 1000;
 const BASE_DIR = path.join(os.tmpdir(), "tunebad-remote");
+const MAX_BODY_BYTES = 8 * 1024; // POST /job bodies are a URL + a couple of enum fields
+
+// Global job-start rate limit — defense-in-depth beyond the API key. One
+// compromised/leaked key shouldn't allow unbounded yt-dlp spawning.
+const JOB_START_WINDOW_MS = 10 * 60 * 1000;
+const MAX_JOB_STARTS_PER_WINDOW = 20;
+/** @type {number[]} */
+const jobStartTimestamps = [];
+
+function allowGlobalJobStart() {
+  const now = Date.now();
+  while (jobStartTimestamps.length && now - jobStartTimestamps[0] > JOB_START_WINDOW_MS) {
+    jobStartTimestamps.shift();
+  }
+  if (jobStartTimestamps.length >= MAX_JOB_STARTS_PER_WINDOW) return false;
+  jobStartTimestamps.push(now);
+  return true;
+}
 
 // Same silence-trim filter as lib/server/ytdlp.ts's SILENCE_TRIM_FILTER.
 const SILENCE_TRIM_FILTER =
@@ -69,6 +87,20 @@ async function sweepJobs() {
 const sweepTimer = setInterval(() => void sweepJobs(), SWEEP_INTERVAL_MS);
 sweepTimer.unref?.();
 
+// Strips absolute filesystem paths (workdir, tmpdir, etc.) from a message
+// before it's ever returned to a client — yt-dlp's stderr can otherwise leak
+// the container's internal directory layout. Deliberately narrow: only
+// matches path-shaped tokens under known-sensitive roots, so it can't mangle
+// ordinary sentence text or URLs.
+const OS_TMPDIR = os.tmpdir();
+function stripInternalPaths(message) {
+  let sanitized = message.split(BASE_DIR).join("<workdir>");
+  sanitized = sanitized.split(OS_TMPDIR).join("<tmp>");
+  // Fallback for any other absolute unix path fragment (e.g. /usr/local/bin/yt-dlp).
+  sanitized = sanitized.replace(/\B\/(?:[\w.-]+\/)+[\w.-]+/g, "<path>");
+  return sanitized;
+}
+
 function classifyError(stderr) {
   const lower = stderr.toLowerCase();
   if (lower.includes("video unavailable")) return "That video is unavailable.";
@@ -79,7 +111,7 @@ function classifyError(stderr) {
   if (lower.includes("sign in")) return "YouTube requires a sign-in for that video.";
   if (lower.includes("unsupported url") || lower.includes("is not a valid url")) return "That link isn't supported.";
   const lastLine = stderr.trim().split("\n").filter(Boolean).pop() || "Download failed.";
-  return lastLine.replace(/^ERROR:\s*/i, "").slice(0, 300);
+  return stripInternalPaths(lastLine.replace(/^ERROR:\s*/i, "")).slice(0, 300);
 }
 
 async function startJob(sanitizedUrl, quality, format, trimSilence) {
@@ -154,7 +186,7 @@ async function startJob(sanitizedUrl, quality, format, trimSilence) {
 
   child.on("error", (error) => {
     job.status = "error";
-    job.error = `Could not run yt-dlp: ${error.message}`;
+    job.error = `Could not run yt-dlp: ${stripInternalPaths(error.message)}`;
   });
 
   child.on("close", async (code) => {
@@ -199,20 +231,28 @@ function timingSafeKeyCheck(candidate) {
   return crypto.timingSafeEqual(candidateHash, API_KEY_HASH);
 }
 
+class BodyTooLargeError extends Error {}
+
 function readJsonBody(req, maxBytes = 1024 * 1024) {
   return new Promise((resolve, reject) => {
     let total = 0;
+    let tooLarge = false;
     const chunks = [];
     req.on("data", (chunk) => {
+      if (tooLarge) return;
       total += chunk.length;
       if (total > maxBytes) {
-        reject(new Error("Body too large"));
-        req.destroy();
+        tooLarge = true;
+        // Don't destroy the socket here — that tears down the connection
+        // before a 413 response can be written. Just stop buffering and let
+        // the request drain; the caller still gets a proper HTTP response.
+        reject(new BodyTooLargeError("Body too large"));
         return;
       }
       chunks.push(chunk);
     });
     req.on("end", () => {
+      if (tooLarge) return;
       if (chunks.length === 0) {
         resolve(undefined);
         return;
@@ -259,8 +299,12 @@ async function handleRequest(req, res) {
   if (method === "POST" && pathname === "/job") {
     let body;
     try {
-      body = await readJsonBody(req);
-    } catch {
+      body = await readJsonBody(req, MAX_BODY_BYTES);
+    } catch (error) {
+      if (error instanceof BodyTooLargeError) {
+        sendJson(res, 413, { error: "Request body too large." });
+        return;
+      }
       sendJson(res, 400, { error: "Invalid request body." });
       return;
     }
@@ -299,6 +343,11 @@ async function handleRequest(req, res) {
 
     if (runningJobCount() >= MAX_CONCURRENT_JOBS) {
       sendJson(res, 429, { error: "Two downloads are already running. Let one finish first." });
+      return;
+    }
+
+    if (!allowGlobalJobStart()) {
+      sendJson(res, 429, { error: "Too many downloads started recently. Wait a few minutes and try again." });
       return;
     }
 

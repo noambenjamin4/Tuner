@@ -1,5 +1,5 @@
 /* =========================================================================
-   TUNER — stark, premium, black-and-white minimalist design system
+   TUNEBAD — stark, premium, black-and-white minimalist design system
    Organized sections: tokens, reset/base, type, header, buttons/inputs,
    panels, per-feature blocks, responsive.
    ========================================================================= */
@@ -17,6 +17,11 @@
   --fill: #111111;
   --fill-ink: #ffffff;
   --hover: rgba(0, 0, 0, 0.04);
+
+  --radius-pill: 9999px;
+  --radius-card: 24px;
+  --radius-inner: 16px;
+  --radius-field: 18px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -108,10 +113,10 @@ p {
 }
 
 h1 {
-  font-family: var(--font-sans);
-  font-weight: 900;
+  font-family: var(--font-display);
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   line-height: 1.05;
   font-size: clamp(34px, 6vw, 64px);
   color: var(--display);
@@ -119,20 +124,20 @@ h1 {
 
 h2,
 h3 {
-  font-family: var(--font-sans);
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-weight: 700;
   text-transform: uppercase;
   line-height: 1.15;
 }
 
 h2 {
   font-size: 20px;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.01em;
 }
 
 h3 {
   font-size: 15px;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
 }
 
 body {
@@ -200,14 +205,26 @@ input[type="number"] {
 .brand {
   display: inline-flex;
   align-items: center;
+  gap: 10px;
   color: var(--display);
-  font-family: var(--font-sans);
-  font-weight: 900;
-  font-size: 20px;
-  text-transform: uppercase;
-  letter-spacing: -0.02em;
   text-decoration: none;
   flex: 0 0 auto;
+}
+
+.brand-logo {
+  display: block;
+  width: 38px;
+  height: 38px;
+  flex: none;
+  object-fit: contain;
+}
+
+.brand-wordmark {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
 }
 
 .top-actions {
@@ -231,9 +248,9 @@ input[type="number"] {
   align-items: center;
   gap: 6px;
   min-height: 44px;
-  padding: 8px 10px;
+  padding: 8px 14px;
   border: 0;
-  border-radius: 4px;
+  border-radius: var(--radius-pill);
   background: transparent;
   color: var(--ink);
   font-family: var(--font-mono);
@@ -261,7 +278,7 @@ input[type="number"] {
   min-width: 170px;
   background: var(--bg);
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-inner);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   z-index: 60;
   overflow: hidden;
@@ -274,6 +291,7 @@ input[type="number"] {
   min-height: 40px;
   padding: 0 16px;
   border: 0;
+  border-radius: var(--radius-field);
   background: transparent;
   color: var(--ink);
   text-align: left;
@@ -300,6 +318,7 @@ input[type="number"] {
 .lang-menu-inline .lang-menu-item {
   min-height: 48px;
   border-bottom: 1px solid var(--line);
+  border-radius: 0;
 }
 
 .menu-toggle {
@@ -312,6 +331,7 @@ input[type="number"] {
   height: 44px;
   margin-left: auto;
   border: 0;
+  border-radius: var(--radius-pill);
   background: transparent;
 }
 
@@ -357,11 +377,11 @@ input[type="number"] {
   align-items: center;
   justify-content: center;
   border: 1px solid transparent;
-  border-radius: 4px;
-  padding: 8px 12px;
+  border-radius: var(--radius-pill);
+  padding: 8px 16px;
   background: transparent;
   color: var(--ink);
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 12px;
   text-transform: uppercase;
@@ -408,11 +428,11 @@ main {
   justify-content: center;
   gap: 8px;
   border: 0;
-  border-radius: 4px;
-  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  padding: 12px 24px;
   background: var(--fill);
   color: var(--fill-ink);
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-weight: 700;
   font-size: 12px;
   text-transform: uppercase;
@@ -440,8 +460,8 @@ main {
   justify-content: center;
   gap: 8px;
   border: 1px solid var(--line);
-  border-radius: 4px;
-  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  padding: 12px 24px;
   background: transparent;
   color: var(--ink);
   font-family: var(--font-sans);
@@ -492,7 +512,7 @@ main {
   width: 40px;
   height: 40px;
   border: 1px solid var(--line);
-  border-radius: 4px;
+  border-radius: 50%;
   background: transparent;
   color: var(--ink);
 }
@@ -509,17 +529,17 @@ select {
   width: 100%;
   min-height: 44px;
   border: 1px solid var(--line);
-  border-radius: 4px;
+  border-radius: var(--radius-pill);
   background: var(--surface);
   color: var(--ink);
-  padding: 0 14px;
+  padding: 0 20px;
   outline: 0;
 }
 
 input[type="file"] {
   display: flex;
   align-items: center;
-  padding: 10px 14px;
+  padding: 10px 20px;
 }
 
 input[type="number"] {
@@ -562,7 +582,7 @@ meter {
 .panel,
 .hero-tool {
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   background: var(--surface);
   overflow: hidden;
 }
@@ -610,7 +630,7 @@ meter {
   gap: 14px;
   padding: 24px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   background: var(--surface);
   transition: box-shadow 120ms ease;
 }
@@ -684,7 +704,7 @@ label.check-row,
   height: 18px;
   flex: none;
   border: 1px solid var(--line);
-  border-radius: 4px;
+  border-radius: 50%;
   background: var(--surface);
   display: grid;
   place-items: center;
@@ -725,7 +745,7 @@ label.check-row,
   flex-direction: column;
   gap: 12px;
   border: 1px dashed var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   background: transparent;
   text-align: center;
   transition: background 120ms ease;
@@ -766,9 +786,9 @@ label.check-row,
   align-items: center;
   gap: 14px;
   min-height: 44px;
-  padding: 12px 16px;
+  padding: 12px 20px;
   border: 1px dashed var(--line);
-  border-radius: 4px;
+  border-radius: var(--radius-pill);
   background: var(--surface);
   cursor: pointer;
   transition: border-color 120ms ease;
@@ -786,7 +806,7 @@ label.check-row,
   min-height: 36px;
   padding: 0 16px;
   border: 1px solid var(--line);
-  border-radius: 4px;
+  border-radius: var(--radius-pill);
   font-family: var(--font-sans);
   font-weight: 700;
   font-size: 12px;
@@ -816,7 +836,7 @@ label.check-row,
   margin: 0 32px 24px;
   padding: 16px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   background: var(--surface);
 }
 
@@ -851,7 +871,7 @@ label.check-row,
 
 .seek-wave-track:focus-visible {
   box-shadow: 0 0 0 2px var(--ink);
-  border-radius: 2px;
+  border-radius: var(--radius-inner);
 }
 
 .seek-wave-bars {
@@ -867,6 +887,7 @@ label.check-row,
   min-width: 0;
   height: var(--bar-height, 20px);
   background: var(--ink);
+  border-radius: 2px;
   opacity: 0.25;
 }
 
@@ -919,7 +940,7 @@ label.check-row,
   margin: 0 32px 24px;
   padding: 12px 20px;
   border: 1px solid var(--line);
-  border-radius: 4px;
+  border-radius: var(--radius-pill);
   background: var(--surface);
   color: var(--muted);
   font-size: 13px;
@@ -938,7 +959,7 @@ label.check-row,
 .analysis-summary {
   margin: 0 32px 24px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   background: var(--surface);
   overflow: hidden;
 }
@@ -1012,7 +1033,7 @@ label.check-row,
 .engine-tag {
   padding: 4px 10px;
   border: 1px solid var(--line);
-  border-radius: 4px;
+  border-radius: var(--radius-pill);
   color: var(--muted);
   font-family: var(--font-sans);
   font-size: 11px;
@@ -1043,7 +1064,7 @@ label.check-row,
   margin: 0 32px 32px;
   overflow-x: auto;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-inner);
 }
 
 table {
@@ -1116,7 +1137,7 @@ tbody tr:last-child td {
   min-height: 62px;
   padding: 12px 16px;
   border: 1px solid var(--line);
-  border-radius: 4px;
+  border-radius: var(--radius-inner);
 }
 
 .history-item strong {
@@ -1142,9 +1163,9 @@ tbody tr:last-child td {
   display: inline-flex;
   align-items: center;
   min-height: 32px;
-  padding: 0 12px;
+  padding: 0 14px;
   border: 1px solid var(--line);
-  border-radius: 4px;
+  border-radius: var(--radius-pill);
   background: transparent;
   color: var(--ink);
   font-weight: 700;
@@ -1167,7 +1188,7 @@ tbody tr:last-child td {
   grid-template-columns: 44px minmax(0, 1fr) 44px;
   margin-top: 8px;
   border: 1px solid var(--line);
-  border-radius: 4px;
+  border-radius: var(--radius-pill);
   overflow: hidden;
 }
 
@@ -1223,7 +1244,7 @@ tbody tr:last-child td {
   min-height: 88px;
   margin-top: 14px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   text-align: center;
 }
 
@@ -1264,7 +1285,7 @@ tbody tr:last-child td {
   width: 24px;
   height: 24px;
   border: 1px solid var(--line);
-  border-radius: 4px;
+  border-radius: 50%;
   background: transparent;
 }
 
@@ -1279,7 +1300,7 @@ tbody tr:last-child td {
   gap: 10px;
   min-height: 160px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   background: transparent;
   color: var(--ink);
 }
@@ -1311,7 +1332,7 @@ tbody tr:last-child td {
   grid-template-columns: minmax(0, 1fr) 52px;
   overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: 4px;
+  border-radius: var(--radius-pill);
 }
 
 .frequency-input input {
@@ -1366,7 +1387,7 @@ tbody tr:last-child td {
   margin-top: 10px;
   overflow-x: auto;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-inner);
 }
 
 .delay-grid-header,
@@ -1438,7 +1459,7 @@ tbody tr:last-child td {
   gap: 10px;
   padding: 14px 16px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-inner);
 }
 
 .reverb-preset-name {
@@ -1536,7 +1557,7 @@ tbody tr:last-child td {
   gap: 4px;
   height: 56px;
   border: 1px solid var(--line);
-  border-radius: 4px;
+  border-radius: var(--radius-pill);
   background: transparent;
   color: var(--ink);
   font-weight: 700;
@@ -1584,7 +1605,7 @@ tbody tr:last-child td {
   margin-top: 16px;
   padding: 14px 16px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   color: var(--muted);
   font-size: 13px;
 }
@@ -1601,7 +1622,7 @@ tbody tr:last-child td {
 .status-box code {
   padding: 2px 8px;
   border: 1px solid var(--line);
-  border-radius: 4px;
+  border-radius: var(--radius-pill);
   font-weight: 700;
 }
 
@@ -1632,9 +1653,9 @@ tbody tr:last-child td {
   display: inline-flex;
   align-items: center;
   min-height: 32px;
-  padding: 0 14px;
+  padding: 0 16px;
   border: 1px solid var(--line);
-  border-radius: 4px;
+  border-radius: var(--radius-pill);
   color: var(--ink);
   font-weight: 700;
   font-size: 12px;
@@ -1725,7 +1746,7 @@ tbody tr:last-child td {
   gap: 6px;
   padding: 16px 20px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-card);
 }
 
 .loudness-metric small {
@@ -1750,7 +1771,7 @@ tbody tr:last-child td {
   gap: 4px;
   padding: 14px 16px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-card);
   background: transparent;
   text-align: left;
   font-family: inherit;
@@ -1808,7 +1829,7 @@ tbody tr:last-child td {
   margin: 0 32px 32px;
   padding: 18px 20px;
   border: 1px solid var(--line);
-  border-radius: 8px;
+  border-radius: var(--radius-card);
 }
 
 .loudness-preview audio {

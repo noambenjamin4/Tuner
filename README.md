@@ -1,4 +1,4 @@
-# Tuner
+# TuneBad
 
 A fast, private, browser-based music utility for producers. Analyze a track's BPM and key, calculate tempo-locked delay and reverb, check streaming loudness penalties, make slowed + reverb edits, and convert audio — all in a clean black-and-white interface that follows your system light/dark theme.
 

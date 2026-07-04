@@ -15,17 +15,21 @@ export function TopBar() {
         <a
           className="brand"
           href="#analysis"
-          aria-label="Tuner home"
+          aria-label="TuneBad home"
           onClick={(event) => {
             event.preventDefault();
             showView("analysis");
             setMenuOpen(false);
           }}
         >
-          TUNER
+          <picture>
+            <source media="(prefers-color-scheme: dark)" srcSet="/logo-dark.png" />
+            <img src="/logo-light.png" alt="" width={40} height={40} className="brand-logo" loading="eager" />
+          </picture>
+          <span className="brand-wordmark">TUNEBAD</span>
         </a>
 
-        <nav className="top-actions" aria-label="Tuner tools">
+        <nav className="top-actions" aria-label="TuneBad tools">
           <NavTabs />
         </nav>
 

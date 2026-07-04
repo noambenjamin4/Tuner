@@ -245,6 +245,7 @@ const pt: Record<keyof typeof en, string> = {
 
   "footer.tagline": "Analise. Converta. Crie.",
   "footer.copyright": "© 2026 TuneBad · Montreal",
+  "footer.copyrightLink": "Aviso de direitos autorais",
 };
 
 export default pt;

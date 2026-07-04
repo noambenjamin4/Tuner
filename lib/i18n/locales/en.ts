@@ -261,6 +261,7 @@ const en = {
   // Footer
   "footer.tagline": "Analyze. Convert. Create.",
   "footer.copyright": "© 2026 TuneBad · Montréal",
+  "footer.copyrightLink": "Copyright Disclaimer",
 } as const;
 
 export default en;

@@ -244,6 +244,7 @@ const zh: Record<keyof typeof en, string> = {
 
   "footer.tagline": "分析。转换。创作。",
   "footer.copyright": "© 2026 TuneBad · 蒙特利尔",
+  "footer.copyrightLink": "版权声明",
 };
 
 export default zh;

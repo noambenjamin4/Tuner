@@ -245,6 +245,7 @@ const ja: Record<keyof typeof en, string> = {
 
   "footer.tagline": "解析。変換。創造。",
   "footer.copyright": "© 2026 TuneBad · モントリオール",
+  "footer.copyrightLink": "著作権に関する免責事項",
 };
 
 export default ja;

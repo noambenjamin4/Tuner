@@ -2353,6 +2353,99 @@ tbody tr:last-child td {
   letter-spacing: 0.02em;
 }
 
+.site-footer-legal {
+  margin-top: 2px;
+}
+
+.site-footer-legal a {
+  color: var(--muted);
+  font-size: 12px;
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1px;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+.site-footer-legal a:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+/* ---------------------------------------------------------------------
+   Legal / disclaimer page
+   --------------------------------------------------------------------- */
+.legal-topbar {
+  border-bottom: 1px solid var(--line);
+}
+
+.legal-topbar .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 18px 24px;
+  width: 100%;
+}
+
+.legal {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 24px 24px;
+}
+
+.legal-title {
+  font-size: clamp(30px, 5vw, 46px);
+}
+
+.legal-updated {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  margin: 8px 0 32px;
+}
+
+.legal h2 {
+  font-size: 17px;
+  margin: 36px 0 12px;
+}
+
+.legal p {
+  color: var(--ink);
+  line-height: 1.7;
+  margin: 0 0 14px;
+}
+
+.legal ul {
+  margin: 0 0 16px;
+  padding-left: 22px;
+  color: var(--ink);
+  line-height: 1.7;
+}
+
+.legal li {
+  margin-bottom: 6px;
+}
+
+.legal a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.legal-back {
+  margin-top: 40px;
+}
+
+.legal-back a {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: 13px;
+}
+
 /* ---------------------------------------------------------------------
    17. Empty state vinyl motif
    --------------------------------------------------------------------- */

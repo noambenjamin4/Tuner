@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useI18n } from "@/lib/i18n";
 
 export function Footer() {
@@ -17,6 +18,9 @@ export function Footer() {
         </div>
         <p className="site-footer-tagline">{t("footer.tagline")}</p>
         <p className="site-footer-copyright">{t("footer.copyright")}</p>
+        <p className="site-footer-legal">
+          <Link href="/copyright">{t("footer.copyrightLink")}</Link>
+        </p>
       </div>
     </footer>
   );

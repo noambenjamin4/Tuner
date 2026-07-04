@@ -860,6 +860,12 @@ meter {
   display: grid;
   align-content: start;
   gap: 14px;
+  /* min-width: 0 so the card can shrink to its `.split-tools` grid track
+     instead of overflowing it. Grid items default to min-width: auto, which
+     is the card's min-content — inflated on the LocalFileConverter card by
+     the nowrap filename inside `.file-picker` — and would push the card past
+     the collapsed single-column track on narrow phones. */
+  min-width: 0;
   padding: 24px;
   border: 1px solid var(--line);
   border-radius: var(--radius-card);
@@ -1084,6 +1090,10 @@ label.check-row,
   display: flex;
   align-items: center;
   gap: 14px;
+  /* min-width: 0 so this row can shrink within the converter-form grid; the
+     nowrap `.file-picker-name` (already min-width: 0 + ellipsis) then clips
+     gracefully instead of forcing the whole card wider than its track. */
+  min-width: 0;
   min-height: 44px;
   padding: 12px 20px;
   border: 1px dashed var(--line);
@@ -1884,6 +1894,15 @@ tbody tr:last-child td {
   .resolution-options {
     grid-template-columns: repeat(2, minmax(56px, 1fr));
   }
+
+  /* The 4-across bitrate grid (bare `.quality-options`, no format/resolution
+     modifier) needs 4 x 56px + gaps = 248px, which overflows the field once
+     the card + mobile form padding is subtracted on a 375px phone. Drop to
+     two columns, matching how the resolution picker collapses just above.
+     The :not() guards keep the format/resolution pickers on their own rules. */
+  .quality-options:not(.format-options):not(.resolution-options) {
+    grid-template-columns: repeat(2, minmax(56px, 1fr));
+  }
 }
 
 .quality-button {
@@ -2512,9 +2531,15 @@ tbody tr:last-child td {
    18. Responsive
    --------------------------------------------------------------------- */
 @media (max-width: 860px) {
+  /* minmax(0, 1fr) — not bare `1fr` (= minmax(auto, 1fr)) — so the single
+     column can shrink to the container width. With `auto` as the track
+     minimum, the item's min-content (inflated by the inner quality-picker
+     `1fr` columns) balloons this track past the viewport, overflowing the
+     `.converter-panel { overflow: hidden }` and clipping the format/quality
+     pills on narrow phones. This matches the base `.split-tools` rule. */
   .split-tools,
   .delay-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .drop-zone,

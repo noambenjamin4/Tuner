@@ -49,7 +49,11 @@ export const metadata: Metadata = {
     description: DESCRIPTION,
   },
   icons: {
+    // Adaptive, transparent favicon first: black logo in light mode, white in
+    // dark mode (prefers-color-scheme inside the SVG). PNGs are opaque
+    // fallbacks for the few contexts that don't render SVG favicons.
     icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
       { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
       { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
     ],

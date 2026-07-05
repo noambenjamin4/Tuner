@@ -2601,6 +2601,10 @@ tbody tr:last-child td {
   letter-spacing: 0.05em;
   text-decoration: none;
   transition: color 160ms ease;
+  /* Comfortable tap targets (Lighthouse target-size) without changing the look. */
+  display: inline-block;
+  padding: 6px 2px;
+  margin: -6px -2px;
 }
 
 .site-footer-tools a:hover {

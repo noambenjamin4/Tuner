@@ -75,22 +75,32 @@ export function useAnalyzer(onResult?: (result: AnalysisResult) => void) {
     }
   }, []);
 
-  // Pre-warm on idle: boot the worker and compile the essentia WASM before
-  // the first analysis, so it starts instantly instead of paying ~2s of
-  // engine boot. Skipped for users who asked to save data.
+  // Pre-warm the worker + essentia WASM so the FIRST analysis starts
+  // instantly. The chunk is ~700KB, so warming during initial load hurts LCP
+  // on slow connections; instead we wait for the first user gesture (real
+  // users take seconds before picking a file) with a long fallback timer.
   useEffect(() => {
     const nav = navigator as Navigator & { connection?: { saveData?: boolean } };
     if (nav.connection?.saveData) return;
-    const idle = (window as Window & { requestIdleCallback?: (cb: () => void) => number }).requestIdleCallback;
+    let done = false;
     const kick = () => {
+      if (done) return;
+      done = true;
+      cleanup();
       try {
         getWorker()?.postMessage({ warmup: true });
       } catch {
         // never let warm-up break anything
       }
     };
-    if (idle) idle(kick);
-    else setTimeout(kick, 2000);
+    const events: (keyof WindowEventMap)[] = ["pointerdown", "keydown", "touchstart"];
+    const cleanup = () => events.forEach((e) => window.removeEventListener(e, kick));
+    events.forEach((e) => window.addEventListener(e, kick, { once: true, passive: true }));
+    const timer = setTimeout(kick, 10_000);
+    return () => {
+      cleanup();
+      clearTimeout(timer);
+    };
   }, [getWorker]);
 
   const analyzeSamples = useCallback(

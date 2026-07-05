@@ -1,0 +1,25 @@
+# TuneBad
+
+> TuneBad is a free, all-in-one music toolkit that runs in the browser. It finds the key, BPM, and loudness of any song, converts YouTube, Spotify, and SoundCloud links to MP3, WAV, or MP4, makes slowed + reverb edits, shifts pitch, and calculates delay times. There are no ads, no accounts, and no paywalls. Audio analysis happens locally in the user's browser, so files are never uploaded.
+
+Key facts:
+- Analysis (key, BPM, loudness) runs client-side on the essentia audio engine, the same engine used by leading key/BPM tools.
+- BPM results show both the detected tempo and its half/double (for example "150 or 75") because many songs can be read at either.
+- Results include musical key, Camelot code for harmonic mixing, energy, danceability, and loudness in dBFS.
+- The converter supports YouTube, Spotify, SoundCloud, Bandcamp, Vimeo, Mixcloud, and Audiomack, for personal use only.
+- Available in 8 languages: English, French, Spanish, German, Portuguese, Italian, Japanese, and Chinese.
+
+## Tools
+
+- [Key & BPM Finder](https://www.tunebad.com/key-bpm-finder): Upload an audio file and get the key, tempo, Camelot code, energy, and loudness in a few seconds.
+- [Converter](https://www.tunebad.com/converter): Turn a YouTube, Spotify, or SoundCloud link into an MP3, WAV, or MP4 file. Also converts local audio files in the browser.
+- [Loudness Penalty & LUFS Meter](https://www.tunebad.com/loudness): Measure a track's loudness and see how much Spotify, Apple Music, YouTube, TIDAL, Amazon, and Deezer will turn it down.
+- [Slowed + Reverb Maker](https://www.tunebad.com/slowed-reverb): Slow a track down and add reverb (or speed it up for nightcore), then export it.
+- [Pitch Shifter](https://www.tunebad.com/pitch-shifter): Change the pitch or key of an audio file without changing its tempo.
+- [Delay & Reverb Calculator](https://www.tunebad.com/delay-reverb-calculator): Enter a BPM and get delay times in milliseconds and Hz, from 1/1 down to 1/64, including dotted and triplet values.
+- [BPM Tap Tempo & Metronome](https://www.tunebad.com/bpm-tap): Tap along to find a song's BPM, or use the built-in metronome.
+
+## Pages
+
+- [Home](https://www.tunebad.com/): Overview of every tool with a FAQ.
+- [Copyright Disclaimer](https://www.tunebad.com/copyright): Terms of use and the policy on copyrighted material.

@@ -225,10 +225,6 @@ small,
 .tap-pad strong,
 .pitch-result strong,
 .preset-card span,
-.delay-cell,
-.delay-cell small,
-.reverb-preset-values strong,
-.reverb-preset-values span,
 .loudness-metric strong,
 .loudness-penalty,
 .confidence span,
@@ -1783,6 +1779,9 @@ tbody tr:last-child td {
   min-width: 0;
   font-size: 13px;
   font-weight: 700;
+  /* Numbers use the main sans face like the rest of the page; tabular-nums
+     keeps them column-aligned without a monospace look. */
+  font-variant-numeric: tabular-nums;
 }
 
 .delay-cell-label {
@@ -1833,6 +1832,7 @@ tbody tr:last-child td {
 .reverb-preset-values {
   display: flex;
   gap: 20px;
+  font-variant-numeric: tabular-nums;
 }
 
 .reverb-preset-values span {

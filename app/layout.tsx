@@ -27,7 +27,7 @@ const DESCRIPTION =
   "In-browser music toolkit: analyze BPM, key, and loudness, apply pitch and slowed + reverb, and download from YouTube, Spotify, and more as MP3, WAV, or MP4.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tuner-delta-six.vercel.app"),
+  metadataBase: new URL("https://tunebad.com"),
   title: {
     default: "TuneBad | Music Utility",
     template: "%s | TuneBad",

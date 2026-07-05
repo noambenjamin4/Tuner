@@ -297,6 +297,44 @@ const en = {
   "landing.faq6Q": "What is slowed + reverb?",
   "landing.faq6A":
     "It's that dreamy, spaced-out remix style where a track is slowed down with a lot of reverb on top. You can make one in the Slowed + Reverb studio and export it when it sounds right.",
+
+  // Copyright / legal page
+  "copyright.title": "Copyright Disclaimer",
+  "copyright.updated": "Last updated:",
+  "copyright.intro":
+    "Welcome to TuneBad (the “Service”). This Copyright Disclaimer governs your access to and use of TuneBad’s web-based tools and services. By using the Service and submitting links or files for analysis or conversion, you acknowledge that you have read, understood, and agreed to be bound by the terms set out below.",
+  "copyright.s1H": "1. Strict prohibition of copyright infringement",
+  "copyright.s1P1":
+    "TuneBad is provided solely for analyzing and converting publicly available media for personal, educational, and non-commercial use. Downloading, converting, or distributing copyrighted material without the explicit permission of the copyright owner is strictly prohibited when using this Service.",
+  "copyright.s1P2": "It is your sole responsibility to ensure that any content you analyze or convert is:",
+  "copyright.s1L1": "owned by you;",
+  "copyright.s1L2": "in the public domain;",
+  "copyright.s1L3": "licensed under Creative Commons or a similar open license that permits such use; or",
+  "copyright.s1L4": "otherwise expressly authorized for conversion and download by the copyright owner.",
+  "copyright.s1P3": "Any attempt to use TuneBad to infringe intellectual-property rights is a direct violation of these terms.",
+  "copyright.s2H": "2. How TuneBad works, and disclaimer of liability",
+  "copyright.s2P1":
+    "TuneBad is a neutral technical tool. Audio analysis runs entirely in your own web browser. Link conversions are processed temporarily, either on the operator’s own personal machine or through a short-lived process, and the resulting file is streamed directly to you. TuneBad does not host, store, catalog, index, or distribute media files or converted outputs, and any temporary files created during a conversion are deleted automatically.",
+  "copyright.s2P2": "Accordingly:",
+  "copyright.s2L1":
+    "TuneBad disclaims all liability, responsibility, and warranties (express or implied) for the legality, accuracy, or appropriateness of any content that users process through the Service.",
+  "copyright.s2L2":
+    "Under no circumstances shall TuneBad or its operator be liable for any direct, indirect, incidental, special, or consequential damages arising from copyright infringement committed by you or any third party using the Service.",
+  "copyright.s2L3":
+    "You agree to indemnify and hold TuneBad and its operator harmless from any claims, damages, liabilities, costs, or expenses (including legal fees) arising from your misuse of the Service or your violation of third-party copyrights.",
+  "copyright.s3H": "3. Your affirmations and responsibilities",
+  "copyright.s3P1":
+    "By using the Service, you represent and warrant that you hold all rights and permissions necessary to analyze, convert, and download the selected media. You acknowledge that downloading media from unauthorized sources may violate copyright law and the terms of service of third-party platforms (including YouTube’s Terms of Service). TuneBad does not monitor, pre-screen, or review the links or files you submit, and you assume all legal and financial risk associated with your use of the Service.",
+  "copyright.s4H": "4. Abuse prevention and right to terminate",
+  "copyright.s4P1":
+    "To protect rights holders and prevent misuse of the Service, TuneBad reserves the right, at its sole discretion and without prior notice, to:",
+  "copyright.s4L1": "block specific links, channels, playlists, or keywords from being processed;",
+  "copyright.s4L2": "refuse service to anyone who repeatedly attempts to process copyrighted content; and",
+  "copyright.s4L3": "take technical measures to restrict access for users who violate these terms or applicable law.",
+  "copyright.s5H": "5. Copyright claims and takedown requests",
+  "copyright.s5P1":
+    "TuneBad respects the intellectual-property rights of creators. If you are a copyright owner (or an authorized agent) and believe the Service is being used to access your work without authorization, you may submit a takedown notice to the site operator. A valid notice should identify the specific work concerned, the material at issue, and include proof that you hold the relevant rights. TuneBad reviews and responds to valid notices promptly, and will remove or block access to the identified material where appropriate.",
+  "copyright.back": "Back to TuneBad",
 } as const;
 
 export default en;

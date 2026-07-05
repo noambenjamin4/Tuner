@@ -116,7 +116,10 @@ export function LoudnessPanel() {
       return new Promise<LoudnessWorkerResult>((resolve, reject) => {
         const id = ++requestIdRef.current;
         pendingRef.current.set(id, { resolve, reject });
-        worker.postMessage({ id, left, right, sampleRate }, [left.buffer, right.buffer]);
+        // Mono files reuse one buffer for both channels; transferring the same
+        // ArrayBuffer twice throws a DataCloneError, so dedupe the transfer list.
+        const transfers = left.buffer === right.buffer ? [left.buffer] : [left.buffer, right.buffer];
+        worker.postMessage({ id, left, right, sampleRate }, transfers);
       });
     },
     [getWorker],

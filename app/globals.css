@@ -2197,6 +2197,22 @@ tbody tr:last-child td {
   gap: 18px;
 }
 
+/* The preset/pitch/export grids above declare hard minimum column widths that
+   sum past a phone's width; because the studio card sizes to their min-content
+   width and the page doesn't scroll sideways, anything past the edge was
+   unreachable. Stack them on small screens. */
+@media (max-width: 560px) {
+  .remix-presets,
+  .remix-pitch-row,
+  .remix-export-row {
+    grid-template-columns: 1fr;
+  }
+
+  .quality-button {
+    min-width: 0;
+  }
+}
+
 /* ---------------------------------------------------------------------
    15. Loudness panel
    --------------------------------------------------------------------- */

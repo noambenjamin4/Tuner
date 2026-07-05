@@ -32,12 +32,14 @@ export function estimateBpm(samples: Float32Array, sampleRate: number): { bpm: n
 
   candidates.sort((a, b) => b.score - a.score);
   let best = candidates[0] || { bpm: 0, score: 0 };
+  // Match the primary engine's hip-hop/trap-centered fold range [105, 210)
+  // (see foldBpm in analysis.worker.ts).
   let foldDirection: "up" | "down" | null = null;
-  while (best.bpm > 0 && best.bpm < 88) {
+  while (best.bpm > 0 && best.bpm < 105) {
     best = { ...best, bpm: best.bpm * 2 };
     foldDirection = "up";
   }
-  while (best.bpm >= 176) {
+  while (best.bpm >= 210) {
     best = { ...best, bpm: best.bpm / 2 };
     foldDirection = "down";
   }

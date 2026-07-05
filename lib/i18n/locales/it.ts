@@ -9,6 +9,7 @@ const it: Record<keyof typeof en, string> = {
   "nav.loudness": "Loudness",
   "nav.remix": "Slowed+Reverb",
   "nav.history": "Cronologia",
+  "nav.cutter": "Taglia MP3",
 
   "common.browseFiles": "Sfoglia file",
   "common.dropAudioFile": "Trascina un file audio",
@@ -250,6 +251,7 @@ const it: Record<keyof typeof en, string> = {
   "footer.tagline": "Analizza. Converti. Crea.",
   "footer.copyright": "© 2026 TuneBad",
   "footer.copyrightLink": "Avviso sul copyright",
+  "footer.guides": "Guide",
 
   // Homepage landing / FAQ section
   "landing.heading": "Strumenti gratuiti per producer e DJ",
@@ -261,7 +263,7 @@ const it: Record<keyof typeof en, string> = {
   "landing.value3Title": "Resta sul tuo dispositivo",
   "landing.value3Body": "L'analisi avviene nel tuo browser, quindi i tuoi file non vengono mai caricati online.",
   "landing.value4Title": "Tutto in un unico posto",
-  "landing.value4Body": "Tonalità e BPM, il convertitore, il loudness, slowed + reverb, intonazione e tempi di delay.",
+  "landing.value4Body": "Tonalità e BPM, il convertitore, il loudness, slowed + reverb, il taglia MP3, intonazione e tempi di delay.",
   "landing.faqHeading": "Domande frequenti",
   "landing.faq1Q": "Come trovo la tonalità e i BPM di un brano?",
   "landing.faq1A": "Apri il rilevatore di tonalità e BPM e trascina dentro un file audio. In pochi secondi ottieni tonalità, tempo, codice Camelot e loudness. Nessun account richiesto.",
@@ -275,6 +277,39 @@ const it: Record<keyof typeof en, string> = {
   "landing.faq5A": "Si basa su essentia, lo stesso motore dietro molti degli strumenti più diffusi. Parecchi brani possono essere letti a due tempi (per esempio 85 o 170), quindi TuneBad li mostra entrambi e ti lascia scegliere quello che suona giusto.",
   "landing.faq6Q": "Cos'è lo slowed + reverb?",
   "landing.faq6A": "È quello stile di remix sognante e rarefatto in cui una traccia viene rallentata con tanto reverb sopra. Puoi crearne uno nello Studio Slowed + Reverb ed esportarlo quando suona come vuoi.",
+
+  // MP3 Cutter
+  "cutter.title": "Taglia MP3",
+  "cutter.subtitle": "Taglia un brano per tenere solo la parte che ti serve, aggiungi un fade e salvalo come MP3 o WAV. Tutto gira nel tuo browser.",
+  "cutter.start": "Inizio",
+  "cutter.end": "Fine",
+  "cutter.useCurrentStart": "Imposta l'inizio alla posizione di riproduzione",
+  "cutter.useCurrentEnd": "Imposta la fine alla posizione di riproduzione",
+  "cutter.fadeIn": "Fade in",
+  "cutter.fadeOut": "Fade out",
+  "cutter.selection": "Selezione",
+  "cutter.export": "Esporta selezione",
+  "cutter.exporting": "Esportazione in corso...",
+  "cutter.tooShort": "La selezione è troppo corta.",
+  "cutter.ready": "Pronto. Imposta inizio e fine, poi esporta.",
+  "cutter.exported": "Salvato. Controlla i tuoi download.",
+
+  // Analyze from link
+  "analysis.linkLabel": "Oppure incolla un link",
+  "analysis.linkPlaceholder": "Link a una traccia YouTube, Spotify o SoundCloud",
+  "analysis.linkButton": "Ottieni tonalità e BPM",
+  "analysis.linkLooking": "Ricerca in corso...",
+  "analysis.linkFetching": "Recupero dell'anteprima...",
+  "analysis.linkCachedNote": "Dai risultati della community di TuneBad, analizzato in precedenza.",
+  "analysis.linkNotFound": "Non abbiamo trovato quel brano nei cataloghi delle anteprime. Carica invece il file qui sotto.",
+  "analysis.linkInvalid": "Non sembra un link a una traccia YouTube, Spotify o SoundCloud.",
+  "analysis.linkRateLimited": "Troppe ricerche in questo momento. Aspetta qualche minuto e riprova.",
+  "analysis.linkError": "Qualcosa è andato storto con quel link. Riprova, oppure carica il file qui sotto.",
+  "analysis.recentTitle": "Analizzati di recente",
+  "analysis.copyLink": "Copia link",
+  "analysis.copied": "Copiato",
+  "analysis.copyResult": "Copia risultato",
+  "app.dropAnywhere": "Rilascia il file per analizzarlo",
 
   // Copyright / legal page
   "copyright.title": "Esclusione di responsabilità sul diritto d'autore",

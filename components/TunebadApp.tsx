@@ -4,7 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 import type { AnalysisResult, HistoryEntry } from "@/types/analysis";
 import { clampBpm } from "@/lib/format";
 import { useHistory } from "@/hooks/useHistory";
-import { I18nProvider } from "@/lib/i18n";
+import { I18nProvider, useI18n } from "@/lib/i18n";
 import { TopBar } from "./layout/TopBar";
 import { Footer } from "./layout/Footer";
 import { AnalyzerPanel } from "./analysis/AnalyzerPanel";
@@ -15,10 +15,11 @@ import { ConverterView } from "./converter/ConverterView";
 import { HistoryPanel } from "./history/HistoryPanel";
 import { LoudnessPanel } from "./loudness/LoudnessPanel";
 import { RemixStudio } from "./remix/RemixStudio";
+import { CutterPanel } from "./cutter/CutterPanel";
 
-export type ViewName = "analysis" | "bpm" | "delay" | "pitch" | "converter" | "loudness" | "remix" | "history";
+export type ViewName = "analysis" | "bpm" | "delay" | "pitch" | "converter" | "loudness" | "remix" | "cutter" | "history";
 
-const VIEW_NAMES: ViewName[] = ["analysis", "bpm", "delay", "pitch", "converter", "loudness", "remix", "history"];
+const VIEW_NAMES: ViewName[] = ["analysis", "bpm", "delay", "pitch", "converter", "loudness", "remix", "cutter", "history"];
 
 // Each tool has a real, clean URL (no #hash). Switching tabs updates the address
 // bar to these paths via the History API — no page reload, so app state is kept —
@@ -32,6 +33,7 @@ export const VIEW_TO_PATH: Record<ViewName, string> = {
   converter: "/converter",
   loudness: "/loudness",
   remix: "/slowed-reverb",
+  cutter: "/mp3-cutter",
   history: "/history",
 };
 
@@ -181,6 +183,7 @@ export function TunebadApp({
       <I18nProvider>
         <div className={`app-shell${initialReveal ? " initial-reveal" : ""}`}>
           <div className="grain-overlay" aria-hidden="true" />
+          <GlobalDropCatcher view={view} />
           <TopBar />
           <main>
             <section
@@ -233,6 +236,13 @@ export function TunebadApp({
               <RemixStudio />
             </section>
             <section
+              className={`page-view${view === "cutter" ? " active" : ""}`}
+              data-view="cutter"
+              data-active={view === "cutter"}
+            >
+              <CutterPanel />
+            </section>
+            <section
               className={`page-view${view === "history" ? " active" : ""}`}
               data-view="history"
               data-active={view === "history"}
@@ -249,5 +259,66 @@ export function TunebadApp({
         </div>
       </I18nProvider>
     </TunebadContext.Provider>
+  );
+}
+
+// Views that already have their own file intake keep native drop behavior;
+// on the rest (metronome, delay, pitch, history), dropping an audio file
+// anywhere routes it straight to the analyzer.
+const VIEWS_WITH_OWN_INTAKE = new Set<ViewName>(["analysis", "converter", "loudness", "remix", "cutter"]);
+
+function GlobalDropCatcher({ view }: { view: ViewName }) {
+  const { requestAnalysis } = useTunebad();
+  const { t } = useI18n();
+  const [dragging, setDragging] = useState(false);
+  const active = !VIEWS_WITH_OWN_INTAKE.has(view);
+
+  useEffect(() => {
+    if (!active) {
+      setDragging(false);
+      return;
+    }
+    let depth = 0;
+    const hasFiles = (e: DragEvent) => Array.from(e.dataTransfer?.types ?? []).includes("Files");
+    const onEnter = (e: DragEvent) => {
+      if (!hasFiles(e)) return;
+      depth += 1;
+      setDragging(true);
+    };
+    const onLeave = (e: DragEvent) => {
+      if (!hasFiles(e)) return;
+      depth = Math.max(0, depth - 1);
+      if (depth === 0) setDragging(false);
+    };
+    const onOver = (e: DragEvent) => {
+      if (hasFiles(e)) e.preventDefault();
+    };
+    const onDrop = (e: DragEvent) => {
+      depth = 0;
+      setDragging(false);
+      if (!hasFiles(e)) return;
+      e.preventDefault();
+      const files = Array.from(e.dataTransfer?.files ?? []).filter(
+        (f) => f.type.startsWith("audio/") || /\.(mp3|wav|m4a|ogg|flac)$/i.test(f.name),
+      );
+      if (files.length) requestAnalysis(files);
+    };
+    window.addEventListener("dragenter", onEnter);
+    window.addEventListener("dragleave", onLeave);
+    window.addEventListener("dragover", onOver);
+    window.addEventListener("drop", onDrop);
+    return () => {
+      window.removeEventListener("dragenter", onEnter);
+      window.removeEventListener("dragleave", onLeave);
+      window.removeEventListener("dragover", onOver);
+      window.removeEventListener("drop", onDrop);
+    };
+  }, [active, requestAnalysis]);
+
+  if (!active || !dragging) return null;
+  return (
+    <div className="global-drop-overlay" aria-hidden="true">
+      <span>{t("app.dropAnywhere")}</span>
+    </div>
   );
 }

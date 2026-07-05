@@ -226,7 +226,17 @@ function essentiaAnalysis(essentia: EssentiaLike, samples: Float32Array, sampleR
   }
 }
 
-self.onmessage = async (event: MessageEvent<WorkerRequest>) => {
+self.onmessage = async (event: MessageEvent<WorkerRequest | { warmup: true }>) => {
+  // Idle pre-warm: compile the essentia WASM before the first real analysis
+  // so it starts instantly. No response is posted and no DSP runs.
+  if ("warmup" in event.data) {
+    try {
+      await loadEssentia();
+    } catch {
+      // basic engine will cover it later; nothing to do here
+    }
+    return;
+  }
   const { id, samples, sampleRate } = event.data;
   let payload: Omit<WorkerResponse, "id">;
   try {

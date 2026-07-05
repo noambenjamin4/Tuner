@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   description:
     "Change the pitch or key of any audio file without touching the tempo. A free pitch shifter and key changer that runs in your browser.",
   alternates: { canonical: "/pitch-shifter" },
+  openGraph: { images: [{ url: "/og/pitch-shifter.png", width: 1200, height: 630 }] },
 };
 
 export default function Page() {

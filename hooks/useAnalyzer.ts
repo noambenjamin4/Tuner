@@ -75,6 +75,24 @@ export function useAnalyzer(onResult?: (result: AnalysisResult) => void) {
     }
   }, []);
 
+  // Pre-warm on idle: boot the worker and compile the essentia WASM before
+  // the first analysis, so it starts instantly instead of paying ~2s of
+  // engine boot. Skipped for users who asked to save data.
+  useEffect(() => {
+    const nav = navigator as Navigator & { connection?: { saveData?: boolean } };
+    if (nav.connection?.saveData) return;
+    const idle = (window as Window & { requestIdleCallback?: (cb: () => void) => number }).requestIdleCallback;
+    const kick = () => {
+      try {
+        getWorker()?.postMessage({ warmup: true });
+      } catch {
+        // never let warm-up break anything
+      }
+    };
+    if (idle) idle(kick);
+    else setTimeout(kick, 2000);
+  }, [getWorker]);
+
   const analyzeSamples = useCallback(
     async (samples: Float32Array, sampleRate: number): Promise<Omit<WorkerResponse, "id">> => {
       const worker = getWorker();

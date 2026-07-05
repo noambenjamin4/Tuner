@@ -9,6 +9,7 @@ const ja: Record<keyof typeof en, string> = {
   "nav.loudness": "ラウドネス",
   "nav.remix": "Slowed+Reverb",
   "nav.history": "履歴",
+  "nav.cutter": "MP3カッター",
 
   "common.browseFiles": "ファイルを選択",
   "common.dropAudioFile": "音声ファイルをドロップ",
@@ -250,6 +251,7 @@ const ja: Record<keyof typeof en, string> = {
   "footer.tagline": "解析。変換。創造。",
   "footer.copyright": "© 2026 TuneBad",
   "footer.copyrightLink": "著作権に関する免責事項",
+  "footer.guides": "ガイド",
 
   // Homepage landing / FAQ section
   "landing.heading": "プロデューサーとDJのための無料ツール",
@@ -261,7 +263,7 @@ const ja: Record<keyof typeof en, string> = {
   "landing.value3Title": "データは端末の中だけ",
   "landing.value3Body": "解析はブラウザ内で行われるため、ファイルがアップロードされることはありません。",
   "landing.value4Title": "すべてをひとつの場所で",
-  "landing.value4Body": "キーとBPM、コンバーター、ラウドネス、slowed + reverb、ピッチ、ディレイタイムがそろっています。",
+  "landing.value4Body": "キーとBPM、コンバーター、ラウドネス、slowed + reverb、MP3カッター、ピッチ、ディレイタイムがそろっています。",
   "landing.faqHeading": "よくある質問",
   "landing.faq1Q": "曲のキーとBPMはどうやって調べますか？",
   "landing.faq1A": "キー＆BPM検出ツールを開いて、音声ファイルをドロップしてください。数秒でキー、テンポ、Camelotコード、ラウドネスが表示されます。アカウントは不要です。",
@@ -275,6 +277,39 @@ const ja: Record<keyof typeof en, string> = {
   "landing.faq5A": "多くの人気ツールでも使われているessentiaというエンジンで動いています。2つのテンポで読み取れる曲も多いため（例えば85と170）、TuneBadは両方を表示して、しっくりくる方を選べるようにしています。",
   "landing.faq6Q": "slowed + reverbとは何ですか？",
   "landing.faq6A": "トラックを遅くして、たっぷりリバーブをかけた、夢見心地で浮遊感のあるリミックススタイルのことです。Slowed + Reverb スタジオで作成して、気に入った仕上がりになったら書き出せます。",
+
+  // MP3 Cutter
+  "cutter.title": "MP3カッター",
+  "cutter.subtitle": "曲から必要な部分だけを切り出し、フェードを加えて、MP3またはWAVとして保存できます。すべてブラウザ内で動作します。",
+  "cutter.start": "開始",
+  "cutter.end": "終了",
+  "cutter.useCurrentStart": "開始位置を再生位置に合わせる",
+  "cutter.useCurrentEnd": "終了位置を再生位置に合わせる",
+  "cutter.fadeIn": "フェードイン",
+  "cutter.fadeOut": "フェードアウト",
+  "cutter.selection": "選択範囲",
+  "cutter.export": "選択範囲を書き出す",
+  "cutter.exporting": "書き出し中...",
+  "cutter.tooShort": "選択範囲が短すぎます。",
+  "cutter.ready": "準備完了。開始と終了を設定して書き出してください。",
+  "cutter.exported": "保存しました。ダウンロードフォルダをご確認ください。",
+
+  // Analyze from link
+  "analysis.linkLabel": "またはリンクを貼り付け",
+  "analysis.linkPlaceholder": "YouTube、Spotify、SoundCloudのトラックリンク",
+  "analysis.linkButton": "キー＆BPMを取得",
+  "analysis.linkLooking": "検索中...",
+  "analysis.linkFetching": "プレビューを取得中...",
+  "analysis.linkCachedNote": "TuneBadのコミュニティ結果より。以前に解析済みです。",
+  "analysis.linkNotFound": "プレビューカタログでその曲が見つかりませんでした。代わりに下からファイルをアップロードしてください。",
+  "analysis.linkInvalid": "YouTube、Spotify、SoundCloudのトラックリンクではないようです。",
+  "analysis.linkRateLimited": "現在、検索が集中しています。数分待ってからもう一度お試しください。",
+  "analysis.linkError": "そのリンクで問題が発生しました。もう一度試すか、下からファイルをアップロードしてください。",
+  "analysis.recentTitle": "最近解析した曲",
+  "analysis.copyLink": "リンクをコピー",
+  "analysis.copied": "コピーしました",
+  "analysis.copyResult": "結果をコピー",
+  "app.dropAnywhere": "ファイルをドロップすると解析します",
 
   // Copyright / legal page
   "copyright.title": "著作権に関する免責事項",

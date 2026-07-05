@@ -41,6 +41,9 @@ const nextConfig = {
     return config;
   },
   async headers() {
+    // Stable public assets: cache forever, rename on change. Repeat visitors
+    // and tab switches load zero bytes for these.
+    const immutable = { key: "Cache-Control", value: "public, max-age=31536000, immutable" };
     return [
       {
         source: "/:path*",
@@ -52,6 +55,12 @@ const nextConfig = {
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
         ],
       },
+      { source: "/logo-:variant.png", headers: [immutable] },
+      { source: "/icon-:size.png", headers: [immutable] },
+      { source: "/icon.svg", headers: [immutable] },
+      { source: "/apple-touch-icon.png", headers: [immutable] },
+      { source: "/lame.min.js", headers: [immutable] },
+      { source: "/og/:name", headers: [immutable] },
     ];
   },
 };

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Baloo_2 } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -145,12 +146,13 @@ const STRUCTURED_DATA = {
       description: DESCRIPTION,
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
       featureList: [
-        "Key & BPM finder for any song",
+        "Key & BPM finder for any song or link",
         "BPM tap tempo and metronome",
         "Loudness (LUFS) meter",
         "Pitch shifter",
         "Delay & reverb time calculator",
         "Slowed + reverb studio",
+        "MP3 cutter and ringtone maker",
         "YouTube, Spotify & SoundCloud to MP3, WAV or MP4 converter",
       ],
     },
@@ -170,7 +172,12 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(STRUCTURED_DATA) }}
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${baloo2.variable}`}>{children}</body>
+      <body className={`${geistSans.variable} ${geistMono.variable} ${baloo2.variable}`}>
+        {children}
+        {/* Cookieless, anonymous page-view counts (no-op in dev). Audio never
+            leaves the visitor's device; this does not change that. */}
+        <Analytics />
+      </body>
     </html>
   );
 }

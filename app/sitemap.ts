@@ -12,15 +12,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
     changeFrequency: "weekly",
     priority: 0.9,
   });
+  const guide = (path: string): MetadataRoute.Sitemap[number] => ({
+    url: `${base}${path}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  });
   return [
     { url: `${base}/`, lastModified: now, changeFrequency: "weekly", priority: 1 },
     tool("/key-bpm-finder"),
     tool("/converter"),
     tool("/loudness"),
     tool("/slowed-reverb"),
+    tool("/mp3-cutter"),
     tool("/pitch-shifter"),
     tool("/delay-reverb-calculator"),
     tool("/bpm-tap"),
+    guide("/guides/find-key-and-bpm-of-any-song"),
+    guide("/guides/camelot-wheel-harmonic-mixing"),
+    guide("/guides/what-is-lufs-streaming-loudness"),
+    guide("/guides/how-to-make-slowed-and-reverb"),
     { url: `${base}/copyright`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ];
 }

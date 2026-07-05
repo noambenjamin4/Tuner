@@ -8,6 +8,7 @@ const en = {
   "nav.loudness": "Loudness",
   "nav.remix": "Slowed+Reverb",
   "nav.history": "History",
+  "nav.cutter": "MP3 Cutter",
 
   // Common
   "common.browseFiles": "Browse files",
@@ -266,6 +267,7 @@ const en = {
   "footer.tagline": "Analyze. Convert. Create.",
   "footer.copyright": "© 2026 TuneBad",
   "footer.copyrightLink": "Copyright Disclaimer",
+  "footer.guides": "Guides",
 
   // Homepage landing / FAQ section
   "landing.heading": "Free tools for producers and DJs",
@@ -278,7 +280,7 @@ const en = {
   "landing.value3Title": "Stays on your device",
   "landing.value3Body": "The analysis runs in your browser, so your files never get uploaded.",
   "landing.value4Title": "All in one place",
-  "landing.value4Body": "Key and BPM, the converter, loudness, slowed + reverb, pitch, and delay times.",
+  "landing.value4Body": "Key and BPM, the converter, loudness, slowed + reverb, the MP3 cutter, pitch, and delay times.",
   "landing.faqHeading": "Frequently asked questions",
   "landing.faq1Q": "How do I find the key and BPM of a song?",
   "landing.faq1A":
@@ -297,6 +299,39 @@ const en = {
   "landing.faq6Q": "What is slowed + reverb?",
   "landing.faq6A":
     "It's that dreamy, spaced-out remix style where a track is slowed down with a lot of reverb on top. You can make one in the Slowed + Reverb studio and export it when it sounds right.",
+
+  // MP3 Cutter
+  "cutter.title": "MP3 Cutter",
+  "cutter.subtitle": "Trim a song down to the part you want, add a fade, and save it as an MP3 or WAV. Everything runs in your browser.",
+  "cutter.start": "Start",
+  "cutter.end": "End",
+  "cutter.useCurrentStart": "Set start to playhead",
+  "cutter.useCurrentEnd": "Set end to playhead",
+  "cutter.fadeIn": "Fade in",
+  "cutter.fadeOut": "Fade out",
+  "cutter.selection": "Selection",
+  "cutter.export": "Export selection",
+  "cutter.exporting": "Exporting...",
+  "cutter.tooShort": "Selection is too short.",
+  "cutter.ready": "Ready. Set the start and end, then export.",
+  "cutter.exported": "Saved. Check your downloads.",
+
+  // Analyze from link
+  "analysis.linkLabel": "Or paste a link",
+  "analysis.linkPlaceholder": "YouTube, Spotify, or SoundCloud track link",
+  "analysis.linkButton": "Get key & BPM",
+  "analysis.linkLooking": "Looking it up...",
+  "analysis.linkFetching": "Fetching preview...",
+  "analysis.linkCachedNote": "From TuneBad's community results, analyzed earlier.",
+  "analysis.linkNotFound": "Couldn't find that song in the preview catalogs. Upload the file below instead.",
+  "analysis.linkInvalid": "That doesn't look like a YouTube, Spotify, or SoundCloud track link.",
+  "analysis.linkRateLimited": "Too many lookups right now. Wait a few minutes and try again.",
+  "analysis.linkError": "Something went wrong with that link. Try again, or upload the file below.",
+  "analysis.recentTitle": "Recently analyzed",
+  "analysis.copyLink": "Copy link",
+  "analysis.copied": "Copied",
+  "analysis.copyResult": "Copy result",
+  "app.dropAnywhere": "Drop the file to analyze it",
 
   // Copyright / legal page
   "copyright.title": "Copyright Disclaimer",

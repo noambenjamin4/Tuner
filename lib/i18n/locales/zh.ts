@@ -9,6 +9,7 @@ const zh: Record<keyof typeof en, string> = {
   "nav.loudness": "响度",
   "nav.remix": "Slowed+Reverb",
   "nav.history": "历史记录",
+  "nav.cutter": "MP3剪切器",
 
   "common.browseFiles": "选择文件",
   "common.dropAudioFile": "拖放音频文件",
@@ -249,6 +250,7 @@ const zh: Record<keyof typeof en, string> = {
   "footer.tagline": "分析。转换。创作。",
   "footer.copyright": "© 2026 TuneBad",
   "footer.copyrightLink": "版权声明",
+  "footer.guides": "指南",
 
   // Homepage landing / FAQ section
   "landing.heading": "为制作人和DJ准备的免费工具",
@@ -260,7 +262,7 @@ const zh: Record<keyof typeof en, string> = {
   "landing.value3Title": "数据不离开你的设备",
   "landing.value3Body": "分析在你的浏览器里完成，文件永远不会被上传。",
   "landing.value4Title": "一站式工具",
-  "landing.value4Body": "调性和BPM、转换器、响度、slowed + reverb、音高，还有延迟时间。",
+  "landing.value4Body": "调性和BPM、转换器、响度、slowed + reverb、MP3剪切器、音高，还有延迟时间。",
   "landing.faqHeading": "常见问题",
   "landing.faq1Q": "怎么查一首歌的调性和BPM？",
   "landing.faq1A": "打开调性和BPM查找工具，放入一个音频文件。几秒钟后就能看到调性、速度、Camelot编号和响度。无需账号。",
@@ -274,6 +276,39 @@ const zh: Record<keyof typeof en, string> = {
   "landing.faq5A": "它基于essentia运行，很多热门工具背后用的也是这个引擎。不少歌曲可以按两种速度来解读（比如85或170），所以TuneBad会同时显示两个，让你选择听起来更合适的那个。",
   "landing.faq6Q": "什么是slowed + reverb？",
   "landing.faq6A": "就是那种把音轨放慢、再铺上大量混响的梦幻空灵混音风格。你可以在 Slowed + Reverb 工作室里制作一首，觉得满意后导出。",
+
+  // MP3 Cutter
+  "cutter.title": "MP3剪切器",
+  "cutter.subtitle": "把歌曲剪成你想要的片段，加上淡入淡出，然后保存为MP3或WAV。一切都在浏览器里完成。",
+  "cutter.start": "开始",
+  "cutter.end": "结束",
+  "cutter.useCurrentStart": "将开始点设为播放位置",
+  "cutter.useCurrentEnd": "将结束点设为播放位置",
+  "cutter.fadeIn": "淡入",
+  "cutter.fadeOut": "淡出",
+  "cutter.selection": "选区",
+  "cutter.export": "导出选区",
+  "cutter.exporting": "导出中...",
+  "cutter.tooShort": "选区太短。",
+  "cutter.ready": "已就绪。设置开始和结束位置，然后导出。",
+  "cutter.exported": "已保存。请查看你的下载文件夹。",
+
+  // Analyze from link
+  "analysis.linkLabel": "或粘贴链接",
+  "analysis.linkPlaceholder": "YouTube、Spotify或SoundCloud歌曲链接",
+  "analysis.linkButton": "获取调性和BPM",
+  "analysis.linkLooking": "正在查找...",
+  "analysis.linkFetching": "正在获取预览...",
+  "analysis.linkCachedNote": "来自TuneBad社区结果，之前已分析过。",
+  "analysis.linkNotFound": "在预览曲库中没有找到这首歌。请改用下方上传文件。",
+  "analysis.linkInvalid": "这看起来不像YouTube、Spotify或SoundCloud的歌曲链接。",
+  "analysis.linkRateLimited": "当前查询次数过多。请等几分钟再试。",
+  "analysis.linkError": "该链接出了点问题。请重试，或在下方上传文件。",
+  "analysis.recentTitle": "最近分析",
+  "analysis.copyLink": "复制链接",
+  "analysis.copied": "已复制",
+  "analysis.copyResult": "复制结果",
+  "app.dropAnywhere": "松开文件即可开始分析",
 
   // Copyright / legal page
   "copyright.title": "版权免责声明",

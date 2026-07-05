@@ -12,6 +12,7 @@ const TABS: { page: ViewName; labelKey: DictKey }[] = [
   { page: "pitch", labelKey: "nav.pitch" },
   { page: "loudness", labelKey: "nav.loudness" },
   { page: "remix", labelKey: "nav.remix" },
+  { page: "cutter", labelKey: "nav.cutter" },
   { page: "history", labelKey: "nav.history" },
 ];
 

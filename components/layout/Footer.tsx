@@ -13,6 +13,7 @@ const TOOL_LINKS: { page: ViewName; labelKey: DictKey }[] = [
   { page: "converter", labelKey: "nav.converter" },
   { page: "loudness", labelKey: "nav.loudness" },
   { page: "remix", labelKey: "nav.remix" },
+  { page: "cutter", labelKey: "nav.cutter" },
   { page: "pitch", labelKey: "nav.pitch" },
   { page: "delay", labelKey: "nav.delay" },
   { page: "bpm", labelKey: "nav.bpm" },
@@ -38,6 +39,13 @@ export function Footer() {
               {t(tool.labelKey)}
             </a>
           ))}
+        </nav>
+        {/* English guide articles; next/link prefetches these full navigations. */}
+        <nav className="site-footer-tools site-footer-guides" aria-label={t("footer.guides")}>
+          <Link href="/guides/find-key-and-bpm-of-any-song">Key & BPM guide</Link>
+          <Link href="/guides/camelot-wheel-harmonic-mixing">Camelot wheel</Link>
+          <Link href="/guides/what-is-lufs-streaming-loudness">What is LUFS</Link>
+          <Link href="/guides/how-to-make-slowed-and-reverb">Slowed + reverb guide</Link>
         </nav>
         <p className="site-footer-copyright">{t("footer.copyright")}</p>
         <p className="site-footer-legal">

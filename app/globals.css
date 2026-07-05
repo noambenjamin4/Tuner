@@ -2405,6 +2405,184 @@ tbody tr:last-child td {
   letter-spacing: 0.02em;
 }
 
+/* Guide pages: figures like the Camelot wheel SVG. */
+.guide-figure {
+  display: block;
+  width: min(440px, 100%);
+  height: auto;
+  margin: 28px auto;
+  color: var(--ink);
+}
+
+/* -------------------------------------------------------------------------
+   MP3 Cutter
+   ------------------------------------------------------------------------- */
+.cutter-selection {
+  display: grid;
+  gap: 14px;
+  padding: 0 clamp(20px, 4vw, 40px) 20px;
+}
+
+.cutter-slider-row {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.cutter-slider-row input[type="range"] {
+  width: 100%;
+}
+
+.cutter-times {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.cutter-export-row {
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) auto;
+  align-items: end;
+  gap: 18px;
+  padding: 0 clamp(20px, 4vw, 40px) 24px;
+}
+
+/* Same phone rule as the remix grids: stack instead of clipping. */
+@media (max-width: 560px) {
+  .cutter-export-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   Analyze-from-link row (analysis view)
+   ------------------------------------------------------------------------- */
+.link-analyze {
+  display: grid;
+  gap: 8px;
+  margin: 0 clamp(20px, 4vw, 40px) 4px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-inner);
+  background: var(--surface);
+}
+
+.link-analyze-label {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.link-analyze-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.link-analyze-row input {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.link-analyze-note {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.link-analyze-error {
+  color: var(--ink);
+}
+
+.link-analyze-result {
+  display: grid;
+  gap: 4px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-inner);
+}
+
+.link-analyze-stats {
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+.link-analyze-copy {
+  justify-self: start;
+}
+
+.link-analyze-recent {
+  display: grid;
+  gap: 8px;
+}
+
+.link-analyze-recent ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.link-analyze-recent-pill {
+  display: grid;
+  gap: 2px;
+  text-align: left;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  max-width: 100%;
+  transition: background 120ms ease;
+}
+
+.link-analyze-recent-pill:hover {
+  background: var(--surface);
+}
+
+.link-analyze-recent-title {
+  font-size: 13px;
+  font-weight: 700;
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.link-analyze-recent-stats {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* Full-screen hint while dragging a file over views without their own dropzone. */
+.global-drop-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, var(--bg, #fff) 82%, transparent);
+  backdrop-filter: blur(2px);
+  border: 2px dashed var(--ink);
+  border-radius: var(--radius-card);
+  margin: 12px;
+  pointer-events: none;
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  font-size: clamp(16px, 3vw, 24px);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
 /* Crawlable tool links row (labels reuse nav.* i18n keys). */
 .site-footer-tools {
   display: flex;

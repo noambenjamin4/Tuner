@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { AnalysisResult } from "@/types/analysis";
 import { formatDetailedTime, formatSampleRate } from "@/lib/format";
 import { useI18n } from "@/lib/i18n";
@@ -24,6 +25,20 @@ function MetricCard({ label, value, note, mono }: MetricCardProps) {
 
 export function AnalysisSummary({ result }: { result: AnalysisResult }) {
   const { t } = useI18n();
+  const [copied, setCopied] = useState(false);
+
+  // One tap copies "150 BPM (or 75) · A Minor · 8A" for DAW notes/filenames.
+  const copyResult = () => {
+    const bpm = result.bpm ? `${Math.round(result.bpm)} BPM${result.bpmAlternate ? ` (or ${Math.round(result.bpmAlternate)})` : ""}` : "";
+    const text = [bpm, result.key, result.camelot].filter(Boolean).join(" · ");
+    void navigator.clipboard
+      ?.writeText(text)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(() => {});
+  };
 
   const cards: MetricCardProps[] = [
     {
@@ -87,6 +102,9 @@ export function AnalysisSummary({ result }: { result: AnalysisResult }) {
       <div className="summary-title">
         <h2>{t("analysis.resultsHeading")}</h2>
         {result.engine === "basic" ? <span className="engine-tag">{t("analysis.engineTagBasic")}</span> : null}
+        <button className="text-button" type="button" onClick={copyResult}>
+          {copied ? t("analysis.copied") : t("analysis.copyResult")}
+        </button>
       </div>
       <div className="summary-grid">
         {cards.map((card) => (

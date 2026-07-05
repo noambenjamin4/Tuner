@@ -9,6 +9,7 @@ const fr: Record<keyof typeof en, string> = {
   "nav.loudness": "Loudness",
   "nav.remix": "Slowed+Reverb",
   "nav.history": "Historique",
+  "nav.cutter": "Coupe MP3",
 
   "common.browseFiles": "Parcourir",
   "common.dropAudioFile": "Déposer un fichier audio",
@@ -250,6 +251,7 @@ const fr: Record<keyof typeof en, string> = {
   "footer.tagline": "Analyser. Convertir. Créer.",
   "footer.copyright": "© 2026 TuneBad",
   "footer.copyrightLink": "Avis de droit d’auteur",
+  "footer.guides": "Guides",
 
   // Homepage landing / FAQ section
   "landing.heading": "Des outils gratuits pour les producteurs et les DJ",
@@ -261,7 +263,7 @@ const fr: Record<keyof typeof en, string> = {
   "landing.value3Title": "Reste sur votre appareil",
   "landing.value3Body": "L'analyse se fait dans votre navigateur, vos fichiers ne sont donc jamais envoyés en ligne.",
   "landing.value4Title": "Tout au même endroit",
-  "landing.value4Body": "Tonalité et BPM, le convertisseur, le loudness, slowed + reverb, la hauteur et les temps de delay.",
+  "landing.value4Body": "Tonalité et BPM, le convertisseur, le loudness, slowed + reverb, le coupe MP3, la hauteur et les temps de delay.",
   "landing.faqHeading": "Questions fréquentes",
   "landing.faq1Q": "Comment trouver la tonalité et le BPM d'un morceau ?",
   "landing.faq1A": "Ouvrez l'outil Tonalité & BPM et déposez-y un fichier audio. En quelques secondes, vous obtenez la tonalité, le tempo, le code Camelot et le loudness. Aucun compte requis.",
@@ -275,6 +277,39 @@ const fr: Record<keyof typeof en, string> = {
   "landing.faq5A": "Elle repose sur essentia, le même moteur que beaucoup d'outils populaires. Beaucoup de morceaux peuvent se lire à deux tempos (par exemple 85 ou 170), TuneBad affiche donc les deux et vous laisse choisir celui qui sonne juste.",
   "landing.faq6Q": "Qu'est-ce que le slowed + reverb ?",
   "landing.faq6A": "C'est ce style de remix planant et vaporeux où un titre est ralenti avec beaucoup de reverb par-dessus. Vous pouvez en créer un dans le Studio Slowed + Reverb et l'exporter quand le rendu vous plaît.",
+
+  // MP3 Cutter
+  "cutter.title": "Coupe MP3",
+  "cutter.subtitle": "Coupez un morceau pour ne garder que la partie qui vous intéresse, ajoutez un fondu et enregistrez le résultat en MP3 ou en WAV. Tout se passe dans votre navigateur.",
+  "cutter.start": "Début",
+  "cutter.end": "Fin",
+  "cutter.useCurrentStart": "Placer le début à la tête de lecture",
+  "cutter.useCurrentEnd": "Placer la fin à la tête de lecture",
+  "cutter.fadeIn": "Fade in",
+  "cutter.fadeOut": "Fade out",
+  "cutter.selection": "Sélection",
+  "cutter.export": "Exporter la sélection",
+  "cutter.exporting": "Export en cours...",
+  "cutter.tooShort": "La sélection est trop courte.",
+  "cutter.ready": "Prêt. Définissez le début et la fin, puis exportez.",
+  "cutter.exported": "Enregistré. Regardez dans vos téléchargements.",
+
+  // Analyze from link
+  "analysis.linkLabel": "Ou collez un lien",
+  "analysis.linkPlaceholder": "Lien d'un titre YouTube, Spotify ou SoundCloud",
+  "analysis.linkButton": "Obtenir la tonalité et le BPM",
+  "analysis.linkLooking": "Recherche en cours...",
+  "analysis.linkFetching": "Récupération de l'aperçu...",
+  "analysis.linkCachedNote": "Issu des résultats communautaires de TuneBad, analysé précédemment.",
+  "analysis.linkNotFound": "Impossible de trouver ce morceau dans les catalogues d'aperçus. Importez plutôt le fichier ci-dessous.",
+  "analysis.linkInvalid": "Cela ne ressemble pas à un lien de titre YouTube, Spotify ou SoundCloud.",
+  "analysis.linkRateLimited": "Trop de recherches en ce moment. Attendez quelques minutes et réessayez.",
+  "analysis.linkError": "Une erreur s'est produite avec ce lien. Réessayez, ou importez le fichier ci-dessous.",
+  "analysis.recentTitle": "Analysés récemment",
+  "analysis.copyLink": "Copier le lien",
+  "analysis.copied": "Copié",
+  "analysis.copyResult": "Copier le résultat",
+  "app.dropAnywhere": "Déposez le fichier pour l'analyser",
 
   // Copyright / legal page
   "copyright.title": "Avis de non-responsabilité relatif aux droits d'auteur",

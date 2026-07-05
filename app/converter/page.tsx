@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   description:
     "Turn YouTube, Spotify, and SoundCloud links into MP3, WAV, or MP4 files. Free to use, no sign-up, and it all runs in your browser.",
   alternates: { canonical: "/converter" },
+  openGraph: { images: [{ url: "/og/converter.png", width: 1200, height: 630 }] },
 };
 
 export default function Page() {

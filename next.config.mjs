@@ -7,10 +7,16 @@ const isDev = process.env.NODE_ENV !== "production";
 // blocks every script on Vercel. 'unsafe-inline' is required for Next's inline
 // bootstrap on static pages; the app has no HTML-injection sinks (no
 // dangerouslySetInnerHTML, React-escaped rendering throughout).
-// wasm-unsafe-eval: essentia.js compiles WebAssembly; unsafe-eval dev-only (React Refresh).
+// 'unsafe-eval' is REQUIRED in production: essentia.js's emscripten WASM glue
+// (the analyzer's BPM/key engine, run in a Web Worker) calls `new Function(...)`,
+// which 'wasm-unsafe-eval' does NOT permit. Without it the worker throws an
+// EvalError, silently falls back to the far weaker homemade DSP, and BPM/key go
+// wrong. Verified via a minimal in-worker repro. The relaxation is acceptable
+// here: the app already needs 'unsafe-inline' and has no HTML-injection sinks
+// (no dangerouslySetInnerHTML; React-escaped rendering throughout).
 const csp = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'${isDev ? " 'unsafe-eval'" : ""}`,
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval'",
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "media-src 'self' blob:",

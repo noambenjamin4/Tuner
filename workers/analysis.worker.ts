@@ -85,6 +85,15 @@ function loadEssentia(): Promise<EssentiaLike | null> {
           import("essentia.js/dist/essentia.js-core.es.js"),
           import("essentia.js/dist/essentia-wasm.es.js"),
         ]);
+        // The emscripten WASM runtime instantiates asynchronously, and the dynamic
+        // import can resolve before it finishes (`calledRun` still false). Building
+        // Essentia and calling an algorithm before then throws, which the caller
+        // silently swallows into the far weaker basic engine. Wait for the runtime.
+        const wasm = EssentiaWASM as { calledRun?: boolean };
+        const deadline = Date.now() + 8000;
+        while (!wasm.calledRun && Date.now() < deadline) {
+          await new Promise((resolve) => setTimeout(resolve, 20));
+        }
         return new Essentia(EssentiaWASM) as EssentiaLike;
       } catch (error) {
         console.warn("essentia.js failed to load; using basic analysis.", error);

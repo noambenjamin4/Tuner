@@ -48,8 +48,8 @@ export function useTunebad(): TunebadContextValue {
   return value;
 }
 
-export function TunebadApp() {
-  const [view, setView] = useState<ViewName>("analysis");
+export function TunebadApp({ initialView = "analysis" }: { initialView?: ViewName } = {}) {
+  const [view, setView] = useState<ViewName>(initialView);
   // Gates the first-load cascade (header + active panel's children fading up
   // in a stagger). True only for the very first paint; flipped off shortly
   // after so revisiting a tab later doesn't replay the mount-in stagger —

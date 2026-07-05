@@ -220,7 +220,8 @@ small,
   color: var(--muted);
 }
 
-/* Numeric readouts — always mono */
+/* Numeric readouts use the main sans face like the rest of the UI; tabular
+   figures keep digits equal-width so tables and counters stay aligned. */
 .metronome-display strong,
 .tap-pad strong,
 .pitch-result strong,
@@ -233,12 +234,17 @@ small,
 .history-pill,
 .file-meta-pill,
 table td,
-.status-box code,
 .beat-light,
 .bpm-control input,
 .frequency-input input,
 #hzInput,
 input[type="number"] {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Literal technical strings (job ids, paths) stay monospace. */
+.status-box code {
   font-family: var(--font-mono);
 }
 
@@ -1350,12 +1356,13 @@ label.check-row,
   hyphens: none;
 }
 
-/* Mono numeric stat values (bpm, duration, sample rate, channels, energy,
-   danceability, loudness) get the mono face. Text values (key, bit depth)
-   use sans and are allowed to shrink via the clamp() above instead of
-   overflowing their card. */
+/* Numeric stat values (bpm, duration, sample rate, channels, energy,
+   danceability, loudness) use the main sans face with tabular figures so they
+   stay equal-width, matching the rest of the site. Text values (key, bit
+   depth) shrink via the clamp() above instead of overflowing their card. */
 .metric-card strong.analysis-value:not(.analysis-value--text) {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
 }
 
 .metric-card strong.analysis-value--text {
@@ -2993,3 +3000,24 @@ tbody tr:last-child td {
   }
 }
 
+
+/* ---------------------------------------------------------------------
+   Numeric readout unification (overrides the scattered mono rules above so
+   every stat, timecode, and counter uses the main sans face with tabular
+   figures — one consistent number font across the whole site). Placed last
+   so it wins by source order at equal specificity. Genuine code/paths and
+   filenames intentionally stay monospace.
+   --------------------------------------------------------------------- */
+.seek-wave-times,
+.history-meta,
+.frequency-input span,
+.quality-button strong,
+.loudness-preview-label,
+.cutter-times,
+.link-analyze-stats,
+.link-analyze-recent-stats,
+.site-footer-copyright,
+.legal-updated {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+}

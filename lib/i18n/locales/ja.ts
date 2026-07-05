@@ -250,6 +250,31 @@ const ja: Record<keyof typeof en, string> = {
   "footer.tagline": "解析。変換。創造。",
   "footer.copyright": "© 2026 TuneBad",
   "footer.copyrightLink": "著作権に関する免責事項",
+
+  // Homepage landing / FAQ section
+  "landing.heading": "プロデューサーとDJのための無料ツール",
+  "landing.lede": "TuneBadは、音楽に関わるすべての人のための無料ツール集です。曲のキー、BPM、ラウドネスの解析、YouTubeやSpotifyのリンクからMP3への変換、トラックを遅くしてリバーブを加える加工、ピッチの変更、ミックス用のディレイタイムの計算までできます。すべてブラウザ上で動作し、広告もアカウントも不要です。",
+  "landing.value1Title": "100%無料",
+  "landing.value1Body": "すべてのツールが無料で使えます。お試し期間もペイウォールもなく、アップグレードの必要もありません。",
+  "landing.value2Title": "広告なし、登録不要",
+  "landing.value2Body": "アカウントは必要なく、邪魔なポップアップも表示されません。",
+  "landing.value3Title": "データは端末の中だけ",
+  "landing.value3Body": "解析はブラウザ内で行われるため、ファイルがアップロードされることはありません。",
+  "landing.value4Title": "すべてをひとつの場所で",
+  "landing.value4Body": "キーとBPM、コンバーター、ラウドネス、slowed + reverb、ピッチ、ディレイタイムがそろっています。",
+  "landing.faqHeading": "よくある質問",
+  "landing.faq1Q": "曲のキーとBPMはどうやって調べますか？",
+  "landing.faq1A": "キー＆BPM検出ツールを開いて、音声ファイルをドロップしてください。数秒でキー、テンポ、Camelotコード、ラウドネスが表示されます。アカウントは不要です。",
+  "landing.faq2Q": "TuneBadは無料ですか？",
+  "landing.faq2A": "はい、完全に無料です。広告もアカウントもなく、ペイウォールの裏に隠されたものもありません。",
+  "landing.faq3Q": "YouTubeやSpotifyのリンクをMP3に変換できますか？",
+  "landing.faq3A": "はい。YouTube、Spotify、SoundCloudのリンクをコンバーターに貼り付けて、MP3、WAV、MP4として保存できます。個人利用の範囲でお使いください。",
+  "landing.faq4Q": "音声はサーバーにアップロードされますか？",
+  "landing.faq4A": "いいえ。トラックの解析はブラウザ内で行われるため、ファイルが端末の外に出ることはありません。",
+  "landing.faq5Q": "BPMとキーの検出はどのくらい正確ですか？",
+  "landing.faq5A": "多くの人気ツールでも使われているessentiaというエンジンで動いています。2つのテンポで読み取れる曲も多いため（例えば85と170）、TuneBadは両方を表示して、しっくりくる方を選べるようにしています。",
+  "landing.faq6Q": "slowed + reverbとは何ですか？",
+  "landing.faq6A": "トラックを遅くして、たっぷりリバーブをかけた、夢見心地で浮遊感のあるリミックススタイルのことです。Slowed + Reverb スタジオで作成して、気に入った仕上がりになったら書き出せます。",
 };
 
 export default ja;

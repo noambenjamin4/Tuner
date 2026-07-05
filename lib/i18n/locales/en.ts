@@ -266,6 +266,37 @@ const en = {
   "footer.tagline": "Analyze. Convert. Create.",
   "footer.copyright": "© 2026 TuneBad",
   "footer.copyrightLink": "Copyright Disclaimer",
+
+  // Homepage landing / FAQ section
+  "landing.heading": "Free tools for producers and DJs",
+  "landing.lede":
+    "TuneBad is a free set of tools for anyone who works with music. Find a song's key, BPM, and loudness, turn a YouTube or Spotify link into an MP3, slow a track down and add reverb, change the pitch, or work out delay times for your mix. It all runs in your browser, with no ads and no account.",
+  "landing.value1Title": "100% free",
+  "landing.value1Body": "Every tool is free to use. No trial, no paywall, nothing to upgrade.",
+  "landing.value2Title": "No ads, no sign-up",
+  "landing.value2Body": "You don't need an account, and nothing pops up to get in the way.",
+  "landing.value3Title": "Stays on your device",
+  "landing.value3Body": "The analysis runs in your browser, so your files never get uploaded.",
+  "landing.value4Title": "All in one place",
+  "landing.value4Body": "Key and BPM, the converter, loudness, slowed + reverb, pitch, and delay times.",
+  "landing.faqHeading": "Frequently asked questions",
+  "landing.faq1Q": "How do I find the key and BPM of a song?",
+  "landing.faq1A":
+    "Open the Key & BPM Finder and drop in an audio file. In a few seconds you get the key, tempo, Camelot code, and loudness. No account needed.",
+  "landing.faq2Q": "Is TuneBad free?",
+  "landing.faq2A": "Yes, completely. No ads, no account, and nothing hidden behind a paywall.",
+  "landing.faq3Q": "Can I convert a YouTube or Spotify link to MP3?",
+  "landing.faq3A":
+    "Yes. Paste a YouTube, Spotify, or SoundCloud link into the Converter and save it as an MP3, WAV, or MP4. Please keep it to personal use.",
+  "landing.faq4Q": "Does my audio get uploaded to a server?",
+  "landing.faq4A":
+    "No. When you analyze a track, that happens right in your browser, so the file never leaves your device.",
+  "landing.faq5Q": "How accurate is the BPM and key detection?",
+  "landing.faq5A":
+    "It runs on essentia, the same engine behind a lot of the popular tools. Plenty of songs can be read at two tempos (say 85 or 170), so TuneBad shows both and lets you pick the one that feels right.",
+  "landing.faq6Q": "What is slowed + reverb?",
+  "landing.faq6A":
+    "It's that dreamy, spaced-out remix style where a track is slowed down with a lot of reverb on top. You can make one in the Slowed + Reverb studio and export it when it sounds right.",
 } as const;
 
 export default en;

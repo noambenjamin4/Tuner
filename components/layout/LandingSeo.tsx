@@ -1,78 +1,64 @@
-// Homepage-only SEO + positioning section. Renders below the tool (below the
-// fold) so it never clutters the tool-first UI, but gives Google indexable
-// content, the free/no-ads/no-sign-up angle, and an FAQ that's eligible for
-// rich results (matching FAQPage JSON-LD below, content visible).
+"use client";
 
-const VALUES: { title: string; body: string }[] = [
-  { title: "100% free", body: "Every tool is free to use. No trial, no paywall, nothing to upgrade." },
-  { title: "No ads, no sign-up", body: "You don't need an account, and nothing pops up to get in the way." },
-  { title: "Stays on your device", body: "The analysis runs in your browser, so your files never get uploaded." },
-  { title: "All in one place", body: "Key and BPM, the converter, loudness, slowed + reverb, pitch, and delay times." },
+// Homepage-only About/FAQ section. A client component so it renders in the
+// visitor's language via i18n, while still landing in the server HTML in
+// English (the I18nProvider's SSR default locale is "en"), which is what
+// crawlers index. The FAQPage JSON-LD stays canonical English regardless of
+// the visitor's locale.
+import { useI18n } from "@/lib/i18n";
+import en from "@/lib/i18n/locales/en";
+import type { DictKey } from "@/lib/i18n/locales/en";
+
+const VALUE_KEYS: { title: DictKey; body: DictKey }[] = [
+  { title: "landing.value1Title", body: "landing.value1Body" },
+  { title: "landing.value2Title", body: "landing.value2Body" },
+  { title: "landing.value3Title", body: "landing.value3Body" },
+  { title: "landing.value4Title", body: "landing.value4Body" },
 ];
 
-const FAQS: { q: string; a: string }[] = [
-  {
-    q: "How do I find the key and BPM of a song?",
-    a: "Open the Key & BPM Finder and drop in an audio file. In a few seconds you get the key, tempo, Camelot code, and loudness. No account needed.",
-  },
-  {
-    q: "Is TuneBad free?",
-    a: "Yes, completely. No ads, no account, and nothing hidden behind a paywall.",
-  },
-  {
-    q: "Can I convert a YouTube or Spotify link to MP3?",
-    a: "Yes. Paste a YouTube, Spotify, or SoundCloud link into the Converter and save it as an MP3, WAV, or MP4. Please keep it to personal use.",
-  },
-  {
-    q: "Does my audio get uploaded to a server?",
-    a: "No. When you analyze a track, that happens right in your browser, so the file never leaves your device.",
-  },
-  {
-    q: "How accurate is the BPM and key detection?",
-    a: "It runs on essentia, the same engine behind a lot of the popular tools. Plenty of songs can be read at two tempos (say 85 or 170), so TuneBad shows both and lets you pick the one that feels right.",
-  },
-  {
-    q: "What is slowed + reverb?",
-    a: "It's that dreamy, spaced-out remix style where a track is slowed down with a lot of reverb on top. You can make one in the Slowed + Reverb studio and export it when it sounds right.",
-  },
+const FAQ_KEYS: { q: DictKey; a: DictKey }[] = [
+  { q: "landing.faq1Q", a: "landing.faq1A" },
+  { q: "landing.faq2Q", a: "landing.faq2A" },
+  { q: "landing.faq3Q", a: "landing.faq3A" },
+  { q: "landing.faq4Q", a: "landing.faq4A" },
+  { q: "landing.faq5Q", a: "landing.faq5A" },
+  { q: "landing.faq6Q", a: "landing.faq6A" },
 ];
 
+// Canonical English schema, independent of the visitor's UI language.
 const FAQ_JSON_LD = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: FAQS.map((f) => ({
+  mainEntity: FAQ_KEYS.map((k) => ({
     "@type": "Question",
-    name: f.q,
-    acceptedAnswer: { "@type": "Answer", text: f.a },
+    name: en[k.q],
+    acceptedAnswer: { "@type": "Answer", text: en[k.a] },
   })),
 };
 
 export function LandingSeo() {
+  const { t } = useI18n();
   return (
     <section className="seo-landing" aria-label="About TuneBad">
       <div className="seo-inner">
-        <h2 className="seo-heading">Free tools for producers and DJs</h2>
-        <p className="seo-lede">
-          TuneBad is a free set of tools for anyone who works with music. Find a song&rsquo;s key, BPM, and loudness,
-          turn a YouTube or Spotify link into an MP3, slow a track down and add reverb, change the pitch, or work out
-          delay times for your mix. It all runs in your browser, with no ads and no account.
-        </p>
+        <h2 className="seo-heading">{t("landing.heading")}</h2>
+        <p className="seo-lede">{t("landing.lede")}</p>
 
         <ul className="seo-values">
-          {VALUES.map((v) => (
+          {VALUE_KEYS.map((v) => (
             <li key={v.title} className="seo-value">
-              <h3>{v.title}</h3>
-              <p>{v.body}</p>
+              <h3>{t(v.title)}</h3>
+              <p>{t(v.body)}</p>
             </li>
           ))}
         </ul>
 
-        <h2 className="seo-heading seo-heading-faq">Frequently asked questions</h2>
+        <h2 className="seo-heading seo-heading-faq">{t("landing.faqHeading")}</h2>
         <div className="seo-faq">
-          {FAQS.map((f) => (
+          {FAQ_KEYS.map((f) => (
             <details key={f.q} className="seo-faq-item">
-              <summary>{f.q}</summary>
-              <p>{f.a}</p>
+              <summary>{t(f.q)}</summary>
+              <p>{t(f.a)}</p>
             </details>
           ))}
         </div>

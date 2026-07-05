@@ -2,8 +2,8 @@ import { TunebadApp } from "@/components/TunebadApp";
 import { LandingSeo } from "@/components/layout/LandingSeo";
 
 export default function Home() {
-  // LandingSeo is passed as a server-rendered slot so its content + FAQPage
-  // JSON-LD land in the initial HTML (client components can't SSR their own body
-  // text here because the app's i18n renders on the client).
+  // Homepage-only slot. LandingSeo is a client component that localizes after
+  // hydration, but its SSR output is English (the i18n provider's default), so
+  // the content + FAQPage JSON-LD still land in the crawlable initial HTML.
   return <TunebadApp landingSlot={<LandingSeo />} />;
 }

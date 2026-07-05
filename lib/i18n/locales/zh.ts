@@ -249,6 +249,31 @@ const zh: Record<keyof typeof en, string> = {
   "footer.tagline": "分析。转换。创作。",
   "footer.copyright": "© 2026 TuneBad",
   "footer.copyrightLink": "版权声明",
+
+  // Homepage landing / FAQ section
+  "landing.heading": "为制作人和DJ准备的免费工具",
+  "landing.lede": "TuneBad是一套免费的音乐工具，适合所有和音乐打交道的人。你可以查找歌曲的调性、BPM和响度，把YouTube或Spotify链接转成MP3，给音轨降速并加上混响，改变音高，或者计算混音用的延迟时间。一切都在浏览器里运行，没有广告，也不用注册账号。",
+  "landing.value1Title": "100%免费",
+  "landing.value1Body": "所有工具都免费使用。没有试用期，没有付费墙，也没有需要升级的版本。",
+  "landing.value2Title": "无广告，免注册",
+  "landing.value2Body": "不需要账号，也不会有任何弹窗打扰你。",
+  "landing.value3Title": "数据不离开你的设备",
+  "landing.value3Body": "分析在你的浏览器里完成，文件永远不会被上传。",
+  "landing.value4Title": "一站式工具",
+  "landing.value4Body": "调性和BPM、转换器、响度、slowed + reverb、音高，还有延迟时间。",
+  "landing.faqHeading": "常见问题",
+  "landing.faq1Q": "怎么查一首歌的调性和BPM？",
+  "landing.faq1A": "打开调性和BPM查找工具，放入一个音频文件。几秒钟后就能看到调性、速度、Camelot编号和响度。无需账号。",
+  "landing.faq2Q": "TuneBad是免费的吗？",
+  "landing.faq2A": "是的，完全免费。没有广告，不用账号，也没有藏在付费墙后面的东西。",
+  "landing.faq3Q": "可以把YouTube或Spotify链接转成MP3吗？",
+  "landing.faq3A": "可以。把YouTube、Spotify或SoundCloud链接粘贴到转换器里，然后保存为MP3、WAV或MP4。请仅用于个人用途。",
+  "landing.faq4Q": "我的音频会被上传到服务器吗？",
+  "landing.faq4A": "不会。分析音轨时，一切都在你的浏览器里进行，文件不会离开你的设备。",
+  "landing.faq5Q": "BPM和调性检测有多准确？",
+  "landing.faq5A": "它基于essentia运行，很多热门工具背后用的也是这个引擎。不少歌曲可以按两种速度来解读（比如85或170），所以TuneBad会同时显示两个，让你选择听起来更合适的那个。",
+  "landing.faq6Q": "什么是slowed + reverb？",
+  "landing.faq6A": "就是那种把音轨放慢、再铺上大量混响的梦幻空灵混音风格。你可以在 Slowed + Reverb 工作室里制作一首，觉得满意后导出。",
 };
 
 export default zh;

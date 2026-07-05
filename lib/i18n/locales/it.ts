@@ -250,6 +250,31 @@ const it: Record<keyof typeof en, string> = {
   "footer.tagline": "Analizza. Converti. Crea.",
   "footer.copyright": "© 2026 TuneBad",
   "footer.copyrightLink": "Avviso sul copyright",
+
+  // Homepage landing / FAQ section
+  "landing.heading": "Strumenti gratuiti per producer e DJ",
+  "landing.lede": "TuneBad è una raccolta gratuita di strumenti per chi lavora con la musica. Trova tonalità, BPM e loudness di un brano, trasforma un link YouTube o Spotify in un MP3, rallenta una traccia e aggiungi il reverb, cambia l'intonazione o calcola i tempi di delay per il tuo mix. Tutto funziona nel browser, senza pubblicità e senza account.",
+  "landing.value1Title": "100% gratuito",
+  "landing.value1Body": "Ogni strumento è gratuito. Nessuna prova, nessun paywall, niente da sbloccare.",
+  "landing.value2Title": "Niente pubblicità, niente registrazione",
+  "landing.value2Body": "Non serve un account e non compare nulla a intralciarti.",
+  "landing.value3Title": "Resta sul tuo dispositivo",
+  "landing.value3Body": "L'analisi avviene nel tuo browser, quindi i tuoi file non vengono mai caricati online.",
+  "landing.value4Title": "Tutto in un unico posto",
+  "landing.value4Body": "Tonalità e BPM, il convertitore, il loudness, slowed + reverb, intonazione e tempi di delay.",
+  "landing.faqHeading": "Domande frequenti",
+  "landing.faq1Q": "Come trovo la tonalità e i BPM di un brano?",
+  "landing.faq1A": "Apri il rilevatore di tonalità e BPM e trascina dentro un file audio. In pochi secondi ottieni tonalità, tempo, codice Camelot e loudness. Nessun account richiesto.",
+  "landing.faq2Q": "TuneBad è gratuito?",
+  "landing.faq2A": "Sì, completamente. Niente pubblicità, niente account e nulla nascosto dietro un paywall.",
+  "landing.faq3Q": "Posso convertire un link YouTube o Spotify in MP3?",
+  "landing.faq3A": "Sì. Incolla un link YouTube, Spotify o SoundCloud nel convertitore e salvalo come MP3, WAV o MP4. Per favore, limitati all'uso personale.",
+  "landing.faq4Q": "Il mio audio viene caricato su un server?",
+  "landing.faq4A": "No. Quando analizzi una traccia, tutto avviene direttamente nel tuo browser, quindi il file non lascia mai il tuo dispositivo.",
+  "landing.faq5Q": "Quanto è accurato il rilevamento di BPM e tonalità?",
+  "landing.faq5A": "Si basa su essentia, lo stesso motore dietro molti degli strumenti più diffusi. Parecchi brani possono essere letti a due tempi (per esempio 85 o 170), quindi TuneBad li mostra entrambi e ti lascia scegliere quello che suona giusto.",
+  "landing.faq6Q": "Cos'è lo slowed + reverb?",
+  "landing.faq6A": "È quello stile di remix sognante e rarefatto in cui una traccia viene rallentata con tanto reverb sopra. Puoi crearne uno nello Studio Slowed + Reverb ed esportarlo quando suona come vuoi.",
 };
 
 export default it;

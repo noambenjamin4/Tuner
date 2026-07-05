@@ -250,6 +250,31 @@ const pt: Record<keyof typeof en, string> = {
   "footer.tagline": "Analise. Converta. Crie.",
   "footer.copyright": "© 2026 TuneBad",
   "footer.copyrightLink": "Aviso de direitos autorais",
+
+  // Homepage landing / FAQ section
+  "landing.heading": "Ferramentas grátis para produtores e DJs",
+  "landing.lede": "O TuneBad é um conjunto gratuito de ferramentas para quem trabalha com música. Descubra a tonalidade, o BPM e o loudness de uma música, transforme um link do YouTube ou do Spotify em MP3, deixe uma faixa mais lenta e adicione reverb, mude o tom ou calcule os tempos de delay para o seu mix. Tudo roda no seu navegador, sem anúncios e sem conta.",
+  "landing.value1Title": "100% grátis",
+  "landing.value1Body": "Todas as ferramentas são gratuitas. Sem período de teste, sem paywall, nada para desbloquear.",
+  "landing.value2Title": "Sem anúncios, sem cadastro",
+  "landing.value2Body": "Você não precisa de conta, e nada aparece para atrapalhar.",
+  "landing.value3Title": "Fica no seu dispositivo",
+  "landing.value3Body": "A análise roda no seu navegador, então seus arquivos nunca são enviados para lugar nenhum.",
+  "landing.value4Title": "Tudo em um só lugar",
+  "landing.value4Body": "Tonalidade e BPM, o conversor, loudness, slowed + reverb, tom e tempos de delay.",
+  "landing.faqHeading": "Perguntas frequentes",
+  "landing.faq1Q": "Como encontro a tonalidade e o BPM de uma música?",
+  "landing.faq1A": "Abra o localizador de tonalidade e BPM e solte um arquivo de áudio. Em poucos segundos você recebe a tonalidade, o tempo, o código Camelot e o loudness. Sem precisar de conta.",
+  "landing.faq2Q": "O TuneBad é grátis?",
+  "landing.faq2A": "Sim, totalmente. Sem anúncios, sem conta e sem nada escondido atrás de um paywall.",
+  "landing.faq3Q": "Posso converter um link do YouTube ou do Spotify em MP3?",
+  "landing.faq3A": "Sim. Cole um link do YouTube, do Spotify ou do SoundCloud no conversor e salve como MP3, WAV ou MP4. Por favor, use apenas para fins pessoais.",
+  "landing.faq4Q": "Meu áudio é enviado para algum servidor?",
+  "landing.faq4A": "Não. Quando você analisa uma faixa, tudo acontece direto no seu navegador, então o arquivo nunca sai do seu dispositivo.",
+  "landing.faq5Q": "Qual é a precisão da detecção de BPM e tonalidade?",
+  "landing.faq5A": "Ela roda no essentia, o mesmo motor por trás de muitas das ferramentas populares. Muitas músicas podem ser lidas em dois tempos (85 ou 170, por exemplo), então o TuneBad mostra os dois e deixa você escolher o que soa certo.",
+  "landing.faq6Q": "O que é slowed + reverb?",
+  "landing.faq6A": "É aquele estilo de remix sonhador e espacial em que a faixa é desacelerada com bastante reverb por cima. Você pode criar o seu no Estúdio Slowed + Reverb e exportar quando estiver soando bem.",
 };
 
 export default pt;

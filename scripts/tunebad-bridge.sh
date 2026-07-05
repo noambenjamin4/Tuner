@@ -48,7 +48,13 @@ publish_url() {
 node server/server.js >> "$LOG" 2>&1 &
 SERVER_PID=$!
 
-cleanup() { kill "$SERVER_PID" "${TUNNEL_PID:-}" 2>/dev/null; exit 0; }
+# Keep the Mac from SYSTEM-sleeping while the bridge runs, but only on AC
+# power (-s asserts nothing on battery), so plugged in = downloads always
+# available; the display still sleeps normally. Dies with the server.
+caffeinate -s -w "$SERVER_PID" &
+CAFFEINATE_PID=$!
+
+cleanup() { kill "$SERVER_PID" "${TUNNEL_PID:-}" "${CAFFEINATE_PID:-}" 2>/dev/null; exit 0; }
 trap cleanup TERM INT
 
 # Wait for the server to answer before opening the tunnel.

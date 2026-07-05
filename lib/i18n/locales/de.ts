@@ -250,6 +250,31 @@ const de: Record<keyof typeof en, string> = {
   "footer.tagline": "Analysieren. Konvertieren. Erschaffen.",
   "footer.copyright": "© 2026 TuneBad",
   "footer.copyrightLink": "Urheberrechtshinweis",
+
+  // Homepage landing / FAQ section
+  "landing.heading": "Kostenlose Tools für Producer und DJs",
+  "landing.lede": "TuneBad ist eine kostenlose Sammlung von Tools für alle, die mit Musik arbeiten. Finde Tonart, BPM und Loudness eines Songs, mach aus einem YouTube- oder Spotify-Link ein MP3, verlangsame einen Track und leg Reverb darüber, ändere die Tonhöhe oder berechne Delay-Zeiten für deinen Mix. Alles läuft in deinem Browser, ohne Werbung und ohne Konto.",
+  "landing.value1Title": "100% kostenlos",
+  "landing.value1Body": "Jedes Tool ist kostenlos nutzbar. Keine Testphase, keine Paywall, nichts zum Upgraden.",
+  "landing.value2Title": "Keine Werbung, keine Anmeldung",
+  "landing.value2Body": "Du brauchst kein Konto, und nichts poppt auf und steht dir im Weg.",
+  "landing.value3Title": "Bleibt auf deinem Gerät",
+  "landing.value3Body": "Die Analyse läuft in deinem Browser, deine Dateien werden also nie hochgeladen.",
+  "landing.value4Title": "Alles an einem Ort",
+  "landing.value4Body": "Tonart und BPM, der Konverter, Loudness, slowed + reverb, Tonhöhe und Delay-Zeiten.",
+  "landing.faqHeading": "Häufig gestellte Fragen",
+  "landing.faq1Q": "Wie finde ich Tonart und BPM eines Songs?",
+  "landing.faq1A": "Öffne den Tonart- und BPM-Finder und zieh eine Audiodatei hinein. Nach ein paar Sekunden bekommst du Tonart, Tempo, Camelot-Code und Loudness. Ganz ohne Konto.",
+  "landing.faq2Q": "Ist TuneBad kostenlos?",
+  "landing.faq2A": "Ja, komplett. Keine Werbung, kein Konto und nichts hinter einer Paywall versteckt.",
+  "landing.faq3Q": "Kann ich einen YouTube- oder Spotify-Link in ein MP3 umwandeln?",
+  "landing.faq3A": "Ja. Füge einen YouTube-, Spotify- oder SoundCloud-Link in den Konverter ein und speichere ihn als MP3, WAV oder MP4. Bitte nur für den persönlichen Gebrauch.",
+  "landing.faq4Q": "Wird mein Audio auf einen Server hochgeladen?",
+  "landing.faq4A": "Nein. Wenn du einen Track analysierst, passiert das direkt in deinem Browser, die Datei verlässt dein Gerät also nie.",
+  "landing.faq5Q": "Wie genau ist die BPM- und Tonart-Erkennung?",
+  "landing.faq5A": "Sie läuft auf essentia, derselben Engine, die hinter vielen der bekannten Tools steckt. Viele Songs lassen sich in zwei Tempi lesen (etwa 85 oder 170), deshalb zeigt TuneBad beide an und lässt dich das Tempo auswählen, das sich richtig anfühlt.",
+  "landing.faq6Q": "Was ist slowed + reverb?",
+  "landing.faq6A": "Das ist dieser verträumte, sphärische Remix-Stil, bei dem ein Track verlangsamt und mit viel Reverb versehen wird. Im Slowed + Reverb Studio kannst du selbst einen bauen und exportieren, sobald er gut klingt.",
 };
 
 export default de;

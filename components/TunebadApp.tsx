@@ -23,7 +23,8 @@ const VIEW_NAMES: ViewName[] = ["analysis", "bpm", "delay", "pitch", "converter"
 // Each tool has a real, clean URL (no #hash). Switching tabs updates the address
 // bar to these paths via the History API — no page reload, so app state is kept —
 // and each path is a real server route (see app/<path>/page.tsx) on refresh/share.
-const VIEW_TO_PATH: Record<ViewName, string> = {
+// Exported so NavTabs/Footer can render real <a href> links (crawlable).
+export const VIEW_TO_PATH: Record<ViewName, string> = {
   analysis: "/key-bpm-finder",
   bpm: "/bpm-tap",
   delay: "/delay-reverb-calculator",
@@ -239,7 +240,11 @@ export function TunebadApp({
               <HistoryPanel />
             </section>
           </main>
-          {landingSlot}
+          {/* Homepage-only About/FAQ section. Hidden client-side once the user
+              switches to another tool so it doesn't trail unrelated views; the
+              SSR HTML (what crawlers see) always contains it since view starts
+              at initialView. */}
+          {view === initialView && landingSlot}
           <Footer />
         </div>
       </I18nProvider>

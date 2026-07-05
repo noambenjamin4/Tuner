@@ -1,6 +1,6 @@
 "use client";
 
-import { useTunebad, type ViewName } from "../TunebadApp";
+import { useTunebad, VIEW_TO_PATH, type ViewName } from "../TunebadApp";
 import { useI18n } from "@/lib/i18n";
 import type { DictKey } from "@/lib/i18n/locales/en";
 
@@ -21,17 +21,22 @@ export function NavTabs({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <>
       {TABS.map((tab) => (
-        <button
+        <a
           key={tab.page}
           className={`ghost-button${view === tab.page ? " active" : ""}`}
-          type="button"
-          onClick={() => {
+          href={VIEW_TO_PATH[tab.page]}
+          aria-current={view === tab.page ? "page" : undefined}
+          onClick={(event) => {
+            // Real hrefs keep these links crawlable and let cmd/ctrl-click open
+            // a tab; a plain left-click stays in the SPA (no reload).
+            if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+            event.preventDefault();
             showView(tab.page);
             onNavigate?.();
           }}
         >
           {t(tab.labelKey)}
-        </button>
+        </a>
       ))}
     </>
   );

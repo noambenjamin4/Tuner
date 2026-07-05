@@ -3,7 +3,8 @@ import type { MetadataRoute } from "next";
 // Real crawlable routes. Each tool now has its own indexable URL (they render the
 // same app, opened on that tool) so Google can rank each one for its own search.
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://tunebad.com";
+  // Must match SITE_URL in app/layout.tsx (www is the Vercel primary domain).
+  const base = "https://www.tunebad.com";
   const now = new Date();
   const tool = (path: string): MetadataRoute.Sitemap[number] => ({
     url: `${base}${path}`,

@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://tunebad.com/sitemap.xml
+Sitemap: https://www.tunebad.com/sitemap.xml

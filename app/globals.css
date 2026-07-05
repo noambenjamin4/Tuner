@@ -507,6 +507,9 @@ input[type="number"] {
   padding: 8px 16px;
   background: transparent;
   color: var(--ink);
+  /* Nav tabs are now real <a> links (crawlable); strip link defaults. */
+  text-decoration: none;
+  cursor: pointer;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 12px;
@@ -2367,6 +2370,30 @@ tbody tr:last-child td {
   letter-spacing: 0.02em;
 }
 
+/* Crawlable tool links row (labels reuse nav.* i18n keys). */
+.site-footer-tools {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 18px;
+  margin: 10px 0 4px;
+}
+
+.site-footer-tools a {
+  color: var(--muted);
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.site-footer-tools a:hover {
+  color: var(--ink);
+}
+
 .site-footer-legal {
   margin-top: 2px;
 }
@@ -2642,6 +2669,8 @@ tbody tr:last-child td {
 .seo-faq-item {
   border-bottom: 1px solid var(--line);
 }
+/* Keyboard focus outline comes from the global :focus-visible rule near the
+   top of this file; only hover needs a dedicated affordance here. */
 .seo-faq-item summary {
   cursor: pointer;
   list-style: none;
@@ -2650,6 +2679,15 @@ tbody tr:last-child td {
   font-weight: 700;
   color: var(--ink);
   font-size: 1rem;
+  transition: color 160ms ease;
+}
+
+.seo-faq-item summary:hover {
+  color: var(--muted);
+}
+
+.seo-faq-item summary:hover::after {
+  color: var(--ink);
 }
 .seo-faq-item summary::-webkit-details-marker {
   display: none;

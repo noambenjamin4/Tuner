@@ -26,9 +26,12 @@ const baloo2 = Baloo_2({
 const TITLE = "Free Key & BPM Finder for Any Song | TuneBad";
 const DESCRIPTION =
   "Find the key, BPM, and loudness of any song for free. Upload a file or paste a YouTube, Spotify, or SoundCloud link and convert it to MP3, WAV, or MP4, all in your browser.";
+// The production primary domain (Vercel serves www; bare tunebad.com 308s to it).
+// Must match the Google Search Console property. Keep sitemap.ts + robots.txt in sync.
+const SITE_URL = "https://www.tunebad.com";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tunebad.com"),
+  metadataBase: new URL(SITE_URL),
   applicationName: "TuneBad",
   title: {
     default: TITLE,
@@ -111,25 +114,25 @@ const STRUCTURED_DATA = {
   "@graph": [
     {
       "@type": "WebSite",
-      "@id": "https://tunebad.com/#website",
-      url: "https://tunebad.com/",
+      "@id": `${SITE_URL}/#website`,
+      url: `${SITE_URL}/`,
       name: "TuneBad",
       description: DESCRIPTION,
-      publisher: { "@id": "https://tunebad.com/#org" },
+      publisher: { "@id": `${SITE_URL}/#org` },
       inLanguage: "en",
     },
     {
       "@type": "Organization",
-      "@id": "https://tunebad.com/#org",
+      "@id": `${SITE_URL}/#org`,
       name: "TuneBad",
-      url: "https://tunebad.com/",
-      logo: "https://tunebad.com/icon-512.png",
+      url: `${SITE_URL}/`,
+      logo: `${SITE_URL}/icon-512.png`,
     },
     {
       "@type": ["WebApplication", "SoftwareApplication"],
-      "@id": "https://tunebad.com/#app",
+      "@id": `${SITE_URL}/#app`,
       name: "TuneBad",
-      url: "https://tunebad.com/",
+      url: `${SITE_URL}/`,
       applicationCategory: "MultimediaApplication",
       operatingSystem: "Any (web browser)",
       browserRequirements: "Requires JavaScript. Requires HTML5.",
@@ -137,6 +140,7 @@ const STRUCTURED_DATA = {
       offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
       featureList: [
         "Key & BPM finder for any song",
+        "BPM tap tempo and metronome",
         "Loudness (LUFS) meter",
         "Pitch shifter",
         "Delay & reverb time calculator",

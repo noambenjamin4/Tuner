@@ -257,6 +257,7 @@ export function CutterPanel() {
           <input
             ref={inputRef}
             type="file"
+            aria-label={t("common.browseFiles")}
             accept="audio/*,.mp3,.wav,.m4a,.ogg,.flac"
             onChange={(event) => {
               void handleFiles([...(event.target.files || [])]);

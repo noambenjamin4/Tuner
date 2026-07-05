@@ -551,45 +551,9 @@ main {
   margin-top: 64px;
 }
 
-/* View transitions: CSS animations re-run whenever `display` flips from
-   `none` to `block` (a browser guarantee), so switching tabs re-triggers
-   this without any React remount/key trick. Transform/opacity only. */
-@media (prefers-reduced-motion: no-preference) {
-  /* Only on tab SWITCHES (after the initial-reveal window) — the first
-     paint must render the hero instantly or LCP waits out the animation. */
-  .app-shell:not(.initial-reveal) .page-view.active {
-    animation: view-in 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
-  }
-
-  .app-shell:not(.initial-reveal) .page-view.active h1 {
-    animation: heading-rise 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
-    animation-delay: 60ms;
-  }
-}
-
-@keyframes view-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes heading-rise {
-  from {
-    opacity: 0;
-    clip-path: inset(100% 0 0 0);
-    transform: translateY(12px);
-  }
-  to {
-    opacity: 1;
-    clip-path: inset(0 0 0 0);
-    transform: translateY(0);
-  }
-}
+/* Tab switches change views instantly, with no view-in / heading-rise
+   animation (removed at Noam's request). The initial page-load reveal
+   below is separate and still runs once on first mount. */
 
 /* First-load cascade: header, then the active panel's major direct
    children, fade up in a short stagger. Scoped to `.initial-reveal`, a class

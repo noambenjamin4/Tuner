@@ -2,12 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { NavTabs } from "./NavTabs";
-import { useTunebad } from "../TunebadApp";
 import { LanguageMenu } from "@/components/ui/LanguageMenu";
 import { NOW_PLAYING_EVENT, isAnyAudioPlaying, type NowPlayingDetail } from "@/lib/audio/now-playing";
 
 export function TopBar() {
-  const { showView } = useTunebad();
   const [menuOpen, setMenuOpen] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -39,16 +37,7 @@ export function TopBar() {
       <div ref={sentinelRef} aria-hidden="true" className="scroll-sentinel" />
       <header className={`topbar${scrolled ? " scrolled" : ""}`}>
         <div className="topbar-inner">
-          <a
-            className="brand"
-            href="#analysis"
-            aria-label="TuneBad home"
-            onClick={(event) => {
-              event.preventDefault();
-              showView("analysis");
-              setMenuOpen(false);
-            }}
-          >
+          <a className="brand" href="/" aria-label="TuneBad home" onClick={() => setMenuOpen(false)}>
             <span className={`brand-logo-wrap${playing ? " spinning" : ""}`}>
               <picture>
                 <source media="(prefers-color-scheme: dark)" srcSet="/logo-dark.png" />

@@ -20,6 +20,25 @@ export type ViewName = "analysis" | "bpm" | "delay" | "pitch" | "converter" | "l
 
 const VIEW_NAMES: ViewName[] = ["analysis", "bpm", "delay", "pitch", "converter", "loudness", "remix", "history"];
 
+// Each tool has a real, clean URL (no #hash). Switching tabs updates the address
+// bar to these paths via the History API — no page reload, so app state is kept —
+// and each path is a real server route (see app/<path>/page.tsx) on refresh/share.
+const VIEW_TO_PATH: Record<ViewName, string> = {
+  analysis: "/key-bpm-finder",
+  bpm: "/bpm-tap",
+  delay: "/delay-reverb-calculator",
+  pitch: "/pitch-shifter",
+  converter: "/converter",
+  loudness: "/loudness",
+  remix: "/slowed-reverb",
+  history: "/history",
+};
+
+function viewForPath(pathname: string): ViewName | null {
+  const match = (Object.keys(VIEW_TO_PATH) as ViewName[]).find((v) => VIEW_TO_PATH[v] === pathname);
+  return match ?? null;
+}
+
 interface TunebadContextValue {
   view: ViewName;
   showView(view: ViewName): void;
@@ -64,6 +83,13 @@ export function TunebadApp({ initialView = "analysis" }: { initialView?: ViewNam
   const { items: history, rememberResult, clearHistory } = useHistory();
 
   useEffect(() => {
+    // Sync the view from the real path first (e.g. /converter), then fall back to
+    // legacy #hash links so old bookmarks still work.
+    const byPath = viewForPath(window.location.pathname);
+    if (byPath) {
+      setView(byPath);
+      return;
+    }
     const initial = window.location.hash.replace("#", "");
     if (VIEW_NAMES.includes(initial as ViewName)) setView(initial as ViewName);
   }, []);
@@ -77,7 +103,7 @@ export function TunebadApp({ initialView = "analysis" }: { initialView?: ViewNam
 
   const showView = useCallback((next: ViewName) => {
     setView(next);
-    window.history.replaceState(null, "", `#${next}`);
+    window.history.replaceState(null, "", VIEW_TO_PATH[next]);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 

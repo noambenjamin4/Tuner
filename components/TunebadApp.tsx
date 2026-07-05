@@ -1,13 +1,12 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import type { AnalysisResult, HistoryEntry } from "@/types/analysis";
 import { clampBpm } from "@/lib/format";
 import { useHistory } from "@/hooks/useHistory";
 import { I18nProvider } from "@/lib/i18n";
 import { TopBar } from "./layout/TopBar";
 import { Footer } from "./layout/Footer";
-import { LandingSeo } from "./layout/LandingSeo";
 import { AnalyzerPanel } from "./analysis/AnalyzerPanel";
 import { BpmToolsView } from "./bpm/BpmToolsView";
 import { DelayCalculator } from "./delay/DelayCalculator";
@@ -70,8 +69,8 @@ export function useTunebad(): TunebadContextValue {
 
 export function TunebadApp({
   initialView = "analysis",
-  landing = false,
-}: { initialView?: ViewName; landing?: boolean } = {}) {
+  landingSlot,
+}: { initialView?: ViewName; landingSlot?: ReactNode } = {}) {
   const [view, setView] = useState<ViewName>(initialView);
   // Gates the first-load cascade (header + active panel's children fading up
   // in a stagger). True only for the very first paint; flipped off shortly
@@ -240,7 +239,7 @@ export function TunebadApp({
               <HistoryPanel />
             </section>
           </main>
-          {landing && <LandingSeo />}
+          {landingSlot}
           <Footer />
         </div>
       </I18nProvider>

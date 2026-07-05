@@ -35,13 +35,20 @@ export YTDLP_MAX_JOB_STARTS=60
 cd "$DIR" || exit 1
 [ -x bin/yt-dlp ] || npm run setup:ytdlp >> "$LOG" 2>&1
 
-# Publishes a tunnel URL to the Edge Config store the website reads. Uses the
-# Mac's persistent Vercel CLI auth (no token stored in this script).
+# Publishes a tunnel URL to the Edge Config store the website reads. Prefers a
+# long-lived VERCEL_TOKEN from the env file (survives reboots, never expires
+# like an interactive login), and falls back to the Mac's Vercel CLI auth when
+# no token is set. VERCEL_TOKEN is optional but recommended for reliability.
 publish_url() {
   local url="$1"
-  npx --yes vercel edge-config update "$EDGE_CONFIG_ID" \
-    --patch "{\"items\":[{\"operation\":\"upsert\",\"key\":\"bridgeUrl\",\"value\":\"$url\"}]}" \
-    >> "$LOG" 2>&1 && echo "$(date '+%H:%M:%S') published $url" >> "$LOG"
+  local args=(--yes vercel edge-config update "$EDGE_CONFIG_ID"
+    --patch "{\"items\":[{\"operation\":\"upsert\",\"key\":\"bridgeUrl\",\"value\":\"$url\"}]}")
+  [ -n "${VERCEL_TOKEN:-}" ] && args+=(--token "$VERCEL_TOKEN")
+  if npx "${args[@]}" >> "$LOG" 2>&1; then
+    echo "$(date '+%H:%M:%S') published $url" >> "$LOG"
+  else
+    echo "$(date '+%H:%M:%S') PUBLISH FAILED for $url — run 'npx vercel login' or set VERCEL_TOKEN in scripts/tunebad-bridge.env" >> "$LOG"
+  fi
 }
 
 # Start the download server (loopback only).

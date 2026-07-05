@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Copyright Disclaimer",
   description:
-    "TuneBad Copyright Disclaimer — the terms governing use of TuneBad's analysis and conversion tools, and its policy on copyrighted material.",
+    "The TuneBad Copyright Disclaimer: the terms that cover how you use TuneBad's analysis and conversion tools, and its policy on copyrighted material.",
   alternates: { canonical: "/copyright" },
 };
 
@@ -14,7 +14,7 @@ export default function CopyrightPage() {
   return (
     <div className="app-shell">
       <header className="legal-topbar">
-        <Link href="/" className="brand" aria-label="TuneBad — back to home">
+        <Link href="/" className="brand" aria-label="TuneBad, back to home">
           <span className="brand-logo-wrap">
             <picture>
               <source media="(prefers-color-scheme: dark)" srcSet="/logo-dark.png" />
@@ -55,10 +55,10 @@ export default function CopyrightPage() {
           <h2>2. How TuneBad works, and disclaimer of liability</h2>
           <p>
             TuneBad is a neutral technical tool. Audio analysis runs entirely in your own web browser. Link conversions
-            are processed transiently — on the operator&rsquo;s own personal machine or through a short-lived process
-            — and the resulting file is streamed directly to you. TuneBad does not host, store, catalog, index, or
-            distribute media files or converted outputs; any temporary files created during a conversion are deleted
-            automatically.
+            are processed temporarily, either on the operator&rsquo;s own personal machine or through a short-lived
+            process, and the resulting file is streamed directly to you. TuneBad does not host, store, catalog, index,
+            or distribute media files or converted outputs, and any temporary files created during a conversion are
+            deleted automatically.
           </p>
           <p>Accordingly:</p>
           <ul>

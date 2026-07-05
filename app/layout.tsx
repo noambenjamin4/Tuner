@@ -23,9 +23,9 @@ const baloo2 = Baloo_2({
   variable: "--font-display",
 });
 
-const TITLE = "Key & BPM of Any Song — Free Music Analyzer | TuneBad";
+const TITLE = "Free Key & BPM Finder for Any Song | TuneBad";
 const DESCRIPTION =
-  "Find the key, BPM, and loudness of any song, free in your browser. Analyze an audio file or paste a YouTube, Spotify, or SoundCloud link, then convert to MP3, WAV, or MP4.";
+  "Find the key, BPM, and loudness of any song for free. Upload a file or paste a YouTube, Spotify, or SoundCloud link and convert it to MP3, WAV, or MP4, all in your browser.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://tunebad.com"),

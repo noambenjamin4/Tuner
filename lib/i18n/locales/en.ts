@@ -117,7 +117,7 @@ const en = {
   // Converter (shared)
   "converter.title": "Converter",
   "converter.subtitle":
-    "Download from YouTube, Spotify, SoundCloud and more — as MP3, WAV, or MP4. Or convert a local audio file.",
+    "Download from YouTube, Spotify, SoundCloud, and more as an MP3, WAV, or MP4. You can also convert a file from your computer.",
   "converter.titleLocalOnly": "Converter",
   "converter.subtitleLocalOnly": "Convert a local audio file to MP3 or sample-exact WAV.",
   "converter.audioFile": "Audio File",
@@ -147,7 +147,7 @@ const en = {
 
   // YouTube downloader
   "ytDownloader.title": "Paste a Link",
-  "ytDownloader.subtitle": "YouTube, SoundCloud, Bandcamp, Vimeo, Mixcloud, Audiomack, Spotify — personal use only. The first conversion may take a minute to wake up.",
+  "ytDownloader.subtitle": "Works with YouTube, SoundCloud, Bandcamp, Vimeo, Mixcloud, Audiomack, and Spotify. For personal use only. The first conversion can take a minute to wake up.",
   "ytDownloader.trackUrl": "Track URL",
   "ytDownloader.urlPlaceholder": "Paste a YouTube or SoundCloud link...",
   "ytDownloader.autoAnalyze": "Auto-analyze after download",

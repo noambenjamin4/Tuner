@@ -4,7 +4,7 @@ import { TunebadApp } from "@/components/TunebadApp";
 export const metadata: Metadata = {
   title: "Delay & Reverb Time Calculator",
   description:
-    "Free delay and reverb time calculator. Get exact delay times in milliseconds and Hz for any BPM — 1/1 to 1/64, dotted and triplet — plus reverb pre-delay and decay presets.",
+    "Free delay and reverb time calculator. Enter a BPM and get the delay times in milliseconds and Hz, from 1/1 down to 1/64, including dotted and triplet, plus reverb pre-delay and decay presets.",
   alternates: { canonical: "/delay-reverb-calculator" },
 };
 

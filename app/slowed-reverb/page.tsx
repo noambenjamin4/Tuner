@@ -4,7 +4,7 @@ import { TunebadApp } from "@/components/TunebadApp";
 export const metadata: Metadata = {
   title: "Slowed + Reverb Maker",
   description:
-    "Make a slowed and reverb (or sped up / nightcore) version of any song online. Adjust speed, pitch, and reverb, then export the result — free, in your browser.",
+    "Make a slowed and reverb version of any song, or speed it up for a nightcore edit. Set the speed, pitch, and reverb, then export it. Free, right in your browser.",
   alternates: { canonical: "/slowed-reverb" },
 };
 

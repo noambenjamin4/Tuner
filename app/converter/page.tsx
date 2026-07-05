@@ -4,7 +4,7 @@ import { TunebadApp } from "@/components/TunebadApp";
 export const metadata: Metadata = {
   title: "YouTube & Spotify to MP3 Converter",
   description:
-    "Convert YouTube, Spotify, and SoundCloud links to MP3, WAV, or MP4. Free online audio converter and downloader — no signup, runs in your browser.",
+    "Turn YouTube, Spotify, and SoundCloud links into MP3, WAV, or MP4 files. Free to use, no sign-up, and it all runs in your browser.",
   alternates: { canonical: "/converter" },
 };
 

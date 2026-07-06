@@ -139,6 +139,11 @@ async function startJob(sanitizedUrl, quality, format, trimSilence, searchQuery)
 
   const args = [
     "--no-playlist",
+    // yt-dlp now needs a JavaScript runtime to solve YouTube's signature
+    // challenge; without one, formats get skipped and media downloads 403.
+    // Node is present wherever this server runs (Mac bridge + Render image),
+    // so point yt-dlp at it via PATH lookup.
+    "--js-runtimes", "node",
     ...(format === "mp4"
       ? [
           "-f",

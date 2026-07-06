@@ -96,6 +96,9 @@ export async function startYouTubeJob(
 
   const args = [
     "--no-playlist",
+    // yt-dlp needs a JS runtime to solve YouTube's signature challenge, or
+    // media downloads 403. Mirrors server/server.js. Node is always present.
+    "--js-runtimes", "node",
     ...(format === "mp4"
       ? [
           "-f",

@@ -158,6 +158,10 @@ async function startJob(sanitizedUrl, quality, format, trimSilence, searchQuery)
           // WAV is lossless PCM; bitrate only applies to MP3
           ...(format === "mp3" ? ["--audio-quality", `${quality}K`] : []),
         ]),
+    // Professional files: title/artist ID3 tags plus the video thumbnail as
+    // cover art. WAV is excluded — yt-dlp can't embed thumbnails in PCM WAV
+    // and errors out. ffmpeg (already required) handles the embedding.
+    ...(format !== "wav" ? ["--embed-metadata", "--embed-thumbnail"] : []),
     "--ffmpeg-location", FFMPEG_PATH,
     "--match-filter", "duration <= 5400",
     "--max-filesize", format === "mp4" ? "2G" : "300M",

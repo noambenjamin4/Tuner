@@ -113,6 +113,10 @@ export async function startYouTubeJob(
           // WAV is lossless PCM; bitrate only applies to MP3
           ...(format === "mp3" ? ["--audio-quality", `${quality}K`] : []),
         ]),
+    // Professional files: title/artist ID3 tags plus the video thumbnail as
+    // cover art. WAV is excluded — yt-dlp can't embed thumbnails in PCM WAV
+    // and errors out. Mirrors server/server.js.
+    ...(format !== "wav" ? ["--embed-metadata", "--embed-thumbnail"] : []),
     "--ffmpeg-location", ffmpeg,
     "--match-filter", "duration <= 5400",
     "--max-filesize", format === "mp4" ? "2G" : "300M",

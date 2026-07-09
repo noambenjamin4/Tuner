@@ -1,24 +1,23 @@
 import { ImageResponse } from "next/og";
-import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
 import { readAnalysisBySlug } from "@/lib/server/link-analysis";
 
 // Per-song share card. When a /song/<slug> link is posted to Discord, iMessage,
 // Twitter, etc., this renders a branded 1200x630 image with the track's key,
 // BPM, and Camelot instead of a generic site thumbnail.
-export const runtime = "nodejs";
+//
+// Edge runtime is the supported home for ImageResponse with a colocated font:
+// fetch(new URL("./font", import.meta.url)) resolves the bundled asset here (on
+// the Node runtime that same call 500s, because Node's fetch rejects file://).
+export const runtime = "edge";
 export const alt = "Song key, BPM, and Camelot on TuneBad";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-// Colocated font, resolved from import.meta.url so Next traces it into the
-// serverless bundle. Read with fs (Node's fetch does not support file:// URLs,
-// which is why the edge-style fetch(new URL(...)) pattern 500s on this runtime).
-const font = readFileSync(fileURLToPath(new URL("./Baloo2-Bold.ttf", import.meta.url)));
+const fontData = fetch(new URL("./Baloo2-Bold.ttf", import.meta.url)).then((r) => r.arrayBuffer());
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const song = await readAnalysisBySlug(slug);
+  const [song, font] = await Promise.all([readAnalysisBySlug(slug), fontData]);
 
   const title = song?.title ?? "TuneBad";
   const artist = song?.artist ?? "";
@@ -82,7 +81,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     ),
     {
       ...size,
-      fonts: [{ name: "Baloo", data: font, weight: 700, style: "normal" }],
+      fonts: [{ name: "Baloo", data: await font, weight: 700, style: "normal" }],
     },
   );
 }

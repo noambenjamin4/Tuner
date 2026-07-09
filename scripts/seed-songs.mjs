@@ -245,7 +245,16 @@ let ok = 0, fail = 0;
 for (const [i, t] of tracks.entries()) {
   const label = `${t.artist} - ${t.title}`.slice(0, 50);
   try {
-    const resp = await fetch(t.preview, { signal: AbortSignal.timeout(15000) });
+    // Preview URLs carry expiring tokens; ones collected at startup go 403 by
+    // the time the queue tail runs. Re-fetch the track for a fresh URL.
+    let previewUrl = t.preview;
+    try {
+      const fresh = await getJson(`https://api.deezer.com/track/${t.id}`);
+      if (fresh.preview) previewUrl = fresh.preview;
+    } catch {
+      // keep the collected URL; it may still be valid
+    }
+    const resp = await fetch(previewUrl, { signal: AbortSignal.timeout(15000) });
     if (!resp.ok) throw new Error("preview " + resp.status);
     const mp3 = Buffer.from(await resp.arrayBuffer());
     const samples = await decode(mp3);

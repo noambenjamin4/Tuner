@@ -37,6 +37,9 @@ const nextConfig = {
   // the route reads the font from disk instead — which requires it to be traced.
   outputFileTracingIncludes: {
     "/song/[slug]/opengraph-image": ["./app/_og/Display-Bold.ttf"],
+    // The page function evaluates the og-image module too (for its metadata
+    // exports), so the font must ship in the page's bundle as well.
+    "/song/[slug]": ["./app/_og/Display-Bold.ttf"],
   },
   serverExternalPackages: ["ffmpeg-static"],
   webpack: (config, { isServer }) => {

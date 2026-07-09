@@ -16,10 +16,20 @@ export const alt = "Song key, BPM, and Camelot on TuneBad";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const font = readFileSync(join(process.cwd(), "app/_og/Display-Bold.ttf"));
+// Read LAZILY, inside the handler. This module's exports (size/alt/contentType)
+// are evaluated during ordinary /song/[slug] PAGE renders too, and the font is
+// only guaranteed in this route's serverless bundle — a module-scope read
+// crashed every on-demand page render with ENOENT once the song count outgrew
+// the prerender set.
+let cachedFont: Buffer | null = null;
+function loadFont(): Buffer {
+  if (!cachedFont) cachedFont = readFileSync(join(process.cwd(), "app/_og/Display-Bold.ttf"));
+  return cachedFont;
+}
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  const font = loadFont();
   const song = await readAnalysisBySlug(slug);
 
   const title = song?.title ?? "TuneBad";

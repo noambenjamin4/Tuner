@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { readAllSongs } from "@/lib/server/link-analysis";
+import { SongBrowser } from "@/components/songs/SongBrowser";
 
 // Index of every analyzed song. Acts as the hub that links out to each
 // /song/<slug> page so crawlers can reach them all.
@@ -41,21 +42,16 @@ export default async function SongsPage() {
           {songs.length === 0 ? (
             <p className="song-note">No songs analyzed yet. Be the first — paste a link on the Key &amp; BPM Finder.</p>
           ) : (
-            <ul className="song-index">
-              {songs.map((s) => (
-                <li key={s.slug}>
-                  <Link href={`/song/${s.slug}`}>
-                    <span className="song-index-name">
-                      {s.title}
-                      {s.artist ? <span className="song-index-artist"> — {s.artist}</span> : null}
-                    </span>
-                    <span className="song-index-meta font-mono">
-                      {s.key} · {Math.round(s.bpm)} BPM{s.camelot ? ` · ${s.camelot}` : ""}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <SongBrowser
+              songs={songs.map((s) => ({
+                slug: s.slug,
+                title: s.title,
+                artist: s.artist,
+                bpm: s.bpm,
+                key: s.key,
+                camelot: s.camelot,
+              }))}
+            />
           )}
         </article>
       </main>

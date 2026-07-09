@@ -60,11 +60,26 @@ function pct(v: number | null): string {
   return v == null ? "N/A" : `${Math.round(v * 100)}`;
 }
 
-function Stat({ label, value, note }: { label: string; value: string; note: string }) {
+function Stat({
+  label,
+  value,
+  note,
+  meter,
+}: {
+  label: string;
+  value: string;
+  note: string;
+  meter?: number | null;
+}) {
   return (
     <div className="metric-card">
       <small>{label}</small>
       <strong className="analysis-value">{value}</strong>
+      {meter != null ? (
+        <div className="stat-meter" aria-hidden="true">
+          <span style={{ width: `${Math.round(meter * 100)}%` }} />
+        </div>
+      ) : null}
       <em>{note}</em>
     </div>
   );
@@ -149,8 +164,8 @@ export default async function SongPage({ params }: { params: Promise<{ slug: str
             <Stat label="BPM" value={bpmAlt ? `${bpm} or ${bpmAlt}` : String(bpm)} note="Tempo" />
             <Stat label="Key" value={song.key} note="Musical key" />
             <Stat label="Camelot" value={camelot ?? "N/A"} note="For harmonic mixing" />
-            <Stat label="Energy" value={pct(song.energy)} note="Out of 100" />
-            <Stat label="Danceability" value={pct(song.danceability)} note="Out of 100" />
+            <Stat label="Energy" value={pct(song.energy)} note="Out of 100" meter={song.energy} />
+            <Stat label="Danceability" value={pct(song.danceability)} note="Out of 100" meter={song.danceability} />
             <Stat label="Loudness" value={song.loudness_db != null ? `${song.loudness_db}` : "N/A"} note="dBFS" />
           </div>
 

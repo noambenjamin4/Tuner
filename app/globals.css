@@ -2994,6 +2994,66 @@ tbody tr:last-child td {
   white-space: nowrap;
 }
 
+/* /songs browser filters */
+.song-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 12px;
+}
+
+.song-search {
+  flex: 1 1 240px;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--ink);
+  padding: 11px 18px;
+  font-size: 14px;
+  font-family: var(--font-sans);
+}
+
+.song-select {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--ink);
+  padding: 11px 16px;
+  font-size: 14px;
+  font-family: var(--font-sans);
+  cursor: pointer;
+}
+
+.song-search:focus-visible,
+.song-select:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+
+.song-count {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0 0 8px;
+}
+
+/* Visual meter under a 0-100 stat (energy / danceability) */
+.stat-meter {
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--line);
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.stat-meter > span {
+  display: block;
+  height: 100%;
+  background: var(--fill);
+  border-radius: var(--radius-pill);
+}
+
 @media (max-width: 480px) {
   .legal {
     padding: 32px 16px 16px;

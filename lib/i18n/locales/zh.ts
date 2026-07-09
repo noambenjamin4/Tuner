@@ -313,6 +313,23 @@ const zh: Record<keyof typeof en, string> = {
   "analysis.copyResult": "复制结果",
   "app.dropAnywhere": "松开文件即可开始分析",
 
+  "playlist.inputLabel": "粘贴Spotify或YouTube播放列表链接",
+  "playlist.placeholder": "Spotify或YouTube播放列表链接",
+  "playlist.button": "分析播放列表",
+  "playlist.looking": "正在读取播放列表...",
+  "playlist.idleHint": "支持公开的Spotify和YouTube播放列表，最多100首歌曲。",
+  "playlist.progressLine": "已分析{done}/{total}首，其中{cached}首来自缓存",
+  "playlist.rateLimited": "当前播放列表查询次数过多。请等几分钟再试。",
+  "playlist.invalidLink": "这看起来不是Spotify或YouTube播放列表链接。",
+  "playlist.notFound": "无法读取该播放列表。请检查链接后重试。",
+  "playlist.error": "读取该播放列表时出错。请稍后再试。",
+  "playlist.partialNote": "部分歌曲未能匹配到试听片段，已在下方标出。",
+  "playlist.sortCamelot": "按Camelot排序",
+  "playlist.colTitle": "标题",
+  "playlist.colArtist": "艺术家",
+  "playlist.rowUnavailable": "未找到。请在Key & BPM Finder上传。",
+  "playlist.statusAnalyzing": "正在分析...",
+
   // Copyright / legal page
   "copyright.title": "版权免责声明",
   "copyright.updated": "最后更新：",

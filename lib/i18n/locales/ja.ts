@@ -314,6 +314,23 @@ const ja: Record<keyof typeof en, string> = {
   "analysis.copyResult": "結果をコピー",
   "app.dropAnywhere": "ファイルをドロップすると解析します",
 
+  "playlist.inputLabel": "SpotifyまたはYouTubeのプレイリストリンクを貼り付け",
+  "playlist.placeholder": "SpotifyまたはYouTubeのプレイリストリンク",
+  "playlist.button": "プレイリストを解析",
+  "playlist.looking": "プレイリストを読み込み中...",
+  "playlist.idleHint": "公開されているSpotifyとYouTubeのプレイリストに対応しています（最大100曲）。",
+  "playlist.progressLine": "{total}曲中{done}曲を解析済み、{cached}曲はキャッシュから取得",
+  "playlist.rateLimited": "現在、プレイリストの検索が集中しています。数分待ってからもう一度お試しください。",
+  "playlist.invalidLink": "SpotifyまたはYouTubeのプレイリストリンクのようには見えません。",
+  "playlist.notFound": "このプレイリストを読み込めませんでした。リンクを確認してもう一度お試しください。",
+  "playlist.error": "このプレイリストの読み込み中に問題が発生しました。少し時間をおいてもう一度お試しください。",
+  "playlist.partialNote": "一部の曲はプレビューと一致しませんでした。下に表示されています。",
+  "playlist.sortCamelot": "Camelotで並べ替え",
+  "playlist.colTitle": "タイトル",
+  "playlist.colArtist": "アーティスト",
+  "playlist.rowUnavailable": "見つかりませんでした。Key & BPM Finderでアップロードしてください。",
+  "playlist.statusAnalyzing": "解析中...",
+
   // Copyright / legal page
   "copyright.title": "著作権に関する免責事項",
   "copyright.updated": "最終更新日:",

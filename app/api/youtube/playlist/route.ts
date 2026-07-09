@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { validatePlaylistUrl } from "@/lib/media-url";
-import { isDownloaderEnabled, remoteDownloaderUrl, remoteDownloaderKey, homeDownloaderUrl, homeDownloaderKey } from "@/lib/runtime";
-import { pickBackend } from "@/lib/server/backends";
-import { enumeratePlaylist } from "@/lib/server/ytdlp";
+import { isDownloaderEnabled } from "@/lib/runtime";
 import { allowEnumerate } from "@/lib/server/rate-limit";
+import { fetchYouTubeTracklist } from "@/lib/server/youtube-playlist";
 
 // Enumerating a playlist spawns yt-dlp (metadata only, no download/workdir);
 // rate-limited on a separate, tighter per-IP bucket so it can't be spun in a loop.
@@ -39,34 +38,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Paste a YouTube playlist link." }, { status: 400 });
   }
 
-  const homeConfigured = Boolean(homeDownloaderUrl && homeDownloaderKey);
-  const remoteConfigured = Boolean(remoteDownloaderUrl && remoteDownloaderKey);
-
-  if (homeConfigured || remoteConfigured) {
-    const backend = await pickBackend();
-    if (!backend) {
-      return NextResponse.json({ error: "Could not read that playlist." }, { status: 502 });
-    }
-
-    try {
-      const upstream = await fetch(`${backend.base}/playlist`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "x-api-key": backend.key },
-        body: JSON.stringify({ url: canonicalPlaylistUrl }),
-      });
-      const payload = await upstream.json().catch(() => ({}));
-      return NextResponse.json(payload, { status: upstream.status });
-    } catch (error) {
-      console.error(`Failed to reach ${backend.tag} downloader`, error);
-      return NextResponse.json({ error: "Could not read that playlist." }, { status: 502 });
-    }
+  const result = await fetchYouTubeTracklist(canonicalPlaylistUrl);
+  if (!result.ok) {
+    return NextResponse.json({ error: result.error }, { status: result.status });
   }
-
-  try {
-    const items = await enumeratePlaylist(canonicalPlaylistUrl);
-    return NextResponse.json({ items });
-  } catch (error) {
-    console.error("Failed to enumerate playlist", error);
-    return NextResponse.json({ error: "Could not read that playlist." }, { status: 502 });
-  }
+  return NextResponse.json({ items: result.items });
 }

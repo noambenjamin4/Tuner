@@ -3335,3 +3335,186 @@ tbody tr:last-child td {
   font-family: var(--font-sans);
   font-variant-numeric: tabular-nums;
 }
+
+/* ---------------------------------------------------------------------
+   Playlist analyzer (/playlist-analyzer). Mirrors .link-analyze (form) and
+   .song-index/.vs-table (table) so the page reads like the rest of the
+   monochrome tool set — same tokens (--ink/--muted/--line/--surface),
+   pill/inner radii, and the shared .table-wrap scroll container.
+   --------------------------------------------------------------------- */
+.pa-page .pa-tool {
+  margin: 0 0 32px;
+}
+
+.pa-form {
+  display: grid;
+  gap: 8px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-inner);
+  background: var(--surface);
+}
+
+.pa-form-label {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.pa-form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pa-form-row input {
+  flex: 1 1 260px;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-field);
+  background: var(--surface);
+  color: var(--ink);
+  padding: 12px 16px;
+  font-size: 14px;
+}
+
+.pa-hint {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.pa-error {
+  color: var(--ink);
+}
+
+.pa-partial-note {
+  margin: 0 0 12px;
+}
+
+.pa-progress-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  margin: 20px 0 12px;
+}
+
+.pa-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  margin: 0;
+}
+
+.pa-spinner {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  border-top-color: var(--ink);
+  animation: pa-spin 0.7s linear infinite;
+}
+
+@keyframes pa-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.pa-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pa-table-wrap {
+  margin: 0;
+}
+
+.pa-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 560px;
+  font-size: 14px;
+}
+
+.pa-table th,
+.pa-table td {
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.pa-table td {
+  font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
+}
+
+.pa-table thead th {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.pa-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.pa-title-cell a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.pa-title-cell a:hover {
+  text-decoration: underline;
+}
+
+.pa-muted-cell {
+  color: var(--muted);
+}
+
+.pa-accent {
+  font-weight: 700;
+}
+
+.pa-row-unresolved td {
+  color: var(--muted);
+}
+
+.pa-about p {
+  max-width: 720px;
+}
+
+@media (max-width: 640px) {
+  .pa-form-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  /* In row layout `flex: 1 1 260px` sets a width basis; once the row flips to
+     column above, the same basis applies to height instead, so it must be
+     reset here or the input renders ~260px tall. */
+  .pa-form-row input {
+    flex: none;
+    width: 100%;
+  }
+  .pa-form-row button {
+    width: 100%;
+  }
+  .pa-progress-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

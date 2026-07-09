@@ -336,6 +336,24 @@ const en = {
   "analysis.copyResult": "Copy result",
   "app.dropAnywhere": "Drop the file to analyze it",
 
+  // Playlist analyzer
+  "playlist.inputLabel": "Paste a Spotify or YouTube playlist link",
+  "playlist.placeholder": "Spotify or YouTube playlist link",
+  "playlist.button": "Analyze playlist",
+  "playlist.looking": "Reading playlist...",
+  "playlist.idleHint": "Works with public Spotify and YouTube playlists, up to 100 tracks.",
+  "playlist.progressLine": "{done} of {total} analyzed, {cached} from cache",
+  "playlist.rateLimited": "Too many playlist lookups right now. Wait a few minutes and try again.",
+  "playlist.invalidLink": "That doesn't look like a Spotify or YouTube playlist link.",
+  "playlist.notFound": "Could not read that playlist. Check the link and try again.",
+  "playlist.error": "Something went wrong reading that playlist. Try again in a moment.",
+  "playlist.partialNote": "Some tracks could not be matched to a preview and are marked below.",
+  "playlist.sortCamelot": "Sort by Camelot",
+  "playlist.colTitle": "Title",
+  "playlist.colArtist": "Artist",
+  "playlist.rowUnavailable": "Not found. Upload it on the Key & BPM Finder.",
+  "playlist.statusAnalyzing": "Analyzing...",
+
   // Copyright / legal page
   "copyright.title": "Copyright Disclaimer",
   "copyright.updated": "Last updated:",

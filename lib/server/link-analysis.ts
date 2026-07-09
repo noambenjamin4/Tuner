@@ -220,6 +220,17 @@ export function cleanSongTitle(raw: string): string {
     .slice(0, 150);
 }
 
+/** Splits a combined "Title - Artist" string only as a last resort, when a
+ *  source (Spotify embed, YouTube flat-playlist entry) gives one string
+ *  instead of separate title/artist fields. Sensible-effort, not exhaustive. */
+export function splitCombinedTitle(combined: string): { title: string; artist: string } {
+  const dashSplit = combined.split(/\s[-–]\s/);
+  if (dashSplit.length >= 2) {
+    return { title: dashSplit[0].trim(), artist: dashSplit.slice(1).join(" - ").trim() };
+  }
+  return { title: combined.trim(), artist: "" };
+}
+
 export type PreviewMatch = { title: string; artist: string; previewUrl: string };
 
 /** Search Deezer's keyless public API for a 30s preview; fall back to iTunes. */
@@ -252,6 +263,35 @@ export async function findPreview(query: string): Promise<PreviewMatch | null> {
     }
   } catch {
     // no preview found anywhere
+  }
+  return null;
+}
+
+export type DeezerPreviewMatch = { id: string; title: string; artist: string; previewUrl: string };
+
+/** Search Deezer only (no iTunes fallback) and keep the track's numeric id —
+ *  the playlist analyzer needs a stable `dz:<id>` cache key per track, and
+ *  iTunes' catalog doesn't expose one worth keying on. */
+export async function findDeezerPreview(query: string): Promise<DeezerPreviewMatch | null> {
+  try {
+    const res = await fetch(`https://api.deezer.com/search?q=${encodeURIComponent(query)}&limit=3`, {
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as {
+      data?: { id?: number; title?: string; preview?: string; artist?: { name?: string } }[];
+    };
+    const hit = data.data?.find((d) => d.preview && typeof d.id === "number");
+    if (hit?.preview && hit.title && typeof hit.id === "number") {
+      return {
+        id: String(hit.id),
+        title: hit.title.slice(0, 200),
+        artist: hit.artist?.name?.slice(0, 200) ?? "",
+        previewUrl: hit.preview,
+      };
+    }
+  } catch {
+    // no preview found
   }
   return null;
 }

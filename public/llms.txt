@@ -12,6 +12,7 @@ Key facts:
 ## Tools
 
 - [Key & BPM Finder](https://www.tunebad.com/key-bpm-finder): Upload an audio file, or paste a YouTube, Spotify, or SoundCloud link, and get the key, tempo, Camelot code, energy, and loudness in a few seconds.
+- [Playlist Analyzer](https://www.tunebad.com/playlist-analyzer): Paste a Spotify or YouTube playlist link and get the key, BPM, and Camelot code for every track in one table, ready to export as CSV or sort into Camelot-wheel order for DJ sets.
 - [MP3 Cutter](https://www.tunebad.com/mp3-cutter): Trim a song to the part you want, add a fade, and save it as an MP3 or WAV ringtone.
 - [Converter](https://www.tunebad.com/converter): Turn a YouTube, Spotify, or SoundCloud link into an MP3, WAV, or MP4 file. Also converts local audio files in the browser.
 - [Loudness Penalty & LUFS Meter](https://www.tunebad.com/loudness): Measure a track's loudness and see how much Spotify, Apple Music, YouTube, TIDAL, Amazon, and Deezer will turn it down.

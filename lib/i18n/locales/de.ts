@@ -314,6 +314,23 @@ const de: Record<keyof typeof en, string> = {
   "analysis.copyResult": "Ergebnis kopieren",
   "app.dropAnywhere": "Lass die Datei los, um sie zu analysieren",
 
+  "playlist.inputLabel": "Füge einen Link zu einer Spotify- oder YouTube-Playlist ein",
+  "playlist.placeholder": "Link zu einer Spotify- oder YouTube-Playlist",
+  "playlist.button": "Playlist analysieren",
+  "playlist.looking": "Playlist wird gelesen...",
+  "playlist.idleHint": "Funktioniert mit öffentlichen Spotify- und YouTube-Playlists, bis zu 100 Titel.",
+  "playlist.progressLine": "{done} von {total} analysiert, {cached} aus dem Cache",
+  "playlist.rateLimited": "Gerade zu viele Playlist-Abfragen. Warte ein paar Minuten und versuch es dann noch mal.",
+  "playlist.invalidLink": "Das sieht nicht nach einem Spotify- oder YouTube-Playlist-Link aus.",
+  "playlist.notFound": "Diese Playlist konnte nicht gelesen werden. Prüf den Link und versuch es noch mal.",
+  "playlist.error": "Beim Lesen der Playlist ist etwas schiefgelaufen. Versuch es gleich noch mal.",
+  "playlist.partialNote": "Manche Titel konnten keinem Preview zugeordnet werden und sind unten markiert.",
+  "playlist.sortCamelot": "Nach Camelot sortieren",
+  "playlist.colTitle": "Titel",
+  "playlist.colArtist": "Künstler",
+  "playlist.rowUnavailable": "Nicht gefunden. Lade ihn im Key & BPM Finder hoch.",
+  "playlist.statusAnalyzing": "Analysiert...",
+
   // Copyright / legal page
   "copyright.title": "Urheberrechtlicher Haftungsausschluss",
   "copyright.updated": "Zuletzt aktualisiert:",

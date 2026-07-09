@@ -61,6 +61,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     { url: `${base}/`, lastModified: now, changeFrequency: "weekly", priority: 1 },
+    { url: `${base}/playlist-analyzer`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     tool("/key-bpm-finder"),
     tool("/converter"),
     tool("/loudness"),

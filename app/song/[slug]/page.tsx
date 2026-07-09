@@ -85,7 +85,25 @@ function Stat({
   );
 }
 
-export default async function SongPage({ params }: { params: Promise<{ slug: string }> }) {
+// Production masks Server Component errors behind a digest; this wrapper puts
+// the real message in the function logs so failures here stay diagnosable.
+export default async function SongPage(props: { params: Promise<{ slug: string }> }) {
+  try {
+    return await SongPageInner(props);
+  } catch (error) {
+    const digestish = error as { digest?: string };
+    if (digestish?.digest !== "NEXT_HTTP_ERROR_FALLBACK;404") {
+      console.error(
+        "song page render error:",
+        String(error),
+        error instanceof Error ? (error.stack ?? "").slice(0, 600) : "",
+      );
+    }
+    throw error;
+  }
+}
+
+async function SongPageInner({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const song = await readAnalysisBySlug(slug);
   if (!song) notFound();

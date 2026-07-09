@@ -24,4 +24,5 @@ Key facts:
 
 - [Home](https://www.tunebad.com/): Overview of every tool with a FAQ.
 - [Song Key & BPM Database](https://www.tunebad.com/songs): Browse the key, BPM, and Camelot code for songs analyzed on TuneBad. Each song has its own page at /song/<slug>. Values are measured from official 30-second previews with the essentia engine.
+- [TuneBad vs Tunebat](https://www.tunebad.com/tunebad-vs-tunebat): Honest comparison. TuneBad analyzes the actual audio (any file or link, free, no ads, no signup); Tunebat looks songs up in a large database. Use TuneBad for remixes, edits, and unreleased tracks a database will not have.
 - [Copyright Disclaimer](https://www.tunebad.com/copyright): Terms of use and the policy on copyrighted material.

@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { readAnalysisBySlug, readAllSongs, type CachedAnalysis } from "@/lib/server/link-analysis";
+import {
+  readAnalysisBySlug,
+  readAllSongs,
+  readSongsByCamelot,
+  type CachedAnalysis,
+} from "@/lib/server/link-analysis";
+import { compatibleCodes, relationLabel } from "@/lib/audio/harmonic";
 
 // Programmatic per-song pages, one for every track in the shared link-analysis
 // cache. Statically generated for the songs known at build time and filled in
@@ -20,6 +26,14 @@ function displayTitle(song: CachedAnalysis): string {
   return song.artist ? `${song.title} by ${song.artist}` : song.title;
 }
 
+function tempoFeel(bpm: number): string {
+  if (bpm < 90) return "a relaxed, downtempo pace";
+  if (bpm < 110) return "a mid-tempo groove";
+  if (bpm < 130) return "a steady dance-floor tempo";
+  if (bpm < 150) return "an up-tempo, energetic pace";
+  return "a fast, high-energy tempo";
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -32,7 +46,7 @@ export async function generateMetadata({
   const alt = song.bpm_alt ? ` (or ${Math.round(song.bpm_alt)})` : "";
   return {
     title: `${name} — Key, BPM & Camelot`,
-    description: `${name} is in the key of ${song.key} at ${Math.round(song.bpm)} BPM${alt}, Camelot ${song.camelot ?? "N/A"}. See its energy, danceability, and loudness, or analyze your own track free on TuneBad.`,
+    description: `${name} is in the key of ${song.key} at ${Math.round(song.bpm)} BPM${alt}, Camelot ${song.camelot ?? "N/A"}. See its energy, danceability, loudness, and harmonically compatible tracks to mix with.`,
     alternates: { canonical: `/song/${song.slug}` },
     openGraph: {
       title: `${name} — Key & BPM`,
@@ -62,13 +76,24 @@ export default async function SongPage({ params }: { params: Promise<{ slug: str
   if (!song) notFound();
 
   const name = displayTitle(song);
+  const artistName = song.artist ?? "the artist";
   const bpm = Math.round(song.bpm);
   const bpmAlt = song.bpm_alt ? Math.round(song.bpm_alt) : null;
+  const camelot = song.camelot ?? null;
 
-  // A few other cached songs to cross-link (internal links = crawlability).
-  const others = (await readAllSongs(60))
-    .filter((s) => s.slug !== song.slug)
-    .slice(0, 8);
+  // Harmonic-mix neighbours (real songs the DJ can beatmatch into).
+  const compat = camelot ? compatibleCodes(camelot) : [];
+  const relatedByKey = camelot
+    ? await readSongsByCamelot([camelot, ...compat], song.slug, 14)
+    : [];
+  const sameKey = relatedByKey.filter((s) => s.camelot === camelot).slice(0, 6);
+  const mixable = relatedByKey.filter((s) => s.camelot !== camelot).slice(0, 6);
+
+  // A general fallback set so the page always has outbound links.
+  const others =
+    relatedByKey.length >= 4
+      ? []
+      : (await readAllSongs(40)).filter((s) => s.slug !== song.slug).slice(0, 8);
 
   const musicJsonLd = {
     "@context": "https://schema.org",
@@ -110,23 +135,86 @@ export default async function SongPage({ params }: { params: Promise<{ slug: str
             {song.title}
             {song.artist ? <span className="song-artist"> by {song.artist}</span> : null}
           </h1>
+
           <p className="song-lede">
-            Key, BPM, and Camelot for {name}, plus its energy, danceability, and loudness.
+            {song.title} by {artistName} is in the key of <strong>{song.key}</strong> and runs at{" "}
+            <strong>{bpm} BPM</strong>
+            {bpmAlt ? ` (or ${bpmAlt} BPM if you count it half-time)` : ""}, {tempoFeel(bpm)}.
+            {camelot
+              ? ` Its Camelot code is ${camelot}, which is what you match against when you are mixing it harmonically with another track.`
+              : ""}
           </p>
 
           <div className="summary-grid song-stats">
             <Stat label="BPM" value={bpmAlt ? `${bpm} or ${bpmAlt}` : String(bpm)} note="Tempo" />
             <Stat label="Key" value={song.key} note="Musical key" />
-            <Stat label="Camelot" value={song.camelot ?? "N/A"} note="For harmonic mixing" />
+            <Stat label="Camelot" value={camelot ?? "N/A"} note="For harmonic mixing" />
             <Stat label="Energy" value={pct(song.energy)} note="Out of 100" />
             <Stat label="Danceability" value={pct(song.danceability)} note="Out of 100" />
             <Stat label="Loudness" value={song.loudness_db != null ? `${song.loudness_db}` : "N/A"} note="dBFS" />
           </div>
 
+          {camelot && compat.length > 0 && (
+            <section className="song-section">
+              <h2>What mixes with {song.title}</h2>
+              <p>
+                On the Camelot wheel, {song.title} sits at {camelot}. These keys blend with it without
+                clashing, so tracks in them are safe to beatmatch in or out:
+              </p>
+              <ul className="song-keychips">
+                {compat.map((code) => (
+                  <li key={code}>
+                    <span className="song-keychip">{code}</span>
+                    <span className="song-keychip-rel">{relationLabel(camelot, code)}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {mixable.length > 0 && (
+            <section className="song-section">
+              <h2>Tracks to mix into it</h2>
+              <p>Other analyzed songs in a compatible key, ready to line up next in a set:</p>
+              <ul className="song-list">
+                {mixable.map((s) => (
+                  <li key={s.slug}>
+                    <Link href={`/song/${s.slug}`}>
+                      {s.title}
+                      {s.artist ? ` — ${s.artist}` : ""}
+                    </Link>
+                    <span className="song-list-meta">
+                      {" "}
+                      {s.camelot} · {Math.round(s.bpm)} BPM
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {sameKey.length > 0 && (
+            <section className="song-section">
+              <h2>More songs in {song.key}</h2>
+              <ul className="song-list">
+                {sameKey.map((s) => (
+                  <li key={s.slug}>
+                    <Link href={`/song/${s.slug}`}>
+                      {s.title}
+                      {s.artist ? ` — ${s.artist}` : ""}
+                    </Link>
+                    <span className="song-list-meta"> {Math.round(s.bpm)} BPM</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
           <p className="song-note">
             These figures come from analyzing an official 30-second preview of the track with
             TuneBad&rsquo;s in-browser engine. Tempo and key are reliable, but a preview is a sample of
-            the full song, so treat them as a strong estimate. Want an exact read on your own file?
+            the full song, so treat them as a strong estimate. For an exact read, analyze the full file
+            yourself &mdash; it is free and runs entirely in your browser.
           </p>
 
           <p className="song-cta">
@@ -136,27 +224,28 @@ export default async function SongPage({ params }: { params: Promise<{ slug: str
           </p>
 
           {others.length > 0 && (
-            <section className="song-related">
+            <section className="song-section">
               <h2>Other songs</h2>
-              <ul>
+              <ul className="song-list">
                 {others.map((s) => (
                   <li key={s.slug}>
                     <Link href={`/song/${s.slug}`}>
                       {s.title}
                       {s.artist ? ` — ${s.artist}` : ""}
                     </Link>
-                    <span className="song-related-meta">
+                    <span className="song-list-meta">
                       {" "}
                       {s.key} · {Math.round(s.bpm)} BPM
                     </span>
                   </li>
                 ))}
               </ul>
-              <p className="song-related-all">
-                <Link href="/songs">Browse all songs →</Link>
-              </p>
             </section>
           )}
+
+          <p className="song-related-all">
+            <Link href="/songs">Browse all songs →</Link>
+          </p>
         </article>
       </main>
 

@@ -2842,28 +2842,79 @@ tbody tr:last-child td {
   transform: scale(0.98);
 }
 
-.song-related h2,
-.song-index + h2 {
+.song-section {
+  margin: 0 0 32px;
+}
+
+.song-section h2 {
   font-family: var(--font-display);
   font-weight: 800;
   font-size: 20px;
+  margin: 0 0 12px;
+}
+
+.song-section > p {
+  color: var(--muted);
+  line-height: 1.6;
   margin: 0 0 14px;
 }
 
-.song-related ul,
+.song-keychips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.song-keychips li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  padding: 6px 14px 6px 8px;
+}
+
+.song-keychip {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  background: var(--fill);
+  color: var(--fill-ink);
+  border-radius: var(--radius-pill);
+  padding: 3px 9px;
+  font-size: 13px;
+}
+
+.song-keychip-rel {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.song-list,
 .song-index {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.song-related li {
-  padding: 8px 0;
+.song-list li {
+  padding: 9px 0;
   border-bottom: 1px solid var(--line);
   line-height: 1.5;
 }
 
-.song-related-meta {
+.song-list a {
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.song-list a:hover {
+  text-decoration: underline;
+}
+
+.song-list-meta {
   font-family: var(--font-mono);
   font-size: 12px;
   color: var(--muted);
@@ -2871,6 +2922,47 @@ tbody tr:last-child td {
 
 .song-related-all {
   margin-top: 18px;
+}
+
+.song-related-all a {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-size: 13px;
+}
+
+/* Comparison table (/tunebad-vs-tunebat) */
+.vs-table-wrap {
+  overflow-x: auto;
+}
+
+.vs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.vs-table th,
+.vs-table td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  line-height: 1.45;
+}
+
+.vs-table thead th {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.vs-table tbody th {
+  font-weight: 700;
+  color: var(--muted);
+  white-space: nowrap;
 }
 
 .song-index li {

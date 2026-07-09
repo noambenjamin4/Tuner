@@ -46,6 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     guide("/guides/camelot-wheel-harmonic-mixing"),
     guide("/guides/what-is-lufs-streaming-loudness"),
     guide("/guides/how-to-make-slowed-and-reverb"),
+    guide("/tunebad-vs-tunebat"),
     { url: `${base}/songs`, lastModified: now, changeFrequency: "daily", priority: 0.7 },
     ...songRoutes,
     { url: `${base}/copyright`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },

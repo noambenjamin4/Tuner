@@ -102,6 +102,27 @@ export async function readAnalysisBySlug(slug: string): Promise<CachedAnalysis |
   }
 }
 
+/** Cached songs whose Camelot code is in `codes` — powers harmonic-mix links.
+ *  `exclude` drops the current song so a page never links to itself. */
+export async function readSongsByCamelot(
+  codes: string[],
+  exclude: string,
+  limit = 12,
+): Promise<CachedAnalysis[]> {
+  if (!isLinkAnalysisConfigured || codes.length === 0) return [];
+  try {
+    const inList = codes.map((c) => `"${encodeURIComponent(c)}"`).join(",");
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/link_analysis?camelot=in.(${inList})&slug=neq.${encodeURIComponent(exclude)}&order=created_at.desc&limit=${limit}`,
+      { headers: restHeaders(), signal: AbortSignal.timeout(FETCH_TIMEOUT_MS), next: { revalidate: 3600 } },
+    );
+    if (!res.ok) return [];
+    return (await res.json()) as CachedAnalysis[];
+  } catch {
+    return [];
+  }
+}
+
 /** All cached songs (slug + title + artist) for the sitemap and /songs index. */
 export async function readAllSongs(limit = 5000): Promise<CachedAnalysis[]> {
   if (!isLinkAnalysisConfigured) return [];

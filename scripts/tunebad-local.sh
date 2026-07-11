@@ -4,7 +4,7 @@
 # because yt-dlp cannot run there) and opens the converter tab.
 set -u
 
-DIR="$HOME/Code/Tuner"
+DIR="$HOME/Code/Tunebad"
 PORT=3002
 URL="http://localhost:$PORT/#converter"
 LOG="/tmp/tunebad-local.log"

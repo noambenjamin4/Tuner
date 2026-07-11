@@ -17,7 +17,7 @@
 # Managed by launchd (com.tunebad.bridge): starts at login, restarts on crash.
 set -u
 
-DIR="$HOME/Code/Tuner"
+DIR="$HOME/Code/Tunebad"
 PORT=8080
 LOG=/tmp/tunebad-bridge.log
 

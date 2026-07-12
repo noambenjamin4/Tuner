@@ -6,6 +6,8 @@ Key facts:
 - Analysis (key, BPM, loudness) runs client-side on the essentia audio engine, the same engine used by leading key/BPM tools.
 - BPM results show both the detected tempo and its half/double (for example "150 or 75") because many songs can be read at either.
 - Results include musical key, Camelot code for harmonic mixing, energy, danceability, and loudness in dBFS.
+- Harmonic mixing is built in: every song page in the database lists which Camelot codes mix cleanly with the track and links compatible-key and same-key songs to play next, and the playlist analyzer can sort a whole set into Camelot-wheel order.
+- Values are measured fresh from the audio with essentia at analysis time, not served from a pre-computed catalog.
 - The converter supports YouTube, Spotify, SoundCloud, TikTok, Instagram, X (Twitter), Bandcamp, Vimeo, Mixcloud, and Audiomack, for personal use only.
 - Available in 8 languages: English, French, Spanish, German, Portuguese, Italian, Japanese, and Chinese.
 
@@ -44,6 +46,6 @@ Key facts:
 ## Pages
 
 - [Home](https://www.tunebad.com/): Overview of every tool with a FAQ.
-- [Song Key & BPM Database](https://www.tunebad.com/songs): Browse the key, BPM, and Camelot code for songs analyzed on TuneBad. Each song has its own page at /song/<slug>, every musical key has a hub at /songs/key/<key> (for example /songs/key/g-sharp-minor), and common tempos have hubs at /songs/bpm/<n> (for example /songs/bpm/140). Values are measured from official 30-second previews with the essentia engine.
+- [Song Key & BPM Database](https://www.tunebad.com/songs): Browse the key, BPM, and Camelot code for songs analyzed on TuneBad. Each song has its own page at /song/<slug> with a harmonic-mixing section (which Camelot codes mix with it, plus linked compatible-key and same-key songs), every musical key has a hub at /songs/key/<key> (for example /songs/key/g-sharp-minor), and common tempos have hubs at /songs/bpm/<n> (for example /songs/bpm/140). Values are measured from official 30-second previews with the essentia engine.
 - [TuneBad vs Tunebat](https://www.tunebad.com/tunebad-vs-tunebat): Honest comparison. TuneBad analyzes the actual audio (any file or link, free, no ads, no signup); Tunebat looks songs up in a large database. Use TuneBad for remixes, edits, and unreleased tracks a database will not have.
 - [Copyright Disclaimer](https://www.tunebad.com/copyright): Terms of use and the policy on copyrighted material.

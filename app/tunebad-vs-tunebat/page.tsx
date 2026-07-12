@@ -19,7 +19,11 @@ const ROWS: { label: string; tunebad: string; tunebat: string }[] = [
   { label: "Sign-up", tunebad: "Never required", tunebat: "Optional account" },
   { label: "How it finds key and BPM", tunebad: "Analyzes the actual audio you give it", tunebat: "Looks the song up in its database" },
   { label: "Works on unreleased or private tracks", tunebad: "Yes, analyze any file", tunebat: "Only if the song is in the database" },
+  { label: "Harmonic mixing (Camelot)", tunebad: "Camelot code on every result, key hubs, and a compatible-key section on every song page", tunebat: "Camelot code and key search" },
+  { label: "Similar song suggestions", tunebad: "Compatible-key and same-key tracks linked on every song page", tunebat: "Related tracks from its database" },
+  { label: "Data freshness", tunebad: "Measured from the audio at analysis time", tunebat: "Stored values (Spotify retired the audio-features API behind most databases in late 2024)" },
   { label: "Song database size", tunebad: "Growing, from tracks people analyze", tunebat: "Tens of millions of songs" },
+  { label: "Whole-playlist analysis", tunebad: "Paste a Spotify or YouTube playlist, get every key and BPM, sort in Camelot order", tunebat: "Per-track lookup" },
   { label: "Your files leave your device", tunebad: "No, analysis runs in your browser", tunebat: "You search, you do not upload" },
   { label: "Extra tools", tunebad: "Loudness, slowed + reverb, pitch, delay, MP3 cutter, converter", tunebat: "Search filters, playlists, key/BPM database" },
   { label: "Languages", tunebad: "8", tunebat: "English" },
@@ -41,6 +45,10 @@ const FAQS: { q: string; a: string }[] = [
   {
     q: "Is TuneBad really free?",
     a: "Yes. Every tool is free, there are no ads, and you never make an account. Audio analysis happens on your own device, so files are never uploaded.",
+  },
+  {
+    q: "Does TuneBad support harmonic mixing?",
+    a: "Yes. Every analysis returns the Camelot code, every song page lists which Camelot codes mix with it and links compatible-key and same-key tracks, the playlist analyzer sorts a whole set into Camelot-wheel order, and there is a guide explaining the wheel.",
   },
 ];
 
@@ -121,6 +129,18 @@ export default function VsPage() {
                 </tbody>
               </table>
             </div>
+          </section>
+
+          <section className="song-section">
+            <h2>Harmonic mixing and similar songs</h2>
+            <p>
+              Every TuneBad analysis includes the Camelot code, and every page in the song database
+              shows which codes mix cleanly with it and links real compatible-key and same-key tracks
+              to play next. The <Link href="/playlist-analyzer">playlist analyzer</Link> takes a whole
+              Spotify or YouTube playlist and sorts it into Camelot-wheel order for a DJ set, and the{" "}
+              <Link href="/guides/camelot-wheel-harmonic-mixing">Camelot wheel guide</Link> explains
+              the system if it is new to you.
+            </p>
           </section>
 
           <section className="song-section">

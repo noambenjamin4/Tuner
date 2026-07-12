@@ -483,6 +483,51 @@ const fr: Record<keyof typeof en, string> = {
   "mediatool.converting": "Conversion...",
   "mediatool.convertFail": "Impossible de convertir ce fichier. Essayez un autre format ou un fichier plus petit.",
   "mediatool.dropAudio": "Déposez un fichier audio ici (jusqu'à {size})",
+  "related.heading": "Outils associés",
+  "related.musicName": "Détecteur de tonalité et BPM",
+  "related.musicDesc": "TuneBad est une boîte à outils musicale. Trouvez gratuitement la tonalité et le BPM de n'importe quel morceau.",
+  "mediatool.faqVideo1Q": "Quels formats vidéo puis-je convertir ?",
+  "mediatool.faqVideo1A":
+    "MP4, WebM, MKV, MOV, AVI, FLV et WMV, dans tous les sens. Déposez un fichier, choisissez le format de sortie et téléchargez le résultat.",
+  "mediatool.faqVideo2Q": "Mes vidéos sont-elles envoyées sur un serveur ?",
+  "mediatool.faqVideo2A":
+    "Non. La conversion se fait entièrement dans votre navigateur, le fichier ne quitte donc jamais votre appareil. C'est aussi pour ça qu'il n'y a aucune attente d'upload.",
+  "mediatool.faqVideo3Q": "Le convertisseur vidéo est-il gratuit ?",
+  "mediatool.faqVideo3A": "Oui. Pas de filigrane, pas d'inscription, pas de publicité. Les fichiers jusqu'à 500 MB sont pris en charge.",
+  "mediatool.faqVideo4Q": "Pourquoi la première conversion met-elle un moment à démarrer ?",
+  "mediatool.faqVideo4A":
+    "Votre navigateur télécharge le moteur de conversion une seule fois, environ 31 MB. Il est ensuite mis en cache, et les conversions suivantes démarrent immédiatement.",
+  "mediatool.faqAudio1Q": "Quels formats audio sont pris en charge ?",
+  "mediatool.faqAudio1A":
+    "MP3, WAV, FLAC, OGG et M4A, dans tous les sens. Pour le MP3, vous pouvez choisir le débit : 128, 192 ou 320 kbps.",
+  "mediatool.faqAudio2Q": "Mes fichiers audio sont-ils envoyés quelque part ?",
+  "mediatool.faqAudio2A": "Non. La conversion se fait dans votre navigateur et le fichier ne quitte jamais votre appareil.",
+  "mediatool.faqAudio3Q": "Convertir du FLAC en MP3 fait-il perdre de la qualité ?",
+  "mediatool.faqAudio3A":
+    "Le MP3 est un format avec perte, une partie du détail est donc toujours éliminée. À 320 kbps, la plupart des gens n'entendent pas la différence. Convertir vers WAV ou FLAC conserve l'audio exactement tel qu'il est dans la source.",
+  "mediatool.faqAudio4Q": "Y a-t-il une limite de taille de fichier ?",
+  "mediatool.faqAudio4A": "Les fichiers jusqu'à 200 MB sont pris en charge. L'outil est gratuit, sans inscription et sans publicité.",
+  "vidtool.faqGeneric1Q": "Comment fonctionne le compresseur vidéo ?",
+  "vidtool.faqGeneric1A":
+    "Choisissez une taille cible de 10, 25, 50 ou 100 MB et l'outil réencode la vidéo dans votre navigateur jusqu'à passer sous cette limite. Rien n'est envoyé en ligne.",
+  "vidtool.faqGeneric2Q": "La compression réduit-elle la qualité ?",
+  "vidtool.faqGeneric2A":
+    "Une certaine perte de qualité est inévitable quand on réduit un fichier, car l'outil baisse le débit pour atteindre votre cible. Plus la cible est petite, plus la différence est visible.",
+  "vidtool.faqGeneric3Q": "Y a-t-il un filigrane ou une inscription ?",
+  "vidtool.faqGeneric3A": "Pas de filigrane, pas d'inscription, pas de publicité. L'outil est gratuit et accepte les fichiers jusqu'à 500 MB.",
+  "vidtool.faqGeneric4Q": "Est-ce que ça marche sur téléphone ?",
+  "vidtool.faqGeneric4A":
+    "Oui, l'outil fonctionne dans n'importe quel navigateur moderne. Sur iPhone, les très grosses vidéos peuvent manquer de mémoire, les clips courts marchent donc mieux.",
+  "vidtool.faqDiscord1Q": "Quelle est la limite d'envoi de Discord ?",
+  "vidtool.faqDiscord1A":
+    "La limite gratuite de Discord est de 10 MB par fichier. Nitro Basic la monte à 50 MB, et le Nitro complet à 500 MB. Cet outil propose des préréglages à 10, 25 et 50 MB.",
+  "vidtool.faqDiscord2Q": "Comment passer une vidéo sous 10 MB pour Discord ?",
+  "vidtool.faqDiscord2A":
+    "Déposez la vidéo, gardez le préréglage 10 MB sélectionné et lancez la compression. Le clip est réencodé dans votre navigateur jusqu'à tenir sous la limite, puis vous le téléchargez et le postez.",
+  "vidtool.faqDiscord3Q": "Ma vidéo est-elle envoyée quelque part ?",
+  "vidtool.faqDiscord3A": "Non. La compression se fait entièrement dans votre navigateur, le clip ne quitte donc jamais votre appareil.",
+  "vidtool.faqDiscord4Q": "C'est gratuit ? Y a-t-il un filigrane ?",
+  "vidtool.faqDiscord4A": "Oui, c'est gratuit, sans filigrane, sans inscription et sans publicité.",
 };
 
 export default fr;

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { ToolPageShell } from "@/components/files/ToolPageShell";
+import { RelatedTools } from "@/components/files/RelatedTools";
+import { ToolFaq } from "@/components/files/ToolFaq";
 import { VideoTool } from "@/components/files/VideoTool";
 
 export const metadata: Metadata = {
@@ -12,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <ToolPageShell>
+    <ToolPageShell tool={{ name: "Compress for Discord", path: "/compress-video-for-discord" }}>
       <VideoTool
         titleKey="vidtool.titleDiscord"
         subtitleKey="vidtool.subtitleDiscord"
@@ -20,6 +22,15 @@ export default function Page() {
         targetPresetsMB={[10, 25, 50]}
         defaultTargetMB={10}
       />
+      <ToolFaq
+        faqs={[
+          { q: "vidtool.faqDiscord1Q", a: "vidtool.faqDiscord1A" },
+          { q: "vidtool.faqDiscord2Q", a: "vidtool.faqDiscord2A" },
+          { q: "vidtool.faqDiscord3Q", a: "vidtool.faqDiscord3A" },
+          { q: "vidtool.faqDiscord4Q", a: "vidtool.faqDiscord4A" },
+        ]}
+      />
+      <RelatedTools tools={["compress-video", "video-converter", "audio-converter"]} />
     </ToolPageShell>
   );
 }

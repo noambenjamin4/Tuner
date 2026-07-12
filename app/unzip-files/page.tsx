@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ToolPageShell } from "@/components/files/ToolPageShell";
+import { RelatedTools } from "@/components/files/RelatedTools";
 import { ZipTool } from "@/components/files/ZipTool";
 
 export const metadata: Metadata = {
@@ -12,8 +13,9 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <ToolPageShell>
+    <ToolPageShell tool={{ name: "Unzip Files", path: "/unzip-files" }}>
       <ZipTool />
+      <RelatedTools tools={["merge-pdf", "jpg-to-pdf", "compress-image"]} />
     </ToolPageShell>
   );
 }

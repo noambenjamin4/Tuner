@@ -483,6 +483,51 @@ const ja: Record<keyof typeof en, string> = {
   "mediatool.converting": "変換中...",
   "mediatool.convertFail": "そのファイルを変換できませんでした。別の形式か、もっと小さいファイルをお試しください。",
   "mediatool.dropAudio": "ここに音声ファイルをドロップ（最大{size}まで）",
+  "related.heading": "関連ツール",
+  "related.musicName": "キー・BPM検出",
+  "related.musicDesc": "TuneBadは音楽ツールキットです。どんな曲でもキーとBPMを無料で調べられます。",
+  "mediatool.faqVideo1Q": "どの動画形式を変換できますか？",
+  "mediatool.faqVideo1A":
+    "MP4、WebM、MKV、MOV、AVI、FLV、WMVを相互に変換できます。ファイルをドロップして出力形式を選び、結果をダウンロードするだけです。",
+  "mediatool.faqVideo2Q": "動画はサーバーにアップロードされますか？",
+  "mediatool.faqVideo2A":
+    "いいえ。変換はすべてブラウザ内で行われるため、ファイルがデバイスから外に出ることはありません。アップロードの待ち時間がないのもそのためです。",
+  "mediatool.faqVideo3Q": "この動画変換は無料ですか？",
+  "mediatool.faqVideo3A": "はい。ウォーターマークなし、登録なし、広告なしです。500 MBまでのファイルに対応しています。",
+  "mediatool.faqVideo4Q": "最初の変換が始まるまで少し時間がかかるのはなぜですか？",
+  "mediatool.faqVideo4A":
+    "ブラウザが変換エンジン（約31 MB）を一度だけダウンロードするためです。その後はキャッシュされ、次回以降の変換はすぐに始まります。",
+  "mediatool.faqAudio1Q": "どの音声形式に対応していますか？",
+  "mediatool.faqAudio1A":
+    "MP3、WAV、FLAC、OGG、M4Aを相互に変換できます。MP3はビットレートを128、192、320 kbpsから選べます。",
+  "mediatool.faqAudio2Q": "音声ファイルはアップロードされますか？",
+  "mediatool.faqAudio2A": "いいえ。変換はブラウザ内で行われ、ファイルがデバイスから外に出ることはありません。",
+  "mediatool.faqAudio3Q": "FLACをMP3に変換すると音質は落ちますか？",
+  "mediatool.faqAudio3A":
+    "MP3は非可逆形式なので、多少の情報は必ず失われます。ただし320 kbpsならほとんどの人には違いが聞き取れません。WAVやFLACへの変換なら元の音声がそのまま保たれます。",
+  "mediatool.faqAudio4Q": "ファイルサイズの上限はありますか？",
+  "mediatool.faqAudio4A": "200 MBまでのファイルに対応しています。無料で、登録も広告もありません。",
+  "vidtool.faqGeneric1Q": "動画圧縮はどういう仕組みですか？",
+  "vidtool.faqGeneric1A":
+    "目標サイズを10、25、50、100 MBから選ぶと、ツールがブラウザ内で動画を再エンコードして上限内に収めます。何もアップロードされません。",
+  "vidtool.faqGeneric2Q": "圧縮すると画質は落ちますか？",
+  "vidtool.faqGeneric2A":
+    "ファイルを小さくする以上、ある程度の画質低下は避けられません。目標サイズに合わせてビットレートを下げるためです。目標が小さいほど差は目立ちます。",
+  "vidtool.faqGeneric3Q": "ウォーターマークや登録はありますか？",
+  "vidtool.faqGeneric3A": "ウォーターマークなし、登録なし、広告なしです。無料で、500 MBまでのファイルを扱えます。",
+  "vidtool.faqGeneric4Q": "スマートフォンでも使えますか？",
+  "vidtool.faqGeneric4A":
+    "はい、最近のブラウザなら動作します。iPhoneでは大きな動画でメモリが足りなくなることがあるため、短いクリップのほうがうまくいきます。",
+  "vidtool.faqDiscord1Q": "Discordのアップロード上限はいくつですか？",
+  "vidtool.faqDiscord1A":
+    "Discordの無料の上限はファイルあたり10 MBです。Nitro Basicで50 MB、フルNitroで500 MBまで上がります。このツールには10、25、50 MBのプリセットがあります。",
+  "vidtool.faqDiscord2Q": "Discord用に動画を10 MB以下にするには？",
+  "vidtool.faqDiscord2A":
+    "動画をドロップし、10 MBのプリセットを選んだまま圧縮を開始してください。クリップは上限に収まるまでブラウザ内で再エンコードされ、あとはダウンロードして投稿するだけです。",
+  "vidtool.faqDiscord3Q": "動画はどこかにアップロードされますか？",
+  "vidtool.faqDiscord3A": "いいえ。圧縮はすべてブラウザ内で行われるため、クリップがデバイスから外に出ることはありません。",
+  "vidtool.faqDiscord4Q": "無料ですか？ウォーターマークは付きますか？",
+  "vidtool.faqDiscord4A": "はい、無料です。ウォーターマークも登録も広告もありません。",
 };
 
 export default ja;

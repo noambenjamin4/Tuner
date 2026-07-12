@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ToolPageShell } from "@/components/files/ToolPageShell";
+import { RelatedTools } from "@/components/files/RelatedTools";
 import { ImageTool } from "@/components/files/ImageTool";
 
 export const metadata: Metadata = {
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <ToolPageShell>
+    <ToolPageShell tool={{ name: "Resize for Instagram", path: "/resize-image-for-instagram" }}>
       <ImageTool
         mode="resize"
         titleKey="imgtool.titleInstagram"
@@ -24,6 +25,7 @@ export default function Page() {
           { labelKey: "imgtool.presetLandscape", width: 1080, height: 566 },
         ]}
       />
+      <RelatedTools tools={["resize-image", "compress-image-to-100kb", "image-converter"]} />
     </ToolPageShell>
   );
 }

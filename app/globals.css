@@ -3610,6 +3610,47 @@ tbody tr:last-child td {
   line-height: 1.5;
 }
 
+/* Related-tools row at the bottom of each standalone tool page. Cards reuse
+   .utility-card/.tools-card; this block only handles the row's own layout. */
+.related-tools {
+  margin-top: 40px;
+}
+
+.related-heading {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0 0 14px;
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.related-card {
+  gap: 0;
+  padding: 18px 20px;
+}
+
+/* Per-tool FAQ (visible <details> + FAQPage JSON-LD). Items reuse the
+   .seo-faq styles from the homepage About/FAQ section. */
+.tool-faq {
+  margin-top: 40px;
+}
+
+.tool-faq-heading {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin: 0 0 6px;
+}
+
 .imgtool-dimensions {
   display: flex;
   flex-wrap: wrap;

@@ -483,6 +483,51 @@ const it: Record<keyof typeof en, string> = {
   "mediatool.converting": "Conversione...",
   "mediatool.convertFail": "Impossibile convertire questo file. Prova un altro formato o un file più piccolo.",
   "mediatool.dropAudio": "Trascina qui un file audio (fino a {size})",
+  "related.heading": "Strumenti correlati",
+  "related.musicName": "Rilevatore di tonalità e BPM",
+  "related.musicDesc": "TuneBad è un kit di strumenti musicali. Trova gratis la tonalità e i BPM di qualsiasi brano.",
+  "mediatool.faqVideo1Q": "Quali formati video posso convertire?",
+  "mediatool.faqVideo1A":
+    "MP4, WebM, MKV, MOV, AVI, FLV e WMV, in qualsiasi direzione. Trascina un file, scegli il formato di uscita e scarica il risultato.",
+  "mediatool.faqVideo2Q": "I miei video vengono caricati su un server?",
+  "mediatool.faqVideo2A":
+    "No. La conversione avviene interamente nel tuo browser, quindi il file non lascia mai il tuo dispositivo. Per questo non c'è nessuna attesa di upload.",
+  "mediatool.faqVideo3Q": "Il convertitore video è gratuito?",
+  "mediatool.faqVideo3A": "Sì. Nessuna filigrana, nessuna registrazione, nessuna pubblicità. Sono supportati file fino a 500 MB.",
+  "mediatool.faqVideo4Q": "Perché la prima conversione impiega un momento a partire?",
+  "mediatool.faqVideo4A":
+    "Il browser scarica il motore di conversione una sola volta, circa 31 MB. Poi resta in cache e le conversioni successive partono subito.",
+  "mediatool.faqAudio1Q": "Quali formati audio sono supportati?",
+  "mediatool.faqAudio1A":
+    "MP3, WAV, FLAC, OGG e M4A, in qualsiasi direzione. Per l'MP3 puoi scegliere il bitrate: 128, 192 o 320 kbps.",
+  "mediatool.faqAudio2Q": "I miei file audio vengono caricati da qualche parte?",
+  "mediatool.faqAudio2A": "No. La conversione avviene nel tuo browser e il file non lascia mai il tuo dispositivo.",
+  "mediatool.faqAudio3Q": "Convertire da FLAC a MP3 fa perdere qualità?",
+  "mediatool.faqAudio3A":
+    "L'MP3 è un formato con perdita, quindi un po' di dettaglio viene sempre scartato. A 320 kbps la maggior parte delle persone non sente la differenza. Convertire in WAV o FLAC mantiene l'audio esattamente com'è nella sorgente.",
+  "mediatool.faqAudio4Q": "C'è un limite di dimensione dei file?",
+  "mediatool.faqAudio4A": "Sono supportati file fino a 200 MB. Lo strumento è gratuito, senza registrazione e senza pubblicità.",
+  "vidtool.faqGeneric1Q": "Come funziona il compressore video?",
+  "vidtool.faqGeneric1A":
+    "Scegli una dimensione target di 10, 25, 50 o 100 MB e lo strumento ricodifica il video nel tuo browser finché non rientra in quel limite. Non viene caricato nulla.",
+  "vidtool.faqGeneric2Q": "La compressione riduce la qualità?",
+  "vidtool.faqGeneric2A":
+    "Un po' di perdita di qualità è inevitabile quando riduci un file, perché lo strumento abbassa il bitrate per raggiungere il tuo target. Più piccolo è il target, più visibile è la differenza.",
+  "vidtool.faqGeneric3Q": "C'è una filigrana o una registrazione?",
+  "vidtool.faqGeneric3A": "Nessuna filigrana, nessuna registrazione, nessuna pubblicità. Lo strumento è gratuito e gestisce file fino a 500 MB.",
+  "vidtool.faqGeneric4Q": "Funziona sul telefono?",
+  "vidtool.faqGeneric4A":
+    "Sì, funziona in qualsiasi browser moderno. Su iPhone i video molto grandi possono esaurire la memoria, quindi i clip più corti funzionano meglio.",
+  "vidtool.faqDiscord1Q": "Qual è il limite di upload di Discord?",
+  "vidtool.faqDiscord1A":
+    "Il limite gratuito di Discord è di 10 MB per file. Nitro Basic lo porta a 50 MB, e Nitro completo a 500 MB. Questo strumento ha preset da 10, 25 e 50 MB.",
+  "vidtool.faqDiscord2Q": "Come porto un video sotto i 10 MB per Discord?",
+  "vidtool.faqDiscord2A":
+    "Trascina il video, lascia selezionato il preset da 10 MB e avvia la compressione. Il clip viene ricodificato nel tuo browser finché non rientra nel limite, poi lo scarichi e lo pubblichi.",
+  "vidtool.faqDiscord3Q": "Il mio video viene caricato da qualche parte?",
+  "vidtool.faqDiscord3A": "No. La compressione avviene interamente nel tuo browser, quindi il clip non lascia mai il tuo dispositivo.",
+  "vidtool.faqDiscord4Q": "È gratuito? C'è una filigrana?",
+  "vidtool.faqDiscord4A": "Sì, è gratuito, e non ci sono filigrane, registrazioni o pubblicità.",
 };
 
 export default it;

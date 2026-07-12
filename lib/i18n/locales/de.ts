@@ -483,6 +483,51 @@ const de: Record<keyof typeof en, string> = {
   "mediatool.converting": "Wird konvertiert...",
   "mediatool.convertFail": "Diese Datei konnte nicht konvertiert werden. Versuch ein anderes Format oder eine kleinere Datei.",
   "mediatool.dropAudio": "Audiodatei hier ablegen (bis zu {size})",
+  "related.heading": "Verwandte Tools",
+  "related.musicName": "Tonart- & BPM-Finder",
+  "related.musicDesc": "TuneBad ist ein Musik-Toolkit. Finde kostenlos Tonart und BPM von jedem Song.",
+  "mediatool.faqVideo1Q": "Welche Videoformate kann ich konvertieren?",
+  "mediatool.faqVideo1A":
+    "MP4, WebM, MKV, MOV, AVI, FLV und WMV, in jede Richtung. Datei ablegen, Zielformat wählen und das Ergebnis herunterladen.",
+  "mediatool.faqVideo2Q": "Werden meine Videos auf einen Server hochgeladen?",
+  "mediatool.faqVideo2A":
+    "Nein. Die Konvertierung läuft komplett in deinem Browser, die Datei verlässt also nie dein Gerät. Deshalb gibt es auch keine Upload-Wartezeit.",
+  "mediatool.faqVideo3Q": "Ist der Video-Konverter kostenlos?",
+  "mediatool.faqVideo3A": "Ja. Kein Wasserzeichen, keine Anmeldung, keine Werbung. Dateien bis 500 MB werden unterstützt.",
+  "mediatool.faqVideo4Q": "Warum dauert die erste Konvertierung einen Moment?",
+  "mediatool.faqVideo4A":
+    "Dein Browser lädt die Konvertierungs-Engine einmalig herunter, etwa 31 MB. Danach ist sie im Cache und spätere Konvertierungen starten sofort.",
+  "mediatool.faqAudio1Q": "Welche Audioformate werden unterstützt?",
+  "mediatool.faqAudio1A":
+    "MP3, WAV, FLAC, OGG und M4A, in jede Richtung. Für MP3 kannst du die Bitrate wählen: 128, 192 oder 320 kbps.",
+  "mediatool.faqAudio2Q": "Werden meine Audiodateien hochgeladen?",
+  "mediatool.faqAudio2A": "Nein. Die Konvertierung passiert in deinem Browser und die Datei verlässt nie dein Gerät.",
+  "mediatool.faqAudio3Q": "Verliert FLAC zu MP3 an Qualität?",
+  "mediatool.faqAudio3A":
+    "MP3 ist ein verlustbehaftetes Format, es gehen also immer Details verloren. Bei 320 kbps hören die meisten Menschen keinen Unterschied. Eine Konvertierung zu WAV oder FLAC erhält das Audio exakt so, wie es in der Quelle ist.",
+  "mediatool.faqAudio4Q": "Gibt es ein Limit für die Dateigröße?",
+  "mediatool.faqAudio4A": "Dateien bis 200 MB werden unterstützt. Das Tool ist kostenlos, ohne Anmeldung und ohne Werbung.",
+  "vidtool.faqGeneric1Q": "Wie funktioniert der Video-Kompressor?",
+  "vidtool.faqGeneric1A":
+    "Wähle eine Zielgröße von 10, 25, 50 oder 100 MB und das Tool kodiert das Video in deinem Browser neu, bis es unter dieses Limit passt. Nichts wird hochgeladen.",
+  "vidtool.faqGeneric2Q": "Verringert das Komprimieren die Qualität?",
+  "vidtool.faqGeneric2A":
+    "Etwas Qualitätsverlust ist beim Verkleinern unvermeidbar, weil das Tool die Bitrate senkt, um dein Ziel zu erreichen. Je kleiner das Ziel, desto sichtbarer der Unterschied.",
+  "vidtool.faqGeneric3Q": "Gibt es ein Wasserzeichen oder eine Anmeldung?",
+  "vidtool.faqGeneric3A": "Kein Wasserzeichen, keine Anmeldung, keine Werbung. Das Tool ist kostenlos und verarbeitet Dateien bis 500 MB.",
+  "vidtool.faqGeneric4Q": "Funktioniert es auf dem Handy?",
+  "vidtool.faqGeneric4A":
+    "Ja, es läuft in jedem modernen Browser. Auf dem iPhone kann bei sehr großen Videos der Speicher knapp werden, kürzere Clips funktionieren dort am besten.",
+  "vidtool.faqDiscord1Q": "Wie hoch ist das Upload-Limit von Discord?",
+  "vidtool.faqDiscord1A":
+    "Das kostenlose Limit von Discord liegt bei 10 MB pro Datei. Nitro Basic erhöht es auf 50 MB und volles Nitro auf 500 MB. Dieses Tool hat Presets für 10, 25 und 50 MB.",
+  "vidtool.faqDiscord2Q": "Wie bekomme ich ein Video unter 10 MB für Discord?",
+  "vidtool.faqDiscord2A":
+    "Lege das Video ab, lass das 10-MB-Preset ausgewählt und starte die Kompression. Der Clip wird in deinem Browser neu kodiert, bis er passt, dann lädst du ihn herunter und postest ihn.",
+  "vidtool.faqDiscord3Q": "Wird mein Video irgendwohin hochgeladen?",
+  "vidtool.faqDiscord3A": "Nein. Die Kompression läuft komplett in deinem Browser, der Clip verlässt also nie dein Gerät.",
+  "vidtool.faqDiscord4Q": "Ist es kostenlos und gibt es ein Wasserzeichen?",
+  "vidtool.faqDiscord4A": "Ja, es ist kostenlos, und es gibt kein Wasserzeichen, keine Anmeldung und keine Werbung.",
 };
 
 export default de;

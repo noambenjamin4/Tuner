@@ -1,0 +1,63 @@
+"use client";
+
+import Link from "next/link";
+import { useI18n } from "@/lib/i18n";
+import type { DictKey } from "@/lib/i18n/locales/en";
+
+// "Related tools" row at the bottom of every standalone file-tool page: a few
+// sibling utilities plus one card back to the music side of TuneBad. A client
+// component only for i18n — the I18nProvider SSRs English, so the links and
+// copy land in the server HTML for crawlers. Card names/descriptions reuse
+// the ToolsHub keys so the two surfaces can never drift apart.
+export type RelatedSlug =
+  | "image-converter"
+  | "compress-image"
+  | "resize-image"
+  | "resize-image-for-instagram"
+  | "compress-image-to-100kb"
+  | "merge-pdf"
+  | "jpg-to-pdf"
+  | "unzip-files"
+  | "compress-video"
+  | "compress-video-for-discord"
+  | "video-converter"
+  | "audio-converter";
+
+const REGISTRY: Record<RelatedSlug, { nameKey: DictKey; descKey: DictKey }> = {
+  "image-converter": { nameKey: "tools.cardImageConvert", descKey: "tools.descImageConvert" },
+  "compress-image": { nameKey: "tools.cardImageCompress", descKey: "tools.descImageCompress" },
+  "resize-image": { nameKey: "tools.cardImageResize", descKey: "tools.descImageResize" },
+  "resize-image-for-instagram": { nameKey: "tools.cardInstagram", descKey: "tools.descInstagram" },
+  "compress-image-to-100kb": { nameKey: "tools.card100kb", descKey: "tools.desc100kb" },
+  "merge-pdf": { nameKey: "tools.cardPdfMerge", descKey: "tools.descPdfMerge" },
+  "jpg-to-pdf": { nameKey: "tools.cardJpgToPdf", descKey: "tools.descJpgToPdf" },
+  "unzip-files": { nameKey: "tools.cardZip", descKey: "tools.descZip" },
+  "compress-video": { nameKey: "tools.cardVideo", descKey: "tools.descVideo" },
+  "compress-video-for-discord": { nameKey: "tools.cardDiscord", descKey: "tools.descDiscord" },
+  "video-converter": { nameKey: "tools.cardVideoConvert", descKey: "tools.descVideoConvert" },
+  "audio-converter": { nameKey: "tools.cardAudioConvert", descKey: "tools.descAudioConvert" },
+};
+
+export function RelatedTools({ tools }: { tools: RelatedSlug[] }) {
+  const { t } = useI18n();
+  return (
+    <nav className="related-tools" aria-label="Related tools">
+      <h2 className="related-heading">{t("related.heading")}</h2>
+      <div className="related-grid">
+        {tools.map((slug) => {
+          const card = REGISTRY[slug];
+          return (
+            <Link key={slug} href={`/${slug}`} className="utility-card tools-card related-card">
+              <h3>{t(card.nameKey)}</h3>
+              <p>{t(card.descKey)}</p>
+            </Link>
+          );
+        })}
+        <Link href="/" className="utility-card tools-card related-card">
+          <h3>{t("related.musicName")}</h3>
+          <p>{t("related.musicDesc")}</p>
+        </Link>
+      </div>
+    </nav>
+  );
+}

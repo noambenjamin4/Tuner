@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { ToolPageShell } from "@/components/files/ToolPageShell";
+import { RelatedTools } from "@/components/files/RelatedTools";
+import { ToolFaq } from "@/components/files/ToolFaq";
 import { MediaConvertTool } from "@/components/files/MediaConvertTool";
 
 export const metadata: Metadata = {
@@ -12,12 +14,21 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <ToolPageShell>
+    <ToolPageShell tool={{ name: "Audio Converter", path: "/audio-converter" }}>
       <MediaConvertTool
         mode="audio"
         titleKey="mediatool.titleAudio"
         subtitleKey="mediatool.subtitleAudio"
       />
+      <ToolFaq
+        faqs={[
+          { q: "mediatool.faqAudio1Q", a: "mediatool.faqAudio1A" },
+          { q: "mediatool.faqAudio2Q", a: "mediatool.faqAudio2A" },
+          { q: "mediatool.faqAudio3Q", a: "mediatool.faqAudio3A" },
+          { q: "mediatool.faqAudio4Q", a: "mediatool.faqAudio4A" },
+        ]}
+      />
+      <RelatedTools tools={["video-converter", "compress-video", "compress-video-for-discord"]} />
     </ToolPageShell>
   );
 }

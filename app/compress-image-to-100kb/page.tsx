@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ToolPageShell } from "@/components/files/ToolPageShell";
+import { RelatedTools } from "@/components/files/RelatedTools";
 import { ImageTool } from "@/components/files/ImageTool";
 
 export const metadata: Metadata = {
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <ToolPageShell>
+    <ToolPageShell tool={{ name: "Compress to 100KB", path: "/compress-image-to-100kb" }}>
       <ImageTool
         mode="compress"
         titleKey="imgtool.title100kb"
@@ -20,6 +21,7 @@ export default function Page() {
         targetKbOptions={[50, 100, 200, 500]}
         defaultTargetKb={100}
       />
+      <RelatedTools tools={["compress-image", "resize-image", "image-converter"]} />
     </ToolPageShell>
   );
 }

@@ -483,6 +483,51 @@ const es: Record<keyof typeof en, string> = {
   "mediatool.converting": "Convirtiendo...",
   "mediatool.convertFail": "No se pudo convertir ese archivo. Prueba con otro formato o un archivo más pequeño.",
   "mediatool.dropAudio": "Suelta un archivo de audio aquí (hasta {size})",
+  "related.heading": "Herramientas relacionadas",
+  "related.musicName": "Buscador de tonalidad y BPM",
+  "related.musicDesc": "TuneBad es una caja de herramientas musical. Encuentra gratis la tonalidad y el BPM de cualquier canción.",
+  "mediatool.faqVideo1Q": "¿Qué formatos de vídeo puedo convertir?",
+  "mediatool.faqVideo1A":
+    "MP4, WebM, MKV, MOV, AVI, FLV y WMV, en cualquier dirección. Suelta un archivo, elige el formato de salida y descarga el resultado.",
+  "mediatool.faqVideo2Q": "¿Mis vídeos se suben a un servidor?",
+  "mediatool.faqVideo2A":
+    "No. La conversión se ejecuta por completo en tu navegador, así que el archivo nunca sale de tu dispositivo. Por eso tampoco hay espera de subida.",
+  "mediatool.faqVideo3Q": "¿El conversor de vídeo es gratis?",
+  "mediatool.faqVideo3A": "Sí. Sin marca de agua, sin registro y sin anuncios. Se admiten archivos de hasta 500 MB.",
+  "mediatool.faqVideo4Q": "¿Por qué la primera conversión tarda un momento en empezar?",
+  "mediatool.faqVideo4A":
+    "Tu navegador descarga el motor de conversión una sola vez, unos 31 MB. Después queda en caché y las siguientes conversiones empiezan al instante.",
+  "mediatool.faqAudio1Q": "¿Qué formatos de audio se admiten?",
+  "mediatool.faqAudio1A":
+    "MP3, WAV, FLAC, OGG y M4A, en cualquier dirección. Para MP3 puedes elegir el bitrate: 128, 192 o 320 kbps.",
+  "mediatool.faqAudio2Q": "¿Mis archivos de audio se suben a algún sitio?",
+  "mediatool.faqAudio2A": "No. La conversión ocurre en tu navegador y el archivo nunca sale de tu dispositivo.",
+  "mediatool.faqAudio3Q": "¿Convertir FLAC a MP3 pierde calidad?",
+  "mediatool.faqAudio3A":
+    "MP3 es un formato con pérdida, así que siempre se descarta algo de detalle. A 320 kbps la mayoría de la gente no nota la diferencia. Convertir a WAV o FLAC conserva el audio exactamente como está en el original.",
+  "mediatool.faqAudio4Q": "¿Hay un límite de tamaño de archivo?",
+  "mediatool.faqAudio4A": "Se admiten archivos de hasta 200 MB. La herramienta es gratis, sin registro y sin anuncios.",
+  "vidtool.faqGeneric1Q": "¿Cómo funciona el compresor de vídeo?",
+  "vidtool.faqGeneric1A":
+    "Elige un tamaño objetivo de 10, 25, 50 o 100 MB y la herramienta recodifica el vídeo en tu navegador hasta que quede por debajo de ese límite. No se sube nada.",
+  "vidtool.faqGeneric2Q": "¿Comprimir reduce la calidad?",
+  "vidtool.faqGeneric2A":
+    "Algo de pérdida de calidad es inevitable al reducir un archivo, porque la herramienta baja el bitrate para alcanzar tu objetivo. Cuanto más pequeño el objetivo, más visible la diferencia.",
+  "vidtool.faqGeneric3Q": "¿Hay marca de agua o registro?",
+  "vidtool.faqGeneric3A": "Sin marca de agua, sin registro, sin anuncios. La herramienta es gratis y acepta archivos de hasta 500 MB.",
+  "vidtool.faqGeneric4Q": "¿Funciona en el móvil?",
+  "vidtool.faqGeneric4A":
+    "Sí, funciona en cualquier navegador moderno. En iPhone, los vídeos muy grandes pueden quedarse sin memoria, así que los clips cortos funcionan mejor.",
+  "vidtool.faqDiscord1Q": "¿Cuál es el límite de subida de Discord?",
+  "vidtool.faqDiscord1A":
+    "El límite gratuito de Discord es de 10 MB por archivo. Nitro Basic lo sube a 50 MB, y Nitro completo a 500 MB. Esta herramienta tiene preajustes de 10, 25 y 50 MB.",
+  "vidtool.faqDiscord2Q": "¿Cómo dejo un vídeo por debajo de 10 MB para Discord?",
+  "vidtool.faqDiscord2A":
+    "Suelta el vídeo, deja seleccionado el preajuste de 10 MB e inicia la compresión. El clip se recodifica en tu navegador hasta que cabe, y luego lo descargas y lo publicas.",
+  "vidtool.faqDiscord3Q": "¿Mi vídeo se sube a algún sitio?",
+  "vidtool.faqDiscord3A": "No. La compresión se ejecuta por completo en tu navegador, así que el clip nunca sale de tu dispositivo.",
+  "vidtool.faqDiscord4Q": "¿Es gratis? ¿Tiene marca de agua?",
+  "vidtool.faqDiscord4A": "Sí, es gratis, y no hay marca de agua, ni registro, ni anuncios.",
 };
 
 export default es;

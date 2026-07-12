@@ -34,6 +34,13 @@ Key facts:
 - [Video Converter](https://www.tunebad.com/video-converter): Convert a video to MP4, WebM, MKV, MOV, AVI, FLV, or WMV in the browser, no upload.
 - [Audio Converter](https://www.tunebad.com/audio-converter): Convert audio to MP3 (128/192/320 kbps), WAV, FLAC, OGG, or M4A in the browser, no upload.
 
+## Guides
+
+- [How to Find the Key and BPM of Any Song](https://www.tunebad.com/guides/find-key-and-bpm-of-any-song): Step-by-step guide to detecting a track's key and tempo, by ear or with the free analyzer.
+- [The Camelot Wheel, Explained](https://www.tunebad.com/guides/camelot-wheel-harmonic-mixing): How the Camelot code system works and how DJs use it for harmonic mixing.
+- [How to Make a Slowed + Reverb Edit](https://www.tunebad.com/guides/how-to-make-slowed-and-reverb): Making a slowed + reverb (or nightcore) edit for free in the browser.
+- [What Is LUFS? Streaming Loudness, Explained](https://www.tunebad.com/guides/what-is-lufs-streaming-loudness): What LUFS means, how streaming loudness normalization works, and what to master to.
+
 ## Pages
 
 - [Home](https://www.tunebad.com/): Overview of every tool with a FAQ.

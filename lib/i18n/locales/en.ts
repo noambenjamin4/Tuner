@@ -513,6 +513,56 @@ const en = {
   "mediatool.converting": "Converting...",
   "mediatool.convertFail": "Could not convert that file. Try another format or a smaller file.",
   "mediatool.dropAudio": "Drop an audio file here (up to {size})",
+  // Related-tools row on the standalone file-tool pages
+  "related.heading": "Related tools",
+  "related.musicName": "Key & BPM Finder",
+  "related.musicDesc": "TuneBad is a music toolkit. Find any song's key and BPM for free.",
+  // FAQ: video converter
+  "mediatool.faqVideo1Q": "Which video formats can I convert?",
+  "mediatool.faqVideo1A":
+    "MP4, WebM, MKV, MOV, AVI, FLV, and WMV, in any direction. Drop a file, pick the output format, and download the result.",
+  "mediatool.faqVideo2Q": "Are my videos uploaded to a server?",
+  "mediatool.faqVideo2A":
+    "No. The conversion runs entirely in your browser, so the file never leaves your device. That is also why there is no upload wait.",
+  "mediatool.faqVideo3Q": "Is the video converter free?",
+  "mediatool.faqVideo3A": "Yes. No watermark, no sign-up, and no ads. Files up to 500 MB are supported.",
+  "mediatool.faqVideo4Q": "Why does the first conversion take a moment to start?",
+  "mediatool.faqVideo4A":
+    "Your browser downloads the conversion engine once, about 31 MB. It is cached after that, so later conversions start right away.",
+  // FAQ: audio converter
+  "mediatool.faqAudio1Q": "Which audio formats are supported?",
+  "mediatool.faqAudio1A":
+    "MP3, WAV, FLAC, OGG, and M4A, in any direction. For MP3 you can pick the bitrate: 128, 192, or 320 kbps.",
+  "mediatool.faqAudio2Q": "Do my audio files get uploaded?",
+  "mediatool.faqAudio2A": "No. The conversion happens in your browser, and the file never leaves your device.",
+  "mediatool.faqAudio3Q": "Does converting FLAC to MP3 lose quality?",
+  "mediatool.faqAudio3A":
+    "MP3 is a lossy format, so some detail is always discarded. At 320 kbps most people cannot hear the difference. Converting to WAV or FLAC keeps the audio exactly as it is in the source.",
+  "mediatool.faqAudio4Q": "Is there a file size limit?",
+  "mediatool.faqAudio4A": "Files up to 200 MB are supported. The tool is free, with no sign-up and no ads.",
+  // FAQ: compress video
+  "vidtool.faqGeneric1Q": "How does the video compressor work?",
+  "vidtool.faqGeneric1A":
+    "Pick a target size of 10, 25, 50, or 100 MB and the tool re-encodes the video in your browser until it fits under that cap. Nothing is uploaded.",
+  "vidtool.faqGeneric2Q": "Will compressing reduce the quality?",
+  "vidtool.faqGeneric2A":
+    "Some quality loss is unavoidable when you shrink a file, because the tool lowers the bitrate to hit your target. The smaller the target, the more visible the difference.",
+  "vidtool.faqGeneric3Q": "Is there a watermark or a sign-up?",
+  "vidtool.faqGeneric3A": "No watermark, no sign-up, no ads. The tool is free and handles files up to 500 MB.",
+  "vidtool.faqGeneric4Q": "Does it work on a phone?",
+  "vidtool.faqGeneric4A":
+    "Yes, it runs in any modern browser. On iPhone, very large videos can run out of memory, so shorter clips work best there.",
+  // FAQ: compress for Discord
+  "vidtool.faqDiscord1Q": "What is Discord's upload limit?",
+  "vidtool.faqDiscord1A":
+    "Discord's free limit is 10 MB per file. Nitro Basic raises it to 50 MB, and full Nitro to 500 MB. This tool has presets for 10, 25, and 50 MB.",
+  "vidtool.faqDiscord2Q": "How do I get a video under 10 MB for Discord?",
+  "vidtool.faqDiscord2A":
+    "Drop the video, keep the 10 MB preset selected, and start the compression. The clip is re-encoded in your browser until it fits, then you download it and post it.",
+  "vidtool.faqDiscord3Q": "Is my video uploaded anywhere?",
+  "vidtool.faqDiscord3A": "No. The compression runs entirely in your browser, so the clip never leaves your device.",
+  "vidtool.faqDiscord4Q": "Is it free, and is there a watermark?",
+  "vidtool.faqDiscord4A": "Yes, it is free, and there is no watermark, no sign-up, and no ads.",
 } as const;
 
 export default en;

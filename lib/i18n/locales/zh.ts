@@ -482,6 +482,51 @@ const zh: Record<keyof typeof en, string> = {
   "mediatool.converting": "正在转换...",
   "mediatool.convertFail": "无法转换这个文件。换个格式，或换个更小的文件试试。",
   "mediatool.dropAudio": "把音频文件拖到这里（不超过{size}）",
+  "related.heading": "相关工具",
+  "related.musicName": "调性和BPM查找器",
+  "related.musicDesc": "TuneBad是一个音乐工具箱。免费查找任何歌曲的调性和BPM。",
+  "mediatool.faqVideo1Q": "可以转换哪些视频格式？",
+  "mediatool.faqVideo1A":
+    "MP4、WebM、MKV、MOV、AVI、FLV和WMV，任意方向互转。拖入文件，选择输出格式，然后下载结果即可。",
+  "mediatool.faqVideo2Q": "我的视频会被上传到服务器吗？",
+  "mediatool.faqVideo2A":
+    "不会。转换完全在你的浏览器里进行，文件绝不会离开你的设备。这也是为什么没有任何上传等待。",
+  "mediatool.faqVideo3Q": "这个视频转换器是免费的吗？",
+  "mediatool.faqVideo3A": "是的。没有水印，无需注册，也没有广告。支持最大500 MB的文件。",
+  "mediatool.faqVideo4Q": "为什么第一次转换要等一会儿才开始？",
+  "mediatool.faqVideo4A":
+    "浏览器需要下载一次转换引擎，大约31 MB。之后它会被缓存，后续转换会立即开始。",
+  "mediatool.faqAudio1Q": "支持哪些音频格式？",
+  "mediatool.faqAudio1A":
+    "MP3、WAV、FLAC、OGG和M4A，任意方向互转。MP3可以选择比特率：128、192或320 kbps。",
+  "mediatool.faqAudio2Q": "我的音频文件会被上传吗？",
+  "mediatool.faqAudio2A": "不会。转换在你的浏览器里完成，文件绝不会离开你的设备。",
+  "mediatool.faqAudio3Q": "FLAC转MP3会损失音质吗？",
+  "mediatool.faqAudio3A":
+    "MP3是有损格式，所以总会丢失一些细节。在320 kbps下，大多数人听不出区别。转换成WAV或FLAC则会完整保留源文件里的音频。",
+  "mediatool.faqAudio4Q": "文件大小有限制吗？",
+  "mediatool.faqAudio4A": "支持最大200 MB的文件。工具免费，无需注册，没有广告。",
+  "vidtool.faqGeneric1Q": "视频压缩是怎么工作的？",
+  "vidtool.faqGeneric1A":
+    "选择10、25、50或100 MB的目标大小，工具会在你的浏览器里重新编码视频，直到低于该上限。不会上传任何内容。",
+  "vidtool.faqGeneric2Q": "压缩会降低画质吗？",
+  "vidtool.faqGeneric2A":
+    "缩小文件时一定会有一些画质损失，因为工具会降低比特率来达到你的目标。目标越小，差别越明显。",
+  "vidtool.faqGeneric3Q": "有水印或需要注册吗？",
+  "vidtool.faqGeneric3A": "没有水印，无需注册，没有广告。工具免费，可处理最大500 MB的文件。",
+  "vidtool.faqGeneric4Q": "手机上能用吗？",
+  "vidtool.faqGeneric4A":
+    "可以，任何现代浏览器都能运行。在iPhone上，特别大的视频可能会内存不足，所以较短的片段效果更好。",
+  "vidtool.faqDiscord1Q": "Discord的上传限制是多少？",
+  "vidtool.faqDiscord1A":
+    "Discord的免费上限是每个文件10 MB。Nitro Basic提高到50 MB，完整的Nitro提高到500 MB。这个工具提供10、25和50 MB的预设。",
+  "vidtool.faqDiscord2Q": "怎么把视频压到10 MB以下发到Discord？",
+  "vidtool.faqDiscord2A":
+    "拖入视频，保持选中10 MB预设，然后开始压缩。片段会在你的浏览器里重新编码直到符合上限，之后下载并发布即可。",
+  "vidtool.faqDiscord3Q": "我的视频会被上传到哪里吗？",
+  "vidtool.faqDiscord3A": "不会。压缩完全在你的浏览器里进行，片段绝不会离开你的设备。",
+  "vidtool.faqDiscord4Q": "免费吗？有水印吗？",
+  "vidtool.faqDiscord4A": "免费，没有水印，无需注册，也没有广告。",
 };
 
 export default zh;

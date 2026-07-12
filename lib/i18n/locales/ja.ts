@@ -315,8 +315,8 @@ const ja: Record<keyof typeof en, string> = {
   "cutter.exported": "保存しました。ダウンロードフォルダをご確認ください。",
 
   // Analyze from link
-  "analysis.linkLabel": "またはリンクを貼り付け",
-  "analysis.linkPlaceholder": "YouTube、Spotify、SoundCloudのトラックリンク",
+  "analysis.linkLabel": "または曲名で検索 / リンクを貼り付け",
+  "analysis.linkPlaceholder": "曲名、またはYouTube・Spotify・SoundCloudのリンク",
   "analysis.linkButton": "キー＆BPMを取得",
   "analysis.linkLooking": "検索中...",
   "analysis.linkFetching": "プレビューを取得中...",
@@ -325,6 +325,8 @@ const ja: Record<keyof typeof en, string> = {
   "analysis.linkInvalid": "YouTube、Spotify、SoundCloudのトラックリンクではないようです。",
   "analysis.linkRateLimited": "現在、検索が集中しています。数分待ってからもう一度お試しください。",
   "analysis.linkError": "そのリンクで問題が発生しました。もう一度試すか、下からファイルをアップロードしてください。",
+  "analysis.linkMatch": "最も一致する曲を解析中：{song}",
+  "analysis.searchInvalid": "2文字以上の曲名を入力するか、リンクを貼り付けてください。",
   "analysis.recentTitle": "最近解析した曲",
   "analysis.copyLink": "リンクをコピー",
   "analysis.copied": "コピーしました",

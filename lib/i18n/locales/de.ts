@@ -315,8 +315,8 @@ const de: Record<keyof typeof en, string> = {
   "cutter.exported": "Gespeichert. Schau in deine Downloads.",
 
   // Analyze from link
-  "analysis.linkLabel": "Oder füge einen Link ein",
-  "analysis.linkPlaceholder": "Link zu einem YouTube-, Spotify- oder SoundCloud-Track",
+  "analysis.linkLabel": "Oder Song suchen / Link einfügen",
+  "analysis.linkPlaceholder": "Songname oder YouTube-, Spotify- oder SoundCloud-Link",
   "analysis.linkButton": "Tonart & BPM ermitteln",
   "analysis.linkLooking": "Wird gesucht...",
   "analysis.linkFetching": "Vorschau wird geladen...",
@@ -325,6 +325,8 @@ const de: Record<keyof typeof en, string> = {
   "analysis.linkInvalid": "Das sieht nicht nach einem Link zu einem YouTube-, Spotify- oder SoundCloud-Track aus.",
   "analysis.linkRateLimited": "Gerade zu viele Anfragen. Warte ein paar Minuten und versuch es dann noch mal.",
   "analysis.linkError": "Mit diesem Link ist etwas schiefgelaufen. Versuch es noch mal oder lade unten die Datei hoch.",
+  "analysis.linkMatch": "Bester Treffer wird analysiert: {song}",
+  "analysis.searchInvalid": "Gib einen Songnamen mit mindestens 2 Zeichen ein oder füge einen Link ein.",
   "analysis.recentTitle": "Zuletzt analysiert",
   "analysis.copyLink": "Link kopieren",
   "analysis.copied": "Kopiert",

@@ -13,7 +13,8 @@ Key facts:
 
 ## Tools
 
-- [Key & BPM Finder](https://www.tunebad.com/key-bpm-finder): Upload an audio file, or paste a YouTube, Spotify, or SoundCloud link, and get the key, tempo, Camelot code, energy, and loudness in a few seconds.
+- [Key & BPM Finder](https://www.tunebad.com/key-bpm-finder): Search a song by name, upload an audio file, or paste a YouTube, Spotify, or SoundCloud link, and get the key, tempo, Camelot code, energy, and loudness in a few seconds.
+- [Camelot Wheel](https://www.tunebad.com/camelot-wheel): Interactive chart of all 24 Camelot codes (1A-12A minor, 1B-12B major). Click a code to see its musical key, which codes mix cleanly with it, and real songs in that key.
 - [Playlist Analyzer](https://www.tunebad.com/playlist-analyzer): Paste a Spotify or YouTube playlist link and get the key, BPM, and Camelot code for every track in one table, ready to export as CSV or sort into Camelot-wheel order for DJ sets.
 - [MP3 Cutter](https://www.tunebad.com/mp3-cutter): Trim a song to the part you want, add a fade, and save it as an MP3 or WAV ringtone.
 - [Converter](https://www.tunebad.com/converter): Turn a YouTube, Spotify, or SoundCloud link into an MP3, WAV, or MP4 file. Also converts local audio files in the browser.

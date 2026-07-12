@@ -72,6 +72,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     tool("/pitch-shifter"),
     tool("/delay-reverb-calculator"),
     tool("/bpm-tap"),
+    tool("/camelot-wheel"),
     guide("/guides/find-key-and-bpm-of-any-song"),
     guide("/guides/camelot-wheel-harmonic-mixing"),
     guide("/guides/what-is-lufs-streaming-loudness"),

@@ -24,6 +24,7 @@ const CARDS = [
   ["mov-to-mp4", "MOV TO", "MP4"],
   ["flac-to-mp3", "FLAC TO", "MP3"],
   ["wav-to-mp3", "WAV TO", "MP3"],
+  ["camelot-wheel", "CAMELOT", "WHEEL"],
 ];
 
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");

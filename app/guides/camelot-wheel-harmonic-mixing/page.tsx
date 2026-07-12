@@ -124,6 +124,12 @@ export default function Page() {
       </p>
 
       <p>
+        Want to explore the wheel itself? The{" "}
+        <Link href="/camelot-wheel">interactive Camelot wheel</Link> lets you click any of the 24
+        codes to see its key, its compatible codes, and real songs in that key.
+      </p>
+
+      <p>
         Related: <Link href="/guides/find-key-and-bpm-of-any-song">How to find the key and BPM of any song</Link> ·{" "}
         <Link href="/guides/how-to-make-slowed-and-reverb">How to make slowed + reverb</Link>
       </p>

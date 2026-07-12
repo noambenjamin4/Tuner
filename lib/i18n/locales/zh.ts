@@ -314,8 +314,8 @@ const zh: Record<keyof typeof en, string> = {
   "cutter.exported": "已保存。请查看你的下载文件夹。",
 
   // Analyze from link
-  "analysis.linkLabel": "或粘贴链接",
-  "analysis.linkPlaceholder": "YouTube、Spotify或SoundCloud歌曲链接",
+  "analysis.linkLabel": "或搜索歌曲 / 粘贴链接",
+  "analysis.linkPlaceholder": "歌曲名称，或YouTube、Spotify、SoundCloud链接",
   "analysis.linkButton": "获取调性和BPM",
   "analysis.linkLooking": "正在查找...",
   "analysis.linkFetching": "正在获取预览...",
@@ -324,6 +324,8 @@ const zh: Record<keyof typeof en, string> = {
   "analysis.linkInvalid": "这看起来不像YouTube、Spotify或SoundCloud的歌曲链接。",
   "analysis.linkRateLimited": "当前查询次数过多。请等几分钟再试。",
   "analysis.linkError": "该链接出了点问题。请重试，或在下方上传文件。",
+  "analysis.linkMatch": "正在分析最佳匹配：{song}",
+  "analysis.searchInvalid": "请输入至少2个字符的歌曲名称，或粘贴链接。",
   "analysis.recentTitle": "最近分析",
   "analysis.copyLink": "复制链接",
   "analysis.copied": "已复制",

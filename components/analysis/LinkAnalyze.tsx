@@ -1,11 +1,14 @@
 "use client";
 
-// "Paste a link, get key & BPM" — the zero-infrastructure flow: cached
-// community result if anyone analyzed this song before, otherwise the song's
-// official 30s catalog preview is fetched (via our allowlisted proxy) and
-// analyzed right here in the browser. The download bridge is never involved.
+// "Type a song name or paste a link, get key & BPM" — the zero-infrastructure
+// flow: cached community result if anyone analyzed this song before, otherwise
+// the song's official 30s catalog preview is fetched (via our allowlisted
+// proxy) and analyzed right here in the browser. Free-text input is resolved
+// to the top Deezer catalog match server-side. The download bridge is never
+// involved.
 import { FormEvent, useEffect, useState } from "react";
 import { useI18n } from "@/lib/i18n";
+import { canonicalYouTubeUrl, validateSpotifyUrl, validateMediaUrl } from "@/lib/media-url";
 
 export type LinkPreviewMeta = {
   id: string;
@@ -31,6 +34,17 @@ function permalinkFor(id: string): string {
   return `${window.location.origin}/key-bpm-finder?song=${encodeURIComponent(id)}`;
 }
 
+/** True when the input parses as a link to a platform the link flow supports. */
+function isSupportedTrackUrl(input: string): boolean {
+  return Boolean(canonicalYouTubeUrl(input) || validateSpotifyUrl(input) || validateMediaUrl(input));
+}
+
+/** True when the input is clearly meant to be a URL (so a typo'd or
+ *  unsupported link errors honestly instead of being searched as text). */
+function looksLikeUrl(input: string): boolean {
+  return /^(https?:\/\/|www\.|spotify:)/i.test(input) || input.includes("://");
+}
+
 export function LinkAnalyze({ onPreviewFile }: { onPreviewFile: (file: File, meta: LinkPreviewMeta) => void }) {
   const { t } = useI18n();
   const [url, setUrl] = useState("");
@@ -38,6 +52,9 @@ export function LinkAnalyze({ onPreviewFile }: { onPreviewFile: (file: File, met
   const [cached, setCached] = useState<CachedRow | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
+  // The resolved "Title — Artist" being analyzed, so the user always sees
+  // which catalog match a free-text search (or link) landed on.
+  const [match, setMatch] = useState<{ title: string; artist: string | null } | null>(null);
 
   const busy = phase !== "idle";
 
@@ -77,15 +94,34 @@ export function LinkAnalyze({ onPreviewFile }: { onPreviewFile: (file: File, met
     if (!trimmed || busy) return;
     setCached(null);
     setError(null);
+    setMatch(null);
+
+    // Route: supported link → link lookup; something that was clearly meant
+    // to be a URL but isn't supported → honest error; anything else → treat
+    // it as a song-name search.
+    const isUrl = isSupportedTrackUrl(trimmed);
+    if (!isUrl && looksLikeUrl(trimmed)) {
+      setError(t("analysis.linkInvalid"));
+      return;
+    }
+    if (!isUrl && trimmed.length < 2) {
+      setError(t("analysis.searchInvalid"));
+      return;
+    }
+
     setPhase("looking");
     try {
-      const lookupRes = await fetch(`/api/lookup?url=${encodeURIComponent(trimmed)}`);
+      const lookupRes = await fetch(
+        isUrl
+          ? `/api/lookup?url=${encodeURIComponent(trimmed)}`
+          : `/api/lookup?q=${encodeURIComponent(trimmed)}`,
+      );
       if (lookupRes.status === 429) {
         setError(t("analysis.linkRateLimited"));
         return;
       }
       if (lookupRes.status === 400) {
-        setError(t("analysis.linkInvalid"));
+        setError(isUrl ? t("analysis.linkInvalid") : t("analysis.searchInvalid"));
         return;
       }
       if (lookupRes.status === 404) {
@@ -106,6 +142,7 @@ export function LinkAnalyze({ onPreviewFile }: { onPreviewFile: (file: File, met
       }
 
       setPhase("fetching");
+      setMatch({ title: data.title, artist: data.artist || null });
       const previewRes = await fetch(`/api/preview?src=${encodeURIComponent(data.previewUrl)}`);
       if (!previewRes.ok) {
         setError(t("analysis.linkError"));
@@ -134,7 +171,7 @@ export function LinkAnalyze({ onPreviewFile }: { onPreviewFile: (file: File, met
         <div className="link-analyze-row">
           <input
             id="link-analyze-input"
-            type="url"
+            type="text"
             placeholder={t("analysis.linkPlaceholder")}
             value={url}
             onChange={(event) => {
@@ -154,6 +191,12 @@ export function LinkAnalyze({ onPreviewFile }: { onPreviewFile: (file: File, met
       </form>
 
       {error ? <p className="link-analyze-note link-analyze-error">{error}</p> : null}
+
+      {match && !error && !cached ? (
+        <p className="link-analyze-note link-analyze-match" role="status">
+          {t("analysis.linkMatch", { song: match.artist ? `${match.title} — ${match.artist}` : match.title })}
+        </p>
+      ) : null}
 
       {cached ? (
         <div className="link-analyze-result" role="status">

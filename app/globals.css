@@ -3988,3 +3988,99 @@ tbody tr:last-child td {
     max-width: 100%;
   }
 }
+
+/* Interactive Camelot wheel (/camelot-wheel). Strictly monochrome. */
+.cw-interactive {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.cw-wheel {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  display: block;
+}
+
+.cw-seg {
+  cursor: pointer;
+  outline: none;
+}
+
+.cw-seg:focus-visible path:first-of-type {
+  stroke: var(--ink);
+  stroke-width: 3;
+}
+
+.cw-seg:hover path:first-of-type {
+  stroke: var(--ink);
+}
+
+.cw-panel {
+  width: 100%;
+  max-width: 480px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 20px 22px;
+  text-align: center;
+}
+
+.cw-panel-code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin: 0 0 2px;
+}
+
+.cw-panel-key {
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0 0 10px;
+}
+
+.cw-panel-help {
+  font-size: 13px;
+  color: var(--muted, var(--ink));
+  margin: 0 0 12px;
+}
+
+.cw-chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 0;
+  margin: 0 0 16px;
+}
+
+.cw-chip {
+  font: inherit;
+  font-size: 13px;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.cw-chip:hover,
+.cw-chip:focus-visible {
+  border-color: var(--ink);
+}
+
+.cw-chip-relation {
+  font-size: 11px;
+  opacity: 0.6;
+}
+
+.cw-panel-links {
+  margin: 0;
+}

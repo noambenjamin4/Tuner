@@ -337,8 +337,8 @@ const en = {
   "cutter.exported": "Saved. Check your downloads.",
 
   // Analyze from link
-  "analysis.linkLabel": "Or paste a link",
-  "analysis.linkPlaceholder": "YouTube, Spotify, or SoundCloud track link",
+  "analysis.linkLabel": "Or search a song / paste a link",
+  "analysis.linkPlaceholder": "Song name, or a YouTube, Spotify, or SoundCloud link",
   "analysis.linkButton": "Get key & BPM",
   "analysis.linkLooking": "Looking it up...",
   "analysis.linkFetching": "Fetching preview...",
@@ -347,6 +347,8 @@ const en = {
   "analysis.linkInvalid": "That doesn't look like a YouTube, Spotify, or SoundCloud track link.",
   "analysis.linkRateLimited": "Too many lookups right now. Wait a few minutes and try again.",
   "analysis.linkError": "Something went wrong with that link. Try again, or upload the file below.",
+  "analysis.linkMatch": "Analyzing top match: {song}",
+  "analysis.searchInvalid": "Type a song name of at least 2 characters, or paste a link.",
   "analysis.recentTitle": "Recently analyzed",
   "analysis.copyLink": "Copy link",
   "analysis.copied": "Copied",

@@ -205,11 +205,23 @@ async function collectTracks() {
   for (const t of byId.values()) {
     if (t.artistId && !artistIds.has(t.artistId)) artistIds.set(t.artistId, t.artist);
   }
-  const ARTIST_CAP = 600;
+  // Fisher-Yates: successive runs sample a different slice of the frontier,
+  // so a forever-loop keeps finding new songs instead of re-treading the
+  // same first-N artists every cycle.
+  const shuffled = (m) => {
+    const a = [...m.entries()];
+    for (let i = a.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  };
+
+  const ARTIST_CAP = 1200;
   let done = 0;
-  for (const [artistId, artistName] of [...artistIds.entries()].slice(0, ARTIST_CAP)) {
+  for (const [artistId, artistName] of shuffled(artistIds).slice(0, ARTIST_CAP)) {
     try {
-      const j = await getJson(`https://api.deezer.com/artist/${artistId}/top?limit=25`);
+      const j = await getJson(`https://api.deezer.com/artist/${artistId}/top?limit=35`);
       addTracks(byId, j.data, `artist ${artistName}`);
     } catch (e) {
       console.log(`artist ${artistName}: failed (${e.message})`);
@@ -221,10 +233,10 @@ async function collectTracks() {
 
   // 4. Related-artist expansion: chart artists are the head of the catalog;
   // their related artists are the body. Bounded fan-out so the API stays polite.
-  const RELATED_SOURCES = 150;
-  const RELATED_ARTIST_CAP = 800;
+  const RELATED_SOURCES = 500;
+  const RELATED_ARTIST_CAP = 2500;
   const relatedIds = new Map();
-  for (const [artistId] of [...artistIds.entries()].slice(0, RELATED_SOURCES)) {
+  for (const [artistId] of shuffled(artistIds).slice(0, RELATED_SOURCES)) {
     if (relatedIds.size >= RELATED_ARTIST_CAP) break;
     try {
       const j = await getJson(`https://api.deezer.com/artist/${artistId}/related?limit=20`);
@@ -238,7 +250,7 @@ async function collectTracks() {
   }
   console.log(`--- related-artist pool: ${relatedIds.size} new artists ---`);
   let relDone = 0;
-  for (const [artistId, artistName] of [...relatedIds.entries()].slice(0, RELATED_ARTIST_CAP)) {
+  for (const [artistId, artistName] of shuffled(relatedIds).slice(0, RELATED_ARTIST_CAP)) {
     try {
       const j = await getJson(`https://api.deezer.com/artist/${artistId}/top?limit=15`);
       addTracks(byId, j.data, `related ${artistName}`);

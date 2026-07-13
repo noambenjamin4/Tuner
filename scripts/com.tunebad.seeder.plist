@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Perpetual catalog growth. Install once with:
+       cp scripts/com.tunebad.seeder.plist ~/Library/LaunchAgents/
+       launchctl load ~/Library/LaunchAgents/com.tunebad.seeder.plist
+     launchd then keeps scripts/seed-forever.sh running across crashes and
+     reboots, exactly like com.tunebad.bridge does for the download bridge. -->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.tunebad.seeder</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/noambenjamin/Code/Tunebad/scripts/seed-forever.sh</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>StandardOutPath</key>
+    <string>/tmp/tunebad-seeder.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/tunebad-seeder.log</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin</string>
+    </dict>
+</dict>
+</plist>

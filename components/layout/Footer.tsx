@@ -48,6 +48,7 @@ export function Footer() {
           <Link href="/resize-image">{t("tools.cardImageResize")}</Link>
           <Link href="/resize-image-for-instagram">{t("tools.cardInstagram")}</Link>
           <Link href="/compress-image-to-100kb">{t("tools.card100kb")}</Link>
+          <Link href="/heic-to-jpg">{t("tools.cardHeicToJpg")}</Link>
           <Link href="/merge-pdf">{t("tools.cardPdfMerge")}</Link>
           <Link href="/split-pdf">{t("tools.cardPdfSplit")}</Link>
           <Link href="/jpg-to-pdf">{t("tools.cardJpgToPdf")}</Link>

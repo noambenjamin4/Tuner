@@ -11,6 +11,7 @@ const CARDS = [
   ["resize-image", "RESIZE", "IMAGES"],
   ["resize-image-instagram", "RESIZE FOR", "INSTAGRAM"],
   ["compress-image-100kb", "COMPRESS", "TO 100KB"],
+  ["heic-to-jpg", "HEIC TO", "JPG"],
   ["compress-video", "COMPRESS", "VIDEO"],
   ["compress-video-discord", "COMPRESS FOR", "DISCORD"],
   ["merge-pdf", "MERGE", "PDF FILES"],

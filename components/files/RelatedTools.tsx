@@ -15,6 +15,7 @@ export type RelatedSlug =
   | "resize-image"
   | "resize-image-for-instagram"
   | "compress-image-to-100kb"
+  | "heic-to-jpg"
   | "merge-pdf"
   | "jpg-to-pdf"
   | "unzip-files"
@@ -35,6 +36,7 @@ const REGISTRY: Record<RelatedSlug, { nameKey: DictKey; descKey: DictKey }> = {
   "resize-image": { nameKey: "tools.cardImageResize", descKey: "tools.descImageResize" },
   "resize-image-for-instagram": { nameKey: "tools.cardInstagram", descKey: "tools.descInstagram" },
   "compress-image-to-100kb": { nameKey: "tools.card100kb", descKey: "tools.desc100kb" },
+  "heic-to-jpg": { nameKey: "tools.cardHeicToJpg", descKey: "tools.descHeicToJpg" },
   "merge-pdf": { nameKey: "tools.cardPdfMerge", descKey: "tools.descPdfMerge" },
   "jpg-to-pdf": { nameKey: "tools.cardJpgToPdf", descKey: "tools.descJpgToPdf" },
   "unzip-files": { nameKey: "tools.cardZip", descKey: "tools.descZip" },

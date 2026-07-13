@@ -12,6 +12,7 @@ const FILE_TOOLS: { href: string; nameKey: DictKey; descKey: DictKey }[] = [
   { href: "/resize-image", nameKey: "tools.cardImageResize", descKey: "tools.descImageResize" },
   { href: "/resize-image-for-instagram", nameKey: "tools.cardInstagram", descKey: "tools.descInstagram" },
   { href: "/compress-image-to-100kb", nameKey: "tools.card100kb", descKey: "tools.desc100kb" },
+  { href: "/heic-to-jpg", nameKey: "tools.cardHeicToJpg", descKey: "tools.descHeicToJpg" },
   { href: "/merge-pdf", nameKey: "tools.cardPdfMerge", descKey: "tools.descPdfMerge" },
   { href: "/split-pdf", nameKey: "tools.cardPdfSplit", descKey: "tools.descPdfSplit" },
   { href: "/jpg-to-pdf", nameKey: "tools.cardJpgToPdf", descKey: "tools.descJpgToPdf" },

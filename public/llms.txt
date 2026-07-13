@@ -29,6 +29,7 @@ Key facts:
 - [Resize Image](https://www.tunebad.com/resize-image): Resize images to exact pixel dimensions, with aspect-ratio lock.
 - [Resize for Instagram](https://www.tunebad.com/resize-image-for-instagram): Exact Instagram sizes, Story 1080x1920, post 1080x1080, portrait 1080x1350, landscape 1080x566.
 - [Compress Image to 100KB](https://www.tunebad.com/compress-image-to-100kb): Compress a photo under an exact size cap (50KB, 100KB, 200KB, or 500KB).
+- [HEIC to JPG](https://www.tunebad.com/heic-to-jpg): Convert HEIC/HEIF photos from an iPhone to JPG or PNG in the browser, no upload.
 - [Merge PDF](https://www.tunebad.com/merge-pdf): Combine several PDF files into one document, in any order, without uploading them.
 - [Split PDF](https://www.tunebad.com/split-pdf): Extract a page range from a PDF into a new file, in the browser, no upload.
 - [JPG to PDF](https://www.tunebad.com/jpg-to-pdf): Turn JPG and PNG images into a single PDF, one page per photo.

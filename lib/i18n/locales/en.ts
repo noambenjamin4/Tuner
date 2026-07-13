@@ -469,6 +469,7 @@ const en = {
     "TuneBad respects the intellectual-property rights of creators. If you are a copyright owner (or an authorized agent) and believe the Service is being used to access your work without authorization, you may submit a takedown notice to the site operator. A valid notice should identify the specific work concerned, the material at issue, and include proof that you hold the relevant rights. TuneBad reviews and responds to valid notices promptly, and will remove or block access to the identified material where appropriate.",
   "copyright.back": "Back to TuneBad",
   // File tools (More tools section)
+  "nav.mastering": "Mastering",
   "nav.moreTools": "More tools",
   "tools.title": "More free tools",
   "tools.subtitle": "File utilities that run entirely in your browser. Nothing gets uploaded, nothing gets tracked.",

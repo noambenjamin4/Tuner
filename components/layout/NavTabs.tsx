@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useTunebad, VIEW_TO_PATH, type ViewName } from "../TunebadApp";
 import { useI18n } from "@/lib/i18n";
 import type { DictKey } from "@/lib/i18n/locales/en";
@@ -19,6 +20,7 @@ const TABS: { page: ViewName; labelKey: DictKey }[] = [
 export function NavTabs({ onNavigate }: { onNavigate?: () => void }) {
   const { view, showView } = useTunebad();
   const { t } = useI18n();
+  const pathname = usePathname();
   return (
     <>
       {TABS.map((tab) => (
@@ -39,8 +41,16 @@ export function NavTabs({ onNavigate }: { onNavigate?: () => void }) {
           {t(tab.labelKey)}
         </a>
       ))}
-      {/* Real navigation out of the SPA: the file tools live on standalone
-          pages (/tools hub), so no showView intercept here. */}
+      {/* Real navigation out of the SPA: mastering + the file-tools hub live
+          on standalone pages, so no showView intercept here. */}
+      <a
+        className={`ghost-button${pathname === "/audio-mastering" ? " active" : ""}`}
+        href="/audio-mastering"
+        aria-current={pathname === "/audio-mastering" ? "page" : undefined}
+        onClick={() => onNavigate?.()}
+      >
+        {t("nav.mastering")}
+      </a>
       <a className="ghost-button" href="/tools" onClick={() => onNavigate?.()}>
         {t("nav.moreTools")}
       </a>

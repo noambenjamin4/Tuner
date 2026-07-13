@@ -430,6 +430,7 @@ const it: Record<keyof typeof en, string> = {
   "copyright.back": "Torna a TuneBad",
 
   // File tools (More tools section)
+  "nav.mastering": "Mastering",
   "nav.moreTools": "Altri strumenti",
   "tools.title": "Altri strumenti gratuiti",
   "tools.subtitle": "Utility per file che funzionano interamente nel tuo browser. Niente viene caricato, niente viene tracciato.",

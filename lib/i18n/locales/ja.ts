@@ -430,6 +430,7 @@ const ja: Record<keyof typeof en, string> = {
   "copyright.back": "TuneBadに戻る",
 
   // File tools (More tools section)
+  "nav.mastering": "マスタリング",
   "nav.moreTools": "その他のツール",
   "tools.title": "その他の無料ツール",
   "tools.subtitle": "すべてブラウザ内で動作するファイルユーティリティです。アップロードもトラッキングも一切ありません。",

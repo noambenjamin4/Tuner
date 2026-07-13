@@ -429,6 +429,7 @@ const zh: Record<keyof typeof en, string> = {
   "copyright.back": "返回TuneBad",
 
   // File tools (More tools section)
+  "nav.mastering": "母带处理",
   "nav.moreTools": "更多工具",
   "tools.title": "更多免费工具",
   "tools.subtitle": "完全在浏览器里运行的文件工具。不上传任何内容，也不跟踪任何数据。",

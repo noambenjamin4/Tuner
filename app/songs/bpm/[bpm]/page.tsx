@@ -32,7 +32,7 @@ function tempoContext(bpm: number): string {
 
 export async function generateStaticParams() {
   // Pre-render every BPM that has enough songs; others resolve via ISR.
-  const songs = await readAllSongs(50000);
+  const songs = await readAllSongs(100000);
   const counts = new Map<number, number>();
   for (const s of songs) {
     const b = Math.round(s.bpm);

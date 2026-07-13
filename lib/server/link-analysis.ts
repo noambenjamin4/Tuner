@@ -172,21 +172,40 @@ export async function readSongsByBpmRange(min: number, max: number, limit = 300)
 /** All cached songs (slug + title + artist) for the sitemap and /songs index.
  *  Supabase silently caps any single query at 1000 rows (db-max-rows), so this
  *  pages through in 1000-row chunks until a short page or `limit` is reached —
- *  otherwise every song past the first thousand vanishes from the sitemap. */
+ *  otherwise every song past the first thousand vanishes from the sitemap.
+ *
+ *  Pages are fetched in parallel batches: at 100k+ songs a sequential walk is
+ *  ~100 round-trips (tens of seconds on a cold render, enough to time out an
+ *  ISR function), while batches of 10 keep cold renders to a couple of
+ *  seconds. Each 1000-row page stays its own request on purpose — Vercel's
+ *  data cache stores small GET responses per-URL, so warm renders skip the
+ *  network entirely, which one giant response would be too large to do. */
 export async function readAllSongs(limit = 10000): Promise<CachedAnalysis[]> {
   if (!isLinkAnalysisConfigured) return [];
   const PAGE = 1000;
+  const BATCH = 10;
   const all: CachedAnalysis[] = [];
+  const fetchPage = async (offset: number): Promise<CachedAnalysis[]> => {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/link_analysis?select=*&order=created_at.desc&limit=${Math.min(PAGE, limit - offset)}&offset=${offset}`,
+      { headers: restHeaders(), signal: AbortSignal.timeout(FETCH_TIMEOUT_MS), next: { revalidate: 3600 } },
+    );
+    if (!res.ok) return [];
+    return (await res.json()) as CachedAnalysis[];
+  };
   try {
-    for (let offset = 0; offset < limit; offset += PAGE) {
-      const res = await fetch(
-        `${SUPABASE_URL}/rest/v1/link_analysis?select=*&order=created_at.desc&limit=${Math.min(PAGE, limit - offset)}&offset=${offset}`,
-        { headers: restHeaders(), signal: AbortSignal.timeout(FETCH_TIMEOUT_MS), next: { revalidate: 3600 } },
-      );
-      if (!res.ok) break;
-      const page = (await res.json()) as CachedAnalysis[];
-      all.push(...page);
-      if (page.length < PAGE) break;
+    for (let batchStart = 0; batchStart < limit; batchStart += PAGE * BATCH) {
+      const offsets: number[] = [];
+      for (let o = batchStart; o < Math.min(batchStart + PAGE * BATCH, limit); o += PAGE) offsets.push(o);
+      const pages = await Promise.all(offsets.map(fetchPage));
+      let done = false;
+      for (const page of pages) {
+        all.push(...page);
+        // A short page marks the end of the table; later offsets in this
+        // batch came back empty and pushed nothing.
+        if (page.length < PAGE) done = true;
+      }
+      if (done) break;
     }
     return all;
   } catch {

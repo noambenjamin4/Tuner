@@ -25,7 +25,7 @@ const MIN_SONGS = 2;
 const STATIC_PARAM_COUNT = 500;
 
 export async function generateStaticParams() {
-  const songs = await readAllSongs(50000);
+  const songs = await readAllSongs(100000);
   return topArtistsByCount(songs, STATIC_PARAM_COUNT, MIN_SONGS).map((a) => ({ slug: a.slug }));
 }
 

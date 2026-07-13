@@ -11,12 +11,12 @@ export const SITE_URL = "https://www.tunebad.com";
 // sitemap protocol's 50k-URL / 50MB-uncompressed caps with headroom.
 export const SONGS_PER_SHARD = 20000;
 
-// readAllSongs pages through Supabase 1000 rows at a time; a 100k cap bounds
-// worst-case shard-generation cost (5 song shards) while still covering the
-// catalog for a long while past the "thousands more being seeded" scale
-// mentioned for this task. Raise this (and re-check shard math) if the
-// catalog outgrows it.
-export const SONGS_CAP = 100000;
+// readAllSongs pages through Supabase 1000 rows at a time (now in parallel
+// batches, so this cap costs ~20 batched rounds worst-case, not 200 serial
+// round-trips); 200k bounds shard-generation cost at 10 song shards while
+// leaving months of headroom over the perpetual seeder. Raise it (and
+// re-check shard math + function memory) if the catalog outgrows it.
+export const SONGS_CAP = 200000;
 
 type UrlEntry = {
   loc: string;

@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 const LIST_CAP = 2000;
 
 export default async function SongsPage() {
-  const songs = await readAllSongs(50000);
+  const songs = await readAllSongs(100000);
 
   // Crawlable browse links: keys that actually have songs, and the most
   // common integer BPMs (the hub pages 404 below 3 songs, so mirror that).

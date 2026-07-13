@@ -44,7 +44,7 @@ export default async function ActivityBpmPage({ params }: { params: Promise<{ ac
   // One full-catalog read powers both the song list and the "specific BPM
   // hub" links below — cached by Next's Data Cache (revalidate 3600), same
   // pattern /songs and the sitemap "hubs" shard already rely on.
-  const allSongs = await readAllSongs(50000);
+  const allSongs = await readAllSongs(100000);
   const songs = allSongs.filter((s) => s.bpm >= activity.min && s.bpm <= activity.max);
   if (songs.length < MIN_SONGS) notFound();
 

@@ -27,6 +27,10 @@ const CARDS = [
   ["wav-to-mp3", "WAV TO", "MP3"],
   ["camelot-wheel", "CAMELOT", "WHEEL"],
   ["guide-ringtone", "MAKE A", "RINGTONE"],
+  ["nightcore-maker", "NIGHTCORE", "MAKER"],
+  ["bass-booster", "BASS", "BOOSTER"],
+  ["8d-audio", "8D AUDIO", "MAKER"],
+  ["audio-joiner", "AUDIO", "JOINER"],
 ];
 
 const esc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;");

@@ -26,6 +26,10 @@ const FILE_TOOLS: { href: string; nameKey: DictKey; descKey: DictKey }[] = [
   { href: "/mov-to-mp4", nameKey: "tools.cardMovMp4", descKey: "tools.descMovMp4" },
   { href: "/flac-to-mp3", nameKey: "tools.cardFlacMp3", descKey: "tools.descFlacMp3" },
   { href: "/wav-to-mp3", nameKey: "tools.cardWavMp3", descKey: "tools.descWavMp3" },
+  { href: "/nightcore-maker", nameKey: "tools.cardNightcore", descKey: "tools.descNightcore" },
+  { href: "/bass-booster", nameKey: "tools.cardBassBooster", descKey: "tools.descBassBooster" },
+  { href: "/8d-audio", nameKey: "tools.card8dAudio", descKey: "tools.desc8dAudio" },
+  { href: "/audio-joiner", nameKey: "tools.cardAudioJoiner", descKey: "tools.descAudioJoiner" },
 ];
 
 export function ToolsHub({ extra }: { extra?: { href: string; nameKey: DictKey; descKey: DictKey }[] }) {

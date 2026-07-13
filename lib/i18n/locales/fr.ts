@@ -671,6 +671,96 @@ const fr: Record<keyof typeof en, string> = {
   "mediatool.faqWav3Q": "Mes fichiers audio sont-ils envoyés quelque part ?",
   "mediatool.faqWav3A":
     "Non. La conversion se fait entièrement dans votre navigateur et le fichier ne quitte jamais votre appareil. Les fichiers jusqu'à 200 MB sont pris en charge, gratuitement, sans inscription et sans publicité.",
+
+  // Créateur Nightcore
+  "tools.cardNightcore": "Créateur Nightcore",
+  "tools.descNightcore":
+    "Accélérez et augmentez la hauteur d'un morceau pour un montage nightcore.",
+  "nightcoretool.title": "Créateur Nightcore",
+  "nightcoretool.subtitle":
+    "Accélérez un morceau et augmentez sa hauteur en même temps, directement dans votre navigateur. C'est le véritable effet nightcore : la vitesse et la hauteur sont liées, pas ajustées indépendamment.",
+  "nightcoretool.intensity": "Intensité",
+  "nightcoretool.faq1Q": "Que fait exactement un créateur nightcore ?",
+  "nightcoretool.faq1A":
+    "Il relit le morceau plus vite, ce qui augmente la hauteur en conséquence, exactement comme accélérer un disque. Ici, la vitesse et la hauteur évoluent ensemble, donnant le son nightcore classique plutôt qu'un changement de hauteur indépendant.",
+  "nightcoretool.faq2Q":
+    "Le fichier exporté sera-t-il plus court que l'original ?",
+  "nightcoretool.faq2A":
+    "Oui. Une intensité plus élevée joue davantage de morceau par seconde, donc un montage à 1,3x se termine environ 23% plus tôt que l'original.",
+  "nightcoretool.faq3Q": "Mon fichier audio est-il envoyé quelque part ?",
+  "nightcoretool.faq3A":
+    "Non. Le décodage, le traitement et l'encodage se font entièrement dans votre navigateur avec la Web Audio API. Le fichier ne quitte jamais votre appareil.",
+
+  // Booster de basses
+  "tools.cardBassBooster": "Booster de basses",
+  "tools.descBassBooster": "Renforcez les basses d'une chanson, sans écrêtage.",
+  "bassboostertool.title": "Booster de basses",
+  "bassboostertool.subtitle":
+    "Renforcez les basses de n'importe quel fichier audio avec un filtre low-shelf, directement dans votre navigateur. Un limiteur intégré empêche l'écrêtage de la sortie.",
+  "bassboostertool.boost": "Renfort de basses",
+  "bassboostertool.highCut":
+    "Léger coupe-haut (équilibre le surplus de basses)",
+  "bassboostertool.clipWarning":
+    "À des niveaux de renfort élevés, les basses peuvent devenir troubles ou envahissantes. La sortie reste automatiquement juste en dessous de 0 dBFS pour éviter l'écrêtage, mais des sources déjà très fortes peuvent quand même sonner dur.",
+  "bassboostertool.safetyNote":
+    "Un limiteur de crête maintient automatiquement la sortie renforcée juste en dessous de 0 dBFS, elle n'écrête donc pas même sur des morceaux déjà forts.",
+  "bassboostertool.faq1Q":
+    "Comment le booster de basses évite-t-il l'écrêtage ?",
+  "bassboostertool.faq1A":
+    "Après avoir renforcé les basses fréquences, l'outil analyse tout le morceau pour trouver sa crête la plus forte et réduit la sortie si nécessaire pour rester à -1 dBFS ou en dessous. Vous obtenez plus de basses sans distorsion.",
+  "bassboostertool.faq2Q": "Quelle fréquence cible le renfort de basses ?",
+  "bassboostertool.faq2A":
+    "Il applique un renfort low-shelf centré autour de 90Hz, la zone des sub-basses et basses, pour que les kicks et lignes de basses ressortent davantage sans renforcer aussi les voix ou instruments médiums.",
+  "bassboostertool.faq3Q": "Est-ce la même chose que normaliser le volume ?",
+  "bassboostertool.faq3A":
+    "Non. La normalisation du volume change le niveau global ; cet outil remodèle l'équilibre des fréquences en renforçant spécifiquement les basses, puis applique un limiteur de sécurité pour éviter l'écrêtage du résultat.",
+
+  // Créateur audio 8D
+  "tools.card8dAudio": "Créateur audio 8D",
+  "tools.desc8dAudio": "Effet 8D en panoramique automatique pour casque.",
+  "eightdtool.title": "Créateur audio 8D",
+  "eightdtool.subtitle":
+    "Ajoute un effet de panoramique automatique lent qui déplace le son d'une oreille à l'autre. Idéal avec un casque. Directement dans votre navigateur.",
+  "eightdtool.speed": "Vitesse de balayage",
+  "eightdtool.reverb": "Réverbération",
+  "eightdtool.headphonesNote":
+    "Cet effet repose sur le panoramique stéréo, il ne fonctionne donc qu'avec un casque ou deux enceintes bien espacées. Sur une seule enceinte mono, vous n'entendrez pas le mouvement.",
+  "eightdtool.faq1Q": "Comment fonctionne l'effet audio 8D ?",
+  "eightdtool.faq1A":
+    "Il déplace automatiquement l'audio de gauche à droite et inversement, selon un cycle lent et réglable, grâce au panoramique stéréo de la Web Audio API. Une touche de réverbération est ajoutée pour donner une sensation d'espace.",
+  "eightdtool.faq2Q":
+    "Pourquoi ça ne fonctionne pas avec le haut-parleur de mon téléphone ?",
+  "eightdtool.faq2A":
+    "L'audio 8D est un effet de panoramique stéréo, il déplace le son entre un canal gauche et un canal droit. Un seul haut-parleur de téléphone diffuse les deux canaux mélangés ensemble, le mouvement panoramique disparaît donc. Utilisez un casque ou des enceintes stéréo pour l'entendre.",
+  "eightdtool.faq3Q": "L'audio 8D est-il un vrai format audio ?",
+  "eightdtool.faq3A":
+    "Non, c'est le surnom de cet effet de panoramique automatique, pas un format de fichier ni un nombre de canaux. Le fichier exporté est un MP3 ou WAV stéréo normal.",
+
+  // Fusion audio
+  "tools.cardAudioJoiner": "Fusion audio",
+  "tools.descAudioJoiner": "Fusionnez plusieurs fichiers audio en un seul.",
+  "joinertool.title": "Fusion audio",
+  "joinertool.subtitle":
+    "Combinez deux fichiers audio ou plus en une seule piste. Réorganisez-les, ajoutez un fondu enchaîné ou un silence, puis exportez. Directement dans votre navigateur.",
+  "joinertool.dropFiles":
+    "Déposez 2 fichiers audio ou plus ici (jusqu'à {max} fichiers, {size} chacun)",
+  "joinertool.transition": "Transition",
+  "joinertool.transitionNone": "Aucune",
+  "joinertool.transitionCrossfade": "Fondu enchaîné",
+  "joinertool.transitionGap": "Silence",
+  "joinertool.moveUp": "Monter",
+  "joinertool.moveDown": "Descendre",
+  "joinertool.join": "Fusionner {count} fichiers",
+  "joinertool.faq1Q": "Combien de fichiers puis-je fusionner ?",
+  "joinertool.faq1A":
+    "Jusqu'à 12 fichiers par fusion. Chaque fichier est rééchantillonné pour correspondre au taux d'échantillonnage le plus élevé du lot, donc mélanger un MP3 en 44,1kHz avec un WAV en 48kHz fonctionne sans problème.",
+  "joinertool.faq2Q":
+    "Quelle est la différence entre un fondu enchaîné et un silence ?",
+  "joinertool.faq2A":
+    "Un fondu enchaîné mélange la fin d'une piste avec le début de la suivante sur environ 300ms, il n'y a donc pas de coupure nette. Un silence insère plutôt une seconde de silence entre les pistes. Choisissez ce qui convient, ou aucun pour une coupure directe.",
+  "joinertool.faq3Q": "Mes fichiers sont-ils envoyés pour être fusionnés ?",
+  "joinertool.faq3A":
+    "Non. Chaque fichier est décodé, fusionné et réencodé localement dans votre navigateur. Rien n'est envoyé, et les fichiers ne quittent jamais votre appareil.",
 };
 
 export default fr;

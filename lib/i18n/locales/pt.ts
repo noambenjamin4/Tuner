@@ -671,6 +671,89 @@ const pt: Record<keyof typeof en, string> = {
   "mediatool.faqWav3Q": "Meus arquivos de áudio são enviados para algum lugar?",
   "mediatool.faqWav3A":
     "Não. A conversão acontece inteiramente no seu navegador e o arquivo nunca sai do seu dispositivo. Arquivos de até 200 MB são aceitos, grátis, sem cadastro e sem anúncios.",
+
+  // Nightcore Maker
+  "tools.cardNightcore": "Nightcore Maker",
+  "tools.descNightcore": "Acelere e aumente o tom de uma faixa para um remix nightcore.",
+  "nightcoretool.title": "Nightcore Maker",
+  "nightcoretool.subtitle":
+    "Acelere uma faixa e eleve o tom ao mesmo tempo, direto no seu navegador. Esse é o verdadeiro efeito nightcore: velocidade e tom ficam travados juntos, não ajustados separadamente.",
+  "nightcoretool.intensity": "Intensidade",
+  "nightcoretool.faq1Q": "O que um nightcore maker realmente faz?",
+  "nightcoretool.faq1A":
+    "Ele reproduz a faixa mais rápido, o que eleva o tom como efeito colateral, exatamente como acelerar um disco de vinil. Aqui velocidade e tom andam juntos, então o resultado é o som nightcore clássico, e não uma mudança de tom independente.",
+  "nightcoretool.faq2Q": "O arquivo exportado fica mais curto que o original?",
+  "nightcoretool.faq2A":
+    "Sim. Uma intensidade maior reproduz mais da faixa por segundo, então um remix a 1.3x termina cerca de 23% mais rápido que o original.",
+  "nightcoretool.faq3Q": "Meu arquivo de áudio é enviado para algum lugar?",
+  "nightcoretool.faq3A":
+    "Não. Decodificação, processamento e codificação acontecem todos no seu navegador com a Web Audio API. O arquivo nunca sai do seu dispositivo.",
+
+  // Bass Booster
+  "tools.cardBassBooster": "Bass Booster",
+  "tools.descBassBooster": "Reforce os graves de uma música sem cortar o som.",
+  "bassboostertool.title": "Bass Booster",
+  "bassboostertool.subtitle":
+    "Reforce os graves de qualquer arquivo de áudio com um filtro low-shelf, direto no seu navegador. Um limitador embutido evita que a saída sature.",
+  "bassboostertool.boost": "Reforço de graves",
+  "bassboostertool.highCut": "Corte suave de agudos (equilibra o grave extra)",
+  "bassboostertool.clipWarning":
+    "Em níveis altos de reforço, os graves podem começar a soar embolados ou excessivos. A saída é mantida automaticamente logo abaixo de 0 dBFS para não saturar, mas fontes muito altas ainda podem soar ásperas.",
+  "bassboostertool.safetyNote":
+    "Um limitador de picos mantém automaticamente a saída reforçada logo abaixo de 0 dBFS, então ela não satura mesmo em faixas já bem altas.",
+  "bassboostertool.faq1Q": "Como o bass booster evita a saturação?",
+  "bassboostertool.faq1A":
+    "Depois de reforçar as frequências graves, a ferramenta varre a faixa inteira em busca do pico mais alto e reduz a saída se necessário para que fique em -1 dBFS ou abaixo. Você ganha mais grave sem distorção.",
+  "bassboostertool.faq2Q": "Em qual frequência o reforço de graves atua?",
+  "bassboostertool.faq2A":
+    "Ele aplica um reforço low-shelf centrado em torno de 90Hz, a região de sub-graves e graves, então bumbos e linhas de grave ficam mais altos sem também reforçar vocais ou instrumentos de médios.",
+  "bassboostertool.faq3Q": "Isso é o mesmo que normalizar o volume?",
+  "bassboostertool.faq3A":
+    "Não. A normalização de volume muda o nível geral; esta ferramenta remodela o equilíbrio de frequências reforçando os graves especificamente, e depois aplica um limitador de segurança para que o resultado não sature.",
+
+  // 8D Audio Maker
+  "tools.card8dAudio": "8D Audio Maker",
+  "tools.desc8dAudio": "Efeito 8D com panorâmica automática para fones de ouvido.",
+  "eightdtool.title": "8D Audio Maker",
+  "eightdtool.subtitle":
+    "Adiciona um efeito lento de panorâmica automática que varre o som de um ouvido para o outro. Melhor com fones de ouvido. Direto no seu navegador.",
+  "eightdtool.speed": "Velocidade da varredura",
+  "eightdtool.reverb": "Reverb",
+  "eightdtool.headphonesNote":
+    "Esse efeito é construído em cima da panorâmica estéreo, então só funciona com fones de ouvido ou duas caixas de som afastadas. Em uma única caixa mono você não vai ouvir o movimento.",
+  "eightdtool.faq1Q": "Como funciona o efeito de áudio 8D?",
+  "eightdtool.faq1A":
+    "Ele move automaticamente o áudio da esquerda para a direita e de volta, em um ciclo lento e ajustável, usando o panner estéreo da Web Audio API. Um toque de reverb é adicionado para dar sensação de espaço.",
+  "eightdtool.faq2Q": "Por que não funciona no alto-falante do meu celular?",
+  "eightdtool.faq2A":
+    "O áudio 8D é um efeito de panorâmica estéreo, ele move o som entre um canal esquerdo e um direito. Um único alto-falante de celular reproduz os dois canais misturados, então o movimento da panorâmica desaparece. Use fones de ouvido ou caixas estéreo para ouvi-lo.",
+  "eightdtool.faq3Q": "O áudio 8D é um formato de áudio de verdade?",
+  "eightdtool.faq3A":
+    "Não, é um apelido para esse efeito de panorâmica automática, não um formato de arquivo nem uma contagem de canais. O arquivo exportado é um MP3 ou WAV estéreo normal.",
+
+  // Audio Joiner
+  "tools.cardAudioJoiner": "Audio Joiner",
+  "tools.descAudioJoiner": "Junte vários arquivos de áudio em um só.",
+  "joinertool.title": "Audio Joiner",
+  "joinertool.subtitle":
+    "Combine dois ou mais arquivos de áudio em uma única faixa. Reordene-os, adicione um crossfade ou um espaço, depois exporte. Direto no seu navegador.",
+  "joinertool.dropFiles": "Solte 2 ou mais arquivos de áudio aqui (até {max} arquivos, {size} cada)",
+  "joinertool.transition": "Transição",
+  "joinertool.transitionNone": "Nenhuma",
+  "joinertool.transitionCrossfade": "Crossfade",
+  "joinertool.transitionGap": "Espaço",
+  "joinertool.moveUp": "Mover para cima",
+  "joinertool.moveDown": "Mover para baixo",
+  "joinertool.join": "Juntar {count} arquivos",
+  "joinertool.faq1Q": "Quantos arquivos posso juntar?",
+  "joinertool.faq1A":
+    "Até 12 arquivos por junção. Cada arquivo é reamostrado para bater com a maior taxa de amostragem do lote, então misturar um MP3 de 44.1kHz com um WAV de 48kHz funciona sem problema.",
+  "joinertool.faq2Q": "Qual a diferença entre crossfade e espaço?",
+  "joinertool.faq2A":
+    "O crossfade mistura o fim de uma faixa com o início da próxima ao longo de cerca de 300ms, então não há corte brusco. Já o espaço insere um segundo de silêncio entre as faixas. Escolha o que combinar, ou nenhum para um corte direto.",
+  "joinertool.faq3Q": "Meus arquivos são enviados para juntá-los?",
+  "joinertool.faq3A":
+    "Não. Cada arquivo é decodificado, unido e recodificado localmente no seu navegador. Nada é enviado, e os arquivos nunca saem do seu dispositivo.",
 };
 
 export default pt;

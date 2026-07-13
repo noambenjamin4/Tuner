@@ -28,7 +28,11 @@ export type RelatedSlug =
   | "mkv-to-mp4"
   | "mov-to-mp4"
   | "flac-to-mp3"
-  | "wav-to-mp3";
+  | "wav-to-mp3"
+  | "nightcore-maker"
+  | "bass-booster"
+  | "8d-audio"
+  | "audio-joiner";
 
 const REGISTRY: Record<RelatedSlug, { nameKey: DictKey; descKey: DictKey }> = {
   "image-converter": { nameKey: "tools.cardImageConvert", descKey: "tools.descImageConvert" },
@@ -50,6 +54,10 @@ const REGISTRY: Record<RelatedSlug, { nameKey: DictKey; descKey: DictKey }> = {
   "mov-to-mp4": { nameKey: "tools.cardMovMp4", descKey: "tools.descMovMp4" },
   "flac-to-mp3": { nameKey: "tools.cardFlacMp3", descKey: "tools.descFlacMp3" },
   "wav-to-mp3": { nameKey: "tools.cardWavMp3", descKey: "tools.descWavMp3" },
+  "nightcore-maker": { nameKey: "tools.cardNightcore", descKey: "tools.descNightcore" },
+  "bass-booster": { nameKey: "tools.cardBassBooster", descKey: "tools.descBassBooster" },
+  "8d-audio": { nameKey: "tools.card8dAudio", descKey: "tools.desc8dAudio" },
+  "audio-joiner": { nameKey: "tools.cardAudioJoiner", descKey: "tools.descAudioJoiner" },
 };
 
 export function RelatedTools({ tools }: { tools: RelatedSlug[] }) {

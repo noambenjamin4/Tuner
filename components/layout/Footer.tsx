@@ -62,6 +62,10 @@ export function Footer() {
           <Link href="/mov-to-mp4">{t("tools.cardMovMp4")}</Link>
           <Link href="/flac-to-mp3">{t("tools.cardFlacMp3")}</Link>
           <Link href="/wav-to-mp3">{t("tools.cardWavMp3")}</Link>
+          <Link href="/nightcore-maker">{t("tools.cardNightcore")}</Link>
+          <Link href="/bass-booster">{t("tools.cardBassBooster")}</Link>
+          <Link href="/8d-audio">{t("tools.card8dAudio")}</Link>
+          <Link href="/audio-joiner">{t("tools.cardAudioJoiner")}</Link>
         </nav>
         {/* English guide articles; next/link prefetches these full navigations. */}
         <nav className="site-footer-tools site-footer-guides" aria-label={t("footer.guides")}>

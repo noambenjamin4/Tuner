@@ -671,6 +671,89 @@ const de: Record<keyof typeof en, string> = {
   "mediatool.faqWav3Q": "Werden meine Audiodateien hochgeladen?",
   "mediatool.faqWav3A":
     "Nein. Die Umwandlung passiert komplett in deinem Browser, die Datei verlässt also nie dein Gerät. Dateien bis 200 MB werden unterstützt, kostenlos, ohne Anmeldung und ohne Werbung.",
+
+  // Nightcore Maker
+  "tools.cardNightcore": "Nightcore Maker",
+  "tools.descNightcore": "Beschleunige einen Track und hebe die Tonhöhe für einen Nightcore-Edit an.",
+  "nightcoretool.title": "Nightcore Maker",
+  "nightcoretool.subtitle":
+    "Beschleunige einen Track und hebe seine Tonhöhe gleichzeitig an, direkt in deinem Browser. Das ist der echte Nightcore-Effekt: Geschwindigkeit und Tonhöhe sind gekoppelt, nicht unabhängig voneinander einstellbar.",
+  "nightcoretool.intensity": "Intensität",
+  "nightcoretool.faq1Q": "Was macht ein Nightcore Maker eigentlich?",
+  "nightcoretool.faq1A":
+    "Er spielt den Track schneller ab, wodurch die Tonhöhe als Nebeneffekt steigt, genau wie beim Beschleunigen einer Schallplatte. Geschwindigkeit und Tonhöhe bewegen sich hier zusammen, das Ergebnis ist also der klassische Nightcore-Sound und keine unabhängige Tonhöhenverschiebung.",
+  "nightcoretool.faq2Q": "Wird die exportierte Datei kürzer als das Original?",
+  "nightcoretool.faq2A":
+    "Ja. Eine höhere Intensität spielt mehr vom Track pro Sekunde ab, ein 1,3x-Edit ist also etwa 23 % früher fertig als das Original.",
+  "nightcoretool.faq3Q": "Wird meine Audiodatei irgendwohin hochgeladen?",
+  "nightcoretool.faq3A":
+    "Nein. Dekodierung, Verarbeitung und Kodierung passieren komplett in deinem Browser mit der Web Audio API. Die Datei verlässt nie dein Gerät.",
+
+  // Bass Booster
+  "tools.cardBassBooster": "Bass Booster",
+  "tools.descBassBooster": "Verstärke die Bässe eines Songs, ohne zu übersteuern.",
+  "bassboostertool.title": "Bass Booster",
+  "bassboostertool.subtitle":
+    "Verstärke die Bässe jeder Audiodatei mit einem Low-Shelf-Filter, direkt in deinem Browser. Ein eingebauter Limiter verhindert, dass die Ausgabe übersteuert.",
+  "bassboostertool.boost": "Bass-Boost",
+  "bassboostertool.highCut": "Sanfter Höhenschnitt (gleicht den zusätzlichen Bass aus)",
+  "bassboostertool.clipWarning":
+    "Bei hohen Boost-Stufen kann der Bassbereich matschig oder zu dominant wirken. Die Ausgabe wird automatisch knapp unter 0 dBFS gehalten, damit sie nicht übersteuert, aber sehr laute Quellen können trotzdem hart klingen.",
+  "bassboostertool.safetyNote":
+    "Ein Peak-Limiter hält die verstärkte Ausgabe automatisch knapp unter 0 dBFS, sodass sie selbst bei bereits lauten Tracks nicht übersteuert.",
+  "bassboostertool.faq1Q": "Wie vermeidet der Bass Booster Übersteuerung?",
+  "bassboostertool.faq1A":
+    "Nach dem Verstärken der tiefen Frequenzen durchsucht das Tool den ganzen Track nach seiner lautesten Spitze und skaliert die Ausgabe bei Bedarf herunter, damit sie bei oder unter -1 dBFS bleibt. So bekommst du mehr Bass ohne Verzerrung.",
+  "bassboostertool.faq2Q": "Welche Frequenz zielt der Bass-Boost an?",
+  "bassboostertool.faq2A":
+    "Er wendet eine Low-Shelf-Verstärkung um 90Hz an, also im Sub-Bass- und Bassbereich, sodass Kicks und tiefe Basslinien lauter werden, ohne Mitten wie Gesang oder Instrumente mit anzuheben.",
+  "bassboostertool.faq3Q": "Ist das dasselbe wie Loudness normalisieren?",
+  "bassboostertool.faq3A":
+    "Nein. Loudness-Normalisierung verändert den Gesamtpegel; dieses Tool formt die Frequenzbalance um, indem es gezielt die Bässe verstärkt, und wendet dann einen Sicherheits-Limiter an, damit das Ergebnis nicht übersteuert.",
+
+  // 8D Audio Maker
+  "tools.card8dAudio": "8D Audio Maker",
+  "tools.desc8dAudio": "Automatisch schwenkender 8D-Effekt für Kopfhörer.",
+  "eightdtool.title": "8D Audio Maker",
+  "eightdtool.subtitle":
+    "Fügt einen langsamen, automatisch schwenkenden Effekt hinzu, der den Sound von Ohr zu Ohr wandern lässt. Am besten mit Kopfhörern. Direkt in deinem Browser.",
+  "eightdtool.speed": "Schwenkgeschwindigkeit",
+  "eightdtool.reverb": "Reverb",
+  "eightdtool.headphonesNote":
+    "Dieser Effekt basiert auf Stereo-Panning, er funktioniert also nur mit Kopfhörern oder zwei weit auseinanderstehenden Lautsprechern. Bei einem einzelnen Mono-Lautsprecher hörst du die Bewegung nicht.",
+  "eightdtool.faq1Q": "Wie funktioniert der 8D-Audio-Effekt?",
+  "eightdtool.faq1A":
+    "Er schwenkt das Audio automatisch in einem langsamen, einstellbaren Zyklus von links nach rechts und zurück, mithilfe des Stereo-Panners der Web Audio API. Ein Hauch Reverb sorgt zusätzlich für ein Gefühl von Raum.",
+  "eightdtool.faq2Q": "Warum funktioniert es nicht über den Lautsprecher meines Handys?",
+  "eightdtool.faq2A":
+    "8D-Audio ist ein Stereo-Panning-Effekt, er bewegt den Sound zwischen einem linken und einem rechten Kanal. Ein einzelner Handy-Lautsprecher spielt beide Kanäle gemischt ab, wodurch die Schwenkbewegung verschwindet. Nutze Kopfhörer oder Stereo-Lautsprecher, um sie zu hören.",
+  "eightdtool.faq3Q": "Ist 8D-Audio ein echtes Audioformat?",
+  "eightdtool.faq3A":
+    "Nein, es ist nur der Spitzname für diesen automatisch schwenkenden Effekt, kein Dateiformat und keine Kanalanzahl. Die exportierte Datei ist eine normale Stereo-MP3 oder -WAV.",
+
+  // Audio Joiner
+  "tools.cardAudioJoiner": "Audio Joiner",
+  "tools.descAudioJoiner": "Mehrere Audiodateien zu einer zusammenfügen.",
+  "joinertool.title": "Audio Joiner",
+  "joinertool.subtitle":
+    "Kombiniere zwei oder mehr Audiodateien zu einem Track. Ordne sie neu an, füge einen Crossfade oder eine Pause hinzu, und exportiere dann. Direkt in deinem Browser.",
+  "joinertool.dropFiles": "Lege 2 oder mehr Audiodateien hier ab (bis zu {max} Dateien, je {size})",
+  "joinertool.transition": "Übergang",
+  "joinertool.transitionNone": "Kein",
+  "joinertool.transitionCrossfade": "Crossfade",
+  "joinertool.transitionGap": "Pause",
+  "joinertool.moveUp": "Nach oben",
+  "joinertool.moveDown": "Nach unten",
+  "joinertool.join": "{count} Dateien zusammenfügen",
+  "joinertool.faq1Q": "Wie viele Dateien kann ich zusammenfügen?",
+  "joinertool.faq1A":
+    "Bis zu 12 Dateien pro Vorgang. Jede Datei wird auf die höchste Abtastrate im Batch resampelt, das Mischen einer 44,1kHz-MP3 mit einer 48kHz-WAV funktioniert also problemlos.",
+  "joinertool.faq2Q": "Was ist der Unterschied zwischen einem Crossfade und einer Pause?",
+  "joinertool.faq2A":
+    "Ein Crossfade blendet das Ende eines Tracks über etwa 300ms in den Anfang des nächsten, sodass es keinen harten Schnitt gibt. Eine Pause fügt stattdessen eine Sekunde Stille zwischen den Tracks ein. Wähle, was passt, oder keins für einen direkten Schnitt.",
+  "joinertool.faq3Q": "Werden meine Dateien hochgeladen, um sie zusammenzufügen?",
+  "joinertool.faq3A":
+    "Nein. Jede Datei wird lokal in deinem Browser dekodiert, zusammengefügt und neu kodiert. Nichts wird hochgeladen, und die Dateien verlassen nie dein Gerät.",
 };
 
 export default de;

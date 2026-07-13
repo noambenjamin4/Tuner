@@ -670,6 +670,89 @@ const ja: Record<keyof typeof en, string> = {
   "mediatool.faqWav3Q": "音声ファイルはアップロードされますか？",
   "mediatool.faqWav3A":
     "いいえ。変換はすべてブラウザ内で行われ、ファイルがデバイスから外に出ることはありません。最大200 MBまで対応、無料で登録も広告もありません。",
+
+  // Nightcore Maker
+  "tools.cardNightcore": "ナイトコアメーカー",
+  "tools.descNightcore": "曲を速く・高くしてナイトコア風に仕上げます。",
+  "nightcoretool.title": "ナイトコアメーカー",
+  "nightcoretool.subtitle":
+    "ブラウザ内で、曲の速度とピッチを一緒に上げます。これが本物のナイトコア効果です。速度とピッチは連動していて、別々には調整できません。",
+  "nightcoretool.intensity": "強度",
+  "nightcoretool.faq1Q": "ナイトコアメーカーは実際に何をしていますか？",
+  "nightcoretool.faq1A":
+    "曲を速く再生することで、レコードを早回しするのと同じようにピッチも副次的に上がります。ここでは速度とピッチが一緒に動くため、独立したピッチシフトではなく、定番のナイトコアサウンドになります。",
+  "nightcoretool.faq2Q": "書き出したファイルは元の曲より短くなりますか？",
+  "nightcoretool.faq2A":
+    "はい。強度を上げるほど1秒あたりに再生される曲の量が増えるため、1.3倍の編集では元の曲より約23%早く終わります。",
+  "nightcoretool.faq3Q": "音声ファイルはどこかにアップロードされますか？",
+  "nightcoretool.faq3A":
+    "いいえ。デコード、処理、エンコードはすべてWeb Audio APIを使ってブラウザ内で行われます。ファイルが端末から外に出ることはありません。",
+
+  // Bass Booster
+  "tools.cardBassBooster": "ベースブースター",
+  "tools.descBassBooster": "曲の低音をクリップの心配なくブーストします。",
+  "bassboostertool.title": "ベースブースター",
+  "bassboostertool.subtitle":
+    "ブラウザ内で、ローシェルフフィルターを使ってあらゆる音声ファイルの低音をブーストできます。内蔵リミッターが出力のクリッピングを防ぎます。",
+  "bassboostertool.boost": "ベースブースト",
+  "bassboostertool.highCut": "ゆるやかなハイカット（増えた低音とのバランスを取ります）",
+  "bassboostertool.clipWarning":
+    "ブースト量が大きいと、低音がこもって聞こえたり強すぎたりすることがあります。出力は自動的に0 dBFS未満に抑えられクリップしませんが、もともと音量の大きい音源はきつく聞こえる場合があります。",
+  "bassboostertool.safetyNote":
+    "ピークリミッターがブースト後の出力を自動的に0 dBFS未満に抑えるため、もともと音量の大きいトラックでもクリップしません。",
+  "bassboostertool.faq1Q": "ベースブースターはどうやってクリッピングを防いでいますか？",
+  "bassboostertool.faq1A":
+    "低音域をブーストした後、ツールは曲全体をスキャンして最大ピークを検出し、必要に応じて出力を-1 dBFS以下に収まるよう下げます。歪みなく低音を増やせます。",
+  "bassboostertool.faq2Q": "ベースブーストはどの周波数を対象にしていますか？",
+  "bassboostertool.faq2A":
+    "サブベースとベース域にあたる90Hz付近を中心に、ローシェルフブーストをかけます。キックや低音のベースラインを持ち上げつつ、中音域のボーカルや楽器まで一緒にブーストしません。",
+  "bassboostertool.faq3Q": "これはラウドネスのノーマライズと同じですか？",
+  "bassboostertool.faq3A":
+    "いいえ。ラウドネスノーマライズは全体の音量を変えるものですが、このツールは低音だけを狙って周波数バランスを変え、さらに安全のためのリミッターをかけて結果がクリップしないようにします。",
+
+  // 8D Audio Maker
+  "tools.card8dAudio": "8Dオーディオメーカー",
+  "tools.desc8dAudio": "ヘッドホン向けの自動パンニングによる8D効果。",
+  "eightdtool.title": "8Dオーディオメーカー",
+  "eightdtool.subtitle":
+    "音がゆっくりと左右の耳を行き来する自動パンニング効果を加えます。ヘッドホンでの再生がおすすめです。ブラウザ内で完結します。",
+  "eightdtool.speed": "スイープ速度",
+  "eightdtool.reverb": "リバーブ",
+  "eightdtool.headphonesNote":
+    "この効果はステレオパンニングを利用しているため、ヘッドホンか離して置いた2つのスピーカーでのみ効果があります。モノラルの単一スピーカーでは動きを感じられません。",
+  "eightdtool.faq1Q": "8Dオーディオ効果はどういう仕組みですか？",
+  "eightdtool.faq1A":
+    "Web Audio APIのステレオパンナーを使い、ゆっくりとした調整可能な周期で音声を左右に自動的にパンさせます。空間の広がりを出すため、少量のリバーブも重ねています。",
+  "eightdtool.faq2Q": "スマートフォンのスピーカーでは効果がないのはなぜですか？",
+  "eightdtool.faq2A":
+    "8Dオーディオはステレオパンニング効果で、音を左右のチャンネルの間で動かします。スマートフォンの単一スピーカーは両方のチャンネルを混ぜて再生するため、パンニングの動きが消えてしまいます。効果を聞くにはヘッドホンかステレオスピーカーをお使いください。",
+  "eightdtool.faq3Q": "8Dオーディオは実際の音声フォーマットですか？",
+  "eightdtool.faq3A":
+    "いいえ、これはファイル形式やチャンネル数ではなく、この自動パンニング効果の通称です。書き出されるファイルは通常のステレオMP3またはWAVです。",
+
+  // Audio Joiner
+  "tools.cardAudioJoiner": "音声結合",
+  "tools.descAudioJoiner": "複数の音声ファイルを1つにまとめます。",
+  "joinertool.title": "音声ファイルを結合",
+  "joinertool.subtitle":
+    "2つ以上の音声ファイルを1つのトラックにまとめます。順番を並べ替え、クロスフェードや間隔を加えて書き出せます。ブラウザ内で完結します。",
+  "joinertool.dropFiles": "ここに2つ以上の音声ファイルをドロップ（最大{max}ファイル、各{size}まで）",
+  "joinertool.transition": "トランジション",
+  "joinertool.transitionNone": "なし",
+  "joinertool.transitionCrossfade": "クロスフェード",
+  "joinertool.transitionGap": "間隔",
+  "joinertool.moveUp": "上へ",
+  "joinertool.moveDown": "下へ",
+  "joinertool.join": "{count}件のファイルを結合",
+  "joinertool.faq1Q": "何個までのファイルを結合できますか？",
+  "joinertool.faq1A":
+    "一度に最大12ファイルまで結合できます。すべてのファイルはまとめの中で最も高いサンプルレートに合わせてリサンプリングされるため、44.1kHzのMP3と48kHzのWAVを混ぜても問題ありません。",
+  "joinertool.faq2Q": "クロスフェードと間隔の違いは何ですか？",
+  "joinertool.faq2A":
+    "クロスフェードは1つのトラックの終わりと次のトラックの始まりを約300ミリ秒かけて溶け合わせるため、急な切り替わりがありません。間隔を選ぶとトラックの間に1秒の無音が挿入されます。用途に合わせて選ぶか、そのままつなげたい場合は「なし」を選んでください。",
+  "joinertool.faq3Q": "結合のためにファイルはアップロードされますか？",
+  "joinertool.faq3A":
+    "いいえ。すべてのファイルはブラウザ内でデコード、結合、再エンコードされます。何もアップロードされず、ファイルが端末から外に出ることはありません。",
 };
 
 export default ja;

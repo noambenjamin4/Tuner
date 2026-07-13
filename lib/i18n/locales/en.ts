@@ -720,6 +720,89 @@ const en = {
   "mediatool.faqWav3Q": "Are my audio files uploaded?",
   "mediatool.faqWav3A":
     "No. The conversion happens entirely in your browser, and the file never leaves your device. Files up to 200 MB are supported, free, with no sign-up and no ads.",
+
+  // Nightcore Maker
+  "tools.cardNightcore": "Nightcore Maker",
+  "tools.descNightcore": "Speed up and pitch up a track for a nightcore edit.",
+  "nightcoretool.title": "Nightcore Maker",
+  "nightcoretool.subtitle":
+    "Speed a track up and raise its pitch together, right in your browser. That's the real nightcore effect: speed and pitch are locked, not adjusted independently.",
+  "nightcoretool.intensity": "Intensity",
+  "nightcoretool.faq1Q": "What does a nightcore maker actually do?",
+  "nightcoretool.faq1A":
+    "It plays the track back faster, which raises the pitch as a side effect, exactly like speeding up a record. Speed and pitch move together here, so the result is the classic nightcore sound rather than an independent pitch shift.",
+  "nightcoretool.faq2Q": "Will the exported file be shorter than the original?",
+  "nightcoretool.faq2A":
+    "Yes. A higher intensity plays more of the track per second, so a 1.3x edit finishes about 23% sooner than the original.",
+  "nightcoretool.faq3Q": "Is my audio file uploaded anywhere?",
+  "nightcoretool.faq3A":
+    "No. Decoding, processing, and encoding all happen in your browser with the Web Audio API. The file never leaves your device.",
+
+  // Bass Booster
+  "tools.cardBassBooster": "Bass Booster",
+  "tools.descBassBooster": "Boost the low end of a song, clip-safe.",
+  "bassboostertool.title": "Bass Booster",
+  "bassboostertool.subtitle":
+    "Boost the low end of any audio file with a low-shelf filter, right in your browser. A built-in limiter keeps the output from clipping.",
+  "bassboostertool.boost": "Bass boost",
+  "bassboostertool.highCut": "Gentle high cut (balances the extra bass)",
+  "bassboostertool.clipWarning":
+    "At high boost levels the low end can start to feel muddy or overpowering. The output is automatically kept just under 0 dBFS so it won't clip, but very loud sources may still sound harsh.",
+  "bassboostertool.safetyNote":
+    "A peak limiter automatically keeps the boosted output just under 0 dBFS, so it won't clip even on already-loud tracks.",
+  "bassboostertool.faq1Q": "How does the bass booster avoid clipping?",
+  "bassboostertool.faq1A":
+    "After boosting the low frequencies, the tool scans the whole track for its loudest peak and scales the output down if needed so it stays at or below -1 dBFS. You get more bass without distortion.",
+  "bassboostertool.faq2Q": "What frequency does the bass boost target?",
+  "bassboostertool.faq2A":
+    "It applies a low-shelf boost centered around 90Hz, the sub-bass and bass region, so kicks and low bass lines get louder without also boosting midrange vocals or instruments.",
+  "bassboostertool.faq3Q": "Is this the same as normalizing loudness?",
+  "bassboostertool.faq3A":
+    "No. Loudness normalization changes the overall level; this tool reshapes the frequency balance by boosting the lows specifically, then applies a safety limiter so the result doesn't clip.",
+
+  // 8D Audio Maker
+  "tools.card8dAudio": "8D Audio Maker",
+  "tools.desc8dAudio": "Auto-panning 8D effect for headphones.",
+  "eightdtool.title": "8D Audio Maker",
+  "eightdtool.subtitle":
+    "Adds a slow, auto-panning effect that sweeps the sound from ear to ear. Best with headphones. Right in your browser.",
+  "eightdtool.speed": "Sweep speed",
+  "eightdtool.reverb": "Reverb",
+  "eightdtool.headphonesNote":
+    "This effect is built around stereo panning, so it only works with headphones or two speakers spread apart. On a single mono speaker you won't hear the movement.",
+  "eightdtool.faq1Q": "How does the 8D audio effect work?",
+  "eightdtool.faq1A":
+    "It automatically pans the audio from left to right and back over a slow, adjustable cycle, using the Web Audio API's stereo panner. A touch of reverb is layered in to add a sense of space.",
+  "eightdtool.faq2Q": "Why doesn't it work through my phone's speaker?",
+  "eightdtool.faq2A":
+    "8D audio is a stereo panning effect, it moves the sound between a left and a right channel. A single phone speaker plays both channels mixed together, so the panning motion disappears. Use headphones or stereo speakers to hear it.",
+  "eightdtool.faq3Q": "Is 8D audio a real audio format?",
+  "eightdtool.faq3A":
+    "No, it's a nickname for this auto-panning effect, not a file format or a channel count. The exported file is a normal stereo MP3 or WAV.",
+
+  // Audio Joiner
+  "tools.cardAudioJoiner": "Audio Joiner",
+  "tools.descAudioJoiner": "Merge multiple audio files into one.",
+  "joinertool.title": "Audio Joiner",
+  "joinertool.subtitle":
+    "Combine two or more audio files into one track. Reorder them, add a crossfade or gap, then export. Right in your browser.",
+  "joinertool.dropFiles": "Drop 2 or more audio files here (up to {max} files, {size} each)",
+  "joinertool.transition": "Transition",
+  "joinertool.transitionNone": "None",
+  "joinertool.transitionCrossfade": "Crossfade",
+  "joinertool.transitionGap": "Gap",
+  "joinertool.moveUp": "Move up",
+  "joinertool.moveDown": "Move down",
+  "joinertool.join": "Join {count} files",
+  "joinertool.faq1Q": "How many files can I merge?",
+  "joinertool.faq1A":
+    "Up to 12 files per merge. Every file is resampled to match the highest sample rate in the batch, so mixing a 44.1kHz MP3 with a 48kHz WAV works fine.",
+  "joinertool.faq2Q": "What's the difference between a crossfade and a gap?",
+  "joinertool.faq2A":
+    "A crossfade blends the end of one track into the start of the next over about 300ms, so there's no hard cut. A gap instead inserts a second of silence between tracks. Pick whichever fits, or none for a direct cut.",
+  "joinertool.faq3Q": "Are my files uploaded to merge them?",
+  "joinertool.faq3A":
+    "No. Every file is decoded, joined, and re-encoded locally in your browser. Nothing is uploaded, and the files never leave your device.",
 } as const;
 
 export default en;

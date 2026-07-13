@@ -3932,6 +3932,22 @@ tbody tr:last-child td {
   margin-left: auto;
 }
 
+/* Reorder/remove button group on the audio joiner's file queue rows. */
+.joiner-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-left: auto;
+}
+
+/* Small muted callout under a slider, e.g. the bass booster's clip warning. */
+.tool-note {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 4px 0 0;
+}
+
 /* Video tool */
 .vidtool-note {
   color: var(--muted);

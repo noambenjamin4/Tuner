@@ -669,6 +669,89 @@ const zh: Record<keyof typeof en, string> = {
   "mediatool.faqWav3Q": "我的音频文件会被上传吗？",
   "mediatool.faqWav3A":
     "不会。转换完全在你的浏览器里进行，文件绝不会离开你的设备。支持最大200 MB的文件，免费、无需注册、没有广告。",
+
+  // Nightcore Maker
+  "tools.cardNightcore": "Nightcore制作器",
+  "tools.descNightcore": "加快音轨速度并提高音调，制作Nightcore混音。",
+  "nightcoretool.title": "Nightcore制作器",
+  "nightcoretool.subtitle":
+    "在浏览器里同时加快音轨速度并提高音调。这才是真正的nightcore效果：速度和音调是锁定在一起的，而不是分开调节。",
+  "nightcoretool.intensity": "强度",
+  "nightcoretool.faq1Q": "Nightcore制作器到底是做什么的？",
+  "nightcoretool.faq1A":
+    "它会更快地播放音轨，音调也会随之升高，就像加速播放一张黑胶唱片一样。这里速度和音调是一起变化的，所以效果是经典的nightcore音效，而不是单独的变调。",
+  "nightcoretool.faq2Q": "导出的文件会比原始文件短吗？",
+  "nightcoretool.faq2A":
+    "会的。强度越高，每秒播放的内容就越多，所以1.3倍速的版本会比原始文件早结束大约23%。",
+  "nightcoretool.faq3Q": "我的音频文件会被上传到什么地方吗？",
+  "nightcoretool.faq3A":
+    "不会。解码、处理和编码全部通过Web Audio API在你的浏览器里完成，文件绝不会离开你的设备。",
+
+  // Bass Booster
+  "tools.cardBassBooster": "低音增强器",
+  "tools.descBassBooster": "增强歌曲低音，且不会产生爆音。",
+  "bassboostertool.title": "低音增强器",
+  "bassboostertool.subtitle":
+    "在浏览器里用低架滤波器增强任何音频文件的低音。内置限幅器可防止输出产生爆音。",
+  "bassboostertool.boost": "低音增强",
+  "bassboostertool.highCut": "轻微高频衰减（平衡增强的低音）",
+  "bassboostertool.clipWarning":
+    "增强幅度较大时，低音可能会变得浑浊或过于突出。输出会自动保持在0 dBFS以下，不会产生爆音，但非常响的音源听起来可能仍然刺耳。",
+  "bassboostertool.safetyNote":
+    "峰值限幅器会自动把增强后的输出保持在0 dBFS以下，即使是本来就很响的音轨也不会产生爆音。",
+  "bassboostertool.faq1Q": "低音增强器是怎么避免爆音的？",
+  "bassboostertool.faq1A":
+    "增强低频之后，工具会扫描整条音轨找出最响的峰值，并在需要时按比例降低输出，使其保持在-1 dBFS或以下。这样你就能获得更强的低音而不会产生失真。",
+  "bassboostertool.faq2Q": "低音增强针对的是哪个频率？",
+  "bassboostertool.faq2A":
+    "它会在以90Hz为中心的低架区域（次低音和低音范围）进行增强，让底鼓和低音线更响亮，同时不会连带增强中频的人声或乐器。",
+  "bassboostertool.faq3Q": "这和响度归一化是一回事吗？",
+  "bassboostertool.faq3A":
+    "不是。响度归一化调整的是整体音量；这个工具则是专门增强低频来重塑频率平衡，然后应用安全限幅器确保结果不会产生爆音。",
+
+  // 8D Audio Maker
+  "tools.card8dAudio": "8D音频生成器",
+  "tools.desc8dAudio": "为耳机打造自动声像平移的8D效果。",
+  "eightdtool.title": "8D音频生成器",
+  "eightdtool.subtitle":
+    "在浏览器里添加缓慢的自动声像平移效果，让声音在两耳之间来回移动。搭配耳机效果最佳。",
+  "eightdtool.speed": "平移速度",
+  "eightdtool.reverb": "混响",
+  "eightdtool.headphonesNote":
+    "这个效果基于立体声像平移，所以只有用耳机或分开摆放的两个音箱才能听出来。用单个单声道音箱是听不到移动感的。",
+  "eightdtool.faq1Q": "8D音频效果是怎么实现的？",
+  "eightdtool.faq1A":
+    "它使用Web Audio API的立体声像平移器，按一个缓慢、可调节的周期自动把声音从左移到右再移回来。还会叠加一点混响来增加空间感。",
+  "eightdtool.faq2Q": "为什么用手机扬声器听不出效果？",
+  "eightdtool.faq2A":
+    "8D音频是一种立体声像平移效果，它让声音在左右声道之间移动。手机的单个扬声器会把两个声道混在一起播放，平移的动感也就消失了。请使用耳机或立体声音箱来听效果。",
+  "eightdtool.faq3Q": "8D音频是一种真实存在的音频格式吗？",
+  "eightdtool.faq3A":
+    "不是，这只是这种自动声像平移效果的一个俗称，不是文件格式，也不是声道数。导出的文件是普通的立体声MP3或WAV。",
+
+  // Audio Joiner
+  "tools.cardAudioJoiner": "音频合并器",
+  "tools.descAudioJoiner": "把多个音频文件合并成一个。",
+  "joinertool.title": "音频合并器",
+  "joinertool.subtitle":
+    "在浏览器里把两个或更多音频文件合并成一条音轨。可以调整顺序、添加淡入淡出或间隔，然后导出。",
+  "joinertool.dropFiles": "把2个或更多音频文件拖到这里（最多{max}个文件，每个不超过{size}）",
+  "joinertool.transition": "过渡效果",
+  "joinertool.transitionNone": "无",
+  "joinertool.transitionCrossfade": "淡入淡出",
+  "joinertool.transitionGap": "间隔",
+  "joinertool.moveUp": "上移",
+  "joinertool.moveDown": "下移",
+  "joinertool.join": "合并{count}个文件",
+  "joinertool.faq1Q": "我最多能合并多少个文件？",
+  "joinertool.faq1A":
+    "每次最多可合并12个文件。所有文件都会被重新采样到这批文件中最高的采样率，所以把44.1kHz的MP3和48kHz的WAV混在一起完全没问题。",
+  "joinertool.faq2Q": "淡入淡出和间隔有什么区别？",
+  "joinertool.faq2A":
+    "淡入淡出会在大约300毫秒内把一条音轨的结尾融合进下一条的开头，避免生硬的切换。间隔则是在音轨之间插入一秒静音。可以按需选择，或者选“无”实现直接切换。",
+  "joinertool.faq3Q": "合并文件时会上传我的文件吗？",
+  "joinertool.faq3A":
+    "不会。每个文件都在你的浏览器本地完成解码、合并和重新编码。不会上传任何内容，文件绝不会离开你的设备。",
 };
 
 export default zh;

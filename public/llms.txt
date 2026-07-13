@@ -43,6 +43,10 @@ Key facts:
 - [MOV to MP4](https://www.tunebad.com/mov-to-mp4): Convert iPhone/QuickTime MOV videos to MP4 in the browser, no upload.
 - [FLAC to MP3](https://www.tunebad.com/flac-to-mp3): Convert lossless FLAC to MP3 at 128/192/320 kbps in the browser, no upload.
 - [WAV to MP3](https://www.tunebad.com/wav-to-mp3): Convert uncompressed WAV to MP3 at 128/192/320 kbps in the browser, no upload.
+- [Nightcore Maker](https://www.tunebad.com/nightcore-maker): Speed a track up and pitch it up together for a nightcore edit, in the browser, no upload.
+- [Bass Booster](https://www.tunebad.com/bass-booster): Boost the low end of a song with a low-shelf bass boost and a safety limiter so it never clips.
+- [8D Audio Maker](https://www.tunebad.com/8d-audio): Add a slow auto-panning "8D" effect for headphones, in the browser, no upload.
+- [Audio Joiner](https://www.tunebad.com/audio-joiner): Merge two or more audio files into one, reorder them, and export as MP3 or WAV.
 
 ## Guides
 

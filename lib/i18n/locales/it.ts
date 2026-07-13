@@ -671,6 +671,89 @@ const it: Record<keyof typeof en, string> = {
   "mediatool.faqWav3Q": "I miei file audio vengono caricati da qualche parte?",
   "mediatool.faqWav3A":
     "No. La conversione avviene interamente nel tuo browser e il file non lascia mai il tuo dispositivo. Sono supportati file fino a 200 MB, gratis, senza registrazione e senza pubblicità.",
+
+  // Nightcore Maker
+  "tools.cardNightcore": "Nightcore Maker",
+  "tools.descNightcore": "Accelera e alza l'intonazione di un brano per un edit nightcore.",
+  "nightcoretool.title": "Nightcore Maker",
+  "nightcoretool.subtitle":
+    "Accelera un brano e alzane l'intonazione insieme, direttamente nel tuo browser. Questo è il vero effetto nightcore: velocità e intonazione sono vincolate tra loro, non regolate in modo indipendente.",
+  "nightcoretool.intensity": "Intensità",
+  "nightcoretool.faq1Q": "Cosa fa esattamente un nightcore maker?",
+  "nightcoretool.faq1A":
+    "Riproduce il brano più velocemente, il che alza l'intonazione come effetto collaterale, esattamente come velocizzare un disco. Qui velocità e intonazione si muovono insieme, quindi il risultato è il classico suono nightcore e non uno shift di intonazione indipendente.",
+  "nightcoretool.faq2Q": "Il file esportato sarà più corto dell'originale?",
+  "nightcoretool.faq2A":
+    "Sì. Un'intensità più alta riproduce più brano al secondo, quindi un edit a 1,3x finisce circa il 23% prima dell'originale.",
+  "nightcoretool.faq3Q": "Il mio file audio viene caricato da qualche parte?",
+  "nightcoretool.faq3A":
+    "No. Decodifica, elaborazione e codifica avvengono tutte nel tuo browser con la Web Audio API. Il file non lascia mai il tuo dispositivo.",
+
+  // Bass Booster
+  "tools.cardBassBooster": "Bass Booster",
+  "tools.descBassBooster": "Potenzia i bassi di un brano, senza clipping.",
+  "bassboostertool.title": "Bass Booster",
+  "bassboostertool.subtitle":
+    "Potenzia i bassi di qualsiasi file audio con un filtro low-shelf, direttamente nel tuo browser. Un limiter integrato evita che l'output vada in clipping.",
+  "bassboostertool.boost": "Boost dei bassi",
+  "bassboostertool.highCut": "Leggero taglio degli alti (bilancia il bass extra)",
+  "bassboostertool.clipWarning":
+    "A livelli di boost elevati i bassi possono iniziare a sembrare fangosi o eccessivi. L'output resta automaticamente appena sotto 0 dBFS così non va in clipping, ma le sorgenti già molto alte possono comunque suonare aspre.",
+  "bassboostertool.safetyNote":
+    "Un limiter di picco mantiene automaticamente l'output potenziato appena sotto 0 dBFS, così non va in clipping nemmeno su tracce già alte.",
+  "bassboostertool.faq1Q": "Come fa il bass booster a evitare il clipping?",
+  "bassboostertool.faq1A":
+    "Dopo aver potenziato le basse frequenze, lo strumento analizza l'intero brano per trovarne il picco più alto e riduce l'output se necessario in modo che resti a -1 dBFS o meno. Ottieni più bassi senza distorsione.",
+  "bassboostertool.faq2Q": "Su quale frequenza agisce il boost dei bassi?",
+  "bassboostertool.faq2A":
+    "Applica un boost low-shelf centrato intorno ai 90Hz, la zona dei sub-bassi e dei bassi, così le casse e le linee di basso diventano più forti senza potenziare anche voci o strumenti nella gamma media.",
+  "bassboostertool.faq3Q": "È lo stesso della normalizzazione del volume?",
+  "bassboostertool.faq3A":
+    "No. La normalizzazione del volume cambia il livello complessivo; questo strumento rimodella il bilanciamento delle frequenze potenziando in modo specifico i bassi, poi applica un limiter di sicurezza così il risultato non va in clipping.",
+
+  // 8D Audio Maker
+  "tools.card8dAudio": "8D Audio Maker",
+  "tools.desc8dAudio": "Effetto 8D con panning automatico per le cuffie.",
+  "eightdtool.title": "8D Audio Maker",
+  "eightdtool.subtitle":
+    "Aggiunge un effetto di panning automatico lento che sposta il suono da un orecchio all'altro. Ideale con le cuffie. Direttamente nel tuo browser.",
+  "eightdtool.speed": "Velocità dello spostamento",
+  "eightdtool.reverb": "Riverbero",
+  "eightdtool.headphonesNote":
+    "Questo effetto si basa sul panning stereo, quindi funziona solo con le cuffie o due casse distanziate. Su un singolo altoparlante mono non sentirai il movimento.",
+  "eightdtool.faq1Q": "Come funziona l'effetto audio 8D?",
+  "eightdtool.faq1A":
+    "Sposta automaticamente l'audio da sinistra a destra e viceversa in un ciclo lento e regolabile, usando il panner stereo della Web Audio API. Viene aggiunto un tocco di riverbero per dare un senso di spazio.",
+  "eightdtool.faq2Q": "Perché non funziona con l'altoparlante del telefono?",
+  "eightdtool.faq2A":
+    "L'audio 8D è un effetto di panning stereo: sposta il suono tra un canale sinistro e uno destro. Un singolo altoparlante del telefono riproduce entrambi i canali mescolati insieme, quindi il movimento del panning scompare. Usa cuffie o casse stereo per sentirlo.",
+  "eightdtool.faq3Q": "L'audio 8D è un formato audio reale?",
+  "eightdtool.faq3A":
+    "No, è un soprannome per questo effetto di panning automatico, non un formato di file o un numero di canali. Il file esportato è un normale MP3 o WAV stereo.",
+
+  // Audio Joiner
+  "tools.cardAudioJoiner": "Audio Joiner",
+  "tools.descAudioJoiner": "Unisci più file audio in uno solo.",
+  "joinertool.title": "Audio Joiner",
+  "joinertool.subtitle":
+    "Unisci due o più file audio in un'unica traccia. Riordinali, aggiungi una dissolvenza incrociata o una pausa, poi esporta. Direttamente nel tuo browser.",
+  "joinertool.dropFiles": "Trascina qui 2 o più file audio (fino a {max} file, {size} ciascuno)",
+  "joinertool.transition": "Transizione",
+  "joinertool.transitionNone": "Nessuna",
+  "joinertool.transitionCrossfade": "Dissolvenza incrociata",
+  "joinertool.transitionGap": "Pausa",
+  "joinertool.moveUp": "Sposta su",
+  "joinertool.moveDown": "Sposta giù",
+  "joinertool.join": "Unisci {count} file",
+  "joinertool.faq1Q": "Quanti file posso unire?",
+  "joinertool.faq1A":
+    "Fino a 12 file per unione. Ogni file viene ricampionato per adattarsi alla frequenza di campionamento più alta del gruppo, quindi unire un MP3 a 44,1kHz con un WAV a 48kHz funziona senza problemi.",
+  "joinertool.faq2Q": "Qual è la differenza tra una dissolvenza incrociata e una pausa?",
+  "joinertool.faq2A":
+    "Una dissolvenza incrociata fonde la fine di una traccia con l'inizio della successiva in circa 300ms, così non c'è un taglio netto. Una pausa inserisce invece un secondo di silenzio tra le tracce. Scegli quella che preferisci, oppure nessuna transizione per un taglio diretto.",
+  "joinertool.faq3Q": "I miei file vengono caricati per unirli?",
+  "joinertool.faq3A":
+    "No. Ogni file viene decodificato, unito e ricodificato localmente nel tuo browser. Niente viene caricato, e i file non lasciano mai il tuo dispositivo.",
 };
 
 export default it;

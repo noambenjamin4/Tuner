@@ -671,6 +671,89 @@ const es: Record<keyof typeof en, string> = {
   "mediatool.faqWav3Q": "¿Mis archivos de audio se suben a algún sitio?",
   "mediatool.faqWav3A":
     "No. La conversión ocurre por completo en tu navegador y el archivo nunca sale de tu dispositivo. Se admiten archivos de hasta 200 MB, gratis, sin registro y sin anuncios.",
+
+  // Nightcore Maker
+  "tools.cardNightcore": "Nightcore Maker",
+  "tools.descNightcore": "Acelera y sube el tono de una pista para un edit nightcore.",
+  "nightcoretool.title": "Nightcore Maker",
+  "nightcoretool.subtitle":
+    "Acelera una pista y sube su tono a la vez, directamente en tu navegador. Ese es el efecto nightcore real: la velocidad y el tono van unidos, no se ajustan por separado.",
+  "nightcoretool.intensity": "Intensidad",
+  "nightcoretool.faq1Q": "¿Qué hace exactamente un nightcore maker?",
+  "nightcoretool.faq1A":
+    "Reproduce la pista más rápido, lo que sube el tono como efecto secundario, igual que acelerar un disco de vinilo. Aquí la velocidad y el tono van unidos, así que el resultado es el sonido nightcore clásico y no un cambio de tono independiente.",
+  "nightcoretool.faq2Q": "¿El archivo exportado será más corto que el original?",
+  "nightcoretool.faq2A":
+    "Sí. Cuanta más intensidad, más pista se reproduce por segundo, así que un edit a 1.3x termina alrededor de un 23% antes que el original.",
+  "nightcoretool.faq3Q": "¿Mi archivo de audio se sube a algún sitio?",
+  "nightcoretool.faq3A":
+    "No. La decodificación, el procesamiento y la codificación ocurren por completo en tu navegador con la Web Audio API. El archivo nunca sale de tu dispositivo.",
+
+  // Bass Booster
+  "tools.cardBassBooster": "Bass Booster",
+  "tools.descBassBooster": "Realza los graves de una canción sin distorsionar.",
+  "bassboostertool.title": "Bass Booster",
+  "bassboostertool.subtitle":
+    "Realza los graves de cualquier archivo de audio con un filtro low-shelf, directamente en tu navegador. Un limitador integrado evita que la salida se distorsione.",
+  "bassboostertool.boost": "Realce de graves",
+  "bassboostertool.highCut": "Corte suave de agudos (equilibra el exceso de graves)",
+  "bassboostertool.clipWarning":
+    "Con niveles de realce altos, los graves pueden empezar a sonar turbios o excesivos. La salida se mantiene automáticamente justo por debajo de 0 dBFS para que no se distorsione, pero las fuentes ya muy altas pueden seguir sonando agresivas.",
+  "bassboostertool.safetyNote":
+    "Un limitador de picos mantiene automáticamente la salida realzada justo por debajo de 0 dBFS, así que no se distorsiona ni siquiera en pistas ya de por sí altas.",
+  "bassboostertool.faq1Q": "¿Cómo evita el bass booster la distorsión?",
+  "bassboostertool.faq1A":
+    "Después de realzar las frecuencias bajas, la herramienta analiza toda la pista en busca de su pico más alto y reduce la salida si hace falta para que se mantenga en -1 dBFS o por debajo. Consigues más graves sin distorsión.",
+  "bassboostertool.faq2Q": "¿A qué frecuencia apunta el realce de graves?",
+  "bassboostertool.faq2A":
+    "Aplica un realce low-shelf centrado alrededor de los 90Hz, la zona de sub-graves y graves, así que los kicks y las líneas de bajo suenan más fuerte sin realzar también las voces o instrumentos de rango medio.",
+  "bassboostertool.faq3Q": "¿Esto es lo mismo que normalizar el volumen?",
+  "bassboostertool.faq3A":
+    "No. La normalización de volumen cambia el nivel general; esta herramienta reformula el balance de frecuencias realzando específicamente los graves y luego aplica un limitador de seguridad para que el resultado no se distorsione.",
+
+  // 8D Audio Maker
+  "tools.card8dAudio": "8D Audio Maker",
+  "tools.desc8dAudio": "Efecto 8D de paneo automático para auriculares.",
+  "eightdtool.title": "8D Audio Maker",
+  "eightdtool.subtitle":
+    "Añade un efecto de paneo automático y lento que mueve el sonido de un oído a otro. Mejor con auriculares. Directamente en tu navegador.",
+  "eightdtool.speed": "Velocidad de barrido",
+  "eightdtool.reverb": "Reverb",
+  "eightdtool.headphonesNote":
+    "Este efecto se basa en el paneo estéreo, así que solo funciona con auriculares o dos altavoces separados. En un único altavoz mono no oirás el movimiento.",
+  "eightdtool.faq1Q": "¿Cómo funciona el efecto de audio 8D?",
+  "eightdtool.faq1A":
+    "Panea el audio automáticamente de izquierda a derecha y de vuelta en un ciclo lento y ajustable, usando el paneador estéreo de la Web Audio API. Se añade un toque de reverb para dar sensación de espacio.",
+  "eightdtool.faq2Q": "¿Por qué no funciona con el altavoz de mi teléfono?",
+  "eightdtool.faq2A":
+    "El audio 8D es un efecto de paneo estéreo: mueve el sonido entre un canal izquierdo y uno derecho. Un único altavoz de teléfono reproduce ambos canales mezclados, así que el movimiento del paneo desaparece. Usa auriculares o altavoces estéreo para oírlo.",
+  "eightdtool.faq3Q": "¿El audio 8D es un formato de audio real?",
+  "eightdtool.faq3A":
+    "No, es un apodo para este efecto de paneo automático, no un formato de archivo ni un número de canales. El archivo exportado es un MP3 o WAV estéreo normal.",
+
+  // Audio Joiner
+  "tools.cardAudioJoiner": "Audio Joiner",
+  "tools.descAudioJoiner": "Une varios archivos de audio en uno solo.",
+  "joinertool.title": "Audio Joiner",
+  "joinertool.subtitle":
+    "Combina dos o más archivos de audio en una sola pista. Reordénalos, añade un crossfade o un espacio, y exporta. Directamente en tu navegador.",
+  "joinertool.dropFiles": "Suelta 2 o más archivos de audio aquí (hasta {max} archivos, {size} cada uno)",
+  "joinertool.transition": "Transición",
+  "joinertool.transitionNone": "Ninguna",
+  "joinertool.transitionCrossfade": "Crossfade",
+  "joinertool.transitionGap": "Espacio",
+  "joinertool.moveUp": "Subir",
+  "joinertool.moveDown": "Bajar",
+  "joinertool.join": "Unir {count} archivos",
+  "joinertool.faq1Q": "¿Cuántos archivos puedo unir?",
+  "joinertool.faq1A":
+    "Hasta 12 archivos por unión. Cada archivo se remuestrea para igualar la frecuencia de muestreo más alta del grupo, así que combinar un MP3 a 44.1kHz con un WAV a 48kHz funciona sin problema.",
+  "joinertool.faq2Q": "¿Cuál es la diferencia entre un crossfade y un espacio?",
+  "joinertool.faq2A":
+    "Un crossfade mezcla el final de una pista con el inicio de la siguiente en unos 300ms, así que no hay un corte brusco. Un espacio, en cambio, inserta un segundo de silencio entre pistas. Elige el que mejor te venga, o ninguno para un corte directo.",
+  "joinertool.faq3Q": "¿Mis archivos se suben para unirlos?",
+  "joinertool.faq3A":
+    "No. Cada archivo se decodifica, se une y se vuelve a codificar localmente en tu navegador. No se sube nada, y los archivos nunca salen de tu dispositivo.",
 };
 
 export default es;

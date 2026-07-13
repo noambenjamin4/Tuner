@@ -129,7 +129,6 @@ export function AudioMasteringTool() {
 
   const hasReference = referenceCurve !== null;
   const hasGenre = genre !== "custom";
-  const genreCurve = genre !== "custom" ? GENRE_PRESETS[genre].curve : null;
   const hasMaster = masteredChannels !== null;
 
   // Selecting a genre applies its loudness target + width and switches the tone

@@ -811,12 +811,21 @@ const fr: Record<keyof typeof en, string> = {
     "Il s'agit d'un mastering automatique. Le résultat dépend de votre mix, et cela ne remplace pas un ingénieur de mastering.",
   "audiomasteringtool.faq1Q": "Que fait réellement cet outil de mastering ?",
   "audiomasteringtool.faq1A":
-    "Il passe votre piste dans un filtre passe-haut de nettoyage, une égalisation tonale, une légère compression de collage, puis normalise le volume vers votre cible et applique un limiteur de crête pour rester juste sous 0 dBFS. Vous pouvez aussi caler l'équilibre tonal sur une piste de référence plutôt que sur un préréglage.",
-  "audiomasteringtool.faq2Q": "Mon fichier audio est-il envoyé quelque part ?",
+    "Il donne à votre piste sa touche finale avant que vous la partagiez. Il élimine les grondements dans les basses, égalise le timbre avec un EQ, soude le mix avec une légère compression, puis remonte l'ensemble à une loudness fixe et maintient les crêtes juste sous le plafond pour éviter tout écrêtage, même après le ré-encodage par Spotify ou YouTube. Le résultat sonne plus plein et joue à un volume régulier à côté des autres morceaux.",
+  "audiomasteringtool.faq2Q": "À quoi servent les préréglages de genre ?",
   "audiomasteringtool.faq2A":
-    "Non. Le décodage, le mastering et l'encodage se font tous dans votre navigateur avec l'API Web Audio. Votre fichier et toute piste de référence ne quittent jamais votre appareil.",
-  "audiomasteringtool.faq3Q": "Est-ce aussi bon qu'un ingénieur de mastering professionnel ?",
+    "Chacun est un point de départ réglé pour ce style. EDM et Hip-Hop poussent le volume avec des basses solides ; Pop et Rock visent un son plus brillant et prêt pour la radio ; Acoustique et Lo-Fi restent plus doux et plus naturels. Choisissez le plus proche et ajustez la loudness, le timbre ou la largeur à partir de là, ou sélectionnez Personnalisé pour tout régler vous-même.",
+  "audiomasteringtool.faq3Q": "Comment savoir si le master sonne vraiment mieux ?",
   "audiomasteringtool.faq3A":
+    "Basculez entre Avant et Après et écoutez. Activez d'abord « Égaliser le volume » pour que les deux jouent au même niveau, sinon le plus fort semble toujours meilleur et vous ne pouvez pas juger du timbre. Le panneau affiche aussi les chiffres : la loudness d'entrée et de sortie en LUFS, le true peak et la plage dynamique restante.",
+  "audiomasteringtool.faq4Q": "Que fait « caler sur une piste de référence » ?",
+  "audiomasteringtool.faq4A":
+    "Déposez un morceau auquel vous voulez que le vôtre ressemble. TuneBad lit l'équilibre tonal et la loudness de cette piste et oriente votre master dans cette direction, pour que votre mix se retrouve dans le même registre qu'un disque en qui vous avez déjà confiance. C'est la version gratuite, dans le navigateur, du calage sur référence que les services payants facturent.",
+  "audiomasteringtool.faq5Q": "Mon fichier audio est-il envoyé quelque part ?",
+  "audiomasteringtool.faq5A":
+    "Non. Le décodage, le mastering et l'encodage se font tous dans votre navigateur avec l'API Web Audio. Votre fichier et toute piste de référence ne quittent jamais votre appareil.",
+  "audiomasteringtool.faq6Q": "Est-ce aussi bon qu'un ingénieur de mastering professionnel ?",
+  "audiomasteringtool.faq6A":
     "Non. C'est un mastering automatique et rapide, idéal pour les démos, les mises en ligne et les délais serrés. Un ingénieur de mastering prend des décisions musicales que cet outil ne peut pas prendre ; pour une sortie commerciale, il reste préférable.",
 };
 

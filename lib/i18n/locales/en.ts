@@ -853,13 +853,22 @@ const en = {
     "This is an automated master. Results depend on your mix, and it's not a substitute for a human mastering engineer.",
   "audiomasteringtool.faq1Q": "What does this mastering tool actually do?",
   "audiomasteringtool.faq1A":
-    "It runs your track through a cleanup high-pass, a tonal EQ, gentle glue compression, then normalizes the loudness to your target and applies a peak limiter so it stays just under 0 dBFS. You can also match a reference track's tonal balance instead of a preset.",
-  "audiomasteringtool.faq2Q": "Is my audio file uploaded anywhere?",
+    "It gives your track the final polish before you share it. It clears out low rumble, evens the tone with EQ, glues the mix together with light compression, then raises the whole thing to a set loudness and holds the peaks just under the ceiling so it won't clip, even after Spotify or YouTube re-encode it. The result sounds fuller and plays at a steady volume next to other songs.",
+  "audiomasteringtool.faq2Q": "What do the genre presets do?",
   "audiomasteringtool.faq2A":
-    "No. Decoding, mastering, and encoding all happen in your browser with the Web Audio API. Your file and any reference track never leave your device.",
-  "audiomasteringtool.faq3Q": "Is this as good as a professional mastering engineer?",
+    "Each one is a starting point tuned for that style. EDM and Hip-Hop go loud with a strong low end; Pop and Rock aim brighter and more radio-ready; Acoustic and Lo-Fi stay softer and more natural. Pick the closest one and nudge the loudness, tone, or width from there, or choose Custom to set everything yourself.",
+  "audiomasteringtool.faq3Q": "How can I tell if the master actually sounds better?",
   "audiomasteringtool.faq3A":
-    "No. This is a fast, automated master that works well for demos, uploads, and quick turnarounds. A human mastering engineer makes musical decisions this tool can't, so for a commercial release you may still want one.",
+    "Flip between Before and After and listen. Turn on 'Match loudness' first so both play at the same volume, because otherwise the louder one always seems better and you can't judge the tone. The panel also shows the numbers: input and output loudness in LUFS, the true peak, and how much dynamic range is left.",
+  "audiomasteringtool.faq4Q": "What does 'match a reference track' do?",
+  "audiomasteringtool.faq4A":
+    "Drop in a song you want yours to sound like. TuneBad reads that track's tonal balance and loudness and steers your master toward it, so your mix lands in the same ballpark as a record you already trust. It's the free, in-browser version of the reference matching that paid services charge for.",
+  "audiomasteringtool.faq5Q": "Is my audio file uploaded anywhere?",
+  "audiomasteringtool.faq5A":
+    "No. Decoding, mastering, and encoding all happen in your browser. Your file and any reference track never leave your device.",
+  "audiomasteringtool.faq6Q": "Is this as good as a professional mastering engineer?",
+  "audiomasteringtool.faq6A":
+    "No, and it doesn't pretend to be. It's a fast, automated master that works well for demos, uploads, and quick turnarounds. A human engineer makes musical calls this tool can't, so for a big commercial release you may still want one.",
 } as const;
 
 export default en;

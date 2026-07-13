@@ -804,12 +804,21 @@ const pt: Record<keyof typeof en, string> = {
     "Esta é uma masterização automática. O resultado depende da sua mixagem e não substitui um engenheiro de masterização.",
   "audiomasteringtool.faq1Q": "O que essa ferramenta de masterização faz de verdade?",
   "audiomasteringtool.faq1A":
-    "Ela passa a sua faixa por um filtro passa-alta de limpeza, uma equalização tonal e uma compressão de cola suave, depois normaliza o volume para o seu alvo e aplica um limitador de picos para ficar logo abaixo de 0 dBFS. Você também pode igualar o equilíbrio tonal de uma faixa de referência em vez de usar uma predefinição.",
-  "audiomasteringtool.faq2Q": "Meu arquivo de áudio é enviado para algum lugar?",
+    "Ela dá à sua faixa o acabamento final antes de você compartilhá-la. Limpa o ronco dos graves, nivela o timbre com EQ, cola a mistura com uma compressão leve e depois eleva tudo a um volume fixo e mantém os picos logo abaixo do teto para não distorcer, mesmo depois de o Spotify ou o YouTube recodificarem. O resultado soa mais cheio e toca em um volume constante ao lado de outras músicas.",
+  "audiomasteringtool.faq2Q": "O que fazem as predefinições de gênero?",
   "audiomasteringtool.faq2A":
-    "Não. A decodificação, a masterização e a codificação acontecem todas no seu navegador com a Web Audio API. Seu arquivo e qualquer faixa de referência nunca saem do seu dispositivo.",
-  "audiomasteringtool.faq3Q": "Isso é tão bom quanto um engenheiro de masterização profissional?",
+    "Cada uma é um ponto de partida ajustado para aquele estilo. EDM e Hip-Hop vão altos com graves fortes; Pop e Rock buscam um som mais brilhante e pronto para o rádio; Acústico e Lo-Fi ficam mais suaves e naturais. Escolha a mais próxima e ajuste dali o volume, o timbre ou a largura, ou escolha Personalizado para configurar tudo você mesmo.",
+  "audiomasteringtool.faq3Q": "Como sei se o master realmente soa melhor?",
   "audiomasteringtool.faq3A":
+    "Alterne entre Antes e Depois e escute. Ative primeiro «Igualar volume» para que ambos toquem no mesmo nível, porque senão o mais alto sempre parece melhor e você não consegue julgar o timbre. O painel também mostra os números: o volume de entrada e de saída em LUFS, o true peak e quanto de faixa dinâmica resta.",
+  "audiomasteringtool.faq4Q": "O que faz «igualar uma faixa de referência»?",
+  "audiomasteringtool.faq4A":
+    "Solte uma música com a qual você quer que a sua se pareça. O TuneBad lê o equilíbrio tonal e o volume dessa faixa e guia o seu master naquela direção, para que a sua mistura fique na mesma faixa de um disco em que você já confia. É a versão gratuita, no navegador, da igualação por referência que os serviços pagos cobram.",
+  "audiomasteringtool.faq5Q": "Meu arquivo de áudio é enviado para algum lugar?",
+  "audiomasteringtool.faq5A":
+    "Não. A decodificação, a masterização e a codificação acontecem todas no seu navegador com a Web Audio API. Seu arquivo e qualquer faixa de referência nunca saem do seu dispositivo.",
+  "audiomasteringtool.faq6Q": "Isso é tão bom quanto um engenheiro de masterização profissional?",
+  "audiomasteringtool.faq6A":
     "Não. É uma masterização automática e rápida, ótima para demos, uploads e prazos apertados. Um engenheiro de masterização toma decisões musicais que esta ferramenta não consegue; para um lançamento comercial, você ainda pode querer um.",
 };
 

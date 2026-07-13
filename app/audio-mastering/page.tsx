@@ -21,6 +21,9 @@ export default function Page() {
           { q: "audiomasteringtool.faq1Q", a: "audiomasteringtool.faq1A" },
           { q: "audiomasteringtool.faq2Q", a: "audiomasteringtool.faq2A" },
           { q: "audiomasteringtool.faq3Q", a: "audiomasteringtool.faq3A" },
+          { q: "audiomasteringtool.faq4Q", a: "audiomasteringtool.faq4A" },
+          { q: "audiomasteringtool.faq5Q", a: "audiomasteringtool.faq5A" },
+          { q: "audiomasteringtool.faq6Q", a: "audiomasteringtool.faq6A" },
         ]}
       />
       <RelatedTools tools={["bass-booster", "audio-converter", "audio-joiner"]} />

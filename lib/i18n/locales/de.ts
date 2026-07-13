@@ -804,12 +804,21 @@ const de: Record<keyof typeof en, string> = {
     "Dies ist ein automatisches Mastering. Das Ergebnis hängt von deinem Mix ab und ersetzt keinen Mastering-Ingenieur.",
   "audiomasteringtool.faq1Q": "Was macht dieses Mastering-Tool eigentlich?",
   "audiomasteringtool.faq1A":
-    "Es schickt deinen Track durch einen Hochpass zur Bereinigung, einen klanglichen EQ und eine sanfte Glue-Kompression, normalisiert dann die Lautheit auf dein Ziel und wendet einen Peak-Limiter an, damit sie knapp unter 0 dBFS bleibt. Du kannst statt eines Presets auch die Klangbalance eines Referenztracks angleichen.",
-  "audiomasteringtool.faq2Q": "Wird meine Audiodatei irgendwohin hochgeladen?",
+    "Es gibt deinem Track den letzten Schliff, bevor du ihn teilst. Es entfernt tieffrequentes Rumpeln, gleicht den Klang mit EQ aus, verklebt den Mix mit sanfter Kompression, hebt dann das Ganze auf eine feste Lautheit an und hält die Peaks knapp unter der Decke, damit nichts clippt, selbst nachdem Spotify oder YouTube neu codiert haben. Das Ergebnis klingt voller und spielt neben anderen Songs auf gleichmäßiger Lautstärke.",
+  "audiomasteringtool.faq2Q": "Was machen die Genre-Presets?",
   "audiomasteringtool.faq2A":
-    "Nein. Decodierung, Mastering und Codierung passieren alle in deinem Browser mit der Web Audio API. Deine Datei und jeder Referenztrack verlassen dein Gerät nie.",
-  "audiomasteringtool.faq3Q": "Ist das so gut wie ein professioneller Mastering-Ingenieur?",
+    "Jedes ist ein für diesen Stil abgestimmter Ausgangspunkt. EDM und Hip-Hop gehen laut mit kräftigem Bass; Pop und Rock zielen heller und radiotauglicher; Akustik und Lo-Fi bleiben weicher und natürlicher. Wähle das passendste und passe von dort Lautheit, Klang oder Breite an, oder wähle Benutzerdefiniert, um alles selbst einzustellen.",
+  "audiomasteringtool.faq3Q": "Woran erkenne ich, ob der Master wirklich besser klingt?",
   "audiomasteringtool.faq3A":
+    "Wechsle zwischen Vorher und Nachher und hör hin. Schalte zuerst „Lautstärke angleichen“ ein, damit beide gleich laut spielen, denn sonst wirkt das Lautere immer besser und du kannst den Klang nicht beurteilen. Das Panel zeigt außerdem die Zahlen: Ein- und Ausgangslautheit in LUFS, den True Peak und wie viel Dynamikumfang übrig ist.",
+  "audiomasteringtool.faq4Q": "Was macht „an einen Referenztrack angleichen“?",
+  "audiomasteringtool.faq4A":
+    "Zieh einen Song hinein, nach dem deiner klingen soll. TuneBad liest die Klangbalance und Lautheit dieses Tracks und lenkt deinen Master in diese Richtung, damit dein Mix in derselben Liga landet wie eine Aufnahme, der du schon vertraust. Es ist die kostenlose Variante im Browser des Referenzabgleichs, für den bezahlte Dienste Geld verlangen.",
+  "audiomasteringtool.faq5Q": "Wird meine Audiodatei irgendwohin hochgeladen?",
+  "audiomasteringtool.faq5A":
+    "Nein. Decodierung, Mastering und Codierung passieren alle in deinem Browser mit der Web Audio API. Deine Datei und jeder Referenztrack verlassen dein Gerät nie.",
+  "audiomasteringtool.faq6Q": "Ist das so gut wie ein professioneller Mastering-Ingenieur?",
+  "audiomasteringtool.faq6A":
     "Nein. Das ist ein schnelles, automatisches Mastering, das für Demos, Uploads und knappe Deadlines gut funktioniert. Ein Mastering-Ingenieur trifft musikalische Entscheidungen, die dieses Tool nicht kann; für eine kommerzielle Veröffentlichung willst du ihn vielleicht trotzdem.",
 };
 

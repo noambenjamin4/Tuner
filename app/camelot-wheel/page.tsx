@@ -48,6 +48,10 @@ const FAQS: { q: string; a: string }[] = [
     q: "How do I find a song's Camelot code?",
     a: "Use the free key and BPM finder on TuneBad: search a song by name, paste a YouTube or Spotify link, or upload the file. Every analysis returns the musical key and its Camelot code, measured from the audio itself in your browser.",
   },
+  {
+    q: "Can I change key for an energy lift?",
+    a: "Yes, and two moves do it without clashing. Jump up two numbers on the same letter, like 8A to 10A, for a noticeable lift in energy, or swap the letter, like 8A to 8B, to move between minor and major and change the mood. Both sound deliberate rather than off-key, which is why DJs use them to build or reset a set.",
+  },
 ];
 
 export default function CamelotWheelPage() {

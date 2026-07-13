@@ -804,12 +804,21 @@ const it: Record<keyof typeof en, string> = {
     "Questo è un mastering automatico. Il risultato dipende dal tuo mix e non sostituisce un tecnico di mastering.",
   "audiomasteringtool.faq1Q": "Cosa fa davvero questo strumento di mastering?",
   "audiomasteringtool.faq1A":
-    "Fa passare la traccia attraverso un passa-alto di pulizia, un'equalizzazione timbrica e una leggera compressione glue, poi normalizza il volume verso il tuo obiettivo e applica un limiter di picco così da restare appena sotto 0 dBFS. Puoi anche allineare il bilanciamento timbrico a una traccia di riferimento invece di usare un preset.",
-  "audiomasteringtool.faq2Q": "Il mio file audio viene caricato da qualche parte?",
+    "Dà alla tua traccia la rifinitura finale prima che tu la condivida. Elimina i rimbombi delle basse, uniforma il timbro con l'EQ, incolla il mix con una leggera compressione, poi porta il tutto a un volume prefissato e tiene i picchi appena sotto il tetto così da non distorcere, anche dopo la ricodifica di Spotify o YouTube. Il risultato suona più pieno e si riproduce a un volume costante accanto agli altri brani.",
+  "audiomasteringtool.faq2Q": "Cosa fanno i preset di genere?",
   "audiomasteringtool.faq2A":
-    "No. Decodifica, mastering e codifica avvengono tutti nel tuo browser con la Web Audio API. Il tuo file e ogni traccia di riferimento non lasciano mai il tuo dispositivo.",
-  "audiomasteringtool.faq3Q": "È buono come un tecnico di mastering professionista?",
+    "Ognuno è un punto di partenza tarato per quello stile. EDM e Hip-Hop vanno forte con bassi decisi; Pop e Rock puntano a un suono più brillante e pronto per la radio; Acustico e Lo-Fi restano più morbidi e naturali. Scegli quello più vicino e regola da lì volume, timbro o ampiezza, oppure scegli Personalizzato per impostare tutto da te.",
+  "audiomasteringtool.faq3Q": "Come faccio a capire se il master suona davvero meglio?",
   "audiomasteringtool.faq3A":
+    "Alterna tra Prima e Dopo e ascolta. Attiva prima «Pareggia il volume» così entrambi suonano allo stesso livello, altrimenti il più forte sembra sempre migliore e non puoi giudicare il timbro. Il pannello mostra anche i numeri: il volume di ingresso e di uscita in LUFS, il true peak e quanta gamma dinamica resta.",
+  "audiomasteringtool.faq4Q": "Cosa fa «allinea a una traccia di riferimento»?",
+  "audiomasteringtool.faq4A":
+    "Trascina dentro un brano a cui vuoi che il tuo assomigli. TuneBad legge il bilanciamento timbrico e il volume di quella traccia e orienta il tuo master in quella direzione, così il tuo mix finisce nella stessa fascia di un disco di cui ti fidi già. È la versione gratuita, nel browser, dell'allineamento su riferimento che i servizi a pagamento fanno pagare.",
+  "audiomasteringtool.faq5Q": "Il mio file audio viene caricato da qualche parte?",
+  "audiomasteringtool.faq5A":
+    "No. Decodifica, mastering e codifica avvengono tutti nel tuo browser con la Web Audio API. Il tuo file e ogni traccia di riferimento non lasciano mai il tuo dispositivo.",
+  "audiomasteringtool.faq6Q": "È buono come un tecnico di mastering professionista?",
+  "audiomasteringtool.faq6A":
     "No. È un mastering automatico e veloce, ottimo per demo, caricamenti e consegne rapide. Un tecnico di mastering prende decisioni musicali che questo strumento non può prendere; per una pubblicazione commerciale potresti averne ancora bisogno.",
 };
 

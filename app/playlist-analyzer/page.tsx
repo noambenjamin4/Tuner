@@ -11,7 +11,43 @@ export const metadata: Metadata = {
   openGraph: { images: [{ url: "/og/playlist-analyzer.png", width: 1200, height: 630 }] },
 };
 
+const FAQS: { q: string; a: string }[] = [
+  {
+    q: "Which playlists can I analyze?",
+    a: "Any public Spotify or YouTube playlist. Paste the share link and TuneBad reads the tracklist. Private playlists won't work, since it can only see what's public.",
+  },
+  {
+    q: "Where do the key and BPM come from?",
+    a: "Not from Spotify or YouTube, since they don't publish that data. TuneBad matches each track to its official 30-second preview and measures the key and BPM from the audio itself, the same way the Key & BPM Finder does.",
+  },
+  {
+    q: "Why do some tracks load instantly and others take a second?",
+    a: "Songs someone already analyzed come straight from the shared database, so they appear right away. Anything new is analyzed on the spot in your browser and added to the database, so the next person who needs it gets it instantly.",
+  },
+  {
+    q: "How accurate is it?",
+    a: "The key and Camelot code are read from the audio, so they're reliable. BPM is usually spot-on too, but a track with a vague or half-time beat can come back at double or half speed, so trust your ears if a number looks off.",
+  },
+  {
+    q: "Can I export the results?",
+    a: "Yes. Export the whole table to CSV, or sort it by Camelot code to line up harmonically compatible tracks for a set.",
+  },
+  {
+    q: "Is anything uploaded?",
+    a: "Only the playlist link. The audio analysis runs in your browser, and nothing from your device is uploaded.",
+  },
+];
+
 export default function PlaylistAnalyzerPage() {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQS.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
   return (
     <div className="app-shell">
       <header className="legal-topbar">
@@ -51,6 +87,18 @@ export default function PlaylistAnalyzerPage() {
               added to it, so the database gets more complete with every playlist pasted here.
             </p>
           </section>
+
+          <section className="song-section">
+            <h2>Common questions</h2>
+            {FAQS.map((f) => (
+              <details key={f.q} className="seo-faq-item">
+                <summary>{f.q}</summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
+          </section>
+
+          <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
         </article>
       </main>
 

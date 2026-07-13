@@ -802,12 +802,21 @@ const zh: Record<keyof typeof en, string> = {
     "这是自动母带处理。结果取决于你的混音，并不能替代人工母带工程师。",
   "audiomasteringtool.faq1Q": "这个母带工具到底做了什么？",
   "audiomasteringtool.faq1A":
-    "它让你的音轨经过一个清理用的高通滤波、音色均衡和轻微的粘合压缩，然后把响度归一到你的目标，并应用峰值限制器，使其保持在0 dBFS以下。你也可以让音色平衡向参考音轨靠拢，而不使用预设。",
-  "audiomasteringtool.faq2Q": "我的音频文件会被上传吗？",
+    "在你分享之前，它为你的音轨做最后的润色。它清除低频隆隆声，用EQ均衡音色，用轻微压缩把混音黏合在一起，然后把整体提升到设定的响度，并把峰值控制在上限之下，即使经过Spotify或YouTube重新编码也不会削波。结果听起来更饱满，和其他歌曲放在一起时音量保持稳定。",
+  "audiomasteringtool.faq2Q": "风格预设有什么作用？",
   "audiomasteringtool.faq2A":
-    "不会。解码、母带处理和编码都在你的浏览器中使用Web Audio API完成。你的文件和任何参考音轨都不会离开你的设备。",
-  "audiomasteringtool.faq3Q": "这和专业母带工程师一样好吗？",
+    "每个都是为该风格调好的起点。EDM和Hip-Hop更响、低频更强；Pop和Rock更明亮、更适合电台；原声和Lo-Fi更柔和、更自然。选择最接近的一个，再从那里微调响度、音色或宽度，或选择自定义来自行设置一切。",
+  "audiomasteringtool.faq3Q": "我怎么知道母带是否真的更好听？",
   "audiomasteringtool.faq3A":
+    "在处理前和处理后之间切换来听。先打开「匹配响度」，让两者以相同音量播放，否则更响的那个总是显得更好，你就无法判断音色。面板还会显示数值：输入和输出的响度（LUFS）、true peak，以及还剩多少动态范围。",
+  "audiomasteringtool.faq4Q": "「向参考音轨靠拢」有什么作用？",
+  "audiomasteringtool.faq4A":
+    "放入一首你希望自己作品听起来像它的歌曲。TuneBad会读取那首音轨的音色平衡和响度，并把你的母带朝它调整，让你的混音落在与你已经信任的唱片相同的水准。这是付费服务收费的参考匹配功能的免费浏览器版本。",
+  "audiomasteringtool.faq5Q": "我的音频文件会被上传吗？",
+  "audiomasteringtool.faq5A":
+    "不会。解码、母带处理和编码都在你的浏览器中使用Web Audio API完成。你的文件和任何参考音轨都不会离开你的设备。",
+  "audiomasteringtool.faq6Q": "这和专业母带工程师一样好吗？",
+  "audiomasteringtool.faq6A":
     "不。这是快速的自动母带处理，适合小样、上传和赶时间的场合。母带工程师能做出这个工具无法做出的音乐性判断，因此正式商业发行时你可能仍然需要他们。",
 };
 

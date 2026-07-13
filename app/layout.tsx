@@ -28,7 +28,8 @@ const TITLE = "Free Key & BPM Finder for Any Song | TuneBad";
 const DESCRIPTION =
   "Find the key, BPM, and loudness of any song for free. Upload a file or paste a YouTube, Spotify, or SoundCloud link and convert it to MP3, WAV, or MP4, all in your browser.";
 // The production primary domain (Vercel serves www; bare tunebad.com 308s to it).
-// Must match the Google Search Console property. Keep sitemap.ts + robots.txt in sync.
+// Must match the Google Search Console property. Keep app/sitemaps/[shard]/route.ts
+// (and app/sitemap.xml/route.ts) + robots.txt in sync.
 const SITE_URL = "https://www.tunebad.com";
 
 export const metadata: Metadata = {

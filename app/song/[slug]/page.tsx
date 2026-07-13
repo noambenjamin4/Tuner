@@ -5,6 +5,7 @@ import {
   readAnalysisBySlug,
   readAllSongs,
   readSongsByCamelot,
+  countSongsByArtistName,
   type CachedAnalysis,
 } from "@/lib/server/link-analysis";
 import {
@@ -15,6 +16,7 @@ import {
   camelotNeighbors,
 } from "@/lib/audio/harmonic";
 import { rankMixMatches } from "@/lib/server/mix-matches";
+import { artistSlug } from "@/lib/server/artists";
 
 // Programmatic per-song pages, one for every track in the shared link-analysis
 // cache. Statically generated for the songs known at build time and filled in
@@ -121,6 +123,13 @@ async function SongPageInner({ params }: { params: Promise<{ slug: string }> }) 
   const bpmAlt = song.bpm_alt ? Math.round(song.bpm_alt) : null;
   const camelot = song.camelot ?? null;
 
+  // Link the artist name to its /artist page only when that page will
+  // actually render (>=2 songs — same rule as app/artist/[slug]/page.tsx),
+  // so this never links to a 404. countSongsByArtistName is a targeted
+  // count on the exact name already on hand, not a full-catalog scan.
+  const artistSongCount = song.artist ? await countSongsByArtistName(song.artist) : 0;
+  const artistHref = song.artist && artistSongCount >= 2 ? `/artist/${artistSlug(song.artist)}` : null;
+
   // Harmonic-mix neighbours (real songs the DJ can beatmatch into). One
   // readSongsByCamelot call serves the key-only sections below *and* the
   // BPM-matched "Mixes well with" section, via rankMixMatches — same scoring
@@ -193,7 +202,12 @@ async function SongPageInner({ params }: { params: Promise<{ slug: string }> }) 
           </p>
           <h1 className="song-title">
             {song.title}
-            {song.artist ? <span className="song-artist"> by {song.artist}</span> : null}
+            {song.artist ? (
+              <span className="song-artist">
+                {" "}
+                by {artistHref ? <Link href={artistHref}>{song.artist}</Link> : song.artist}
+              </span>
+            ) : null}
           </h1>
 
           <p className="song-lede">

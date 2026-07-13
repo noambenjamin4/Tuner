@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { readAllSongs } from "@/lib/server/link-analysis";
 import { SongBrowser } from "@/components/songs/SongBrowser";
+import { SongSearch } from "@/components/songs/SongSearch";
 import { ALL_KEYS, keyToSlug } from "@/lib/audio/harmonic";
 import { camelot } from "@/lib/audio/constants";
+import { topArtistsByCount } from "@/lib/server/artists";
 
 // Index of every analyzed song. Acts as the hub that links out to each
 // /song/<slug> page so crawlers can reach them all.
@@ -41,6 +43,7 @@ export default async function SongsPage() {
     .slice(0, 16)
     .map(([bpm]) => bpm)
     .sort((a, b) => a - b);
+  const topArtists = topArtistsByCount(songs, 30);
 
   return (
     <div className="app-shell">
@@ -63,6 +66,8 @@ export default async function SongsPage() {
             The key, BPM, and Camelot code for {songs.length} songs, analyzed from official previews.
             Want a track that is not here? <Link href="/key-bpm-finder">Analyze it yourself</Link>.
           </p>
+
+          <SongSearch />
 
           {keyHubs.length > 0 && (
             <section className="song-section">
@@ -88,6 +93,21 @@ export default async function SongsPage() {
                   <li key={b}>
                     <Link href={`/songs/bpm/${b}`} className="song-keychip-rel">
                       {b} BPM
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {topArtists.length > 0 && (
+            <section className="song-section">
+              <h2>Browse by artist</h2>
+              <ul className="song-keychips">
+                {topArtists.map((a) => (
+                  <li key={a.slug}>
+                    <Link href={`/artist/${a.slug}`} className="song-keychip-rel">
+                      {a.name} ({a.songs.length})
                     </Link>
                   </li>
                 ))}

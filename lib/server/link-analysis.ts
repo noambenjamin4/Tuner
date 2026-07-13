@@ -197,6 +197,34 @@ export async function countSongs(): Promise<number | null> {
   }
 }
 
+/** Exact count of songs credited to one artist name (case-sensitive exact
+ *  match on the `artist` column) — a targeted PostgREST count, not a full
+ *  table scan. Backs the /song/[slug] "link to artist page only if it has
+ *  >=2 songs" check: cheap because it doesn't need to know the artist's
+ *  slug, just the exact name already on hand from the song row.
+ *  NOTE: this undercounts artists stored under multiple spellings/casings
+ *  (those all merge into one /artist page via groupSongsByArtist, but this
+ *  exact-match count won't see the merge) — the only failure mode is a
+ *  same-artist song that doesn't get an artist link even though the artist's
+ *  page exists, never a link to a 404. */
+export async function countSongsByArtistName(name: string): Promise<number> {
+  if (!isLinkAnalysisConfigured || !name.trim()) return 0;
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/link_analysis?select=id&artist=eq.${encodeURIComponent(name)}&limit=1`, {
+      headers: { ...restHeaders(), Prefer: "count=exact", Range: "0-0" },
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      next: { revalidate: 3600 },
+    });
+    if (!res.ok) return 0;
+    const range = res.headers.get("content-range");
+    const total = range?.split("/")[1];
+    const n = total ? Number(total) : NaN;
+    return Number.isFinite(n) ? n : 0;
+  } catch {
+    return 0;
+  }
+}
+
 /** First write wins: duplicate ids are ignored (no update policy server-side either).
  *  `slug` is filled by a DB trigger from title+artist, so callers never send it. */
 export async function writeCachedAnalysis(row: Omit<CachedAnalysis, "created_at" | "slug">): Promise<boolean> {

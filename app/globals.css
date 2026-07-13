@@ -1230,6 +1230,26 @@ label.check-row,
   margin-top: 18px;
 }
 
+/* Genre preset pills: flex-wrap so each sizes to its label (Custom, EDM,
+   Hip-Hop, Pop, Rock, Acoustic, Lo-Fi) and wraps cleanly on phones instead of
+   clipping inside a fixed grid cell. */
+.master-genre-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.master-genre-options .quality-button {
+  flex: 1 0 auto;
+  min-width: 0;
+  padding: 0 16px;
+}
+
+.master-genre-options .quality-button strong {
+  font-size: 13px;
+  white-space: nowrap;
+}
+
 /* Mastering measurements: 4 small stat cells (Input/Output LUFS, true peak,
    dynamics). Two-up on phones. Numbers use tabular sans per the site's
    number-font convention, not mono. */

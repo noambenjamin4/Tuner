@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useI18n } from "@/lib/i18n";
+import type { DictKey } from "@/lib/i18n/locales/en";
 import { getAudioContextClass, decodeAudioFile } from "@/lib/audio/decode";
 import { decodeAudioFileCached } from "@/lib/audio/decode-cache";
 import { encodeMp3FromChannels, encodeWavFromChannels, downloadBlob } from "@/lib/audio/mp3-encoder";
@@ -30,6 +31,29 @@ const STYLE_LABELS: Record<MasterStyle, "audiomasteringtool.styleBalanced" | "au
   punchy: "audiomasteringtool.stylePunchy",
 };
 
+// Genre presets: each sets a loudness target, a stereo width, and a tonal
+// curve tuned for that style. "custom" = manual (target + tone style + width).
+type GenreKey = "custom" | "edm" | "hiphop" | "pop" | "rock" | "acoustic" | "lofi";
+const GENRE_ORDER: GenreKey[] = ["custom", "edm", "hiphop", "pop", "rock", "acoustic", "lofi"];
+const GENRE_LABELS: Record<GenreKey, DictKey> = {
+  custom: "audiomasteringtool.genreCustom",
+  edm: "audiomasteringtool.genreEdm",
+  hiphop: "audiomasteringtool.genreHiphop",
+  pop: "audiomasteringtool.genrePop",
+  rock: "audiomasteringtool.genreRock",
+  acoustic: "audiomasteringtool.genreAcoustic",
+  lofi: "audiomasteringtool.genreLofi",
+};
+type GenrePreset = { targetLufs: number; widen: number; curve: MasterBandCurve };
+const GENRE_PRESETS: Record<Exclude<GenreKey, "custom">, GenrePreset> = {
+  edm: { targetLufs: -9, widen: 45, curve: { subDb: 2, bassDb: 1.5, lowMidDb: -1.5, highMidDb: 1, airDb: 2.5 } },
+  hiphop: { targetLufs: -9, widen: 12, curve: { subDb: 3, bassDb: 2, lowMidDb: -1, highMidDb: 0.5, airDb: 1 } },
+  pop: { targetLufs: -14, widen: 30, curve: { subDb: 0, bassDb: 0.5, lowMidDb: -1, highMidDb: 1.5, airDb: 2.5 } },
+  rock: { targetLufs: -14, widen: 8, curve: { subDb: 0, bassDb: 1, lowMidDb: 1, highMidDb: 1.5, airDb: 1 } },
+  acoustic: { targetLufs: -14, widen: 5, curve: { subDb: -1, bassDb: 0, lowMidDb: 0.5, highMidDb: 1, airDb: 1.5 } },
+  lofi: { targetLufs: -14, widen: 20, curve: { subDb: 1.5, bassDb: 1, lowMidDb: 0.5, highMidDb: -2, airDb: -3 } },
+};
+
 // Per-band difference (reference minus source), clamped to +/-6 dB, so the
 // master leans toward the reference's tonal balance without extreme moves.
 function differenceCurve(reference: MasterBandCurve, source: MasterBandCurve): MasterBandCurve {
@@ -55,6 +79,7 @@ export function AudioMasteringTool() {
   // Controls
   const [targetLufs, setTargetLufs] = useState(-14);
   const [style, setStyle] = useState<MasterStyle>("balanced");
+  const [genre, setGenre] = useState<GenreKey>("custom");
   const [widen, setWiden] = useState(0);
   const [referenceCurve, setReferenceCurve] = useState<MasterBandCurve | null>(null);
   const [referenceName, setReferenceName] = useState<string | null>(null);
@@ -103,7 +128,19 @@ export function AudioMasteringTool() {
   const autoSwitchedRef = useRef(false);
 
   const hasReference = referenceCurve !== null;
+  const hasGenre = genre !== "custom";
+  const genreCurve = genre !== "custom" ? GENRE_PRESETS[genre].curve : null;
   const hasMaster = masteredChannels !== null;
+
+  // Selecting a genre applies its loudness target + width and switches the tone
+  // to its curve; "custom" hands tone/target/width back to the manual controls.
+  const selectGenre = (next: GenreKey) => {
+    setGenre(next);
+    if (next !== "custom") {
+      setTargetLufs(GENRE_PRESETS[next].targetLufs);
+      setWiden(GENRE_PRESETS[next].widen);
+    }
+  };
   const duration = original?.duration ?? 0;
   durationRef.current = duration;
 
@@ -257,6 +294,7 @@ export function AudioMasteringTool() {
     setWiden(0);
     setTargetLufs(-14);
     setStyle("balanced");
+    setGenre("custom");
   }, [resetPlayback]);
 
   useEffect(() => stopPreview, [stopPreview]);
@@ -314,6 +352,7 @@ export function AudioMasteringTool() {
             style,
             widen,
             referenceCurve: curve,
+            presetCurve: genre !== "custom" ? GENRE_PRESETS[genre].curve : null,
           });
           if (processTokenRef.current !== token) return;
           masteredRateRef.current = sampleRate;
@@ -349,7 +388,7 @@ export function AudioMasteringTool() {
     // startAt/getElapsed/stopPreview are stable-enough refs; re-running on them
     // would restart the master unnecessarily.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [original, targetLufs, style, widen, referenceCurve, t]);
+  }, [original, targetLufs, style, genre, widen, referenceCurve, t]);
 
   const onReferenceChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const refFile = event.target.files?.[0];
@@ -416,6 +455,25 @@ export function AudioMasteringTool() {
       </div>
 
       <article className="utility-card">
+        {/* Genre preset */}
+        <fieldset className="quality-field">
+          <legend>{t("audiomasteringtool.genreLabel")}</legend>
+          <div className="master-genre-options" role="group" aria-label={t("audiomasteringtool.genreLabel")}>
+            {GENRE_ORDER.map((g) => (
+              <button
+                key={g}
+                type="button"
+                className={`quality-button${genre === g ? " active" : ""}`}
+                aria-pressed={genre === g}
+                disabled={working}
+                onClick={() => selectGenre(g)}
+              >
+                <strong>{t(GENRE_LABELS[g])}</strong>
+              </button>
+            ))}
+          </div>
+        </fieldset>
+
         {/* 1. Loudness target */}
         <fieldset className="quality-field">
           <legend>{t("audiomasteringtool.targetLabel")}</legend>
@@ -439,23 +497,27 @@ export function AudioMasteringTool() {
           </div>
         </fieldset>
 
-        {/* 2. Tone style */}
-        <fieldset className="quality-field" aria-disabled={hasReference}>
+        {/* 2. Tone style (overridden by a genre preset or a reference track) */}
+        <fieldset className="quality-field" aria-disabled={hasReference || hasGenre}>
           <legend>{t("audiomasteringtool.styleLabel")}</legend>
-          <div className="quality-options" style={hasReference ? { opacity: 0.5 } : undefined}>
+          <div className="quality-options" style={hasReference || hasGenre ? { opacity: 0.5 } : undefined}>
             {STYLES.map((option) => (
               <button
                 key={option}
                 type="button"
-                className={`quality-button${style === option && !hasReference ? " active" : ""}`}
-                disabled={working || hasReference}
+                className={`quality-button${style === option && !hasReference && !hasGenre ? " active" : ""}`}
+                disabled={working || hasReference || hasGenre}
                 onClick={() => setStyle(option)}
               >
                 <strong>{t(STYLE_LABELS[option])}</strong>
               </button>
             ))}
           </div>
-          {hasReference ? <p className="tool-note">{t("audiomasteringtool.referenceOverrides")}</p> : null}
+          {hasReference ? (
+            <p className="tool-note">{t("audiomasteringtool.referenceOverrides")}</p>
+          ) : hasGenre ? (
+            <p className="tool-note">{t("audiomasteringtool.genreSetsTone")}</p>
+          ) : null}
         </fieldset>
 
         {/* Stereo width */}

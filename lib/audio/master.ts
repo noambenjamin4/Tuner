@@ -30,8 +30,10 @@ export interface MasterParams {
   targetLufs: number;
   /** Tonal preset; ignored when referenceCurve is present. */
   style: MasterStyle;
-  /** When set (reference-match mode), overrides the style preset. */
+  /** When set (reference-match mode), overrides the preset/style curve. */
   referenceCurve?: MasterBandCurve | null;
+  /** Genre-preset tonal curve; overrides the style but yields to a reference. */
+  presetCurve?: MasterBandCurve | null;
   /** Stereo widening amount 0-100 (mid/side side-gain boost); 0 = untouched. */
   widen?: number;
 }
@@ -69,7 +71,7 @@ function clampBand(db: number): number {
 }
 
 function effectiveCurve(params: MasterParams): MasterBandCurve {
-  const raw = params.referenceCurve ?? STYLE_CURVES[params.style] ?? STYLE_CURVES.balanced;
+  const raw = params.referenceCurve ?? params.presetCurve ?? STYLE_CURVES[params.style] ?? STYLE_CURVES.balanced;
   return {
     subDb: clampBand(raw.subDb),
     bassDb: clampBand(raw.bassDb),

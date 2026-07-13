@@ -32,9 +32,20 @@ export interface MasterParams {
   style: MasterStyle;
   /** When set (reference-match mode), overrides the style preset. */
   referenceCurve?: MasterBandCurve | null;
+  /** Stereo widening amount 0-100 (mid/side side-gain boost); 0 = untouched. */
+  widen?: number;
 }
 
-export interface RenderedAudio {
+export interface MasterMetrics {
+  /** Integrated loudness of the final master, LUFS. */
+  outputLufs: number;
+  /** 4x-oversampled true peak of the final master, dBTP. */
+  truePeakDb: number;
+  /** Crest factor (peak / RMS) of the final master, dB — a dynamics readout. */
+  dynamicRangeDb: number;
+}
+
+export interface RenderedAudio extends MasterMetrics {
   channels: Float32Array[];
   sampleRate: number;
 }
@@ -145,6 +156,10 @@ export async function renderMaster(buffer: AudioBuffer, params: MasterParams): P
     channels.push(rendered.getChannelData(channel));
   }
 
+  // Optional stereo widening (mid/side) before normalization so the limiter
+  // and loudness pass account for the level change it introduces.
+  if (params.widen && channels.length === 2) applyStereoWidth(channels, params.widen);
+
   // Loudness normalization: measure, then pre-gain toward the target (clamped
   // to a sane range so a near-silent or already-hot track can't be shoved to
   // an extreme).
@@ -158,9 +173,114 @@ export async function renderMaster(buffer: AudioBuffer, params: MasterParams): P
     }
   }
 
+  // Sample-peak limiter catches the bulk of the transients the pre-gain
+  // created; the true-peak stage then guarantees the ceiling holds on the
+  // inter-sample peaks that lossy playback reconstructs (real dBTP safety).
   limitPeaks(channels, RENDER_RATE, CEILING_DB);
+  const truePeakDb = truePeakLimit(channels, CEILING_DB);
 
-  return { channels, sampleRate: RENDER_RATE };
+  return {
+    channels,
+    sampleRate: RENDER_RATE,
+    outputLufs: measureLufs(channels, RENDER_RATE),
+    truePeakDb,
+    dynamicRangeDb: crestFactorDb(channels),
+  };
+}
+
+// Measures a source buffer's integrated loudness by rendering it unprocessed
+// to 48 kHz (the rate the BS.1770 meter requires) and metering. Used for the
+// "input" LUFS readout and the loudness-matched A/B compare.
+export async function measureIntegratedLufs(buffer: AudioBuffer): Promise<number> {
+  const numberOfChannels = Math.min(2, buffer.numberOfChannels);
+  const length = Math.ceil(buffer.duration * RENDER_RATE);
+  const offline = new OfflineAudioContext(numberOfChannels, length, RENDER_RATE);
+  const source = offline.createBufferSource();
+  source.buffer = buffer;
+  source.connect(offline.destination);
+  source.start();
+  const rendered = await offline.startRendering();
+  const channels: Float32Array[] = [];
+  for (let c = 0; c < rendered.numberOfChannels; c += 1) channels.push(rendered.getChannelData(c));
+  return measureLufs(channels, RENDER_RATE);
+}
+
+// Mid/side stereo widener: boosts the side (difference) signal so the image
+// spreads. widen 0-100 maps to a side gain of 1x-2x. In place, stereo only.
+function applyStereoWidth(channels: Float32Array[], widen: number): void {
+  const amount = Math.max(0, Math.min(100, widen)) / 100;
+  if (amount === 0) return;
+  const sideGain = 1 + amount;
+  const left = channels[0];
+  const right = channels[1];
+  for (let i = 0; i < left.length; i += 1) {
+    const mid = (left[i] + right[i]) * 0.5;
+    const side = (left[i] - right[i]) * 0.5 * sideGain;
+    left[i] = mid + side;
+    right[i] = mid - side;
+  }
+}
+
+// 4x-oversampled true-peak safety: estimates inter-sample peaks with cubic
+// (Catmull-Rom) interpolation and, if the true peak exceeds the ceiling,
+// applies a single static trim so it lands exactly at it. Returns the final
+// true peak in dBTP.
+function truePeakLimit(channels: Float32Array[], ceilingDb: number): number {
+  const ceiling = 10 ** (ceilingDb / 20);
+  let tp = oversampledPeak(channels, 4);
+  if (tp > ceiling && tp > 0) {
+    const scale = ceiling / tp;
+    for (const channel of channels) {
+      for (let i = 0; i < channel.length; i += 1) channel[i] *= scale;
+    }
+    tp = ceiling;
+  }
+  return tp > 0 ? 20 * Math.log10(tp) : -120;
+}
+
+function oversampledPeak(channels: Float32Array[], factor: number): number {
+  let peak = 0;
+  for (const ch of channels) {
+    const n = ch.length;
+    const at = (i: number) => (i < 0 ? ch[0] : i >= n ? ch[n - 1] : ch[i]);
+    for (let i = 0; i < n; i += 1) {
+      const base = Math.abs(ch[i]);
+      if (base > peak) peak = base;
+      const p0 = at(i - 1);
+      const p1 = ch[i];
+      const p2 = at(i + 1);
+      const p3 = at(i + 2);
+      for (let k = 1; k < factor; k += 1) {
+        const tt = k / factor;
+        const a0 = -0.5 * p0 + 1.5 * p1 - 1.5 * p2 + 0.5 * p3;
+        const a1 = p0 - 2.5 * p1 + 2 * p2 - 0.5 * p3;
+        const a2 = -0.5 * p0 + 0.5 * p2;
+        const v = ((a0 * tt + a1) * tt + a2) * tt + p1;
+        const av = Math.abs(v);
+        if (av > peak) peak = av;
+      }
+    }
+  }
+  return peak;
+}
+
+// Crest factor (peak / RMS) in dB across all channels — a simple dynamics
+// readout: higher = punchier/more dynamic, lower = more compressed.
+function crestFactorDb(channels: Float32Array[]): number {
+  let peak = 0;
+  let sumSq = 0;
+  let count = 0;
+  for (const channel of channels) {
+    for (let i = 0; i < channel.length; i += 1) {
+      const abs = Math.abs(channel[i]);
+      if (abs > peak) peak = abs;
+      sumSq += channel[i] * channel[i];
+      count += 1;
+    }
+  }
+  const rms = Math.sqrt(sumSq / Math.max(1, count));
+  if (rms <= 0 || peak <= 0) return 0;
+  return 20 * Math.log10(peak / rms);
 }
 
 // Feed-forward peak limiter with instantaneous attack and a 50 ms exponential

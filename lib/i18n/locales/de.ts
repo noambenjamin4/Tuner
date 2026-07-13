@@ -785,6 +785,12 @@ const de: Record<keyof typeof en, string> = {
   "audiomasteringtool.compareHint": "Zwischen Vorher und Nachher wechseln, um zu hören und zu sehen, was das Mastering ändert.",
   "audiomasteringtool.applying": "Mastering wird angewendet...",
   "audiomasteringtool.exportFormat": "{format} exportieren",
+  "audiomasteringtool.width": "Stereobreite",
+  "audiomasteringtool.matchLoudness": "Lautstärke angleichen (Klang statt Lautstärke vergleichen)",
+  "audiomasteringtool.metricInput": "Eingang",
+  "audiomasteringtool.metricOutput": "Ausgang",
+  "audiomasteringtool.metricTruePeak": "True Peak",
+  "audiomasteringtool.metricDynamics": "Dynamik",
   "audiomasteringtool.note":
     "Dies ist ein automatisches Mastering. Das Ergebnis hängt von deinem Mix ab und ersetzt keinen Mastering-Ingenieur.",
   "audiomasteringtool.faq1Q": "Was macht dieses Mastering-Tool eigentlich?",

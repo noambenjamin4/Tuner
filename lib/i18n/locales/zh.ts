@@ -783,6 +783,12 @@ const zh: Record<keyof typeof en, string> = {
   "audiomasteringtool.compareHint": "在处理前/处理后之间切换，即可听到并看到母带处理带来的变化。",
   "audiomasteringtool.applying": "正在应用母带处理...",
   "audiomasteringtool.exportFormat": "导出 {format}",
+  "audiomasteringtool.width": "立体声宽度",
+  "audiomasteringtool.matchLoudness": "匹配响度（对比音色而非音量）",
+  "audiomasteringtool.metricInput": "输入",
+  "audiomasteringtool.metricOutput": "输出",
+  "audiomasteringtool.metricTruePeak": "真峰值",
+  "audiomasteringtool.metricDynamics": "动态",
   "audiomasteringtool.note":
     "这是自动母带处理。结果取决于你的混音，并不能替代人工母带工程师。",
   "audiomasteringtool.faq1Q": "这个母带工具到底做了什么？",

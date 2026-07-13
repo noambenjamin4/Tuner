@@ -834,6 +834,12 @@ const en = {
   "audiomasteringtool.compareHint": "Toggle Before / After to hear and see what the master changed.",
   "audiomasteringtool.applying": "Applying the master...",
   "audiomasteringtool.exportFormat": "Export {format}",
+  "audiomasteringtool.width": "Stereo width",
+  "audiomasteringtool.matchLoudness": "Match loudness (compare tone, not volume)",
+  "audiomasteringtool.metricInput": "Input",
+  "audiomasteringtool.metricOutput": "Output",
+  "audiomasteringtool.metricTruePeak": "True peak",
+  "audiomasteringtool.metricDynamics": "Dynamics",
   "audiomasteringtool.note":
     "This is an automated master. Results depend on your mix, and it's not a substitute for a human mastering engineer.",
   "audiomasteringtool.faq1Q": "What does this mastering tool actually do?",

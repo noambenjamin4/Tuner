@@ -9,7 +9,8 @@ import { computeWaveformBars } from "@/lib/audio/waveform";
 import { SeekableWaveform } from "@/components/ui/SeekableWaveform";
 import { setNowPlaying } from "@/lib/audio/now-playing";
 import { formatBytes } from "@/lib/files/image";
-import { analyzeBandCurve, renderMaster, type MasterBandCurve, type MasterStyle } from "@/lib/audio/master";
+import { analyzeBandCurve, measureIntegratedLufs, renderMaster, type MasterBandCurve, type MasterMetrics, type MasterStyle } from "@/lib/audio/master";
+import { CheckRow } from "@/components/ui/CheckRow";
 import { FileDrop } from "./FileDrop";
 import { AudioFormatPicker, type AudioOutputFormat } from "./AudioFormatPicker";
 
@@ -54,6 +55,7 @@ export function AudioMasteringTool() {
   // Controls
   const [targetLufs, setTargetLufs] = useState(-14);
   const [style, setStyle] = useState<MasterStyle>("balanced");
+  const [widen, setWiden] = useState(0);
   const [referenceCurve, setReferenceCurve] = useState<MasterBandCurve | null>(null);
   const [referenceName, setReferenceName] = useState<string | null>(null);
   const [referenceError, setReferenceError] = useState(false);
@@ -64,6 +66,18 @@ export function AudioMasteringTool() {
   const [original, setOriginal] = useState<AudioBuffer | null>(null);
   const [masteredChannels, setMasteredChannels] = useState<Float32Array[] | null>(null);
   const masteredRateRef = useRef(48000);
+
+  // Measurements + honest A/B: input loudness (for the readout and the
+  // loudness-matched compare) and the mastered metrics.
+  const [inputLufs, setInputLufs] = useState<number | null>(null);
+  const [metrics, setMetrics] = useState<MasterMetrics | null>(null);
+  const [matchLoudness, setMatchLoudness] = useState(false);
+  const inputLufsRef = useRef<number | null>(null);
+  inputLufsRef.current = inputLufs;
+  const matchLoudnessRef = useRef(false);
+  matchLoudnessRef.current = matchLoudness;
+  const targetLufsRef = useRef(-14);
+  targetLufsRef.current = targetLufs;
 
   // A/B + playback
   const [ab, setAb] = useState<AbMode>("before");
@@ -144,7 +158,22 @@ export function AudioMasteringTool() {
 
       const source = ctx.createBufferSource();
       source.buffer = buf;
-      source.connect(ctx.destination);
+      // Loudness-matched compare: raise the (quieter) original to the master's
+      // loudness target so Before/After differ in TONE, not just volume. The
+      // mastered "after" is already at target, so it needs no gain.
+      let matchGain = 1;
+      if (which === "before" && matchLoudnessRef.current && inputLufsRef.current != null) {
+        const db = targetLufsRef.current - inputLufsRef.current;
+        matchGain = Math.min(8, Math.max(0.125, 10 ** (db / 20)));
+      }
+      if (matchGain !== 1) {
+        const gainNode = ctx.createGain();
+        gainNode.gain.value = matchGain;
+        source.connect(gainNode);
+        gainNode.connect(ctx.destination);
+      } else {
+        source.connect(ctx.destination);
+      }
       source.onended = () => {
         if (sourceRef.current === source) {
           sourceRef.current = null;
@@ -222,6 +251,12 @@ export function AudioMasteringTool() {
     setReferenceName(null);
     setReferenceError(false);
     setStatus(null);
+    setInputLufs(null);
+    setMetrics(null);
+    setMatchLoudness(false);
+    setWiden(0);
+    setTargetLufs(-14);
+    setStyle("balanced");
   }, [resetPlayback]);
 
   useEffect(() => stopPreview, [stopPreview]);
@@ -240,6 +275,8 @@ export function AudioMasteringTool() {
       }
       resetPlayback();
       setMasteredChannels(null);
+      setMetrics(null);
+      setInputLufs(null);
       setFile(audioFile);
       setOriginal(null);
       setStatus({ title: t("files.processing"), message: audioFile.name, tone: "neutral" });
@@ -247,8 +284,12 @@ export function AudioMasteringTool() {
         const { buffer } = await decodeAudioFileCached(audioFile);
         if (!buffer.length || !buffer.numberOfChannels) throw new Error("Empty audio buffer.");
         setOriginal(buffer);
+        // Measure the untouched loudness once for the readout + level-matched A/B.
+        measureIntegratedLufs(buffer)
+          .then((lufs) => setInputLufs(lufs))
+          .catch(() => setInputLufs(null));
         // The master itself is computed by the effect below (also re-runs when
-        // the target/style/reference change).
+        // the target/style/reference/width change).
       } catch {
         setStatus({ title: t("files.failed"), message: audioFile.name, tone: "warning" });
         setFile(null);
@@ -268,10 +309,16 @@ export function AudioMasteringTool() {
       void (async () => {
         try {
           const curve = referenceCurve ? differenceCurve(referenceCurve, analyzeBandCurve(original)) : null;
-          const { channels, sampleRate } = await renderMaster(original, { targetLufs, style, referenceCurve: curve });
+          const { channels, sampleRate, outputLufs, truePeakDb, dynamicRangeDb } = await renderMaster(original, {
+            targetLufs,
+            style,
+            widen,
+            referenceCurve: curve,
+          });
           if (processTokenRef.current !== token) return;
           masteredRateRef.current = sampleRate;
           setMasteredChannels(channels);
+          setMetrics({ outputLufs, truePeakDb, dynamicRangeDb });
           setStatus({ title: t("files.done"), message: t("audiomasteringtool.compareHint"), tone: "success" });
           // First master for this file: jump to "After" so the result is heard
           // immediately; restart playback on the new master if already playing.
@@ -302,7 +349,7 @@ export function AudioMasteringTool() {
     // startAt/getElapsed/stopPreview are stable-enough refs; re-running on them
     // would restart the master unnecessarily.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [original, targetLufs, style, referenceCurve, t]);
+  }, [original, targetLufs, style, widen, referenceCurve, t]);
 
   const onReferenceChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const refFile = event.target.files?.[0];
@@ -411,6 +458,21 @@ export function AudioMasteringTool() {
           {hasReference ? <p className="tool-note">{t("audiomasteringtool.referenceOverrides")}</p> : null}
         </fieldset>
 
+        {/* Stereo width */}
+        <label className="field-label" htmlFor="masterWiden">
+          {t("audiomasteringtool.width")} ({widen}%)
+          <input
+            id="masterWiden"
+            type="range"
+            min={0}
+            max={100}
+            step={5}
+            value={widen}
+            disabled={working}
+            onChange={(event) => setWiden(Number(event.target.value))}
+          />
+        </label>
+
         {/* 3. Drop the file in (moved up, right under Tone style) */}
         {!original ? (
           <FileDrop
@@ -456,9 +518,45 @@ export function AudioMasteringTool() {
               disabled={ab === "after" && processing}
             />
 
+            <CheckRow
+              checked={matchLoudness}
+              onChange={(v) => {
+                setMatchLoudness(v);
+                matchLoudnessRef.current = v;
+                if (playing && abRef.current === "before") {
+                  const off = getElapsed();
+                  stopPreview();
+                  startAt(off, "before");
+                }
+              }}
+            >
+              {t("audiomasteringtool.matchLoudness")}
+            </CheckRow>
+
             <p className="tool-note">
               {processing ? t("audiomasteringtool.applying") : t("audiomasteringtool.compareHint")}
             </p>
+
+            {metrics && (
+              <dl className="master-metrics">
+                <div>
+                  <dt>{t("audiomasteringtool.metricInput")}</dt>
+                  <dd>{inputLufs != null ? `${inputLufs.toFixed(1)} LUFS` : "—"}</dd>
+                </div>
+                <div>
+                  <dt>{t("audiomasteringtool.metricOutput")}</dt>
+                  <dd>{metrics.outputLufs.toFixed(1)} LUFS</dd>
+                </div>
+                <div>
+                  <dt>{t("audiomasteringtool.metricTruePeak")}</dt>
+                  <dd>{metrics.truePeakDb.toFixed(1)} dBTP</dd>
+                </div>
+                <div>
+                  <dt>{t("audiomasteringtool.metricDynamics")}</dt>
+                  <dd>{metrics.dynamicRangeDb.toFixed(1)} dB</dd>
+                </div>
+              </dl>
+            )}
           </div>
         )}
 

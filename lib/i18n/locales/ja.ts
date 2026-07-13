@@ -784,6 +784,12 @@ const ja: Record<keyof typeof en, string> = {
   "audiomasteringtool.compareHint": "処理前／処理後を切り替えて、マスタリングによる変化を聴いて確認できます。",
   "audiomasteringtool.applying": "マスタリングを適用中...",
   "audiomasteringtool.exportFormat": "{format}で書き出し",
+  "audiomasteringtool.width": "ステレオ幅",
+  "audiomasteringtool.matchLoudness": "音量をそろえる（音量ではなく音色を比較）",
+  "audiomasteringtool.metricInput": "入力",
+  "audiomasteringtool.metricOutput": "出力",
+  "audiomasteringtool.metricTruePeak": "トゥルーピーク",
+  "audiomasteringtool.metricDynamics": "ダイナミクス",
   "audiomasteringtool.note":
     "これは自動マスタリングです。結果はミックスによって変わり、人間のマスタリングエンジニアの代わりにはなりません。",
   "audiomasteringtool.faq1Q": "このマスタリングツールは実際に何をしますか？",

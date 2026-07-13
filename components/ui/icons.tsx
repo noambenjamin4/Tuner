@@ -100,14 +100,14 @@ export function DownloadIcon({ size = 20, className }: IconProps) {
   );
 }
 
-/** Clock with a counter-clockwise arrow — history. */
+/** Open book / logbook — history. */
 export function HistoryIcon({ size = 20, className }: IconProps) {
   return (
     <svg {...BASE_SVG_PROPS} width={size} height={size} className={className}>
-      <path d="M4 8a8 8 0 1 0 2.3-5.6" />
-      <path d="M4 3v4h4" />
-      <line x1="12" y1="8" x2="12" y2="12.5" />
-      <line x1="12" y1="12.5" x2="15" y2="14" />
+      <path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z" />
+      <path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z" />
+      <line x1="5.5" y1="8.5" x2="8.5" y2="8.5" />
+      <line x1="5.5" y1="12" x2="8.5" y2="12" />
     </svg>
   );
 }

@@ -1,51 +1,26 @@
-// Client-side MP3 encoding via the known-good lamejs build in /public/lame.min.js.
-// (The npm lamejs@1.2.1 package has a broken MPEGMode reference, so we lazy-load
-// the script instead of importing it.)
+// Client-side MP3 encoding via LAME compiled to WebAssembly
+// (wasm-media-encoders) — roughly 3x faster than the old lamejs JS build and
+// fed Float32 PCM directly, so no Int16 conversion pass. The wasm binary is
+// self-hosted in /public/vendor/mp3/ (CSP connect-src blocks CDNs; see
+// scripts/vendor-ffmpeg.mjs) and the compiled module is cached so repeat
+// exports skip the fetch+compile.
+import { createEncoder } from "wasm-media-encoders";
 import { decodeAudioFile } from "./decode";
 
-declare global {
-  interface Window {
-    lamejs?: {
-      Mp3Encoder: new (channels: number, sampleRate: number, kbps: number) => {
-        encodeBuffer(left: Int16Array, right?: Int16Array): Int8Array;
-        flush(): Int8Array;
-      };
-    };
+type Mp3Encoder = Awaited<ReturnType<typeof createEncoder<"audio/mpeg">>>;
+
+let encoderPromise: Promise<Mp3Encoder> | null = null;
+
+function loadMp3Encoder(): Promise<Mp3Encoder> {
+  // One encoder instance reused across exports — configure() fully resets
+  // LAME's state between files (per wasm-media-encoders' API contract).
+  if (!encoderPromise) {
+    encoderPromise = createEncoder("audio/mpeg", "/vendor/mp3/mp3.wasm").catch((error) => {
+      encoderPromise = null;
+      throw error instanceof Error ? error : new Error("MP3 encoder failed to load.");
+    });
   }
-}
-
-let loaderPromise: Promise<void> | null = null;
-
-function loadMp3Encoder(): Promise<void> {
-  if (window.lamejs?.Mp3Encoder) return Promise.resolve();
-  if (loaderPromise) return loaderPromise;
-
-  loaderPromise = new Promise((resolve, reject) => {
-    const script = document.createElement("script");
-    script.src = "/lame.min.js";
-    script.async = true;
-    script.addEventListener("load", () => resolve(), { once: true });
-    script.addEventListener(
-      "error",
-      () => {
-        loaderPromise = null;
-        reject(new Error("MP3 encoder failed to load."));
-      },
-      { once: true },
-    );
-    document.head.appendChild(script);
-  });
-  return loaderPromise;
-}
-
-function floatTo16BitPcm(channelData: Float32Array): Int16Array {
-  const pcm = new Int16Array(channelData.length);
-  for (let i = 0; i < channelData.length; i += 1) {
-    const raw = channelData[i];
-    const sample = raw < -1 ? -1 : raw > 1 ? 1 : raw;
-    pcm[i] = sample < 0 ? sample * 0x8000 : sample * 0x7fff;
-  }
-  return pcm;
+  return encoderPromise;
 }
 
 const SILENCE_THRESHOLD_DB = -50;
@@ -147,29 +122,33 @@ export async function convertFileToWav(file: File, trimSilence: boolean): Promis
   return encodeWavFromChannels(channels, sampleRate);
 }
 
-export async function encodeMp3FromChannels(inputChannels: Float32Array[], sampleRate: number, kbps: number): Promise<Blob> {
-  await loadMp3Encoder();
-  const channels = Math.min(2, inputChannels.length);
-  const left = floatTo16BitPcm(inputChannels[0]);
-  // When the right channel is the identical Float32Array reference as the
-  // left (mono content duplicated across two channels), reuse the converted
-  // Int16Array instead of running floatTo16BitPcm twice. lamejs's
-  // encodeBuffer only reads from the buffers it's given, so passing the same
-  // Int16Array for both channels is safe.
-  const right = channels > 1 ? (inputChannels[1] === inputChannels[0] ? left : floatTo16BitPcm(inputChannels[1])) : left;
-  const encoder = new window.lamejs!.Mp3Encoder(channels, sampleRate, kbps);
-  const chunks: Int8Array[] = [];
-  const blockSize = 1152;
+// LAME only accepts the standard CBR rates; snap anything else to the nearest.
+const MP3_BITRATES = [8, 16, 24, 32, 40, 48, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320] as const;
 
+export async function encodeMp3FromChannels(inputChannels: Float32Array[], sampleRate: number, kbps: number): Promise<Blob> {
+  const encoder = await loadMp3Encoder();
+  const channels = Math.min(2, inputChannels.length) as 1 | 2;
+  const left = inputChannels[0];
+  const right = channels > 1 ? inputChannels[1] : left;
+  const bitrate = MP3_BITRATES.reduce((best, rate) => (Math.abs(rate - kbps) < Math.abs(best - kbps) ? rate : best));
+  encoder.configure({ channels, sampleRate, bitrate });
+
+  const chunks: Uint8Array[] = [];
+  // Feed ~1s blocks so the wasm heap never holds the whole track at once.
+  const blockSize = 1152 * 40;
   for (let index = 0; index < left.length; index += blockSize) {
-    const leftChunk = left.subarray(index, index + blockSize);
-    const rightChunk = right.subarray(index, index + blockSize);
-    const encoded = channels > 1 ? encoder.encodeBuffer(leftChunk, rightChunk) : encoder.encodeBuffer(leftChunk);
-    if (encoded.length) chunks.push(encoded);
+    const frame =
+      channels > 1
+        ? [left.subarray(index, index + blockSize), right.subarray(index, index + blockSize)]
+        : [left.subarray(index, index + blockSize)];
+    // encode()/finalize() return views into the encoder's internal buffer,
+    // only valid until the next encoder call — copy before continuing.
+    const encoded = encoder.encode(frame as [Float32Array] | [Float32Array, Float32Array]);
+    if (encoded.length) chunks.push(new Uint8Array(encoded));
   }
 
-  const flushed = encoder.flush();
-  if (flushed.length) chunks.push(flushed);
+  const flushed = encoder.finalize();
+  if (flushed.length) chunks.push(new Uint8Array(flushed));
 
   return new Blob(chunks as BlobPart[], { type: "audio/mpeg" });
 }

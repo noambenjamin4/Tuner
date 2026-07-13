@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { TunebadApp } from "@/components/TunebadApp";
 
 export const metadata: Metadata = {
-  title: "Pitch Shifter & Key Changer",
+  title: "Frequency to Note Calculator — Hz to Pitch & Cents",
   description:
-    "Change the pitch or key of any audio file without touching the tempo. A free pitch shifter and key changer that runs in your browser.",
+    "Convert any frequency in Hz to the nearest musical note, octave, and cents offset. A free frequency-to-pitch calculator that runs in your browser. To actually change a song's pitch, use the nightcore maker or slowed + reverb tool.",
   alternates: { canonical: "/pitch-shifter" },
   openGraph: { images: [{ url: "/og/pitch-shifter.png", width: 1200, height: 630 }] },
 };

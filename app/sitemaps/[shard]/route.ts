@@ -1,18 +1,22 @@
 import { readAllSongs } from "@/lib/server/link-analysis";
 import { groupSongsByArtist } from "@/lib/server/artists";
 import { ALL_KEYS, keyToSlug } from "@/lib/audio/harmonic";
+import { ACTIVITIES } from "@/lib/server/activities";
 import { SITE_URL, SONGS_CAP, SONGS_PER_SHARD, urlsetXml, xmlResponse } from "@/lib/server/sitemap";
 
 // Individual sitemap shards, listed by app/sitemap.xml/route.ts's index:
 //   - "static": tools/guides/landing/static pages (ported 1:1 from the old
 //     single-file app/sitemap.ts, minus the hub and song routes below, which
-//     now live in their own shards so this one never grows).
+//     now live in their own shards so this one never grows). Also carries
+//     the /songs/bpm-for/<activity> pages — a fixed, hardcoded set (not
+//     derived from the catalog), so they belong here rather than in "hubs".
 //   - "songs-0", "songs-1", ...: 20,000 song URLs each (SONGS_PER_SHARD),
 //     sliced from the same readAllSongs(SONGS_CAP) call the index uses to
 //     compute the shard count, so the two stay in sync.
-//   - "hubs": key hubs, BPM hubs, and artist pages — same emptiness rules as
-//     the pages themselves (key hubs need >0 songs, BPM hubs need >=3 in the
-//     ±2 window, artist pages need >=2 songs) so this never links to a 404.
+//   - "hubs": key hubs, Camelot hubs, BPM hubs, and artist pages — same
+//     emptiness rules as the pages themselves (key/Camelot hubs need >0
+//     songs, BPM hubs need >=3 in the ±2 window, artist pages need >=2
+//     songs) so this never links to a 404.
 export const revalidate = 3600;
 
 type ToolEntry = { path: string; changefreq: string; priority: number };
@@ -63,6 +67,10 @@ const STATIC_ENTRIES: ToolEntry[] = [
   { path: "/audio-joiner", changefreq: "weekly", priority: 0.9 },
   { path: "/songs", changefreq: "daily", priority: 0.7 },
   { path: "/copyright", changefreq: "yearly", priority: 0.3 },
+  // Fixed set of activity/tempo landing pages (not derived from the
+  // catalog — see lib/server/activities.ts), so they register here
+  // alongside the rest of the static routes rather than in "hubs".
+  ...ACTIVITIES.map((a) => ({ path: `/songs/bpm-for/${a.slug}`, changefreq: "monthly", priority: 0.5 })),
 ];
 
 export async function GET(_req: Request, { params }: { params: Promise<{ shard: string }> }) {
@@ -110,10 +118,15 @@ export async function GET(_req: Request, { params }: { params: Promise<{ shard: 
 
     const keyCounts = new Map<string, number>();
     const bpmCounts = new Map<number, number>();
+    const camelotCounts = new Map<string, number>();
     for (const s of songs) {
       keyCounts.set(s.key, (keyCounts.get(s.key) ?? 0) + 1);
       const b = Math.round(s.bpm);
       for (let n = b - 2; n <= b + 2; n += 1) bpmCounts.set(n, (bpmCounts.get(n) ?? 0) + 1);
+      if (s.camelot) {
+        const c = s.camelot.toUpperCase();
+        camelotCounts.set(c, (camelotCounts.get(c) ?? 0) + 1);
+      }
     }
 
     const keyUrls = ALL_KEYS.filter((k) => (keyCounts.get(k) ?? 0) > 0).map((k) => ({
@@ -122,6 +135,21 @@ export async function GET(_req: Request, { params }: { params: Promise<{ shard: 
       changefreq: "weekly",
       priority: 0.6,
     }));
+
+    // 1A..12A, 1B..12B — same code list the /camelot-wheel table and the
+    // /songs/camelot/[code] page's generateStaticParams use.
+    const allCamelotCodes = [
+      ...Array.from({ length: 12 }, (_, i) => `${i + 1}A`),
+      ...Array.from({ length: 12 }, (_, i) => `${i + 1}B`),
+    ];
+    const camelotUrls = allCamelotCodes
+      .filter((c) => (camelotCounts.get(c) ?? 0) > 0)
+      .map((c) => ({
+        loc: `${SITE_URL}/songs/camelot/${c.toLowerCase()}`,
+        lastmod: now,
+        changefreq: "weekly",
+        priority: 0.6,
+      }));
 
     const bpmUrls = [...bpmCounts.entries()]
       .filter(([bpm, count]) => bpm >= 40 && bpm <= 220 && count >= 3)
@@ -143,7 +171,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ shard: 
         priority: 0.5,
       }));
 
-    const xml = urlsetXml([...keyUrls, ...bpmUrls, ...artistUrls]);
+    const xml = urlsetXml([...keyUrls, ...camelotUrls, ...bpmUrls, ...artistUrls]);
     return xmlResponse(xml);
   }
 

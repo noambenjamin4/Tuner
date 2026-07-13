@@ -6,6 +6,7 @@ import { SongSearch } from "@/components/songs/SongSearch";
 import { ALL_KEYS, keyToSlug } from "@/lib/audio/harmonic";
 import { camelot } from "@/lib/audio/constants";
 import { topArtistsByCount } from "@/lib/server/artists";
+import { ACTIVITIES } from "@/lib/server/activities";
 
 // Index of every analyzed song. Acts as the hub that links out to each
 // /song/<slug> page so crawlers can reach them all.
@@ -31,10 +32,15 @@ export default async function SongsPage() {
   // common integer BPMs (the hub pages 404 below 3 songs, so mirror that).
   const keyCounts = new Map<string, number>();
   const bpmCounts = new Map<number, number>();
+  const camelotCounts = new Map<string, number>();
   for (const s of songs) {
     keyCounts.set(s.key, (keyCounts.get(s.key) ?? 0) + 1);
     const b = Math.round(s.bpm);
     for (let n = b - 2; n <= b + 2; n += 1) bpmCounts.set(n, (bpmCounts.get(n) ?? 0) + 1);
+    if (s.camelot) {
+      const c = s.camelot.toUpperCase();
+      camelotCounts.set(c, (camelotCounts.get(c) ?? 0) + 1);
+    }
   }
   const keyHubs = ALL_KEYS.filter((k) => (keyCounts.get(k) ?? 0) > 0);
   const bpmHubs = [...bpmCounts.entries()]
@@ -43,6 +49,13 @@ export default async function SongsPage() {
     .slice(0, 16)
     .map(([bpm]) => bpm)
     .sort((a, b) => a - b);
+  // 1A..12A, 1B..12B — same order the /camelot-wheel table and the
+  // /songs/camelot/[code] hub pages use.
+  const allCamelotCodes = [
+    ...Array.from({ length: 12 }, (_, i) => `${i + 1}A`),
+    ...Array.from({ length: 12 }, (_, i) => `${i + 1}B`),
+  ];
+  const camelotHubs = allCamelotCodes.filter((c) => (camelotCounts.get(c) ?? 0) > 0);
   const topArtists = topArtistsByCount(songs, 30);
 
   return (
@@ -99,6 +112,35 @@ export default async function SongsPage() {
               </ul>
             </section>
           )}
+
+          {camelotHubs.length > 0 && (
+            <section className="song-section">
+              <h2>Browse by Camelot code</h2>
+              <ul className="song-keychips">
+                {camelotHubs.map((c) => (
+                  <li key={c}>
+                    <span className="song-keychip">{c}</span>
+                    <Link href={`/songs/camelot/${c.toLowerCase()}`} className="song-keychip-rel">
+                      {c}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          <section className="song-section">
+            <h2>Browse by activity</h2>
+            <ul className="song-keychips">
+              {ACTIVITIES.map((a) => (
+                <li key={a.slug}>
+                  <Link href={`/songs/bpm-for/${a.slug}`} className="song-keychip-rel">
+                    {a.label} ({a.min}-{a.max} BPM)
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </section>
 
           {topArtists.length > 0 && (
             <section className="song-section">

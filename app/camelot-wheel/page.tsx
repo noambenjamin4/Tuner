@@ -139,7 +139,9 @@ export default function CamelotWheelPage() {
                     const key = CODE_TO_KEY[code];
                     return (
                       <tr key={code}>
-                        <th scope="row">{code}</th>
+                        <th scope="row">
+                          <Link href={`/songs/camelot/${code.toLowerCase()}`}>{code}</Link>
+                        </th>
                         <td>{key}</td>
                         <td>{compatibleCodes(code).join(", ")}</td>
                         <td>

@@ -4,8 +4,10 @@ import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 const geistSans = Geist({
+  // 900 was loaded but never referenced in any stylesheet — dropping it removes
+  // a font-file download and its render-blocking preload from every page.
   subsets: ["latin"],
-  weight: ["400", "500", "700", "900"],
+  weight: ["400", "500", "700"],
   display: "swap",
   variable: "--font-sans",
 });

@@ -669,6 +669,7 @@ export function AudioMasteringTool() {
             disabled={working}
             onChange={onReferenceChange}
             aria-label={t("audiomasteringtool.referenceLabel")}
+            tabIndex={-1}
             style={{ position: "absolute", width: 1, height: 1, padding: 0, opacity: 0, pointerEvents: "none" }}
           />
           <button

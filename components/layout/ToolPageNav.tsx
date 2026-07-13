@@ -27,6 +27,10 @@ const LINKS: { href: string; labelKey: DictKey }[] = [
   { href: "/tools", labelKey: "nav.moreTools" },
 ];
 
+// The file-tool pages (nightcore, bass-booster, converters, etc.) aren't their
+// own nav item; they live under "More tools", so that item lights up on them.
+const KNOWN_HREFS = new Set(LINKS.map((link) => link.href));
+
 export function ToolPageNav() {
   const { t } = useI18n();
   const pathname = usePathname();
@@ -45,11 +49,21 @@ export function ToolPageNav() {
     return () => observer.disconnect();
   }, []);
 
+  // Close the mobile drawer on Escape, matching the language menu's behavior.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
+
   // Fresh elements per call so the desktop nav and the mobile drawer don't share
-  // element instances. "/tools" also matches any tool page nested under it.
+  // element instances.
   const renderLinks = () =>
     LINKS.map((link) => {
-      const active = pathname === link.href;
+      const active = pathname === link.href || (link.href === "/tools" && !KNOWN_HREFS.has(pathname));
       return (
         <a
           key={link.href}
@@ -100,7 +114,7 @@ export function ToolPageNav() {
         </div>
 
         {menuOpen ? (
-          <div className="mobile-nav" role="menu">
+          <div className="mobile-nav">
             {renderLinks()}
             <LanguageMenu variant="mobile" />
           </div>

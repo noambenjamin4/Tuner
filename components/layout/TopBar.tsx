@@ -32,6 +32,16 @@ export function TopBar() {
     return () => observer.disconnect();
   }, []);
 
+  // Close the mobile drawer on Escape, matching the language menu's behavior.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
+
   return (
     <>
       <div ref={sentinelRef} aria-hidden="true" className="scroll-sentinel" />
@@ -69,7 +79,7 @@ export function TopBar() {
         </div>
 
         {menuOpen ? (
-          <div className="mobile-nav" role="menu">
+          <div className="mobile-nav">
             <NavTabs onNavigate={() => setMenuOpen(false)} />
             <LanguageMenu variant="mobile" />
           </div>

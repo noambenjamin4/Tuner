@@ -32,7 +32,8 @@ export type RelatedSlug =
   | "nightcore-maker"
   | "bass-booster"
   | "8d-audio"
-  | "audio-joiner";
+  | "audio-joiner"
+  | "audio-mastering";
 
 const REGISTRY: Record<RelatedSlug, { nameKey: DictKey; descKey: DictKey }> = {
   "image-converter": { nameKey: "tools.cardImageConvert", descKey: "tools.descImageConvert" },
@@ -58,6 +59,7 @@ const REGISTRY: Record<RelatedSlug, { nameKey: DictKey; descKey: DictKey }> = {
   "bass-booster": { nameKey: "tools.cardBassBooster", descKey: "tools.descBassBooster" },
   "8d-audio": { nameKey: "tools.card8dAudio", descKey: "tools.desc8dAudio" },
   "audio-joiner": { nameKey: "tools.cardAudioJoiner", descKey: "tools.descAudioJoiner" },
+  "audio-mastering": { nameKey: "tools.cardMastering", descKey: "tools.descMastering" },
 };
 
 export function RelatedTools({ tools }: { tools: RelatedSlug[] }) {

@@ -752,6 +752,39 @@ const zh: Record<keyof typeof en, string> = {
   "joinertool.faq3Q": "合并文件时会上传我的文件吗？",
   "joinertool.faq3A":
     "不会。每个文件都在你的浏览器本地完成解码、合并和重新编码。不会上传任何内容，文件绝不会离开你的设备。",
+
+  // Audio Mastering
+  "tools.cardMastering": "音频母带处理",
+  "tools.descMastering": "为音轨做母带并统一响度。",
+  "audiomasteringtool.title": "音频母带处理",
+  "audiomasteringtool.subtitle":
+    "在浏览器中用均衡、粘合压缩和响度限制器为任意音频文件做母带，或让音色和响度向参考音轨靠拢。不上传任何内容。",
+  "audiomasteringtool.targetLabel": "目标响度",
+  "audiomasteringtool.targetStreaming": "流媒体 (-14 LUFS)",
+  "audiomasteringtool.targetLoud": "响亮 (-9 LUFS)",
+  "audiomasteringtool.styleLabel": "音色风格",
+  "audiomasteringtool.styleBalanced": "均衡",
+  "audiomasteringtool.styleWarm": "温暖",
+  "audiomasteringtool.styleBright": "明亮",
+  "audiomasteringtool.stylePunchy": "有力",
+  "audiomasteringtool.referenceLabel": "向参考音轨靠拢（可选）",
+  "audiomasteringtool.referenceHint":
+    "放入一首你想模仿的音轨，它的音色和响度会引导母带处理。",
+  "audiomasteringtool.referenceLoaded": "参考",
+  "audiomasteringtool.referenceRemove": "移除参考",
+  "audiomasteringtool.referenceOverrides": "参考音轨会覆盖音色风格。",
+  "audiomasteringtool.referenceError": "无法读取该参考音轨。请换一个文件。",
+  "audiomasteringtool.note":
+    "这是自动母带处理。结果取决于你的混音，并不能替代人工母带工程师。",
+  "audiomasteringtool.faq1Q": "这个母带工具到底做了什么？",
+  "audiomasteringtool.faq1A":
+    "它让你的音轨经过一个清理用的高通滤波、音色均衡和轻微的粘合压缩，然后把响度归一到你的目标，并应用峰值限制器，使其保持在0 dBFS以下。你也可以让音色平衡向参考音轨靠拢，而不使用预设。",
+  "audiomasteringtool.faq2Q": "我的音频文件会被上传吗？",
+  "audiomasteringtool.faq2A":
+    "不会。解码、母带处理和编码都在你的浏览器中使用Web Audio API完成。你的文件和任何参考音轨都不会离开你的设备。",
+  "audiomasteringtool.faq3Q": "这和专业母带工程师一样好吗？",
+  "audiomasteringtool.faq3A":
+    "不。这是快速的自动母带处理，适合小样、上传和赶时间的场合。母带工程师能做出这个工具无法做出的音乐性判断，因此正式商业发行时你可能仍然需要他们。",
 };
 
 export default zh;

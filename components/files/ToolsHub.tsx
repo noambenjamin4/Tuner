@@ -11,6 +11,7 @@ import type { DictKey } from "@/lib/i18n/locales/en";
 // look for), then video, then image, then PDF/ZIP utilities last.
 const FILE_TOOLS: { href: string; nameKey: DictKey; descKey: DictKey }[] = [
   // Audio
+  { href: "/audio-mastering", nameKey: "tools.cardMastering", descKey: "tools.descMastering" },
   { href: "/nightcore-maker", nameKey: "tools.cardNightcore", descKey: "tools.descNightcore" },
   { href: "/8d-audio", nameKey: "tools.card8dAudio", descKey: "tools.desc8dAudio" },
   { href: "/bass-booster", nameKey: "tools.cardBassBooster", descKey: "tools.descBassBooster" },

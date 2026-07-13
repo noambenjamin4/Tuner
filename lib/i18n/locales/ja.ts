@@ -753,6 +753,39 @@ const ja: Record<keyof typeof en, string> = {
   "joinertool.faq3Q": "結合のためにファイルはアップロードされますか？",
   "joinertool.faq3A":
     "いいえ。すべてのファイルはブラウザ内でデコード、結合、再エンコードされます。何もアップロードされず、ファイルが端末から外に出ることはありません。",
+
+  // Audio Mastering
+  "tools.cardMastering": "オーディオマスタリング",
+  "tools.descMastering": "曲をマスタリングして音量をそろえます。",
+  "audiomasteringtool.title": "オーディオマスタリング",
+  "audiomasteringtool.subtitle":
+    "ブラウザ内でEQ、グルーコンプレッション、ラウドネスリミッターを使って任意の音声ファイルをマスタリングしたり、リファレンス曲の音色と音量に合わせたりできます。何もアップロードされません。",
+  "audiomasteringtool.targetLabel": "ラウドネスの目標",
+  "audiomasteringtool.targetStreaming": "ストリーミング (-14 LUFS)",
+  "audiomasteringtool.targetLoud": "大音量 (-9 LUFS)",
+  "audiomasteringtool.styleLabel": "トーンのスタイル",
+  "audiomasteringtool.styleBalanced": "バランス",
+  "audiomasteringtool.styleWarm": "ウォーム",
+  "audiomasteringtool.styleBright": "ブライト",
+  "audiomasteringtool.stylePunchy": "パンチー",
+  "audiomasteringtool.referenceLabel": "リファレンス曲に合わせる（任意）",
+  "audiomasteringtool.referenceHint":
+    "近づけたい曲をドロップすると、その音色と音量がマスタリングの指針になります。",
+  "audiomasteringtool.referenceLoaded": "リファレンス",
+  "audiomasteringtool.referenceRemove": "リファレンスを削除",
+  "audiomasteringtool.referenceOverrides": "リファレンスはトーンのスタイルより優先されます。",
+  "audiomasteringtool.referenceError": "そのリファレンス曲を読み込めませんでした。別のファイルをお試しください。",
+  "audiomasteringtool.note":
+    "これは自動マスタリングです。結果はミックスによって変わり、人間のマスタリングエンジニアの代わりにはなりません。",
+  "audiomasteringtool.faq1Q": "このマスタリングツールは実際に何をしますか？",
+  "audiomasteringtool.faq1A":
+    "曲をクリーンアップ用のハイパス、トーンEQ、緩やかなグルーコンプレッションに通し、その後ラウドネスを目標値に正規化し、0 dBFSのすぐ下に収まるようピークリミッターを適用します。プリセットの代わりにリファレンス曲の音色バランスに合わせることもできます。",
+  "audiomasteringtool.faq2Q": "音声ファイルはどこかにアップロードされますか？",
+  "audiomasteringtool.faq2A":
+    "いいえ。デコード、マスタリング、エンコードはすべてWeb Audio APIを使ってブラウザ内で行われます。あなたのファイルもリファレンス曲も端末から外に出ることはありません。",
+  "audiomasteringtool.faq3Q": "プロのマスタリングエンジニアと同じくらい良いですか？",
+  "audiomasteringtool.faq3A":
+    "いいえ。これはデモ、アップロード、短納期に向いた高速な自動マスタリングです。マスタリングエンジニアはこのツールにはできない音楽的な判断を行うため、商業リリースでは依頼した方がよい場合もあります。",
 };
 
 export default ja;

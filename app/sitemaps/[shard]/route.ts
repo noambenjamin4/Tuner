@@ -61,6 +61,7 @@ const STATIC_ENTRIES: ToolEntry[] = [
   { path: "/split-pdf", changefreq: "weekly", priority: 0.9 },
   { path: "/jpg-to-pdf", changefreq: "weekly", priority: 0.9 },
   { path: "/unzip-files", changefreq: "weekly", priority: 0.9 },
+  { path: "/audio-mastering", changefreq: "weekly", priority: 0.9 },
   { path: "/nightcore-maker", changefreq: "weekly", priority: 0.9 },
   { path: "/bass-booster", changefreq: "weekly", priority: 0.9 },
   { path: "/8d-audio", changefreq: "weekly", priority: 0.9 },

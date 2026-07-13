@@ -754,6 +754,39 @@ const es: Record<keyof typeof en, string> = {
   "joinertool.faq3Q": "¿Mis archivos se suben para unirlos?",
   "joinertool.faq3A":
     "No. Cada archivo se decodifica, se une y se vuelve a codificar localmente en tu navegador. No se sube nada, y los archivos nunca salen de tu dispositivo.",
+
+  // Audio Mastering
+  "tools.cardMastering": "Masterización de audio",
+  "tools.descMastering": "Masteriza una pista e iguala su volumen.",
+  "audiomasteringtool.title": "Masterización de audio",
+  "audiomasteringtool.subtitle":
+    "Masteriza cualquier archivo de audio en tu navegador con ecualización, compresión de pegado y un limitador de volumen, o iguala el tono y el volumen de una pista de referencia. No se sube nada.",
+  "audiomasteringtool.targetLabel": "Volumen objetivo",
+  "audiomasteringtool.targetStreaming": "Streaming (-14 LUFS)",
+  "audiomasteringtool.targetLoud": "Alto (-9 LUFS)",
+  "audiomasteringtool.styleLabel": "Estilo tonal",
+  "audiomasteringtool.styleBalanced": "Equilibrado",
+  "audiomasteringtool.styleWarm": "Cálido",
+  "audiomasteringtool.styleBright": "Brillante",
+  "audiomasteringtool.stylePunchy": "Con pegada",
+  "audiomasteringtool.referenceLabel": "Igualar una pista de referencia (opcional)",
+  "audiomasteringtool.referenceHint":
+    "Suelta una pista a la que quieras parecerte; su tono y su volumen guían la masterización.",
+  "audiomasteringtool.referenceLoaded": "Referencia",
+  "audiomasteringtool.referenceRemove": "Quitar referencia",
+  "audiomasteringtool.referenceOverrides": "Una referencia sustituye al estilo tonal.",
+  "audiomasteringtool.referenceError": "No se pudo leer esa pista de referencia. Prueba con otro archivo.",
+  "audiomasteringtool.note":
+    "Esta es una masterización automática. El resultado depende de tu mezcla y no sustituye a un ingeniero de masterización.",
+  "audiomasteringtool.faq1Q": "¿Qué hace realmente esta herramienta de masterización?",
+  "audiomasteringtool.faq1A":
+    "Pasa tu pista por un filtro paso alto de limpieza, una ecualización tonal y una compresión de pegado suave, después normaliza el volumen a tu objetivo y aplica un limitador de picos para que se mantenga justo por debajo de 0 dBFS. También puedes igualar el equilibrio tonal de una pista de referencia en lugar de usar un preajuste.",
+  "audiomasteringtool.faq2Q": "¿Se sube mi archivo de audio a algún sitio?",
+  "audiomasteringtool.faq2A":
+    "No. La decodificación, la masterización y la codificación ocurren en tu navegador con la Web Audio API. Tu archivo y cualquier pista de referencia nunca salen de tu dispositivo.",
+  "audiomasteringtool.faq3Q": "¿Es tan bueno como un ingeniero de masterización profesional?",
+  "audiomasteringtool.faq3A":
+    "No. Es una masterización automática y rápida que funciona bien para maquetas, subidas y entregas con prisa. Un ingeniero de masterización toma decisiones musicales que esta herramienta no puede; para un lanzamiento comercial quizá aún lo necesites.",
 };
 
 export default es;

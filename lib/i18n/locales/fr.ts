@@ -761,6 +761,39 @@ const fr: Record<keyof typeof en, string> = {
   "joinertool.faq3Q": "Mes fichiers sont-ils envoyés pour être fusionnés ?",
   "joinertool.faq3A":
     "Non. Chaque fichier est décodé, fusionné et réencodé localement dans votre navigateur. Rien n'est envoyé, et les fichiers ne quittent jamais votre appareil.",
+
+  // Audio Mastering
+  "tools.cardMastering": "Mastering audio",
+  "tools.descMastering": "Masterisez une piste et égalisez son volume.",
+  "audiomasteringtool.title": "Mastering audio",
+  "audiomasteringtool.subtitle":
+    "Masterisez n'importe quel fichier audio dans votre navigateur avec égalisation, compression de collage et limiteur de volume, ou calez le timbre et le volume sur une piste de référence. Rien n'est envoyé.",
+  "audiomasteringtool.targetLabel": "Volume cible",
+  "audiomasteringtool.targetStreaming": "Streaming (-14 LUFS)",
+  "audiomasteringtool.targetLoud": "Fort (-9 LUFS)",
+  "audiomasteringtool.styleLabel": "Style tonal",
+  "audiomasteringtool.styleBalanced": "Équilibré",
+  "audiomasteringtool.styleWarm": "Chaud",
+  "audiomasteringtool.styleBright": "Brillant",
+  "audiomasteringtool.stylePunchy": "Punchy",
+  "audiomasteringtool.referenceLabel": "Caler sur une piste de référence (facultatif)",
+  "audiomasteringtool.referenceHint":
+    "Déposez une piste dont vous voulez vous rapprocher ; son timbre et son volume guident le mastering.",
+  "audiomasteringtool.referenceLoaded": "Référence",
+  "audiomasteringtool.referenceRemove": "Retirer la référence",
+  "audiomasteringtool.referenceOverrides": "Une référence remplace le style tonal.",
+  "audiomasteringtool.referenceError": "Impossible de lire cette piste de référence. Essayez un autre fichier.",
+  "audiomasteringtool.note":
+    "Il s'agit d'un mastering automatique. Le résultat dépend de votre mix, et cela ne remplace pas un ingénieur de mastering.",
+  "audiomasteringtool.faq1Q": "Que fait réellement cet outil de mastering ?",
+  "audiomasteringtool.faq1A":
+    "Il passe votre piste dans un filtre passe-haut de nettoyage, une égalisation tonale, une légère compression de collage, puis normalise le volume vers votre cible et applique un limiteur de crête pour rester juste sous 0 dBFS. Vous pouvez aussi caler l'équilibre tonal sur une piste de référence plutôt que sur un préréglage.",
+  "audiomasteringtool.faq2Q": "Mon fichier audio est-il envoyé quelque part ?",
+  "audiomasteringtool.faq2A":
+    "Non. Le décodage, le mastering et l'encodage se font tous dans votre navigateur avec l'API Web Audio. Votre fichier et toute piste de référence ne quittent jamais votre appareil.",
+  "audiomasteringtool.faq3Q": "Est-ce aussi bon qu'un ingénieur de mastering professionnel ?",
+  "audiomasteringtool.faq3A":
+    "Non. C'est un mastering automatique et rapide, idéal pour les démos, les mises en ligne et les délais serrés. Un ingénieur de mastering prend des décisions musicales que cet outil ne peut pas prendre ; pour une sortie commerciale, il reste préférable.",
 };
 
 export default fr;

@@ -803,6 +803,39 @@ const en = {
   "joinertool.faq3Q": "Are my files uploaded to merge them?",
   "joinertool.faq3A":
     "No. Every file is decoded, joined, and re-encoded locally in your browser. Nothing is uploaded, and the files never leave your device.",
+
+  // Audio Mastering
+  "tools.cardMastering": "Audio Mastering",
+  "tools.descMastering": "Master a track and match its loudness.",
+  "audiomasteringtool.title": "Audio Mastering",
+  "audiomasteringtool.subtitle":
+    "Master any audio file in your browser with EQ, glue compression, and a loudness limiter, or match a reference track's tone and loudness. Nothing is uploaded.",
+  "audiomasteringtool.targetLabel": "Loudness target",
+  "audiomasteringtool.targetStreaming": "Streaming (-14 LUFS)",
+  "audiomasteringtool.targetLoud": "Loud (-9 LUFS)",
+  "audiomasteringtool.styleLabel": "Tone style",
+  "audiomasteringtool.styleBalanced": "Balanced",
+  "audiomasteringtool.styleWarm": "Warm",
+  "audiomasteringtool.styleBright": "Bright",
+  "audiomasteringtool.stylePunchy": "Punchy",
+  "audiomasteringtool.referenceLabel": "Match a reference track (optional)",
+  "audiomasteringtool.referenceHint":
+    "Drop a track you want yours to sound like; its tone and loudness guide the master.",
+  "audiomasteringtool.referenceLoaded": "Reference",
+  "audiomasteringtool.referenceRemove": "Remove reference",
+  "audiomasteringtool.referenceOverrides": "A reference overrides the tone style.",
+  "audiomasteringtool.referenceError": "That reference track couldn't be read. Try another file.",
+  "audiomasteringtool.note":
+    "This is an automated master. Results depend on your mix, and it's not a substitute for a human mastering engineer.",
+  "audiomasteringtool.faq1Q": "What does this mastering tool actually do?",
+  "audiomasteringtool.faq1A":
+    "It runs your track through a cleanup high-pass, a tonal EQ, gentle glue compression, then normalizes the loudness to your target and applies a peak limiter so it stays just under 0 dBFS. You can also match a reference track's tonal balance instead of a preset.",
+  "audiomasteringtool.faq2Q": "Is my audio file uploaded anywhere?",
+  "audiomasteringtool.faq2A":
+    "No. Decoding, mastering, and encoding all happen in your browser with the Web Audio API. Your file and any reference track never leave your device.",
+  "audiomasteringtool.faq3Q": "Is this as good as a professional mastering engineer?",
+  "audiomasteringtool.faq3A":
+    "No. This is a fast, automated master that works well for demos, uploads, and quick turnarounds. A human mastering engineer makes musical decisions this tool can't, so for a commercial release you may still want one.",
 } as const;
 
 export default en;

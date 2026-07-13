@@ -754,6 +754,39 @@ const de: Record<keyof typeof en, string> = {
   "joinertool.faq3Q": "Werden meine Dateien hochgeladen, um sie zusammenzufügen?",
   "joinertool.faq3A":
     "Nein. Jede Datei wird lokal in deinem Browser dekodiert, zusammengefügt und neu kodiert. Nichts wird hochgeladen, und die Dateien verlassen nie dein Gerät.",
+
+  // Audio Mastering
+  "tools.cardMastering": "Audio-Mastering",
+  "tools.descMastering": "Einen Track mastern und die Lautheit angleichen.",
+  "audiomasteringtool.title": "Audio-Mastering",
+  "audiomasteringtool.subtitle":
+    "Mastere jede Audiodatei in deinem Browser mit EQ, Glue-Kompression und einem Lautheits-Limiter, oder gleiche Klang und Lautheit an einen Referenztrack an. Nichts wird hochgeladen.",
+  "audiomasteringtool.targetLabel": "Lautheitsziel",
+  "audiomasteringtool.targetStreaming": "Streaming (-14 LUFS)",
+  "audiomasteringtool.targetLoud": "Laut (-9 LUFS)",
+  "audiomasteringtool.styleLabel": "Klangstil",
+  "audiomasteringtool.styleBalanced": "Ausgewogen",
+  "audiomasteringtool.styleWarm": "Warm",
+  "audiomasteringtool.styleBright": "Brillant",
+  "audiomasteringtool.stylePunchy": "Druckvoll",
+  "audiomasteringtool.referenceLabel": "An einen Referenztrack angleichen (optional)",
+  "audiomasteringtool.referenceHint":
+    "Lege einen Track ab, dem deiner ähneln soll; sein Klang und seine Lautheit leiten das Mastering.",
+  "audiomasteringtool.referenceLoaded": "Referenz",
+  "audiomasteringtool.referenceRemove": "Referenz entfernen",
+  "audiomasteringtool.referenceOverrides": "Eine Referenz ersetzt den Klangstil.",
+  "audiomasteringtool.referenceError": "Dieser Referenztrack konnte nicht gelesen werden. Versuche eine andere Datei.",
+  "audiomasteringtool.note":
+    "Dies ist ein automatisches Mastering. Das Ergebnis hängt von deinem Mix ab und ersetzt keinen Mastering-Ingenieur.",
+  "audiomasteringtool.faq1Q": "Was macht dieses Mastering-Tool eigentlich?",
+  "audiomasteringtool.faq1A":
+    "Es schickt deinen Track durch einen Hochpass zur Bereinigung, einen klanglichen EQ und eine sanfte Glue-Kompression, normalisiert dann die Lautheit auf dein Ziel und wendet einen Peak-Limiter an, damit sie knapp unter 0 dBFS bleibt. Du kannst statt eines Presets auch die Klangbalance eines Referenztracks angleichen.",
+  "audiomasteringtool.faq2Q": "Wird meine Audiodatei irgendwohin hochgeladen?",
+  "audiomasteringtool.faq2A":
+    "Nein. Decodierung, Mastering und Codierung passieren alle in deinem Browser mit der Web Audio API. Deine Datei und jeder Referenztrack verlassen dein Gerät nie.",
+  "audiomasteringtool.faq3Q": "Ist das so gut wie ein professioneller Mastering-Ingenieur?",
+  "audiomasteringtool.faq3A":
+    "Nein. Das ist ein schnelles, automatisches Mastering, das für Demos, Uploads und knappe Deadlines gut funktioniert. Ein Mastering-Ingenieur trifft musikalische Entscheidungen, die dieses Tool nicht kann; für eine kommerzielle Veröffentlichung willst du ihn vielleicht trotzdem.",
 };
 
 export default de;

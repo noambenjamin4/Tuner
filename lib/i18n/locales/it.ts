@@ -754,6 +754,39 @@ const it: Record<keyof typeof en, string> = {
   "joinertool.faq3Q": "I miei file vengono caricati per unirli?",
   "joinertool.faq3A":
     "No. Ogni file viene decodificato, unito e ricodificato localmente nel tuo browser. Niente viene caricato, e i file non lasciano mai il tuo dispositivo.",
+
+  // Audio Mastering
+  "tools.cardMastering": "Mastering audio",
+  "tools.descMastering": "Masterizza una traccia e uniforma il volume.",
+  "audiomasteringtool.title": "Mastering audio",
+  "audiomasteringtool.subtitle":
+    "Masterizza qualsiasi file audio nel browser con equalizzazione, compressione glue e un limiter di volume, oppure allinea timbro e volume a una traccia di riferimento. Niente viene caricato.",
+  "audiomasteringtool.targetLabel": "Volume obiettivo",
+  "audiomasteringtool.targetStreaming": "Streaming (-14 LUFS)",
+  "audiomasteringtool.targetLoud": "Alto (-9 LUFS)",
+  "audiomasteringtool.styleLabel": "Stile timbrico",
+  "audiomasteringtool.styleBalanced": "Bilanciato",
+  "audiomasteringtool.styleWarm": "Caldo",
+  "audiomasteringtool.styleBright": "Brillante",
+  "audiomasteringtool.stylePunchy": "Incisivo",
+  "audiomasteringtool.referenceLabel": "Allinea a una traccia di riferimento (facoltativo)",
+  "audiomasteringtool.referenceHint":
+    "Trascina una traccia a cui vuoi somigliare; il suo timbro e il suo volume guidano il mastering.",
+  "audiomasteringtool.referenceLoaded": "Riferimento",
+  "audiomasteringtool.referenceRemove": "Rimuovi riferimento",
+  "audiomasteringtool.referenceOverrides": "Un riferimento sostituisce lo stile timbrico.",
+  "audiomasteringtool.referenceError": "Impossibile leggere quella traccia di riferimento. Prova un altro file.",
+  "audiomasteringtool.note":
+    "Questo è un mastering automatico. Il risultato dipende dal tuo mix e non sostituisce un tecnico di mastering.",
+  "audiomasteringtool.faq1Q": "Cosa fa davvero questo strumento di mastering?",
+  "audiomasteringtool.faq1A":
+    "Fa passare la traccia attraverso un passa-alto di pulizia, un'equalizzazione timbrica e una leggera compressione glue, poi normalizza il volume verso il tuo obiettivo e applica un limiter di picco così da restare appena sotto 0 dBFS. Puoi anche allineare il bilanciamento timbrico a una traccia di riferimento invece di usare un preset.",
+  "audiomasteringtool.faq2Q": "Il mio file audio viene caricato da qualche parte?",
+  "audiomasteringtool.faq2A":
+    "No. Decodifica, mastering e codifica avvengono tutti nel tuo browser con la Web Audio API. Il tuo file e ogni traccia di riferimento non lasciano mai il tuo dispositivo.",
+  "audiomasteringtool.faq3Q": "È buono come un tecnico di mastering professionista?",
+  "audiomasteringtool.faq3A":
+    "No. È un mastering automatico e veloce, ottimo per demo, caricamenti e consegne rapide. Un tecnico di mastering prende decisioni musicali che questo strumento non può prendere; per una pubblicazione commerciale potresti averne ancora bisogno.",
 };
 
 export default it;

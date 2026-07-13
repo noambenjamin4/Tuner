@@ -57,6 +57,7 @@ export function Footer() {
           <Link href="/compress-video-for-discord">{t("tools.cardDiscord")}</Link>
           <Link href="/compress-video-for-whatsapp">{t("tools.cardWhatsapp")}</Link>
           <Link href="/video-converter">{t("tools.cardVideoConvert")}</Link>
+          <Link href="/audio-mastering">{t("tools.cardMastering")}</Link>
           <Link href="/audio-converter">{t("tools.cardAudioConvert")}</Link>
           <Link href="/mkv-to-mp4">{t("tools.cardMkvMp4")}</Link>
           <Link href="/mov-to-mp4">{t("tools.cardMovMp4")}</Link>

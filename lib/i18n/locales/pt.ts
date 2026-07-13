@@ -754,6 +754,39 @@ const pt: Record<keyof typeof en, string> = {
   "joinertool.faq3Q": "Meus arquivos são enviados para juntá-los?",
   "joinertool.faq3A":
     "Não. Cada arquivo é decodificado, unido e recodificado localmente no seu navegador. Nada é enviado, e os arquivos nunca saem do seu dispositivo.",
+
+  // Audio Mastering
+  "tools.cardMastering": "Masterização de áudio",
+  "tools.descMastering": "Masterize uma faixa e iguale o volume.",
+  "audiomasteringtool.title": "Masterização de áudio",
+  "audiomasteringtool.subtitle":
+    "Masterize qualquer arquivo de áudio no navegador com equalização, compressão de cola e um limitador de volume, ou iguale o timbre e o volume de uma faixa de referência. Nada é enviado.",
+  "audiomasteringtool.targetLabel": "Volume alvo",
+  "audiomasteringtool.targetStreaming": "Streaming (-14 LUFS)",
+  "audiomasteringtool.targetLoud": "Alto (-9 LUFS)",
+  "audiomasteringtool.styleLabel": "Estilo tonal",
+  "audiomasteringtool.styleBalanced": "Equilibrado",
+  "audiomasteringtool.styleWarm": "Quente",
+  "audiomasteringtool.styleBright": "Brilhante",
+  "audiomasteringtool.stylePunchy": "Marcante",
+  "audiomasteringtool.referenceLabel": "Igualar uma faixa de referência (opcional)",
+  "audiomasteringtool.referenceHint":
+    "Solte uma faixa com a qual você quer se parecer; o timbre e o volume dela guiam a masterização.",
+  "audiomasteringtool.referenceLoaded": "Referência",
+  "audiomasteringtool.referenceRemove": "Remover referência",
+  "audiomasteringtool.referenceOverrides": "Uma referência substitui o estilo tonal.",
+  "audiomasteringtool.referenceError": "Não foi possível ler essa faixa de referência. Tente outro arquivo.",
+  "audiomasteringtool.note":
+    "Esta é uma masterização automática. O resultado depende da sua mixagem e não substitui um engenheiro de masterização.",
+  "audiomasteringtool.faq1Q": "O que essa ferramenta de masterização faz de verdade?",
+  "audiomasteringtool.faq1A":
+    "Ela passa a sua faixa por um filtro passa-alta de limpeza, uma equalização tonal e uma compressão de cola suave, depois normaliza o volume para o seu alvo e aplica um limitador de picos para ficar logo abaixo de 0 dBFS. Você também pode igualar o equilíbrio tonal de uma faixa de referência em vez de usar uma predefinição.",
+  "audiomasteringtool.faq2Q": "Meu arquivo de áudio é enviado para algum lugar?",
+  "audiomasteringtool.faq2A":
+    "Não. A decodificação, a masterização e a codificação acontecem todas no seu navegador com a Web Audio API. Seu arquivo e qualquer faixa de referência nunca saem do seu dispositivo.",
+  "audiomasteringtool.faq3Q": "Isso é tão bom quanto um engenheiro de masterização profissional?",
+  "audiomasteringtool.faq3A":
+    "Não. É uma masterização automática e rápida, ótima para demos, uploads e prazos apertados. Um engenheiro de masterização toma decisões musicais que esta ferramenta não consegue; para um lançamento comercial, você ainda pode querer um.",
 };
 
 export default pt;

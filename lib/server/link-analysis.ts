@@ -335,6 +335,32 @@ export async function countSongs(): Promise<number | null> {
  *  exact-match count won't see the merge) — the only failure mode is a
  *  same-artist song that doesn't get an artist link even though the artist's
  *  page exists, never a link to a 404. */
+/** Artist strings only — the cheapest possible catalog scan, used to resolve a
+ *  derived slug back to its real artist name(s). ~30KB/1000 rows vs ~310KB for
+ *  select=*. */
+export async function readArtistNames(limit = SONG_READ_CAP): Promise<{ artist: string | null }[]> {
+  return readSongRange<{ artist: string | null }>("artist", 0, limit);
+}
+
+/** Every song by these exact artist strings, in one targeted query. Takes a
+ *  list because several spellings can slugify to the same artist page. */
+export async function readSongsByArtistNames(names: string[]): Promise<CachedAnalysis[]> {
+  if (!isLinkAnalysisConfigured || names.length === 0) return [];
+  // PostgREST in.() needs each value double-quoted, with embedded quotes and
+  // backslashes escaped, or a comma in an artist name would split the list.
+  const list = names.map((n) => `"${n.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`).join(",");
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/link_analysis?select=*&artist=in.(${encodeURIComponent(list)})&order=created_at.desc&limit=1000`,
+      { headers: restHeaders(), signal: AbortSignal.timeout(FETCH_TIMEOUT_MS), next: { revalidate: 3600 } },
+    );
+    if (!res.ok) return [];
+    return (await res.json()) as CachedAnalysis[];
+  } catch {
+    return [];
+  }
+}
+
 export async function countSongsByArtistName(name: string): Promise<number> {
   if (!isLinkAnalysisConfigured || !name.trim()) return 0;
   try {

@@ -100,7 +100,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_api_lookup_route",
-      "community": 10,
+      "community": 2,
       "norm_label": "route.ts"
     },
     {
@@ -110,7 +110,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "app_api_lookup_route_queryschema",
-      "community": 10,
+      "community": 2,
       "norm_label": "queryschema"
     },
     {
@@ -120,7 +120,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "app_api_lookup_route_idschema",
-      "community": 10,
+      "community": 2,
       "norm_label": "idschema"
     },
     {
@@ -130,7 +130,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "app_api_lookup_route_searchschema",
-      "community": 10,
+      "community": 2,
       "norm_label": "searchschema"
     },
     {
@@ -140,7 +140,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "app_api_lookup_route_get",
-      "community": 10,
+      "community": 2,
       "norm_label": "get()"
     },
     {
@@ -150,7 +150,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_api_playlist_lookup_route",
-      "community": 12,
+      "community": 2,
       "norm_label": "route.ts"
     },
     {
@@ -160,7 +160,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "app_api_playlist_lookup_route_queryschema",
-      "community": 12,
+      "community": 2,
       "norm_label": "queryschema"
     },
     {
@@ -170,7 +170,7 @@
       "source_location": "L33",
       "_origin": "ast",
       "id": "app_api_playlist_lookup_route_playlistlookuptrack",
-      "community": 68,
+      "community": 64,
       "norm_label": "playlistlookuptrack"
     },
     {
@@ -180,7 +180,7 @@
       "source_location": "L41",
       "_origin": "ast",
       "id": "app_api_playlist_lookup_route_sourcetrack",
-      "community": 12,
+      "community": 2,
       "norm_label": "sourcetrack"
     },
     {
@@ -190,7 +190,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "app_api_playlist_lookup_route_sleep",
-      "community": 12,
+      "community": 2,
       "norm_label": "sleep()"
     },
     {
@@ -200,7 +200,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "app_api_playlist_lookup_route_runpool",
-      "community": 12,
+      "community": 2,
       "norm_label": "runpool()"
     },
     {
@@ -210,7 +210,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "app_api_playlist_lookup_route_resolvetrack",
-      "community": 10,
+      "community": 2,
       "norm_label": "resolvetrack()"
     },
     {
@@ -270,7 +270,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_api_similar_route",
-      "community": 10,
+      "community": 28,
       "norm_label": "route.ts"
     },
     {
@@ -280,7 +280,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "app_api_similar_route_queryschema",
-      "community": 10,
+      "community": 28,
       "norm_label": "queryschema"
     },
     {
@@ -290,7 +290,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "app_api_similar_route_get",
-      "community": 10,
+      "community": 28,
       "norm_label": "get()"
     },
     {
@@ -300,7 +300,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_api_songs_route",
-      "community": 72,
+      "community": 41,
       "norm_label": "route.ts"
     },
     {
@@ -310,7 +310,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "app_api_songs_route_queryschema",
-      "community": 72,
+      "community": 41,
       "norm_label": "queryschema"
     },
     {
@@ -320,7 +320,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "app_api_songs_route_get",
-      "community": 72,
+      "community": 41,
       "norm_label": "get()"
     },
     {
@@ -490,7 +490,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_artist_slug_page",
-      "community": 68,
+      "community": 32,
       "norm_label": "page.tsx"
     },
     {
@@ -500,7 +500,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "app_artist_slug_page_generatestaticparams",
-      "community": 68,
+      "community": 32,
       "norm_label": "generatestaticparams()"
     },
     {
@@ -510,7 +510,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "app_artist_slug_page_artistmetatitle",
-      "community": 68,
+      "community": 32,
       "norm_label": "artistmetatitle()"
     },
     {
@@ -520,7 +520,7 @@
       "source_location": "L43",
       "_origin": "ast",
       "id": "app_artist_slug_page_generatemetadata",
-      "community": 68,
+      "community": 32,
       "norm_label": "generatemetadata()"
     },
     {
@@ -530,7 +530,7 @@
       "source_location": "L62",
       "_origin": "ast",
       "id": "app_artist_slug_page_artistpage",
-      "community": 68,
+      "community": 32,
       "norm_label": "artistpage()"
     },
     {
@@ -1427,7 +1427,7 @@
       "label": "Page()",
       "file_type": "code",
       "source_file": "app/key-bpm-finder/page.tsx",
-      "source_location": "L12",
+      "source_location": "L17",
       "_origin": "ast",
       "id": "app_key_bpm_finder_page_page",
       "community": 5,
@@ -1700,7 +1700,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_page",
-      "community": 56,
+      "community": 58,
       "norm_label": "page.tsx"
     },
     {
@@ -1710,7 +1710,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "app_page_home",
-      "community": 56,
+      "community": 58,
       "norm_label": "home()"
     },
     {
@@ -1850,7 +1850,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_sitemap_xml_route",
-      "community": 32,
+      "community": 57,
       "norm_label": "route.ts"
     },
     {
@@ -1860,7 +1860,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "app_sitemap_xml_route_get",
-      "community": 32,
+      "community": 57,
       "norm_label": "get()"
     },
     {
@@ -1870,7 +1870,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_sitemaps_shard_route",
-      "community": 32,
+      "community": 57,
       "norm_label": "route.ts"
     },
     {
@@ -1880,7 +1880,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "app_sitemaps_shard_route_toolentry",
-      "community": 32,
+      "community": 57,
       "norm_label": "toolentry"
     },
     {
@@ -1890,7 +1890,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "app_sitemaps_shard_route_static_entries",
-      "community": 32,
+      "community": 57,
       "norm_label": "static_entries"
     },
     {
@@ -1900,7 +1900,7 @@
       "source_location": "L74",
       "_origin": "ast",
       "id": "app_sitemaps_shard_route_get",
-      "community": 32,
+      "community": 57,
       "norm_label": "get()"
     },
     {
@@ -2080,7 +2080,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_songs_bpm_for_activity_page",
-      "community": 73,
+      "community": 56,
       "norm_label": "page.tsx"
     },
     {
@@ -2090,7 +2090,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "app_songs_bpm_for_activity_page_generatestaticparams",
-      "community": 73,
+      "community": 56,
       "norm_label": "generatestaticparams()"
     },
     {
@@ -2100,7 +2100,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "app_songs_bpm_for_activity_page_generatemetadata",
-      "community": 73,
+      "community": 56,
       "norm_label": "generatemetadata()"
     },
     {
@@ -2110,7 +2110,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "app_songs_bpm_for_activity_page_activitybpmpage",
-      "community": 73,
+      "community": 56,
       "norm_label": "activitybpmpage()"
     },
     {
@@ -2180,7 +2180,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "app_songs_camelot_code_page",
-      "community": 76,
+      "community": 60,
       "norm_label": "page.tsx"
     },
     {
@@ -2190,7 +2190,7 @@
       "source_location": "L16",
       "_origin": "ast",
       "id": "app_songs_camelot_code_page_all_codes",
-      "community": 76,
+      "community": 60,
       "norm_label": "all_codes"
     },
     {
@@ -2200,7 +2200,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "app_songs_camelot_code_page_code_to_key",
-      "community": 76,
+      "community": 60,
       "norm_label": "code_to_key"
     },
     {
@@ -2210,7 +2210,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "app_songs_camelot_code_page_parsecode",
-      "community": 76,
+      "community": 60,
       "norm_label": "parsecode()"
     },
     {
@@ -2220,7 +2220,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "app_songs_camelot_code_page_generatestaticparams",
-      "community": 76,
+      "community": 60,
       "norm_label": "generatestaticparams()"
     },
     {
@@ -2230,7 +2230,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "app_songs_camelot_code_page_generatemetadata",
-      "community": 76,
+      "community": 60,
       "norm_label": "generatemetadata()"
     },
     {
@@ -2240,7 +2240,7 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "app_songs_camelot_code_page_camelothubpage",
-      "community": 23,
+      "community": 60,
       "norm_label": "camelothubpage()"
     },
     {
@@ -2310,7 +2310,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "app_songs_page_songspage",
-      "community": 56,
+      "community": 32,
       "norm_label": "songspage()"
     },
     {
@@ -2590,7 +2590,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "components_tunebadapp_tunebadcontextvalue_setdelaybpminput",
-      "community": 62,
+      "community": 71,
       "norm_label": ".setdelaybpminput()"
     },
     {
@@ -2600,7 +2600,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "components_tunebadapp_tunebadcontextvalue_setmainbpm",
-      "community": 71,
+      "community": 62,
       "norm_label": ".setmainbpm()"
     },
     {
@@ -2680,7 +2680,7 @@
       "source_location": "L67",
       "_origin": "ast",
       "id": "components_tunebadapp_tunebadcontextvalue_clearpendingfiles",
-      "community": 14,
+      "community": 62,
       "norm_label": ".clearpendingfiles()"
     },
     {
@@ -2700,7 +2700,7 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "components_tunebadapp_usetunebad",
-      "community": 71,
+      "community": 34,
       "norm_label": "usetunebad()"
     },
     {
@@ -3000,7 +3000,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_analysis_waveformpreview",
-      "community": 64,
+      "community": 62,
       "norm_label": "waveformpreview.tsx"
     },
     {
@@ -3010,7 +3010,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "components_analysis_waveformpreview_waveformpreview",
-      "community": 64,
+      "community": 62,
       "norm_label": "waveformpreview()"
     },
     {
@@ -3020,7 +3020,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_bpm_bpmtoolsview",
-      "community": 71,
+      "community": 34,
       "norm_label": "bpmtoolsview.tsx"
     },
     {
@@ -3030,7 +3030,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "components_bpm_bpmtoolsview_bpmtoolsview",
-      "community": 31,
+      "community": 34,
       "norm_label": "bpmtoolsview()"
     },
     {
@@ -3040,7 +3040,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_bpm_metronomecard",
-      "community": 71,
+      "community": 34,
       "norm_label": "metronomecard.tsx"
     },
     {
@@ -3050,7 +3050,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "components_bpm_metronomecard_metronomecard",
-      "community": 71,
+      "community": 34,
       "norm_label": "metronomecard()"
     },
     {
@@ -3600,7 +3600,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_files_audiomasteringtool",
-      "community": 60,
+      "community": 39,
       "norm_label": "audiomasteringtool.tsx"
     },
     {
@@ -3610,7 +3610,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "components_files_audiomasteringtool_status",
-      "community": 60,
+      "community": 39,
       "norm_label": "status"
     },
     {
@@ -3620,7 +3620,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "components_files_audiomasteringtool_abmode",
-      "community": 60,
+      "community": 39,
       "norm_label": "abmode"
     },
     {
@@ -3630,7 +3630,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "components_files_audiomasteringtool_styles",
-      "community": 60,
+      "community": 39,
       "norm_label": "styles"
     },
     {
@@ -3640,7 +3640,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "components_files_audiomasteringtool_style_labels",
-      "community": 60,
+      "community": 39,
       "norm_label": "style_labels"
     },
     {
@@ -3650,7 +3650,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "components_files_audiomasteringtool_genrekey",
-      "community": 60,
+      "community": 39,
       "norm_label": "genrekey"
     },
     {
@@ -3660,7 +3660,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "components_files_audiomasteringtool_genre_order",
-      "community": 60,
+      "community": 39,
       "norm_label": "genre_order"
     },
     {
@@ -3670,7 +3670,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "components_files_audiomasteringtool_genre_labels",
-      "community": 60,
+      "community": 39,
       "norm_label": "genre_labels"
     },
     {
@@ -3680,7 +3680,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "components_files_audiomasteringtool_genrepreset",
-      "community": 60,
+      "community": 39,
       "norm_label": "genrepreset"
     },
     {
@@ -3690,7 +3690,7 @@
       "source_location": "L50",
       "_origin": "ast",
       "id": "components_files_audiomasteringtool_genre_presets",
-      "community": 60,
+      "community": 39,
       "norm_label": "genre_presets"
     },
     {
@@ -3700,7 +3700,7 @@
       "source_location": "L61",
       "_origin": "ast",
       "id": "components_files_audiomasteringtool_differencecurve",
-      "community": 60,
+      "community": 39,
       "norm_label": "differencecurve()"
     },
     {
@@ -3710,7 +3710,7 @@
       "source_location": "L74",
       "_origin": "ast",
       "id": "components_files_audiomasteringtool_barsfromchannels",
-      "community": 60,
+      "community": 39,
       "norm_label": "barsfromchannels()"
     },
     {
@@ -3720,7 +3720,7 @@
       "source_location": "L78",
       "_origin": "ast",
       "id": "components_files_audiomasteringtool_audiomasteringtool",
-      "community": 60,
+      "community": 39,
       "norm_label": "audiomasteringtool()"
     },
     {
@@ -4310,7 +4310,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "components_history_historypanel_historypanel",
-      "community": 71,
+      "community": 62,
       "norm_label": "historypanel()"
     },
     {
@@ -4380,7 +4380,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_layout_landingseo",
-      "community": 46,
+      "community": 58,
       "norm_label": "landingseo.tsx"
     },
     {
@@ -4390,7 +4390,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "components_layout_landingseo_value_keys",
-      "community": 46,
+      "community": 58,
       "norm_label": "value_keys"
     },
     {
@@ -4400,7 +4400,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "components_layout_landingseo_tour_keys",
-      "community": 46,
+      "community": 58,
       "norm_label": "tour_keys"
     },
     {
@@ -4410,7 +4410,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "components_layout_landingseo_faq_keys",
-      "community": 46,
+      "community": 58,
       "norm_label": "faq_keys"
     },
     {
@@ -4420,7 +4420,7 @@
       "source_location": "L52",
       "_origin": "ast",
       "id": "components_layout_landingseo_faq_json_ld",
-      "community": 46,
+      "community": 58,
       "norm_label": "faq_json_ld"
     },
     {
@@ -4490,7 +4490,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "components_layout_navtabs_navtabs",
-      "community": 62,
+      "community": 34,
       "norm_label": "navtabs()"
     },
     {
@@ -4540,7 +4540,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_layout_topbar",
-      "community": 64,
+      "community": 34,
       "norm_label": "topbar.tsx"
     },
     {
@@ -4550,7 +4550,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "components_layout_topbar_topbar",
-      "community": 64,
+      "community": 34,
       "norm_label": "topbar()"
     },
     {
@@ -4590,7 +4590,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_loudness_loudnesspanel",
-      "community": 37,
+      "community": 34,
       "norm_label": "loudnesspanel.tsx"
     },
     {
@@ -4600,7 +4600,7 @@
       "source_location": "L19",
       "_origin": "ast",
       "id": "components_loudness_loudnesspanel_export_targets",
-      "community": 37,
+      "community": 34,
       "norm_label": "export_targets"
     },
     {
@@ -4610,7 +4610,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "components_loudness_loudnesspanel_loudnessworkerresult",
-      "community": 37,
+      "community": 34,
       "norm_label": "loudnessworkerresult"
     },
     {
@@ -4620,7 +4620,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "components_loudness_loudnesspanel_formatdb",
-      "community": 37,
+      "community": 34,
       "norm_label": "formatdb()"
     },
     {
@@ -4630,7 +4630,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "components_loudness_loudnesspanel_tonefor",
-      "community": 37,
+      "community": 34,
       "norm_label": "tonefor()"
     },
     {
@@ -4640,7 +4640,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "components_loudness_loudnesspanel_resampleto48k",
-      "community": 37,
+      "community": 34,
       "norm_label": "resampleto48k()"
     },
     {
@@ -4650,7 +4650,7 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "components_loudness_loudnesspanel_loudnesspanel",
-      "community": 37,
+      "community": 34,
       "norm_label": "loudnesspanel()"
     },
     {
@@ -4690,7 +4690,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_playlist_playlistanalyzer",
-      "community": 65,
+      "community": 9,
       "norm_label": "playlistanalyzer.tsx"
     },
     {
@@ -4700,7 +4700,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "components_playlist_playlistanalyzer_phase",
-      "community": 65,
+      "community": 9,
       "norm_label": "phase"
     },
     {
@@ -4710,7 +4710,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "components_playlist_playlistanalyzer_errorkey",
-      "community": 65,
+      "community": 9,
       "norm_label": "errorkey"
     },
     {
@@ -4720,7 +4720,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "components_playlist_playlistanalyzer_camelot_order",
-      "community": 65,
+      "community": 9,
       "norm_label": "camelot_order"
     },
     {
@@ -4730,7 +4730,7 @@
       "source_location": "L22",
       "_origin": "ast",
       "id": "components_playlist_playlistanalyzer_exportplaylistcsv",
-      "community": 65,
+      "community": 9,
       "norm_label": "exportplaylistcsv()"
     },
     {
@@ -4740,7 +4740,7 @@
       "source_location": "L46",
       "_origin": "ast",
       "id": "components_playlist_playlistanalyzer_playlistanalyzer",
-      "community": 65,
+      "community": 9,
       "norm_label": "playlistanalyzer()"
     },
     {
@@ -5130,7 +5130,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_filepicker",
-      "community": 31,
+      "community": 37,
       "norm_label": "filepicker.tsx"
     },
     {
@@ -5140,7 +5140,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "components_ui_filepicker_filepicker",
-      "community": 31,
+      "community": 37,
       "norm_label": "filepicker()"
     },
     {
@@ -5170,7 +5170,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "components_ui_seekablewaveform",
-      "community": 64,
+      "community": 62,
       "norm_label": "seekablewaveform.tsx"
     },
     {
@@ -5180,7 +5180,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "components_ui_seekablewaveform_clamp",
-      "community": 64,
+      "community": 62,
       "norm_label": "clamp()"
     },
     {
@@ -5190,7 +5190,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "components_ui_seekablewaveform_seekablewaveform",
-      "community": 64,
+      "community": 62,
       "norm_label": "seekablewaveform()"
     },
     {
@@ -5230,7 +5230,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "components_ui_icons_waveformicon",
-      "community": 62,
+      "community": 59,
       "norm_label": "waveformicon()"
     },
     {
@@ -5240,7 +5240,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "components_ui_icons_metronomeicon",
-      "community": 59,
+      "community": 34,
       "norm_label": "metronomeicon()"
     },
     {
@@ -5460,7 +5460,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_usemetronome",
-      "community": 74,
+      "community": 39,
       "norm_label": "usemetronome.ts"
     },
     {
@@ -5470,7 +5470,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "hooks_usemetronome_clampbpm",
-      "community": 74,
+      "community": 39,
       "norm_label": "clampbpm()"
     },
     {
@@ -5480,7 +5480,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "hooks_usemetronome_usemetronome",
-      "community": 74,
+      "community": 39,
       "norm_label": "usemetronome()"
     },
     {
@@ -5510,7 +5510,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "hooks_useplaylistanalyzer_playlisttrackinput",
-      "community": 65,
+      "community": 9,
       "norm_label": "playlisttrackinput"
     },
     {
@@ -5650,7 +5650,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_useunloadguard",
-      "community": 65,
+      "community": 14,
       "norm_label": "useunloadguard.ts"
     },
     {
@@ -5660,7 +5660,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "hooks_useunloadguard_useunloadguard",
-      "community": 65,
+      "community": 14,
       "norm_label": "useunloadguard()"
     },
     {
@@ -5670,7 +5670,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "hooks_useyoutubejob",
-      "community": 62,
+      "community": 31,
       "norm_label": "useyoutubejob.ts"
     },
     {
@@ -5680,7 +5680,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "hooks_useyoutubejob_youtubejobstate",
-      "community": 62,
+      "community": 31,
       "norm_label": "youtubejobstate"
     },
     {
@@ -5810,7 +5810,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_audio_constants",
-      "community": 70,
+      "community": 9,
       "norm_label": "constants.ts"
     },
     {
@@ -5820,7 +5820,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_audio_constants_notenames",
-      "community": 70,
+      "community": 9,
       "norm_label": "notenames"
     },
     {
@@ -5830,7 +5830,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "lib_audio_constants_majorprofile",
-      "community": 70,
+      "community": 9,
       "norm_label": "majorprofile"
     },
     {
@@ -5840,7 +5840,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "lib_audio_constants_minorprofile",
-      "community": 70,
+      "community": 9,
       "norm_label": "minorprofile"
     },
     {
@@ -5850,7 +5850,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "lib_audio_constants_camelot",
-      "community": 76,
+      "community": 23,
       "norm_label": "camelot"
     },
     {
@@ -5930,7 +5930,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_audio_decode_getaudiocontextclass",
-      "community": 74,
+      "community": 39,
       "norm_label": "getaudiocontextclass()"
     },
     {
@@ -6160,7 +6160,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_audio_fallback_analysis",
-      "community": 70,
+      "community": 9,
       "norm_label": "fallback-analysis.ts"
     },
     {
@@ -6170,7 +6170,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "lib_audio_fallback_analysis_getenergyenvelope",
-      "community": 70,
+      "community": 9,
       "norm_label": "getenergyenvelope()"
     },
     {
@@ -6180,7 +6180,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "lib_audio_fallback_analysis_estimatebpm",
-      "community": 70,
+      "community": 9,
       "norm_label": "estimatebpm()"
     },
     {
@@ -6190,7 +6190,7 @@
       "source_location": "L55",
       "_origin": "ast",
       "id": "lib_audio_fallback_analysis_goertzel",
-      "community": 70,
+      "community": 9,
       "norm_label": "goertzel()"
     },
     {
@@ -6200,7 +6200,7 @@
       "source_location": "L69",
       "_origin": "ast",
       "id": "lib_audio_fallback_analysis_estimatekey",
-      "community": 70,
+      "community": 9,
       "norm_label": "estimatekey()"
     },
     {
@@ -6310,7 +6310,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_audio_lufs",
-      "community": 58,
+      "community": 39,
       "norm_label": "lufs.ts"
     },
     {
@@ -6320,7 +6320,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "lib_audio_lufs_platformtarget",
-      "community": 58,
+      "community": 39,
       "norm_label": "platformtarget"
     },
     {
@@ -6330,7 +6330,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "lib_audio_lufs_platform_targets",
-      "community": 37,
+      "community": 34,
       "norm_label": "platform_targets"
     },
     {
@@ -6340,7 +6340,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "lib_audio_lufs_stage1",
-      "community": 58,
+      "community": 39,
       "norm_label": "stage1"
     },
     {
@@ -6350,7 +6350,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "lib_audio_lufs_stage2",
-      "community": 58,
+      "community": 39,
       "norm_label": "stage2"
     },
     {
@@ -6360,7 +6360,7 @@
       "source_location": "L32",
       "_origin": "ast",
       "id": "lib_audio_lufs_biquad",
-      "community": 58,
+      "community": 39,
       "norm_label": "biquad()"
     },
     {
@@ -6370,7 +6370,7 @@
       "source_location": "L57",
       "_origin": "ast",
       "id": "lib_audio_lufs_kweight",
-      "community": 58,
+      "community": 39,
       "norm_label": "kweight()"
     },
     {
@@ -6380,7 +6380,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "lib_audio_lufs_blockpowers",
-      "community": 58,
+      "community": 39,
       "norm_label": "blockpowers()"
     },
     {
@@ -6390,7 +6390,7 @@
       "source_location": "L84",
       "_origin": "ast",
       "id": "lib_audio_lufs_loudnessfrompower",
-      "community": 58,
+      "community": 39,
       "norm_label": "loudnessfrompower()"
     },
     {
@@ -6400,7 +6400,7 @@
       "source_location": "L90",
       "_origin": "ast",
       "id": "lib_audio_lufs_integratedloudness",
-      "community": 58,
+      "community": 39,
       "norm_label": "integratedloudness()"
     },
     {
@@ -6410,7 +6410,7 @@
       "source_location": "L116",
       "_origin": "ast",
       "id": "lib_audio_lufs_samplepeakdb",
-      "community": 58,
+      "community": 39,
       "norm_label": "samplepeakdb()"
     },
     {
@@ -6440,7 +6440,7 @@
       "source_location": "L20",
       "_origin": "ast",
       "id": "lib_audio_master_masterbandcurve",
-      "community": 60,
+      "community": 39,
       "norm_label": "masterbandcurve"
     },
     {
@@ -6630,7 +6630,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_audio_mp3_encoder",
-      "community": 41,
+      "community": 39,
       "norm_label": "mp3-encoder.ts"
     },
     {
@@ -6640,7 +6640,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "lib_audio_mp3_encoder_mp3encoder",
-      "community": 41,
+      "community": 39,
       "norm_label": "mp3encoder"
     },
     {
@@ -6650,7 +6650,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "lib_audio_mp3_encoder_loadmp3encoder",
-      "community": 41,
+      "community": 39,
       "norm_label": "loadmp3encoder()"
     },
     {
@@ -6660,7 +6660,7 @@
       "source_location": "L35",
       "_origin": "ast",
       "id": "lib_audio_mp3_encoder_findleadingsilenceend",
-      "community": 41,
+      "community": 39,
       "norm_label": "findleadingsilenceend()"
     },
     {
@@ -6670,7 +6670,7 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "lib_audio_mp3_encoder_decodeandtrim",
-      "community": 41,
+      "community": 39,
       "norm_label": "decodeandtrim()"
     },
     {
@@ -6690,7 +6690,7 @@
       "source_location": "L120",
       "_origin": "ast",
       "id": "lib_audio_mp3_encoder_convertfiletowav",
-      "community": 41,
+      "community": 39,
       "norm_label": "convertfiletowav()"
     },
     {
@@ -6700,7 +6700,7 @@
       "source_location": "L126",
       "_origin": "ast",
       "id": "lib_audio_mp3_encoder_mp3_bitrates",
-      "community": 41,
+      "community": 39,
       "norm_label": "mp3_bitrates"
     },
     {
@@ -6710,7 +6710,7 @@
       "source_location": "L128",
       "_origin": "ast",
       "id": "lib_audio_mp3_encoder_encodemp3fromchannels",
-      "community": 41,
+      "community": 39,
       "norm_label": "encodemp3fromchannels()"
     },
     {
@@ -6720,7 +6720,7 @@
       "source_location": "L156",
       "_origin": "ast",
       "id": "lib_audio_mp3_encoder_convertfiletomp3",
-      "community": 41,
+      "community": 39,
       "norm_label": "convertfiletomp3()"
     },
     {
@@ -6770,7 +6770,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_audio_now_playing",
-      "community": 64,
+      "community": 34,
       "norm_label": "now-playing.ts"
     },
     {
@@ -6780,7 +6780,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "lib_audio_now_playing_activesources",
-      "community": 64,
+      "community": 34,
       "norm_label": "activesources"
     },
     {
@@ -6790,7 +6790,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "lib_audio_now_playing_nowplayingdetail",
-      "community": 64,
+      "community": 34,
       "norm_label": "nowplayingdetail"
     },
     {
@@ -6800,7 +6800,7 @@
       "source_location": "L15",
       "_origin": "ast",
       "id": "lib_audio_now_playing_setnowplaying",
-      "community": 64,
+      "community": 34,
       "norm_label": "setnowplaying()"
     },
     {
@@ -6810,7 +6810,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "lib_audio_now_playing_isanyaudioplaying",
-      "community": 64,
+      "community": 34,
       "norm_label": "isanyaudioplaying()"
     },
     {
@@ -7100,7 +7100,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_audio_waveform",
-      "community": 60,
+      "community": 39,
       "norm_label": "waveform.ts"
     },
     {
@@ -7110,7 +7110,7 @@
       "source_location": "L5",
       "_origin": "ast",
       "id": "lib_audio_waveform_computewaveformbars",
-      "community": 60,
+      "community": 39,
       "norm_label": "computewaveformbars()"
     },
     {
@@ -8030,7 +8030,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_format",
-      "community": 14,
+      "community": 71,
       "norm_label": "format.ts"
     },
     {
@@ -8070,7 +8070,7 @@
       "source_location": "L27",
       "_origin": "ast",
       "id": "lib_format_formatfilesize",
-      "community": 31,
+      "community": 37,
       "norm_label": "formatfilesize()"
     },
     {
@@ -8210,7 +8210,7 @@
       "source_location": "L65",
       "_origin": "ast",
       "id": "lib_i18n_index_usei18n",
-      "community": 31,
+      "community": 62,
       "norm_label": "usei18n()"
     },
     {
@@ -8400,7 +8400,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_media_url",
-      "community": 53,
+      "community": 17,
       "norm_label": "media-url.ts"
     },
     {
@@ -8410,7 +8410,7 @@
       "source_location": "L4",
       "_origin": "ast",
       "id": "lib_media_url_youtube_hosts",
-      "community": 53,
+      "community": 17,
       "norm_label": "youtube_hosts"
     },
     {
@@ -8420,7 +8420,7 @@
       "source_location": "L8",
       "_origin": "ast",
       "id": "lib_media_url_soundcloud_hosts",
-      "community": 53,
+      "community": 17,
       "norm_label": "soundcloud_hosts"
     },
     {
@@ -8430,7 +8430,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "lib_media_url_vimeo_hosts",
-      "community": 53,
+      "community": 17,
       "norm_label": "vimeo_hosts"
     },
     {
@@ -8440,7 +8440,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "lib_media_url_mixcloud_hosts",
-      "community": 53,
+      "community": 17,
       "norm_label": "mixcloud_hosts"
     },
     {
@@ -8450,7 +8450,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "lib_media_url_audiomack_hosts",
-      "community": 53,
+      "community": 17,
       "norm_label": "audiomack_hosts"
     },
     {
@@ -8460,7 +8460,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "lib_media_url_tiktok_hosts",
-      "community": 53,
+      "community": 17,
       "norm_label": "tiktok_hosts"
     },
     {
@@ -8470,7 +8470,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "lib_media_url_instagram_hosts",
-      "community": 53,
+      "community": 17,
       "norm_label": "instagram_hosts"
     },
     {
@@ -8480,7 +8480,7 @@
       "source_location": "L14",
       "_origin": "ast",
       "id": "lib_media_url_twitter_hosts",
-      "community": 53,
+      "community": 17,
       "norm_label": "twitter_hosts"
     },
     {
@@ -8510,7 +8510,7 @@
       "source_location": "L70",
       "_origin": "ast",
       "id": "lib_media_url_validatespotifyurl",
-      "community": 53,
+      "community": 12,
       "norm_label": "validatespotifyurl()"
     },
     {
@@ -8590,7 +8590,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_server_activities",
-      "community": 73,
+      "community": 56,
       "norm_label": "activities.ts"
     },
     {
@@ -8600,7 +8600,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "lib_server_activities_activity",
-      "community": 73,
+      "community": 56,
       "norm_label": "activity"
     },
     {
@@ -8610,7 +8610,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "lib_server_activities_activities",
-      "community": 73,
+      "community": 56,
       "norm_label": "activities"
     },
     {
@@ -8620,7 +8620,7 @@
       "source_location": "L84",
       "_origin": "ast",
       "id": "lib_server_activities_findactivity",
-      "community": 73,
+      "community": 56,
       "norm_label": "findactivity()"
     },
     {
@@ -8630,67 +8630,67 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_server_artists",
-      "community": 68,
+      "community": 32,
       "norm_label": "artists.ts"
     },
     {
       "label": "ArtistGroup",
       "file_type": "code",
       "source_file": "lib/server/artists.ts",
-      "source_location": "L22",
+      "source_location": "L23",
       "_origin": "ast",
       "id": "lib_server_artists_artistgroup",
-      "community": 68,
+      "community": 32,
       "norm_label": "artistgroup"
     },
     {
       "label": "artistSlug()",
       "file_type": "code",
       "source_file": "lib/server/artists.ts",
-      "source_location": "L41",
+      "source_location": "L42",
       "_origin": "ast",
       "id": "lib_server_artists_artistslug",
-      "community": 68,
+      "community": 32,
       "norm_label": "artistslug()"
     },
     {
       "label": "groupSongsByArtist()",
       "file_type": "code",
       "source_file": "lib/server/artists.ts",
-      "source_location": "L53",
+      "source_location": "L54",
       "_origin": "ast",
       "id": "lib_server_artists_groupsongsbyartist",
-      "community": 68,
+      "community": 32,
       "norm_label": "groupsongsbyartist()"
     },
     {
-      "label": "readSongsByArtist()",
+      "label": "readSongsByArtist",
       "file_type": "code",
       "source_file": "lib/server/artists.ts",
-      "source_location": "L74",
+      "source_location": "L90",
       "_origin": "ast",
       "id": "lib_server_artists_readsongsbyartist",
-      "community": 68,
-      "norm_label": "readsongsbyartist()"
+      "community": 32,
+      "norm_label": "readsongsbyartist"
     },
     {
       "label": "topArtistsByCount()",
       "file_type": "code",
       "source_file": "lib/server/artists.ts",
-      "source_location": "L83",
+      "source_location": "L105",
       "_origin": "ast",
       "id": "lib_server_artists_topartistsbycount",
-      "community": 68,
+      "community": 32,
       "norm_label": "topartistsbycount()"
     },
     {
       "label": "artistStats()",
       "file_type": "code",
       "source_file": "lib/server/artists.ts",
-      "source_location": "L94",
+      "source_location": "L116",
       "_origin": "ast",
       "id": "lib_server_artists_artiststats",
-      "community": 68,
+      "community": 32,
       "norm_label": "artiststats()"
     },
     {
@@ -8790,7 +8790,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_server_jobs",
-      "community": 17,
+      "community": 13,
       "norm_label": "jobs.ts"
     },
     {
@@ -8800,7 +8800,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "lib_server_jobs_ytjob",
-      "community": 17,
+      "community": 13,
       "norm_label": "ytjob"
     },
     {
@@ -8810,7 +8810,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "lib_server_jobs_yt_base_dir",
-      "community": 17,
+      "community": 13,
       "norm_label": "yt_base_dir"
     },
     {
@@ -8820,7 +8820,7 @@
       "source_location": "L26",
       "_origin": "ast",
       "id": "lib_server_jobs_globalstore",
-      "community": 17,
+      "community": 13,
       "norm_label": "globalstore"
     },
     {
@@ -8830,7 +8830,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "lib_server_jobs_sweepjobs",
-      "community": 17,
+      "community": 13,
       "norm_label": "sweepjobs()"
     },
     {
@@ -8880,7 +8880,7 @@
       "source_location": "L17",
       "_origin": "ast",
       "id": "lib_server_link_analysis_cachedanalysis",
-      "community": 68,
+      "community": 64,
       "norm_label": "cachedanalysis"
     },
     {
@@ -8910,7 +8910,7 @@
       "source_location": "L64",
       "_origin": "ast",
       "id": "lib_server_link_analysis_readcachedanalysis",
-      "community": 10,
+      "community": 2,
       "norm_label": "readcachedanalysis()"
     },
     {
@@ -8960,7 +8960,7 @@
       "source_location": "L147",
       "_origin": "ast",
       "id": "lib_server_link_analysis_readsongsbycamelotcode",
-      "community": 28,
+      "community": 60,
       "norm_label": "readsongsbycamelotcode()"
     },
     {
@@ -8980,7 +8980,7 @@
       "source_location": "L180",
       "_origin": "ast",
       "id": "lib_server_link_analysis_readsongsbybpmrangeall",
-      "community": 73,
+      "community": 56,
       "norm_label": "readsongsbybpmrangeall()"
     },
     {
@@ -9010,7 +9010,7 @@
       "source_location": "L233",
       "_origin": "ast",
       "id": "lib_server_link_analysis_readsongrange",
-      "community": 32,
+      "community": 57,
       "norm_label": "readsongrange()"
     },
     {
@@ -9020,7 +9020,7 @@
       "source_location": "L267",
       "_origin": "ast",
       "id": "lib_server_link_analysis_readsongslugrange",
-      "community": 32,
+      "community": 57,
       "norm_label": "readsongslugrange()"
     },
     {
@@ -9030,7 +9030,7 @@
       "source_location": "L272",
       "_origin": "ast",
       "id": "lib_server_link_analysis_readsongfacets",
-      "community": 32,
+      "community": 57,
       "norm_label": "readsongfacets()"
     },
     {
@@ -9050,14 +9050,34 @@
       "source_location": "L310",
       "_origin": "ast",
       "id": "lib_server_link_analysis_countsongs",
-      "community": 56,
+      "community": 58,
       "norm_label": "countsongs()"
+    },
+    {
+      "label": "readArtistNames()",
+      "file_type": "code",
+      "source_file": "lib/server/link-analysis.ts",
+      "source_location": "L341",
+      "_origin": "ast",
+      "id": "lib_server_link_analysis_readartistnames",
+      "community": 57,
+      "norm_label": "readartistnames()"
+    },
+    {
+      "label": "readSongsByArtistNames()",
+      "file_type": "code",
+      "source_file": "lib/server/link-analysis.ts",
+      "source_location": "L347",
+      "_origin": "ast",
+      "id": "lib_server_link_analysis_readsongsbyartistnames",
+      "community": 28,
+      "norm_label": "readsongsbyartistnames()"
     },
     {
       "label": "countSongsByArtistName()",
       "file_type": "code",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L338",
+      "source_location": "L364",
       "_origin": "ast",
       "id": "lib_server_link_analysis_countsongsbyartistname",
       "community": 28,
@@ -9067,7 +9087,7 @@
       "label": "writeCachedAnalysis()",
       "file_type": "code",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L358",
+      "source_location": "L384",
       "_origin": "ast",
       "id": "lib_server_link_analysis_writecachedanalysis",
       "community": 10,
@@ -9077,7 +9097,7 @@
       "label": "resolveTitle()",
       "file_type": "code",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L374",
+      "source_location": "L400",
       "_origin": "ast",
       "id": "lib_server_link_analysis_resolvetitle",
       "community": 53,
@@ -9087,17 +9107,17 @@
       "label": "cleanSongTitle()",
       "file_type": "code",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L399",
+      "source_location": "L425",
       "_origin": "ast",
       "id": "lib_server_link_analysis_cleansongtitle",
-      "community": 10,
+      "community": 2,
       "norm_label": "cleansongtitle()"
     },
     {
       "label": "splitCombinedTitle()",
       "file_type": "code",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L411",
+      "source_location": "L437",
       "_origin": "ast",
       "id": "lib_server_link_analysis_splitcombinedtitle",
       "community": 12,
@@ -9107,7 +9127,7 @@
       "label": "PreviewMatch",
       "file_type": "code",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L419",
+      "source_location": "L445",
       "_origin": "ast",
       "id": "lib_server_link_analysis_previewmatch",
       "community": 10,
@@ -9117,17 +9137,17 @@
       "label": "findPreview()",
       "file_type": "code",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L422",
+      "source_location": "L448",
       "_origin": "ast",
       "id": "lib_server_link_analysis_findpreview",
-      "community": 10,
+      "community": 2,
       "norm_label": "findpreview()"
     },
     {
       "label": "DeezerPreviewMatch",
       "file_type": "code",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L455",
+      "source_location": "L481",
       "_origin": "ast",
       "id": "lib_server_link_analysis_deezerpreviewmatch",
       "community": 10,
@@ -9137,17 +9157,17 @@
       "label": "findDeezerPreview()",
       "file_type": "code",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L460",
+      "source_location": "L486",
       "_origin": "ast",
       "id": "lib_server_link_analysis_finddeezerpreview",
-      "community": 10,
+      "community": 2,
       "norm_label": "finddeezerpreview()"
     },
     {
       "label": "isAllowedPreviewUrl()",
       "file_type": "code",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L487",
+      "source_location": "L513",
       "_origin": "ast",
       "id": "lib_server_link_analysis_isallowedpreviewurl",
       "community": 10,
@@ -9250,7 +9270,7 @@
       "source_location": "L49",
       "_origin": "ast",
       "id": "lib_server_rate_limit_allowjobstart",
-      "community": 7,
+      "community": 13,
       "norm_label": "allowjobstart()"
     },
     {
@@ -9300,7 +9320,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_server_sitemap",
-      "community": 32,
+      "community": 57,
       "norm_label": "sitemap.ts"
     },
     {
@@ -9310,7 +9330,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "lib_server_sitemap_urlentry",
-      "community": 32,
+      "community": 57,
       "norm_label": "urlentry"
     },
     {
@@ -9320,7 +9340,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "lib_server_sitemap_sitemapentry",
-      "community": 32,
+      "community": 57,
       "norm_label": "sitemapentry"
     },
     {
@@ -9330,7 +9350,7 @@
       "source_location": "L39",
       "_origin": "ast",
       "id": "lib_server_sitemap_escapexml",
-      "community": 32,
+      "community": 57,
       "norm_label": "escapexml()"
     },
     {
@@ -9340,7 +9360,7 @@
       "source_location": "L48",
       "_origin": "ast",
       "id": "lib_server_sitemap_urlsetxml",
-      "community": 32,
+      "community": 57,
       "norm_label": "urlsetxml()"
     },
     {
@@ -9350,7 +9370,7 @@
       "source_location": "L61",
       "_origin": "ast",
       "id": "lib_server_sitemap_sitemapindexxml",
-      "community": 32,
+      "community": 57,
       "norm_label": "sitemapindexxml()"
     },
     {
@@ -9360,7 +9380,7 @@
       "source_location": "L72",
       "_origin": "ast",
       "id": "lib_server_sitemap_xmlresponse",
-      "community": 32,
+      "community": 57,
       "norm_label": "xmlresponse()"
     },
     {
@@ -9370,7 +9390,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_server_song_search",
-      "community": 72,
+      "community": 41,
       "norm_label": "song-search.ts"
     },
     {
@@ -9380,7 +9400,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "lib_server_song_search_songsearchrow",
-      "community": 72,
+      "community": 41,
       "norm_label": "songsearchrow"
     },
     {
@@ -9390,7 +9410,7 @@
       "source_location": "L24",
       "_origin": "ast",
       "id": "lib_server_song_search_quotepostgrestvalue",
-      "community": 72,
+      "community": 41,
       "norm_label": "quotepostgrestvalue()"
     },
     {
@@ -9400,7 +9420,7 @@
       "source_location": "L28",
       "_origin": "ast",
       "id": "lib_server_song_search_row",
-      "community": 72,
+      "community": 41,
       "norm_label": "row"
     },
     {
@@ -9410,7 +9430,7 @@
       "source_location": "L31",
       "_origin": "ast",
       "id": "lib_server_song_search_searchsongs",
-      "community": 72,
+      "community": 41,
       "norm_label": "searchsongs()"
     },
     {
@@ -9520,7 +9540,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_server_youtube_playlist",
-      "community": 12,
+      "community": 13,
       "norm_label": "youtube-playlist.ts"
     },
     {
@@ -9530,7 +9550,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "lib_server_youtube_playlist_youtubetracklistitem",
-      "community": 12,
+      "community": 13,
       "norm_label": "youtubetracklistitem"
     },
     {
@@ -9540,7 +9560,7 @@
       "source_location": "L18",
       "_origin": "ast",
       "id": "lib_server_youtube_playlist_youtubetracklistresult",
-      "community": 12,
+      "community": 13,
       "norm_label": "youtubetracklistresult"
     },
     {
@@ -9560,7 +9580,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_server_ytdlp",
-      "community": 17,
+      "community": 13,
       "norm_label": "ytdlp.ts"
     },
     {
@@ -9570,7 +9590,7 @@
       "source_location": "L9",
       "_origin": "ast",
       "id": "lib_server_ytdlp_setuperror",
-      "community": 17,
+      "community": 13,
       "norm_label": "setuperror"
     },
     {
@@ -9580,7 +9600,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "lib_server_ytdlp_setuperror_constructor",
-      "community": 17,
+      "community": 13,
       "norm_label": ".constructor()"
     },
     {
@@ -9590,7 +9610,7 @@
       "source_location": "L25",
       "_origin": "ast",
       "id": "lib_server_ytdlp_stripinternalpaths",
-      "community": 17,
+      "community": 13,
       "norm_label": "stripinternalpaths()"
     },
     {
@@ -9600,7 +9620,7 @@
       "source_location": "L29",
       "_origin": "ast",
       "id": "lib_server_ytdlp_isexecutable",
-      "community": 17,
+      "community": 13,
       "norm_label": "isexecutable()"
     },
     {
@@ -9610,7 +9630,7 @@
       "source_location": "L38",
       "_origin": "ast",
       "id": "lib_server_ytdlp_resolveytdlp",
-      "community": 17,
+      "community": 13,
       "norm_label": "resolveytdlp()"
     },
     {
@@ -9620,7 +9640,7 @@
       "source_location": "L51",
       "_origin": "ast",
       "id": "lib_server_ytdlp_resolveffmpeg",
-      "community": 17,
+      "community": 13,
       "norm_label": "resolveffmpeg()"
     },
     {
@@ -9630,7 +9650,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "lib_server_ytdlp_classifyerror",
-      "community": 17,
+      "community": 13,
       "norm_label": "classifyerror()"
     },
     {
@@ -9640,7 +9660,7 @@
       "source_location": "L69",
       "_origin": "ast",
       "id": "lib_server_ytdlp_startyoutubejob",
-      "community": 17,
+      "community": 13,
       "norm_label": "startyoutubejob()"
     },
     {
@@ -9660,7 +9680,7 @@
       "source_location": "L201",
       "_origin": "ast",
       "id": "lib_server_ytdlp_playlistitem",
-      "community": 17,
+      "community": 13,
       "norm_label": "playlistitem"
     },
     {
@@ -9670,7 +9690,7 @@
       "source_location": "L210",
       "_origin": "ast",
       "id": "lib_server_ytdlp_enumerateplaylist",
-      "community": 17,
+      "community": 13,
       "norm_label": "enumerateplaylist()"
     },
     {
@@ -9680,7 +9700,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "lib_site",
-      "community": 76,
+      "community": 57,
       "norm_label": "site.ts"
     },
     {
@@ -13008,7 +13028,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_artists_test",
-      "community": 68,
+      "community": 64,
       "norm_label": "artists.test.ts"
     },
     {
@@ -13018,7 +13038,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "tests_artists_test_song",
-      "community": 68,
+      "community": 64,
       "norm_label": "song()"
     },
     {
@@ -13048,7 +13068,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "tests_lufs_test",
-      "community": 58,
+      "community": 39,
       "norm_label": "lufs.test.ts"
     },
     {
@@ -13058,7 +13078,7 @@
       "source_location": "L10",
       "_origin": "ast",
       "id": "tests_lufs_test_sine",
-      "community": 58,
+      "community": 39,
       "norm_label": "sine()"
     },
     {
@@ -13318,7 +13338,7 @@
       "source_location": "L36",
       "_origin": "ast",
       "id": "types_analysis_workerrequest",
-      "community": 2,
+      "community": 9,
       "norm_label": "workerrequest"
     },
     {
@@ -13328,7 +13348,7 @@
       "source_location": "L42",
       "_origin": "ast",
       "id": "types_analysis_workerresponse",
-      "community": 2,
+      "community": 9,
       "norm_label": "workerresponse"
     },
     {
@@ -13338,7 +13358,7 @@
       "source_location": "L56",
       "_origin": "ast",
       "id": "types_analysis_ytjobstatus",
-      "community": 17,
+      "community": 13,
       "norm_label": "ytjobstatus"
     },
     {
@@ -13348,7 +13368,7 @@
       "source_location": "L58",
       "_origin": "ast",
       "id": "types_analysis_ytformat",
-      "community": 17,
+      "community": 13,
       "norm_label": "ytformat"
     },
     {
@@ -13358,7 +13378,7 @@
       "source_location": "L60",
       "_origin": "ast",
       "id": "types_analysis_ytjobpublic",
-      "community": 62,
+      "community": 31,
       "norm_label": "ytjobpublic"
     },
     {
@@ -13398,7 +13418,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "workers_analysis_worker",
-      "community": 2,
+      "community": 9,
       "norm_label": "analysis.worker.ts"
     },
     {
@@ -13408,7 +13428,7 @@
       "source_location": "L7",
       "_origin": "ast",
       "id": "workers_analysis_worker_flat_to_sharp",
-      "community": 2,
+      "community": 9,
       "norm_label": "flat_to_sharp"
     },
     {
@@ -13418,7 +13438,7 @@
       "source_location": "L11",
       "_origin": "ast",
       "id": "workers_analysis_worker_essentialike",
-      "community": 2,
+      "community": 9,
       "norm_label": "essentialike"
     },
     {
@@ -13428,7 +13448,7 @@
       "source_location": "L12",
       "_origin": "ast",
       "id": "workers_analysis_worker_essentialike_arraytovector",
-      "community": 2,
+      "community": 9,
       "norm_label": ".arraytovector()"
     },
     {
@@ -13438,7 +13458,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "workers_analysis_worker_essentialike_percivalbpmestimator",
-      "community": 2,
+      "community": 9,
       "norm_label": ".percivalbpmestimator()"
     },
     {
@@ -13448,7 +13468,7 @@
       "source_location": "L23",
       "_origin": "ast",
       "id": "workers_analysis_worker_essentialike_keyextractor",
-      "community": 2,
+      "community": 9,
       "norm_label": ".keyextractor()"
     },
     {
@@ -13458,7 +13478,7 @@
       "source_location": "L40",
       "_origin": "ast",
       "id": "workers_analysis_worker_essentialike_danceability",
-      "community": 2,
+      "community": 9,
       "norm_label": ".danceability()"
     },
     {
@@ -13468,7 +13488,7 @@
       "source_location": "L62",
       "_origin": "ast",
       "id": "workers_analysis_worker_foldbpm",
-      "community": 2,
+      "community": 9,
       "norm_label": "foldbpm()"
     },
     {
@@ -13478,7 +13498,7 @@
       "source_location": "L85",
       "_origin": "ast",
       "id": "workers_analysis_worker_loadessentia",
-      "community": 2,
+      "community": 9,
       "norm_label": "loadessentia()"
     },
     {
@@ -13488,7 +13508,7 @@
       "source_location": "L112",
       "_origin": "ast",
       "id": "workers_analysis_worker_rmsof",
-      "community": 2,
+      "community": 9,
       "norm_label": "rmsof()"
     },
     {
@@ -13498,7 +13518,7 @@
       "source_location": "L119",
       "_origin": "ast",
       "id": "workers_analysis_worker_centeredwindow",
-      "community": 2,
+      "community": 9,
       "norm_label": "centeredwindow()"
     },
     {
@@ -13508,7 +13528,7 @@
       "source_location": "L126",
       "_origin": "ast",
       "id": "workers_analysis_worker_basicanalysis",
-      "community": 2,
+      "community": 9,
       "norm_label": "basicanalysis()"
     },
     {
@@ -13518,7 +13538,7 @@
       "source_location": "L145",
       "_origin": "ast",
       "id": "workers_analysis_worker_percivalbpm",
-      "community": 2,
+      "community": 9,
       "norm_label": "percivalbpm()"
     },
     {
@@ -13528,7 +13548,7 @@
       "source_location": "L149",
       "_origin": "ast",
       "id": "workers_analysis_worker_essentiaanalysis",
-      "community": 2,
+      "community": 9,
       "norm_label": "essentiaanalysis()"
     },
     {
@@ -13538,7 +13558,7 @@
       "source_location": "L1",
       "_origin": "ast",
       "id": "workers_loudness_worker",
-      "community": 58,
+      "community": 39,
       "norm_label": "loudness.worker.ts"
     },
     {
@@ -13548,7 +13568,7 @@
       "source_location": "L6",
       "_origin": "ast",
       "id": "workers_loudness_worker_loudnessworkerrequest",
-      "community": 58,
+      "community": 39,
       "norm_label": "loudnessworkerrequest"
     },
     {
@@ -13558,7 +13578,7 @@
       "source_location": "L13",
       "_origin": "ast",
       "id": "workers_loudness_worker_loudnessworkerresponse",
-      "community": 58,
+      "community": 39,
       "norm_label": "loudnessworkerresponse"
     },
     {
@@ -18169,7 +18189,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "app/key-bpm-finder/page.tsx",
-      "source_location": "L12",
+      "source_location": "L17",
       "weight": 1.0,
       "source": "app_key_bpm_finder_page",
       "target": "app_key_bpm_finder_page_page",
@@ -40403,7 +40423,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L376",
+      "source_location": "L402",
       "weight": 1.0,
       "source": "lib_server_link_analysis_resolvetitle",
       "target": "lib_media_url_canonicalyoutubeurl"
@@ -40436,7 +40456,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L377",
+      "source_location": "L403",
       "weight": 1.0,
       "source": "lib_server_link_analysis_resolvetitle",
       "target": "lib_media_url_validatespotifyurl"
@@ -40469,7 +40489,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L381",
+      "source_location": "L407",
       "weight": 1.0,
       "source": "lib_server_link_analysis_resolvetitle",
       "target": "lib_media_url_validatemediaurl"
@@ -40604,7 +40624,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/artists.ts",
-      "source_location": "L22",
+      "source_location": "L23",
       "weight": 1.0,
       "source": "lib_server_artists",
       "target": "lib_server_artists_artistgroup",
@@ -40614,7 +40634,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/artists.ts",
-      "source_location": "L41",
+      "source_location": "L42",
       "weight": 1.0,
       "source": "lib_server_artists",
       "target": "lib_server_artists_artistslug",
@@ -40624,7 +40644,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/artists.ts",
-      "source_location": "L94",
+      "source_location": "L116",
       "weight": 1.0,
       "source": "lib_server_artists",
       "target": "lib_server_artists_artiststats",
@@ -40634,7 +40654,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/artists.ts",
-      "source_location": "L53",
+      "source_location": "L54",
       "weight": 1.0,
       "source": "lib_server_artists",
       "target": "lib_server_artists_groupsongsbyartist",
@@ -40644,7 +40664,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/artists.ts",
-      "source_location": "L74",
+      "source_location": "L90",
       "weight": 1.0,
       "source": "lib_server_artists",
       "target": "lib_server_artists_readsongsbyartist",
@@ -40654,7 +40674,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/artists.ts",
-      "source_location": "L83",
+      "source_location": "L105",
       "weight": 1.0,
       "source": "lib_server_artists",
       "target": "lib_server_artists_topartistsbycount",
@@ -40665,7 +40685,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/artists.ts",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0,
       "source": "lib_server_artists",
       "target": "lib_server_link_analysis",
@@ -40676,7 +40696,7 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/artists.ts",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0,
       "source": "lib_server_artists",
       "target": "lib_server_link_analysis_cachedanalysis",
@@ -40687,10 +40707,21 @@
       "context": "import",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/artists.ts",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0,
       "source": "lib_server_artists",
-      "target": "lib_server_link_analysis_readallsongs",
+      "target": "lib_server_link_analysis_readartistnames",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/server/artists.ts",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "lib_server_artists",
+      "target": "lib_server_link_analysis_readsongsbyartistnames",
       "confidence_score": 1.0
     },
     {
@@ -40709,7 +40740,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/artists.ts",
-      "source_location": "L60",
+      "source_location": "L61",
       "weight": 1.0,
       "source": "lib_server_artists_groupsongsbyartist",
       "target": "lib_server_artists_artistslug",
@@ -40731,18 +40762,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/artists.ts",
-      "source_location": "L76",
-      "weight": 1.0,
-      "source": "lib_server_artists_readsongsbyartist",
-      "target": "lib_server_artists_groupsongsbyartist",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "source_file": "lib/server/artists.ts",
-      "source_location": "L88",
+      "source_location": "L110",
       "weight": 1.0,
       "source": "lib_server_artists_topartistsbycount",
       "target": "lib_server_artists_groupsongsbyartist",
@@ -40758,17 +40778,6 @@
       "source": "tests_artists_test",
       "target": "lib_server_artists_groupsongsbyartist",
       "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "context": "call",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "lib/server/artists.ts",
-      "source_location": "L75",
-      "weight": 1.0,
-      "source": "lib_server_artists_readsongsbyartist",
-      "target": "lib_server_link_analysis_readallsongs"
     },
     {
       "relation": "contains",
@@ -41155,7 +41164,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L399",
+      "source_location": "L425",
       "weight": 1.0,
       "source": "lib_server_link_analysis",
       "target": "lib_server_link_analysis_cleansongtitle",
@@ -41175,7 +41184,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L338",
+      "source_location": "L364",
       "weight": 1.0,
       "source": "lib_server_link_analysis",
       "target": "lib_server_link_analysis_countsongsbyartistname",
@@ -41185,7 +41194,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L455",
+      "source_location": "L481",
       "weight": 1.0,
       "source": "lib_server_link_analysis",
       "target": "lib_server_link_analysis_deezerpreviewmatch",
@@ -41195,7 +41204,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L460",
+      "source_location": "L486",
       "weight": 1.0,
       "source": "lib_server_link_analysis",
       "target": "lib_server_link_analysis_finddeezerpreview",
@@ -41205,7 +41214,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L422",
+      "source_location": "L448",
       "weight": 1.0,
       "source": "lib_server_link_analysis",
       "target": "lib_server_link_analysis_findpreview",
@@ -41215,7 +41224,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L487",
+      "source_location": "L513",
       "weight": 1.0,
       "source": "lib_server_link_analysis",
       "target": "lib_server_link_analysis_isallowedpreviewurl",
@@ -41235,7 +41244,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L419",
+      "source_location": "L445",
       "weight": 1.0,
       "source": "lib_server_link_analysis",
       "target": "lib_server_link_analysis_previewmatch",
@@ -41259,6 +41268,16 @@
       "weight": 1.0,
       "source": "lib_server_link_analysis",
       "target": "lib_server_link_analysis_readanalysisbyslug",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/server/link-analysis.ts",
+      "source_location": "L341",
+      "weight": 1.0,
+      "source": "lib_server_link_analysis",
+      "target": "lib_server_link_analysis_readartistnames",
       "confidence_score": 1.0
     },
     {
@@ -41299,6 +41318,16 @@
       "weight": 1.0,
       "source": "lib_server_link_analysis",
       "target": "lib_server_link_analysis_readsongrange",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/server/link-analysis.ts",
+      "source_location": "L347",
+      "weight": 1.0,
+      "source": "lib_server_link_analysis",
+      "target": "lib_server_link_analysis_readsongsbyartistnames",
       "confidence_score": 1.0
     },
     {
@@ -41365,7 +41394,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L374",
+      "source_location": "L400",
       "weight": 1.0,
       "source": "lib_server_link_analysis",
       "target": "lib_server_link_analysis_resolvetitle",
@@ -41415,7 +41444,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L411",
+      "source_location": "L437",
       "weight": 1.0,
       "source": "lib_server_link_analysis",
       "target": "lib_server_link_analysis_splitcombinedtitle",
@@ -41425,7 +41454,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L358",
+      "source_location": "L384",
       "weight": 1.0,
       "source": "lib_server_link_analysis",
       "target": "lib_server_link_analysis_writecachedanalysis",
@@ -41502,7 +41531,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L342",
+      "source_location": "L368",
       "weight": 1.0,
       "source": "lib_server_link_analysis_countsongsbyartistname",
       "target": "lib_server_link_analysis_restheaders",
@@ -41568,6 +41597,17 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/link-analysis.ts",
+      "source_location": "L355",
+      "weight": 1.0,
+      "source": "lib_server_link_analysis_readsongsbyartistnames",
+      "target": "lib_server_link_analysis_restheaders",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/server/link-analysis.ts",
       "source_location": "L167",
       "weight": 1.0,
       "source": "lib_server_link_analysis_readsongsbybpmrange",
@@ -41623,7 +41663,7 @@
       "context": "call",
       "confidence": "EXTRACTED",
       "source_file": "lib/server/link-analysis.ts",
-      "source_location": "L363",
+      "source_location": "L389",
       "weight": 1.0,
       "source": "lib_server_link_analysis_writecachedanalysis",
       "target": "lib_server_link_analysis_restheaders",
@@ -41650,6 +41690,17 @@
       "weight": 1.0,
       "source": "lib_server_mix_matches_findmixmatches",
       "target": "lib_server_link_analysis_readsongsbycamelot"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "lib/server/link-analysis.ts",
+      "source_location": "L342",
+      "weight": 1.0,
+      "source": "lib_server_link_analysis_readartistnames",
+      "target": "lib_server_link_analysis_readsongrange",
+      "confidence_score": 1.0
     },
     {
       "relation": "calls",
@@ -48262,5 +48313,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "f9eb042207a10c614ea3242908c9cfbfdc4b0abd"
+  "built_at_commit": "f5207cf007e0bda7ab55c6d347b88b3a2c287d68"
 }

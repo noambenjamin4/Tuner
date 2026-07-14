@@ -15,7 +15,8 @@
 // If the catalog grows enough that this becomes a real cost, the fix is a
 // generated `artist_slug` column in Supabase with an index, not a smarter
 // client-side algorithm.
-import { readAllSongs, type CachedAnalysis } from "./link-analysis";
+import { cache } from "react";
+import { readArtistNames, readSongsByArtistNames, type CachedAnalysis } from "./link-analysis";
 
 // Generic over the row shape: the grouper only reads `artist`, so both a full
 // CachedAnalysis and a slim projection (e.g. the sitemap's facet columns) work.
@@ -68,13 +69,34 @@ export function groupSongsByArtist<T extends { artist: string | null }>(
   return groups;
 }
 
-/** The artist group for one slug, or null if the slug matches nothing. Pages
- *  through the whole cache (see file header) — call sparingly, cached by the
- *  page's own `revalidate`. */
-export async function readSongsByArtist(slug: string, cap = 50000): Promise<ArtistGroup | null> {
-  const songs = await readAllSongs(cap);
-  return groupSongsByArtist(songs).get(slug) ?? null;
-}
+/** The artist group for one slug, or null if the slug matches nothing.
+ *
+ *  Two steps, because a slug is derived client-side and PostgREST can't filter
+ *  on it:
+ *    1. scan the catalog for ARTIST STRINGS ONLY (~30KB/1000 rows) and find
+ *       every raw spelling that slugifies to this slug;
+ *    2. fetch that artist's songs with one targeted `artist=in.(...)` query.
+ *
+ *  The previous version read the newest `cap = 50000` FULL rows and grouped
+ *  them. That cap was written when the catalog was small; at 118k+ songs it
+ *  silently stopped resolving any artist whose songs were older than the newest
+ *  50k — ~40% of artist pages 404'd, including ones linked from song-page H1s.
+ *  Passing the full catalog through readAllSongs instead would have been
+ *  correct but pulled ~37MB per artist page per ISR window.
+ *
+ *  Wrapped in React cache() so a page that calls this from both
+ *  generateMetadata and the component only pays for it once per render.
+ */
+export const readSongsByArtist = cache(async (slug: string): Promise<ArtistGroup | null> => {
+  const names = await readArtistNames();
+  const match = groupSongsByArtist(names).get(slug);
+  if (!match) return null;
+  // Every distinct raw spelling that collapses into this slug.
+  const spellings = [...new Set(match.songs.map((s) => s.artist).filter((a): a is string => Boolean(a)))];
+  const songs = await readSongsByArtistNames(spellings);
+  if (songs.length === 0) return null;
+  return { slug, name: match.name, songs };
+});
 
 /** Top artists by song count, for generateStaticParams and the /songs
  *  "Browse by artist" section. `minSongs` mirrors the page's own render rule

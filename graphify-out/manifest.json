@@ -135,8 +135,8 @@
     "semantic_hash": ""
   },
   "app/key-bpm-finder/page.tsx": {
-    "mtime": 1783919791.2497098,
-    "ast_hash": "e8a9520e77e0c0616ecfdce3655e3ac3",
+    "mtime": 1784058196.4761934,
+    "ast_hash": "2f9192110c098a3d260cfc272a4caeee",
     "semantic_hash": ""
   },
   "app/layout.tsx": {
@@ -655,8 +655,8 @@
     "semantic_hash": ""
   },
   "lib/server/link-analysis.ts": {
-    "mtime": 1784057743.1855283,
-    "ast_hash": "27aecdb626b7d11d64c450a8cbc566f4",
+    "mtime": 1784058168.2148592,
+    "ast_hash": "6740d6f3fc9055d0275f9e79b1d9dbbb",
     "semantic_hash": ""
   },
   "lib/server/rate-limit.ts": {
@@ -1140,8 +1140,8 @@
     "semantic_hash": ""
   },
   "lib/server/artists.ts": {
-    "mtime": 1784057829.3277287,
-    "ast_hash": "5618ac40969eaebf93ea37164ad86618",
+    "mtime": 1784058184.478287,
+    "ast_hash": "483e4d3c895ef90b28314780350b5858",
     "semantic_hash": ""
   },
   "app/artist/[slug]/page.tsx": {

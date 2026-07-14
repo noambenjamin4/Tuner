@@ -210,8 +210,8 @@
     "semantic_hash": ""
   },
   "app/songs/page.tsx": {
-    "mtime": 1784057808.0343966,
-    "ast_hash": "a2fbd38ba3d82a4fe40c00f8111a950b",
+    "mtime": 1784057820.2730393,
+    "ast_hash": "1351ac9d165b1a75e932fada9d3f021c",
     "semantic_hash": ""
   },
   "app/tools/page.tsx": {
@@ -655,8 +655,8 @@
     "semantic_hash": ""
   },
   "lib/server/link-analysis.ts": {
-    "mtime": 1784057743.1855283,
-    "ast_hash": "27aecdb626b7d11d64c450a8cbc566f4",
+    "mtime": 1784058168.2148592,
+    "ast_hash": "6740d6f3fc9055d0275f9e79b1d9dbbb",
     "semantic_hash": ""
   },
   "lib/server/rate-limit.ts": {
@@ -1140,8 +1140,8 @@
     "semantic_hash": ""
   },
   "lib/server/artists.ts": {
-    "mtime": 1784057729.5562282,
-    "ast_hash": "58745929a632365a4c3ece9edd24a12d",
+    "mtime": 1784058184.478287,
+    "ast_hash": "483e4d3c895ef90b28314780350b5858",
     "semantic_hash": ""
   },
   "app/artist/[slug]/page.tsx": {

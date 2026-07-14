@@ -62,9 +62,22 @@ const EFFECT_OPTIONS = [
   { effect: "none", labelKey: "remix.effectNone" },
   { effect: "underwater", labelKey: "remix.effectUnderwater" },
   { effect: "phone", labelKey: "remix.effectPhone" },
-  { effect: "radio", labelKey: "remix.effectRadio" },
-  { effect: "megaphone", labelKey: "remix.effectMegaphone" },
 ] as const;
+
+/**
+ * One recorded pass over the track. Takes accumulate — recording again never
+ * touches an earlier one — so the user can keep several and pick a favourite.
+ * `startOffset` is the SONG position the pass began at (see takeOutputStart in
+ * lib/audio/remix.ts for how that maps onto the render's timeline).
+ */
+interface RemixTake {
+  id: string;
+  label: string;
+  base: RemixParams;
+  events: AutomationEvent[];
+  startOffset: number;
+  outDuration: number;
+}
 
 // `Omit` over a union collapses it to the common keys, which would let a
 // "speed" move carry a ReverbType. Distributing keeps each member's kind/value
@@ -97,14 +110,13 @@ export function RemixStudio() {
   const [reverbEq, setReverbEq] = useState<ReverbEqParams>(NEUTRAL_REVERB_EQ);
   const [effect, setEffect] = useState<EffectId>("none");
 
-  // Remix recording. `recordedBase` is the param snapshot taken the moment
-  // Record was hit — the export replays `events` on top of it, so it must not
-  // drift with the live controls afterward. Non-null means a recording exists
-  // (in progress or finished).
+  // Remix recording. Finished passes land in `takes` and are never mutated by
+  // a later recording; `selectedTakeId` picks which one Export renders (null =
+  // plain static export of the live controls).
   const [recording, setRecording] = useState(false);
-  const [events, setEvents] = useState<AutomationEvent[]>([]);
-  const [recordedBase, setRecordedBase] = useState<RemixParams | null>(null);
-  const [recordedDuration, setRecordedDuration] = useState(0);
+  const [takes, setTakes] = useState<RemixTake[]>([]);
+  const [selectedTakeId, setSelectedTakeId] = useState<string | null>(null);
+  const [moveCount, setMoveCount] = useState(0);
   const [recordElapsed, setRecordElapsed] = useState(0);
 
   const [playing, setPlaying] = useState(false);
@@ -143,6 +155,18 @@ export function RemixStudio() {
   // doesn't jump, which would silently restart the recording clock at each
   // speed move and stamp every later event too early.
   const recordStartedAtRef = useRef(0);
+  // In-progress take. Events live in a ref rather than state so that stopping
+  // can read them synchronously without a state-updater side effect (`moveCount`
+  // mirrors the length purely for the readout).
+  const eventsRef = useRef<AutomationEvent[]>([]);
+  const takeBaseRef = useRef<RemixParams | null>(null);
+  const takeStartOffsetRef = useRef(0);
+  // Monotonic take counter: gives stable ids/labels without Date.now() or
+  // Math.random(), and keeps numbering sane when earlier takes are deleted.
+  const takeCounterRef = useRef(0);
+  // Indirection so the source's `onended` (created in startAt, which is defined
+  // above finishTake) always calls the current implementation.
+  const finishTakeRef = useRef<(outDuration: number) => void>(() => {});
 
   const params: RemixParams = useMemo(
     () => ({ speed, reverb, bassBoostDb, lockPitch, pitchSemitones, reverbType, reverbEq, effect }),
@@ -163,14 +187,14 @@ export function RemixStudio() {
     (move: AutomationMove) => {
       if (!recordingRef.current) return;
       const t = getOutputTime();
-      setEvents((prev) => [...prev, { ...move, t } as AutomationEvent]);
+      eventsRef.current = [...eventsRef.current, { ...move, t } as AutomationEvent];
+      setMoveCount(eventsRef.current.length);
     },
     [getOutputTime],
   );
 
-  // A recording exists and is finished — Export replays it instead of
-  // rendering the live control positions.
-  const hasRecording = !recording && recordedBase !== null;
+  // The take Export renders. null = static export of the live controls.
+  const selectedTake = takes.find((take) => take.id === selectedTakeId) ?? null;
 
   const bars = useMemo(() => (buffer ? computeWaveformBars(buffer) : []), [buffer]);
   const bufferDuration = buffer?.duration ?? 0;
@@ -231,10 +255,15 @@ export function RemixStudio() {
     startOffsetRef.current = 0;
     recordingRef.current = false;
     recordBaseRef.current = 0;
+    eventsRef.current = [];
+    takeBaseRef.current = null;
+    takeStartOffsetRef.current = 0;
+    takeCounterRef.current = 0;
     setRecording(false);
-    setEvents([]);
-    setRecordedBase(null);
-    setRecordedDuration(0);
+    setMoveCount(0);
+    setTakes([]);
+    setSelectedTakeId(null);
+    setRecordElapsed(0);
   }, [stopPreview]);
 
   // Cleanup on unmount.
@@ -432,11 +461,9 @@ export function RemixStudio() {
           setStartOffset(0);
           startOffsetRef.current = 0;
           // The track ran out: bank the final clock reading and close the
-          // recording, keeping whatever was captured.
+          // take, keeping whatever was captured.
           if (recordingRef.current) {
-            setRecordedDuration(recordBaseRef.current + (ctx.currentTime - recordStartedAtRef.current));
-            recordingRef.current = false;
-            setRecording(false);
+            finishTakeRef.current(recordBaseRef.current + (ctx.currentTime - recordStartedAtRef.current));
           }
         }
       };
@@ -452,16 +479,43 @@ export function RemixStudio() {
     [buffer, params, t],
   );
 
+  // Closes the in-progress take and files it. Never touches earlier takes —
+  // that's the whole point: a second Record must not cost you the first pass.
+  const finishTake = useCallback(
+    (outDuration: number) => {
+      recordingRef.current = false;
+      setRecording(false);
+      const base = takeBaseRef.current;
+      if (!base) return;
+      const n = takeCounterRef.current + 1;
+      takeCounterRef.current = n;
+      const take: RemixTake = {
+        id: `take-${n}`,
+        label: t("remix.takeLabel", { n }),
+        base,
+        events: eventsRef.current,
+        startOffset: takeStartOffsetRef.current,
+        outDuration,
+      };
+      setTakes((prev) => [...prev, take]);
+      setSelectedTakeId(take.id);
+      eventsRef.current = [];
+      takeBaseRef.current = null;
+      setMoveCount(0);
+    },
+    [t],
+  );
+  finishTakeRef.current = finishTake;
+
   const stopRecording = useCallback(() => {
     if (!recordingRef.current) return;
-    setRecordedDuration(getOutputTime());
-    recordingRef.current = false;
-    setRecording(false);
-  }, [getOutputTime]);
+    finishTake(getOutputTime());
+  }, [finishTake, getOutputTime]);
 
-  // Recording always plays from the top: automation timestamps are output
-  // time from zero, so a render can only reproduce them if the source starts
-  // at the same place the recording did.
+  // Recording starts wherever the playhead already is — you can drop an effect
+  // in at 1:30 without replaying the intro. Event timestamps stay relative to
+  // the take's own start (output seconds from zero); the take remembers the
+  // SONG position it began at so the render can place them correctly.
   const startRecording = useCallback(() => {
     if (!buffer) return;
     // lockPitch routes through SoundTouch offline rather than an AudioParam,
@@ -470,35 +524,50 @@ export function RemixStudio() {
     // and does automate (via source.playbackRate).
     const lockWasOn = lockPitch;
     const base: RemixParams = { ...params, lockPitch: false, speed, reverb, bassBoostDb, reverbType, reverbEq, effect };
+
+    // Where we are in the track right now. `getElapsed()` is a position in the
+    // buffer currently PLAYING — with lock-pitch on that's the time-stretched
+    // copy, whose timeline runs at 1/speed of the original. Recording drops
+    // lock-pitch and plays the original buffer, so convert the position back.
+    const playHead = playing ? getElapsed() : startOffset;
+    const songPos = Math.min(Math.max(0, lockWasOn ? playHead * speed : playHead), Math.max(0, buffer.duration - 0.001));
+
     if (lockWasOn) setLockPitch(false);
 
     stopPreview();
-    setEvents([]);
-    setRecordedBase(base);
-    setRecordedDuration(0);
+    eventsRef.current = [];
+    takeBaseRef.current = base;
+    takeStartOffsetRef.current = songPos;
+    setMoveCount(0);
     setRecordElapsed(0);
     recordBaseRef.current = 0;
-    setStartOffset(0);
-    startOffsetRef.current = 0;
+    setStartOffset(songPos);
+    startOffsetRef.current = songPos;
     recordingRef.current = true;
     setRecording(true);
-    startAt(0, { params: base });
+    startAt(songPos, { params: base });
 
     setStatus(
       lockWasOn
         ? { title: t("remix.lockPitchOffTitle"), message: t("remix.lockPitchOffMessage"), tone: "warning" }
         : { title: t("remix.recordingTitle"), message: t("remix.recordingMessage"), tone: "neutral" },
     );
-  }, [buffer, lockPitch, params, speed, reverb, bassBoostDb, reverbType, reverbEq, effect, stopPreview, startAt, t]);
+  }, [
+    buffer, lockPitch, params, speed, reverb, bassBoostDb, reverbType, reverbEq, effect,
+    playing, getElapsed, startOffset, stopPreview, startAt, t,
+  ]);
 
-  const discardRecording = useCallback(() => {
-    setEvents([]);
-    setRecordedBase(null);
-    setRecordedDuration(0);
-    setRecordElapsed(0);
-    recordingRef.current = false;
-    recordBaseRef.current = 0;
-    setRecording(false);
+  const deleteTake = useCallback((id: string) => {
+    setTakes((prev) => prev.filter((take) => take.id !== id));
+    // Dropping the active take falls back to the static export rather than
+    // silently promoting a different pass.
+    setSelectedTakeId((current) => (current === id ? null : current));
+  }, []);
+
+  // Clicking the active take deselects it, which is how you get back to a
+  // plain static export without deleting anything.
+  const toggleTake = useCallback((id: string) => {
+    setSelectedTakeId((current) => (current === id ? null : id));
   }, []);
 
   // Static text, ticked a few times a second — no animation, just a readout.
@@ -545,11 +614,16 @@ export function RemixStudio() {
     setWorking(true);
     setStatus({ title: t("remix.rendering"), message: t("remix.renderingMessage"), tone: "neutral" });
     try {
-      // A finished recording exports the moves; otherwise it's the plain
-      // static render of wherever the controls currently sit.
-      if (hasRecording && recordedBase) {
+      // A selected take exports its moves; otherwise it's the plain static
+      // render of wherever the controls currently sit.
+      if (!recording && selectedTake) {
         setStatus({ title: t("remix.rendering"), message: t("remix.renderingMovesMessage"), tone: "neutral" });
-        const { channels, sampleRate } = await renderRemixAutomated(buffer, recordedBase, events);
+        const { channels, sampleRate } = await renderRemixAutomated(
+          buffer,
+          selectedTake.base,
+          selectedTake.events,
+          selectedTake.startOffset,
+        );
         const baseName = file.name.replace(/\.[^.]+$/, "") || "tunebad-audio";
         let blob: Blob;
         if (format === "wav") {
@@ -673,20 +747,50 @@ export function RemixStudio() {
             </button>
             {recording && (
               <span className="remix-record-readout" role="status">
-                {t("remix.recordingReadout", { time: formatTime(recordElapsed), count: events.length })}
+                {t("remix.recordingReadout", { time: formatTime(recordElapsed), count: moveCount })}
               </span>
             )}
-            {hasRecording && (
-              <>
-                <span className="remix-record-readout" role="status">
-                  {t("remix.recordingReadyReadout", { time: formatTime(recordedDuration), count: events.length })}
-                </span>
-                <button className="text-button danger-pill" type="button" onClick={discardRecording} disabled={working}>
-                  {t("remix.discardRecording")}
-                </button>
-              </>
-            )}
           </div>
+
+          <p className="tool-note">{t("remix.recordExplainer")}</p>
+
+          {takes.length > 0 && (
+            <div className="remix-takes">
+              <span className="field-label" id="takesLegend">
+                {t("remix.takesLegend")}
+              </span>
+              <div className="remix-take-list" role="group" aria-labelledby="takesLegend">
+                {takes.map((take) => (
+                  <div key={take.id} className="remix-take-row">
+                    <button
+                      type="button"
+                      className={`quality-button${selectedTakeId === take.id ? " active" : ""}`}
+                      aria-pressed={selectedTakeId === take.id}
+                      onClick={() => toggleTake(take.id)}
+                      disabled={recording || working}
+                    >
+                      <strong>{take.label}</strong>
+                      <span>
+                        {t("remix.takeSummary", {
+                          time: formatTime(take.outDuration),
+                          count: take.events.length,
+                          start: formatTime(take.startOffset),
+                        })}
+                      </span>
+                    </button>
+                    <button
+                      className="text-button danger-pill"
+                      type="button"
+                      onClick={() => deleteTake(take.id)}
+                      disabled={recording || working}
+                    >
+                      {t("remix.deleteTake")}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div className="remix-presets">
             {PRESETS.map((preset) => (
@@ -765,7 +869,7 @@ export function RemixStudio() {
             <span className="field-label" id="effectLegend">
               {t("remix.effectLegend")}
             </span>
-            <div className="quality-options reverb-eq-types" role="group" aria-labelledby="effectLegend">
+            <div className="quality-options reverb-eq-types remix-effect-types" role="group" aria-labelledby="effectLegend">
               {EFFECT_OPTIONS.map(({ effect: id, labelKey }) => (
                 <button
                   key={id}
@@ -846,8 +950,8 @@ export function RemixStudio() {
             >
               {working
                 ? t("remix.rendering")
-                : hasRecording
-                  ? t("remix.exportRemixFormat", { format: format.toUpperCase() })
+                : selectedTake
+                  ? t("remix.exportTakeFormat", { take: selectedTake.label, format: format.toUpperCase() })
                   : t("remix.exportFormat", { format: format.toUpperCase() })}
             </button>
           </div>

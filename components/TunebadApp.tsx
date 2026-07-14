@@ -37,6 +37,24 @@ export const VIEW_TO_PATH: Record<ViewName, string> = {
   history: "/history",
 };
 
+// replaceState rewrites the URL but does NOT re-run Next's route metadata, so
+// without this the tab keeps whatever title the FIRST-loaded page set — the URL
+// would read /mp3-cutter while the tab still said "Slowed + Reverb Maker |
+// TuneBad". Each entry is the app/<path>/page.tsx `metadata.title` fed through
+// layout.tsx's "%s | TuneBad" template, so a tab switch and a real page load at
+// the same URL agree. Kept next to VIEW_TO_PATH so the two can't drift.
+const VIEW_TO_TITLE: Record<ViewName, string> = {
+  analysis: "Song Key & BPM Finder | TuneBad",
+  bpm: "BPM Tap Tempo & Metronome | TuneBad",
+  delay: "Delay & Reverb Time Calculator | TuneBad",
+  pitch: "Frequency to Note Calculator — Hz to Pitch & Cents | TuneBad",
+  converter: "YouTube & Spotify to MP3 Converter | TuneBad",
+  loudness: "Loudness Penalty & LUFS Meter | TuneBad",
+  remix: "Slowed + Reverb Maker | TuneBad",
+  cutter: "MP3 Cutter and Ringtone Maker | TuneBad",
+  history: "Analysis History | TuneBad",
+};
+
 function viewForPath(pathname: string): ViewName | null {
   const match = (Object.keys(VIEW_TO_PATH) as ViewName[]).find((v) => VIEW_TO_PATH[v] === pathname);
   return match ?? null;
@@ -104,6 +122,7 @@ export function TunebadApp({
   const showView = useCallback((next: ViewName) => {
     setView(next);
     window.history.replaceState(null, "", VIEW_TO_PATH[next]);
+    document.title = VIEW_TO_TITLE[next];
     // Jump, don't glide: a smooth scroll animates for ~400ms on every tab
     // switch, which reads as the whole switch being slow.
     window.scrollTo({ top: 0, behavior: "auto" });

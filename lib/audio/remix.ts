@@ -90,7 +90,7 @@ export const NEUTRAL_REVERB_EQ: ReverbEqParams = {
 // `level` is post-shaper makeup: the shared tanh curve has a small-signal gain
 // of ~3x, and each preset's bandpass throws away a different amount of energy,
 // so the levels below are tuned per preset to land near the clean path's RMS.
-export type EffectId = "none" | "underwater" | "phone" | "radio" | "megaphone";
+export type EffectId = "none" | "underwater" | "phone";
 
 export interface EffectPreset {
   highpassHz: number;
@@ -115,8 +115,6 @@ export const EFFECTS: Record<EffectId, EffectPreset> = {
   none: { highpassHz: 20, lowpassHz: 20000, drive: 1, level: 0 },
   underwater: { highpassHz: 20, lowpassHz: 500, drive: 1, level: 0.42 },
   phone: { highpassHz: 400, lowpassHz: 3000, drive: 1.5, level: 0.36 },
-  radio: { highpassHz: 300, lowpassHz: 4000, drive: 2.5, level: 0.34 },
-  megaphone: { highpassHz: 600, lowpassHz: 3500, drive: 4, level: 0.32 },
 };
 
 export interface RemixParams {
@@ -391,6 +389,31 @@ export type AutomationEvent =
 const XFADE_SECONDS = 0.03;
 const MIN_SPEED = 0.01;
 
+/** The speed the source actually runs at under `params` before any automation. */
+export function baseEffectiveSpeed(params: RemixParams): number {
+  return Math.max(MIN_SPEED, params.lockPitch ? 1 : params.speed);
+}
+
+/**
+ * Where a take's t=0 sits on the FULL render's output timeline.
+ *
+ * A take can start partway into the song (song position `startOffset`), but
+ * the render always plays the whole track from the beginning. Everything
+ * before the take runs at the base params — constant speed — so the source
+ * reaches song position S after `S / baseEffectiveSpeed` seconds of OUTPUT.
+ * That, not S itself, is where the take's events begin.
+ */
+export function takeOutputStart(baseParams: RemixParams, startOffset: number): number {
+  return Math.max(0, startOffset) / baseEffectiveSpeed(baseParams);
+}
+
+// Rebases take-relative event times onto the full render's output timeline.
+// The spread needs a cast: TS widens `{...event, t}` over a union rather than
+// distributing it, which would decouple each member's kind/value pair.
+function shiftEvents(events: AutomationEvent[], offset: number): AutomationEvent[] {
+  return events.map((event) => ({ ...event, t: offset + Math.max(0, event.t) }) as AutomationEvent);
+}
+
 /**
  * How long the automated render runs, in output seconds, before the reverb
  * tail. Speed is piecewise-constant over output time, so the source is
@@ -492,17 +515,26 @@ function scheduleReverbEq(nodes: ReverbEqNodes, eq: ReverbEqParams, t: number): 
  * frequencies/drive are automated.
  *
  * `baseParams` is the state at the moment recording started; `events` are the
- * changes on top of it. lockPitch is ignored here — it routes through
- * SoundTouch offline rather than an AudioParam, so it cannot be automated;
- * the UI turns it off before recording.
+ * changes on top of it, timestamped in output seconds from the TAKE's start.
+ * lockPitch is ignored here — it routes through SoundTouch offline rather than
+ * an AudioParam, so it cannot be automated; the UI turns it off before
+ * recording.
+ *
+ * `startOffset` is the SONG position the take began at. The whole track still
+ * renders: audio before the take plays statically under `baseParams`, the
+ * events land from `takeOutputStart()` onward, and whatever the take last set
+ * simply persists to the end (no reset — that's what the user left it at).
  */
 export async function renderRemixAutomated(
   buffer: AudioBuffer,
   baseParams: RemixParams,
   events: AutomationEvent[],
+  startOffset = 0,
 ): Promise<{ channels: Float32Array[]; sampleRate: number }> {
   const numberOfChannels = Math.min(2, buffer.numberOfChannels);
-  const ordered = [...events].sort((a, b) => a.t - b.t);
+  // Rebase onto the full render's timeline ONCE, up front: duration and
+  // scheduling below then both work in output time with no further offsetting.
+  const ordered = shiftEvents(events, takeOutputStart(baseParams, startOffset)).sort((a, b) => a.t - b.t);
 
   // The tail has to cover the longest reverb the recording ever touches, not
   // just the one it ends on.
@@ -510,13 +542,14 @@ export async function renderRemixAutomated(
   for (const event of ordered) if (event.kind === "reverbType") usedTypes.push(event.value);
   const tail = Math.max(...usedTypes.map((type) => (REVERB_TYPES[type] ?? REVERB_TYPES.hall).seconds));
 
-  const outputDuration = automatedOutputDuration(buffer.duration, baseParams.speed, ordered);
+  const baseSpeed = baseEffectiveSpeed(baseParams);
+  const outputDuration = automatedOutputDuration(buffer.duration, baseSpeed, ordered);
   const length = Math.ceil((outputDuration + tail) * buffer.sampleRate);
   const ctx = new OfflineAudioContext(numberOfChannels, length, buffer.sampleRate);
 
   const source = ctx.createBufferSource();
   source.buffer = buffer;
-  source.playbackRate.value = baseParams.speed;
+  source.playbackRate.value = baseSpeed;
 
   const dryGain = ctx.createGain();
   const wetGain = ctx.createGain();

@@ -7,7 +7,7 @@ import { computeWaveformBars } from "@/lib/audio/waveform";
 import { encodeMp3FromChannels, encodeWavFromChannels } from "@/lib/audio/mp3-encoder";
 import { downloadBlob } from "@/lib/files/download";
 import { FADE_SECONDS, fadeEnvelopeGain } from "@/lib/audio/fade";
-import { TrimWaveform } from "./TrimWaveform";
+import { TrimWaveform, type ZoomLevel } from "./TrimWaveform";
 import type { OutputFormat } from "@/components/converter/QualityPicker";
 import { useTunebad } from "../TunebadApp";
 import { useI18n } from "@/lib/i18n";
@@ -19,6 +19,8 @@ import { useUnloadGuard } from "@/hooks/useUnloadGuard";
 const NOW_PLAYING_SOURCE = "cutter-preview";
 const MIN_SELECTION_SECONDS = 0.1;
 const STEP_SECONDS = 0.1;
+/** Bars across the wave at 1x. Scaled BY the zoom so density stays constant. */
+const BARS_AT_1X = 240;
 
 type Status = { title: string; message: string; tone: "neutral" | "success" | "warning" };
 
@@ -71,7 +73,15 @@ export function CutterPanel() {
   const previewUrlRef = useRef<string | null>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  const bars = useMemo(() => (buffer ? computeWaveformBars(buffer, 240) : []), [buffer]);
+  // Zoom lives here, not in TrimWaveform, because it has to drive the BAR
+  // COUNT: stretching 240 bars over an 8x-wide track would just draw the same
+  // coarse peaks fatter — zero extra detail, which is the entire point. Recomputing
+  // at 240 * zoom keeps bars-per-pixel constant and actually resolves finer peaks.
+  const [zoom, setZoom] = useState<ZoomLevel>(1);
+  const bars = useMemo(
+    () => (buffer ? computeWaveformBars(buffer, BARS_AT_1X * zoom) : []),
+    [buffer, zoom],
+  );
   const duration = buffer?.duration ?? 0;
 
   useEffect(() => {
@@ -180,6 +190,7 @@ export function CutterPanel() {
     setEnd(0);
     setFadeIn(false);
     setFadeOut(false);
+    setZoom(1);
     setStatus(null);
   }, []);
 
@@ -196,6 +207,9 @@ export function CutterPanel() {
       setPlaying(false);
       setFadeIn(false);
       setFadeOut(false);
+      // A new track resets the selection to the whole song, so a zoomed view
+      // from the previous file would open scrolled into the middle of nowhere.
+      setZoom(1);
       setStatus({ title: t("cutter.selection"), message: t("common.dropAudioFile"), tone: "neutral" });
 
       try {
@@ -366,6 +380,8 @@ export function CutterPanel() {
               fadeOut={fadeOut}
               onToggleFadeIn={() => setFadeIn((v) => !v)}
               onToggleFadeOut={() => setFadeOut((v) => !v)}
+              zoom={zoom}
+              onChangeZoom={setZoom}
               headSignal={headSignal}
             />
             <audio

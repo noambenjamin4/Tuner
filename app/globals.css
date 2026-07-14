@@ -2296,6 +2296,29 @@ tbody tr:last-child td {
   color: var(--muted);
 }
 
+/* Recorded takes: one row each, select pill + delete. Motionless like the
+   rest of the studio — the active pill's fill is the only state cue. */
+.remix-takes {
+  display: grid;
+  gap: 10px;
+}
+
+.remix-take-list {
+  display: grid;
+  gap: 8px;
+}
+
+.remix-take-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+}
+
+.remix-take-row .quality-button {
+  min-width: 0;
+}
+
 .remix-slider-row {
   display: grid;
   gap: 8px;
@@ -2592,6 +2615,12 @@ tbody tr:last-child td {
   align-items: stretch;
   gap: 8px;
   padding: 14px 20px 12px;
+  /* Grid items default to min-width: auto, i.e. "never shrink below your
+     min-content". The zoomed trim wave is up to 8x the viewport, which dragged
+     that minimum — and this card — right out past the panel. Pinning it to 0
+     lets the card stay its track's width and hands the overflow to
+     .trim-scroll, which is the thing that's supposed to scroll. */
+  min-width: 0;
 }
 
 .cutter-wave-name {
@@ -4066,6 +4095,49 @@ tbody tr:last-child td {
   touch-action: none;
 }
 
+/* Zoom picker above the wave. */
+.trim-zoom {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* At 1x the inner is exactly 100% and this never scrolls; past that the inner
+   grows to `100 * zoom` percent OF THIS BOX and the overflow is the zoom.
+   Width is left auto on purpose: the grips are 26px wide and centred ON the
+   track's 0% and 100% marks, so each hangs 13px past its edge — and inside a
+   scroll container that overhang is real scrollable overflow, which made even
+   the un-zoomed 1x wave scroll by 13px. The grips also stand 4px proud of the
+   track top and bottom, which overflow-y: hidden was shearing off.
+   The padding gives them room INSIDE the scroller (overflow clips at the
+   PADDING box, so they still paint in full) and the equal negative margin
+   cancels it again: the content box — and so the wave — lands exactly where it
+   sat before this scroller existed, still overhanging the card's padding. */
+.trim-scroll {
+  min-width: 0;
+  margin: -4px -13px;
+  padding: 4px 13px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  /* No scroll-behavior: smooth — zoom re-centering must JUMP. */
+}
+
+.trim-scroll-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* The only strip of the zoomed view that a finger can pan (see TrimWaveform). */
+.trim-pan {
+  height: 10px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--hover);
+  touch-action: pan-x;
+}
+
 @media (max-width: 640px) {
   .trim-wave-track {
     height: 100px;
@@ -4256,6 +4328,15 @@ tbody tr:last-child td {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+/* The character row reuses .reverb-eq-types for its pill typography but only
+   has 3 options, so it must not inherit that row's 5-column grid. Equal
+   specificity to the rule above, appended later, so it wins. Below 480px the
+   generic .quality-options mobile rule (higher specificity) still collapses it
+   to 2 columns, matching the reverb-type row. */
+.quality-options.remix-effect-types {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .reverb-eq-heading {

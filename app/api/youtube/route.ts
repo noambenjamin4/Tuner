@@ -59,10 +59,19 @@ export async function POST(request: NextRequest) {
   const remoteConfigured = Boolean(remoteDownloaderUrl && remoteDownloaderKey);
 
   if (homeConfigured || remoteConfigured) {
-    const backend = await pickBackend();
-    if (!backend) {
+    const pick = await pickBackend();
+    if (pick.status === "none") {
       return NextResponse.json({ error: "Could not start the download." }, { status: 502 });
     }
+    // The remote is cold-starting: starting the job now would almost certainly
+    // outrun maxDuration and surface as a generic failure. The health check
+    // pickBackend just ran has kicked off the spin-up, so say so and let the
+    // user retry into a warm server. `waking` lets the client localize this;
+    // `error` keeps the plain-sentence shape every other consumer expects.
+    if (pick.status === "waking") {
+      return NextResponse.json({ error: en["ytDownloader.serverWaking"], waking: true }, { status: 503 });
+    }
+    const backend = pick.backend;
 
     try {
       const upstream = await fetch(`${backend.base}/job`, {

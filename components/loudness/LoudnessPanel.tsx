@@ -5,6 +5,7 @@ import { useFileDrop } from "@/hooks/useFileDrop";
 import { getAudioContextClass } from "@/lib/audio/decode";
 import { decodeAudioFileCached } from "@/lib/audio/decode-cache";
 import { PLATFORM_TARGETS } from "@/lib/audio/lufs";
+import { STAGE_LABELS, type AudioStage } from "@/lib/audio/stages";
 import { encodeMp3FromChannels, encodeWavFromChannels } from "@/lib/audio/mp3-encoder";
 import { downloadBlob } from "@/lib/files/download";
 import { useTunebad } from "../TunebadApp";
@@ -75,6 +76,10 @@ export function LoudnessPanel() {
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [measuring, setMeasuring] = useState(false);
+  // Which phase of the measurement is actually running right now, so the wait
+  // doesn't sit on one frozen string. Each of decode / resample / meter is a
+  // genuinely async step, so the label paints without any extra yielding.
+  const [stage, setStage] = useState<AudioStage | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [lufs, setLufs] = useState<number | null>(null);
   const [peakDb, setPeakDb] = useState<number | null>(null);
@@ -150,6 +155,7 @@ export function LoudnessPanel() {
     setPeakDb(null);
     setSelectedPlatform(null);
     setMeasuring(false);
+    setStage(null);
     setExportTarget("spotify");
     setCustomTarget("-14");
     setExporting(false);
@@ -175,6 +181,7 @@ export function LoudnessPanel() {
       reset();
       setFile(audioFile);
       setMeasuring(true);
+      setStage("decoding");
       if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
       previewUrlRef.current = URL.createObjectURL(audioFile);
       setPreviewUrl(previewUrlRef.current);
@@ -186,10 +193,12 @@ export function LoudnessPanel() {
         for (let c = 0; c < channelCount; c += 1) channels.push(buffer.getChannelData(c).slice());
         if (channelCount === 1) channels.push(channels[0]);
 
+        setStage("resampling");
         const resampled = await resampleTo48k(channels, buffer.sampleRate);
         const left = resampled[0];
         const right = resampled[1] ?? resampled[0];
 
+        setStage("measuringInput");
         const result = await measure(left, right, 48000);
         if (result.error) throw new Error(result.error);
         setLufs(result.lufs ?? null);
@@ -199,6 +208,7 @@ export function LoudnessPanel() {
         setError(t("loudness.errorTitle"));
       } finally {
         setMeasuring(false);
+        setStage(null);
       }
     },
     [measure, reset, t],
@@ -345,7 +355,13 @@ export function LoudnessPanel() {
       {measuring && (
         <div className="status-box" role="status">
           <strong>{t("loudness.measuringTitle")}</strong>
-          <span>{t("loudness.measuringMessage")}</span>
+          {/* The headline names the job, this line names the phase it is in, so
+              the wait reports where it actually is instead of one fixed string.
+              The metering phase keeps the original blurb: the stage label for it
+              is "Measuring loudness…", which would just echo the headline. */}
+          <span>
+            {stage && stage !== "measuringInput" ? t(STAGE_LABELS[stage]) : t("loudness.measuringMessage")}
+          </span>
         </div>
       )}
 

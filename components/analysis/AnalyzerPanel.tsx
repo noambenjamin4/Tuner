@@ -79,6 +79,7 @@ export function AnalyzerPanel() {
   const {
     results,
     analyzingNames,
+    analyzingStages,
     failedNames,
     oversizedNames,
     current,
@@ -189,6 +190,7 @@ export function AnalyzerPanel() {
       <ResultsTable
         results={results}
         analyzingNames={analyzingNames}
+        analyzingStages={analyzingStages}
         failedNames={failedNames}
         oversizedNames={oversizedNames}
       />

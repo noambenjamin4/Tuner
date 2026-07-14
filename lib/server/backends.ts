@@ -8,6 +8,16 @@ import { UUID_PATTERN } from "@/lib/server/validate";
 export type BackendTag = "home" | "remote";
 export type Backend = { base: string; key: string; tag: BackendTag };
 
+// What pickBackend found:
+//  - "ready":  a backend that answered a health check and can take a job now.
+//  - "waking": the only candidate left is the remote, and it didn't answer
+//              inside its health window — it's almost certainly cold-starting.
+//              Callers should tell the user to retry shortly instead of
+//              burning the 60s function budget on a request that will very
+//              likely time out anyway.
+//  - "none":   nothing usable is configured.
+export type BackendPick = { status: "ready"; backend: Backend } | { status: "waking" } | { status: "none" };
+
 // The Mac bridge's public tunnel URL changes whenever cloudflared restarts
 // (e.g. on reboot). The bridge writes its current URL into the Edge Config
 // `bridgeUrl` key on every startup, so the proxy always routes to wherever
@@ -56,20 +66,43 @@ function remoteBackend(): Backend | null {
   return { base: remoteDownloaderUrl, key: remoteDownloaderKey, tag: "remote" };
 }
 
-// Picks the backend a new job should start on: home if it's reachable right
-// now, else remote. A 2s health-check timeout keeps this from stalling the
-// POST /api/youtube request when the Mac is off or the tunnel is down.
-export async function pickBackend(): Promise<Backend | null> {
-  const home = await homeBackend();
-  if (home) {
-    try {
-      const res = await fetch(`${home.base}/health`, { signal: AbortSignal.timeout(2000) });
-      if (res.ok) return home;
-    } catch {
-      // Unreachable or timed out — fall through to remote.
-    }
+// Health-check budgets. Home gets 2s: it's either on the LAN-ish tunnel and
+// answers immediately, or the Mac is off and we shouldn't wait. Remote gets a
+// little more headroom for ordinary internet latency — a warm instance answers
+// this in well under a second either way.
+const HOME_HEALTH_TIMEOUT_MS = 2000;
+const REMOTE_HEALTH_TIMEOUT_MS = 3000;
+
+// GET /health is unauthenticated on both backends (server/server.js) and
+// returns 200 {ok:true}, so this leaks nothing and needs no key.
+async function isHealthy(backend: Backend, timeoutMs: number): Promise<boolean> {
+  try {
+    const res = await fetch(`${backend.base}/health`, { signal: AbortSignal.timeout(timeoutMs) });
+    return res.ok;
+  } catch {
+    // Unreachable, or timed out.
+    return false;
   }
-  return remoteBackend();
+}
+
+// Picks the backend a new job should start on: home if it's reachable right
+// now, else remote. Health-check timeouts keep this from stalling the
+// POST /api/youtube request when the Mac is off or the tunnel is down.
+//
+// The remote is checked too, rather than assumed usable: Render's free
+// instances spin down when idle and the first request after that hangs ~50s
+// while the container boots — longer than the route's 60s budget once the
+// actual download is added on top, so the user just sees a generic failure.
+// A short health check separates warm from cold, and the check itself is what
+// triggers the spin-up, so a retry a minute later lands on a warm server.
+export async function pickBackend(): Promise<BackendPick> {
+  const home = await homeBackend();
+  if (home && (await isHealthy(home, HOME_HEALTH_TIMEOUT_MS))) return { status: "ready", backend: home };
+
+  const remote = remoteBackend();
+  if (!remote) return { status: "none" };
+  if (await isHealthy(remote, REMOTE_HEALTH_TIMEOUT_MS)) return { status: "ready", backend: remote };
+  return { status: "waking" };
 }
 
 // Parses a prefixed job id (e.g. "home_<uuid>" / "remote_<uuid>") back into

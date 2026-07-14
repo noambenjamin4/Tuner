@@ -11,6 +11,7 @@
 // This is an automated master, not a substitute for a mastering engineer.
 
 import { integratedLoudness } from "./lufs";
+import { nextPaint, type StageReporter } from "./stages";
 
 const RENDER_RATE = 48000;
 
@@ -36,6 +37,14 @@ export interface MasterParams {
   presetCurve?: MasterBandCurve | null;
   /** Stereo widening amount 0-100 (mid/side side-gain boost); 0 = untouched. */
   widen?: number;
+  /**
+   * Optional progress reporter, called as each phase BEGINS ("rendering" ->
+   * "normalizing" -> "measuringOutput"). Attaching one also makes renderMaster
+   * yield a frame after each report so the caller's label can paint before the
+   * synchronous meter/limiter phases block the main thread. Omit it and the
+   * render runs exactly as before, with no added latency.
+   */
+  onStage?: StageReporter;
 }
 
 export interface MasterMetrics {
@@ -91,6 +100,14 @@ export function measureLufs(channels: Float32Array[], sampleRate: number): numbe
 }
 
 export async function renderMaster(buffer: AudioBuffer, params: MasterParams): Promise<RenderedAudio> {
+  // Reports a phase and gives the browser a frame to paint it. A no-op (and
+  // zero added latency) when the caller passed no reporter.
+  const stage = async (name: Parameters<StageReporter>[0]) => {
+    if (!params.onStage) return;
+    params.onStage(name);
+    await nextPaint();
+  };
+
   const curve = effectiveCurve(params);
   const numberOfChannels = Math.min(2, buffer.numberOfChannels);
   const length = Math.ceil(buffer.duration * RENDER_RATE);
@@ -152,6 +169,7 @@ export async function renderMaster(buffer: AudioBuffer, params: MasterParams): P
   comp.connect(offline.destination);
   source.start();
 
+  await stage("rendering");
   const rendered = await offline.startRendering();
   const channels: Float32Array[] = [];
   for (let channel = 0; channel < rendered.numberOfChannels; channel += 1) {
@@ -165,6 +183,7 @@ export async function renderMaster(buffer: AudioBuffer, params: MasterParams): P
   // Loudness normalization: measure, then pre-gain toward the target (clamped
   // to a sane range so a near-silent or already-hot track can't be shoved to
   // an extreme).
+  await stage("normalizing");
   const measured = measureLufs(channels, RENDER_RATE);
   let gainDb = params.targetLufs - measured;
   gainDb = Math.max(PRE_GAIN_MIN_DB, Math.min(PRE_GAIN_MAX_DB, gainDb));
@@ -181,6 +200,7 @@ export async function renderMaster(buffer: AudioBuffer, params: MasterParams): P
   limitPeaks(channels, RENDER_RATE, CEILING_DB);
   const truePeakDb = truePeakLimit(channels, CEILING_DB);
 
+  await stage("measuringOutput");
   return {
     channels,
     sampleRate: RENDER_RATE,

@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type { AnalysisResult, HistoryEntry } from "@/types/analysis";
 import { clampBpm } from "@/lib/format";
 import { useHistory } from "@/hooks/useHistory";
@@ -63,7 +63,7 @@ interface TunebadContextValue {
   // swallow a handoff meant for the cutter.
   pendingTarget: ViewName | null;
   requestAnalysis(files: File[], options?: { switchView?: boolean }): void;
-  sendFilesToTool(files: File[], target: ViewName): void;
+  sendFilesToTool(files: File[], target: ViewName, options?: { switchView?: boolean }): void;
   clearPendingFiles(): void;
 }
 
@@ -135,11 +135,14 @@ export function TunebadApp({
   );
 
   // Hand an already-loaded file straight to another tool and go there.
+  // `switchView: false` is for handing a file to the tool the user is ALREADY
+  // on (a stray drop replacing the current file) — switching would re-run
+  // showView's scroll-to-top and yank the page away from what they were doing.
   const sendFilesToTool = useCallback(
-    (files: File[], target: ViewName) => {
+    (files: File[], target: ViewName, options?: { switchView?: boolean }) => {
       setPendingFiles(files);
       setPendingTarget(target);
-      showView(target);
+      if (options?.switchView !== false) showView(target);
     },
     [showView],
   );
@@ -276,46 +279,79 @@ export function TunebadApp({
   );
 }
 
-// Views that already have their own file intake keep native drop behavior;
-// on the rest (metronome, delay, pitch, history), dropping an audio file
-// anywhere routes it straight to the analyzer.
+// Views that already have their own file intake (a drop zone, at least until a
+// file is loaded); on the rest (metronome, delay, pitch, history) there is no
+// intake at all, so dropping an audio file anywhere routes it to the analyzer
+// and the "drop anywhere" overlay invites exactly that.
 const VIEWS_WITH_OWN_INTAKE = new Set<ViewName>(["analysis", "converter", "loudness", "remix", "cutter"]);
 
+// The SPA's single window-level drag/drop owner. Two jobs:
+//
+//  1. Navigation guard (ALWAYS on, every view). Each tool removes its drop zone
+//     once a track is loaded, so from then on a stray drop would hit the browser
+//     default, navigate to the file and destroy the session. Preventing the
+//     default on dragover + drop is what stops that.
+//  2. Routing. On a view with no intake of its own the file goes to the
+//     analyzer (and the overlay advertises it). On a view that owns its intake
+//     the file is handed to THAT tool via the existing pendingFiles handoff, so
+//     it lands as "replace the current file" rather than doing nothing.
+//
+// This is the only window-level drop listener inside the SPA, so a drop that
+// arrives here already `defaultPrevented` can only have been claimed by a tool's
+// own visible drop zone (useFileDrop, target phase) — which is the signal used
+// below to not load the same file twice.
 function GlobalDropCatcher({ view }: { view: ViewName }) {
-  const { requestAnalysis } = useTunebad();
+  const { requestAnalysis, sendFilesToTool } = useTunebad();
   const { t } = useI18n();
   const [dragging, setDragging] = useState(false);
-  const active = !VIEWS_WITH_OWN_INTAKE.has(view);
+  const ownIntake = VIEWS_WITH_OWN_INTAKE.has(view);
+  // Read through a ref so switching tabs never tears down the guard listeners.
+  const viewRef = useRef(view);
+  viewRef.current = view;
+
+  // The overlay only ever belongs to the analyzer hand-off; drop it the moment
+  // the user moves to a view that owns its intake, even mid-drag.
+  useEffect(() => {
+    if (ownIntake) setDragging(false);
+  }, [ownIntake]);
 
   useEffect(() => {
-    if (!active) {
-      setDragging(false);
-      return;
-    }
     let depth = 0;
     const hasFiles = (e: DragEvent) => Array.from(e.dataTransfer?.types ?? []).includes("Files");
+    const routesToAnalyzer = () => !VIEWS_WITH_OWN_INTAKE.has(viewRef.current);
     const onEnter = (e: DragEvent) => {
-      if (!hasFiles(e)) return;
+      if (!hasFiles(e) || !routesToAnalyzer()) return;
       depth += 1;
       setDragging(true);
     };
     const onLeave = (e: DragEvent) => {
-      if (!hasFiles(e)) return;
+      if (!hasFiles(e) || !routesToAnalyzer()) return;
       depth = Math.max(0, depth - 1);
       if (depth === 0) setDragging(false);
     };
     const onOver = (e: DragEvent) => {
+      // Required on every view: without it the drop event never fires.
       if (hasFiles(e)) e.preventDefault();
     };
     const onDrop = (e: DragEvent) => {
       depth = 0;
       setDragging(false);
       if (!hasFiles(e)) return;
+      // Read before preventing — see the note above on defaultPrevented.
+      const claimedByDropZone = e.defaultPrevented;
       e.preventDefault();
+      if (claimedByDropZone) return;
       const files = Array.from(e.dataTransfer?.files ?? []).filter(
         (f) => f.type.startsWith("audio/") || /\.(mp3|wav|m4a|ogg|flac)$/i.test(f.name),
       );
-      if (files.length) requestAnalysis(files);
+      if (!files.length) return;
+      const current = viewRef.current;
+      if (VIEWS_WITH_OWN_INTAKE.has(current)) {
+        // Already on that tool, so don't switch: showView would scroll to top.
+        sendFilesToTool(files, current, { switchView: false });
+      } else {
+        requestAnalysis(files);
+      }
     };
     window.addEventListener("dragenter", onEnter);
     window.addEventListener("dragleave", onLeave);
@@ -327,9 +363,9 @@ function GlobalDropCatcher({ view }: { view: ViewName }) {
       window.removeEventListener("dragover", onOver);
       window.removeEventListener("drop", onDrop);
     };
-  }, [active, requestAnalysis]);
+  }, [requestAnalysis, sendFilesToTool]);
 
-  if (!active || !dragging) return null;
+  if (ownIntake || !dragging) return null;
   return (
     <div className="global-drop-overlay" aria-hidden="true">
       <span>{t("app.dropAnywhere")}</span>

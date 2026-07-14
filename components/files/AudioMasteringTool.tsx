@@ -12,10 +12,12 @@ import { SeekableWaveform } from "@/components/ui/SeekableWaveform";
 import { setNowPlaying } from "@/lib/audio/now-playing";
 import { formatBytes } from "@/lib/files/image";
 import { analyzeBandCurve, measureIntegratedLufs, renderMaster, type MasterBandCurve, type MasterMetrics, type MasterStyle } from "@/lib/audio/master";
+import { STAGE_LABELS, type AudioStage } from "@/lib/audio/stages";
 import { CheckRow } from "@/components/ui/CheckRow";
 import { FileDrop } from "./FileDrop";
 import { AudioFormatPicker, type AudioOutputFormat } from "./AudioFormatPicker";
 import { useUnloadGuard } from "@/hooks/useUnloadGuard";
+import { useWindowFileDrop } from "@/hooks/useWindowFileDrop";
 
 const MAX_BYTES = 200 * 1024 * 1024;
 const ACCEPT = "audio/*,.mp3,.wav,.flac,.ogg,.oga,.m4a,.aac,.opus,.wma,.aiff,.aif,.weba";
@@ -129,6 +131,11 @@ export function AudioMasteringTool() {
   const [processing, setProcessing] = useState(false);
   useUnloadGuard(processing);
   const [working, setWorking] = useState(false);
+  // The phase the job is actually in right now (decode -> measure the input ->
+  // render -> normalize -> measure the master). Reported as each phase is
+  // REACHED, so the wait never sits on one frozen string; there is no percentage
+  // because none of these phases exposes a real ratio to report.
+  const [stage, setStage] = useState<AudioStage | null>(null);
   const [status, setStatus] = useState<Status | null>(null);
   const [format, setFormat] = useState<AudioOutputFormat>("mp3");
   const [mp3Kbps, setMp3Kbps] = useState(320);
@@ -145,6 +152,8 @@ export function AudioMasteringTool() {
   const hasReference = referenceCurve !== null;
   const hasGenre = genre !== "custom";
   const hasMaster = masteredChannels !== null;
+  // Static text — it changes only when the job actually moves to the next phase.
+  const stageLabel = stage ? t(STAGE_LABELS[stage]) : null;
 
   // Selecting a genre applies its loudness target + width and switches the tone
   // to its curve; "custom" hands tone/target/width back to the manual controls.
@@ -315,6 +324,7 @@ export function AudioMasteringTool() {
     setReferenceCurve(null);
     setReferenceName(null);
     setReferenceError(false);
+    setStage(null);
     setStatus(null);
     setInputLufs(null);
     setMetrics(null);
@@ -346,12 +356,17 @@ export function AudioMasteringTool() {
       setInputLufs(null);
       setFile(audioFile);
       setOriginal(null);
+      setStage("decoding");
       setStatus({ title: t("files.processing"), message: audioFile.name, tone: "neutral" });
       try {
         const { buffer } = await decodeAudioFileCached(audioFile);
         if (fileTokenRef.current !== token) return; // a newer file superseded this one
         if (!buffer.length || !buffer.numberOfChannels) throw new Error("Empty audio buffer.");
         setOriginal(buffer);
+        // Decode is done; the input measurement below is the next real phase.
+        // The render effect takes the label over from here (it is debounced, so
+        // it always starts after this) and clears it when the master is done.
+        setStage("measuringInput");
         // Measure the untouched loudness once for the readout + level-matched A/B.
         // Guarded so a slower earlier file can't overwrite a newer file's value.
         measureIntegratedLufs(buffer)
@@ -364,12 +379,18 @@ export function AudioMasteringTool() {
         // The master itself is computed by the effect below (also re-runs when
         // the target/style/reference/width change).
       } catch {
+        setStage(null);
         setStatus({ title: t("files.failed"), message: audioFile.name, tone: "warning" });
         setFile(null);
       }
     },
     [resetPlayback, t],
   );
+
+  // Once a track is loaded the drop zone above is gone, so without this a stray
+  // drop would navigate away and take the master with it. Only armed when the
+  // zone is absent, which is what keeps a drop from being handled twice.
+  useWindowFileDrop({ active: !!original, onFiles: (files) => void handleFiles(files) });
 
   // Compute (and re-compute) the master whenever the source or any control
   // changes. Debounced so rapid toggles don't render several masters.
@@ -388,6 +409,11 @@ export function AudioMasteringTool() {
             widen,
             referenceCurve: curve,
             presetCurve: genre !== "custom" ? GENRE_PRESETS[genre].curve : null,
+            // Ignore a superseded render's phases, or a slow one would keep
+            // relabelling the wait for the render that replaced it.
+            onStage: (next) => {
+              if (processTokenRef.current === token) setStage(next);
+            },
           });
           if (processTokenRef.current !== token) return;
           masteredRateRef.current = sampleRate;
@@ -417,7 +443,10 @@ export function AudioMasteringTool() {
         } catch {
           if (processTokenRef.current === token) setStatus({ title: tRef.current("files.failed"), message: "", tone: "warning" });
         } finally {
-          if (processTokenRef.current === token) setProcessing(false);
+          if (processTokenRef.current === token) {
+            setProcessing(false);
+            setStage(null);
+          }
         }
       })();
     }, DEBOUNCE_MS);
@@ -636,7 +665,7 @@ export function AudioMasteringTool() {
             </CheckRow>
 
             <p className="tool-note">
-              {processing ? t("audiomasteringtool.applying") : t("audiomasteringtool.compareHint")}
+              {stageLabel ?? (processing ? t("audiomasteringtool.applying") : t("audiomasteringtool.compareHint"))}
             </p>
 
             {metrics && (
@@ -715,8 +744,11 @@ export function AudioMasteringTool() {
         )}
       </article>
 
-      <div className="status-box" data-tone={(status ?? { tone: "neutral" }).tone} role="status">
-        <strong>{status ? status.title : t("files.idle")}</strong>
+      {/* While a phase is running its label is the headline (the decode happens
+          before the preview exists, so this box is the only place it can show);
+          the box falls back to the job's outcome once the work is done. */}
+      <div className="status-box" data-tone={stageLabel ? "neutral" : (status ?? { tone: "neutral" }).tone} role="status">
+        <strong>{stageLabel ?? (status ? status.title : t("files.idle"))}</strong>
         <span>{status ? status.message : t("files.localNote")}</span>
       </div>
     </article>

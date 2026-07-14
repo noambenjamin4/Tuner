@@ -12,6 +12,10 @@ export type YouTubeJobState =
   | { phase: "working"; jobId: string; status: YtJobPublic["status"]; progress: number; title: string | null }
   | { phase: "done"; jobId: string; title: string | null }
   | { phase: "setup"; code: "YTDLP_MISSING" | "FFMPEG_MISSING" }
+  // The download server was asleep and is spinning up — not a failure, just
+  // "come back in a minute", so it gets its own phase instead of reading as
+  // "Download failed".
+  | { phase: "waking" }
   | { phase: "error"; message: string };
 
 export function useYouTubeJob() {
@@ -87,6 +91,10 @@ export function useYouTubeJob() {
     const payload = await response.json().catch(() => ({}));
     if (response.status === 503 && (payload.code === "YTDLP_MISSING" || payload.code === "FFMPEG_MISSING")) {
       setState({ phase: "setup", code: payload.code });
+      return;
+    }
+    if (response.status === 503 && payload.waking === true) {
+      setState({ phase: "waking" });
       return;
     }
     if (!response.ok || !payload.jobId) {

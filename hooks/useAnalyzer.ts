@@ -13,9 +13,15 @@ import { computeWaveformBars } from "@/lib/audio/waveform";
 const ANALYSIS_SAMPLE_RATE = 16000;
 export const MAX_FILE_BYTES = 200 * 1024 * 1024;
 
+// The phases a single file actually passes through. Reported per file (a batch
+// analyzes them one at a time) so a multi-second wait shows where it is instead
+// of one frozen "Analyzing …" for the whole job.
+export type AnalyzeStage = "decoding" | "resampling" | "analyzing";
+
 export interface AnalyzerState {
   results: AnalysisResult[];
   analyzingNames: string[];
+  analyzingStages: Record<string, AnalyzeStage>;
   failedNames: string[];
   oversizedNames: string[];
   current: AnalysisResult | null;
@@ -27,6 +33,7 @@ export interface AnalyzerState {
 export function useAnalyzer(onResult?: (result: AnalysisResult) => void) {
   const [results, setResults] = useState<AnalysisResult[]>([]);
   const [analyzingNames, setAnalyzingNames] = useState<string[]>([]);
+  const [analyzingStages, setAnalyzingStages] = useState<Record<string, AnalyzeStage>>({});
   const [failedNames, setFailedNames] = useState<string[]>([]);
   const [oversizedNames, setOversizedNames] = useState<string[]>([]);
   const [current, setCurrent] = useState<AnalysisResult | null>(null);
@@ -154,11 +161,15 @@ export function useAnalyzer(onResult?: (result: AnalysisResult) => void) {
         setFailedNames((names) => names.filter((name) => name !== file.name));
         setOversizedNames((names) => names.filter((name) => name !== file.name));
         setAnalyzingNames((names) => [file.name, ...names]);
+        const setStage = (stage: AnalyzeStage) => setAnalyzingStages((stages) => ({ ...stages, [file.name]: stage }));
+        setStage("decoding");
         try {
           const { buffer, arrayBuffer } = await decodeAudioFileCached(file);
+          setStage("resampling");
           const bars = computeWaveformBars(buffer);
           const mono = monoSamples(buffer);
           const analysisInput = await resampleMono(mono, buffer.sampleRate, ANALYSIS_SAMPLE_RATE);
+          setStage("analyzing");
           const analysis = await analyzeSamples(analysisInput, ANALYSIS_SAMPLE_RATE);
 
           const result: AnalysisResult = {
@@ -195,6 +206,10 @@ export function useAnalyzer(onResult?: (result: AnalysisResult) => void) {
           setFailedNames((names) => [file.name, ...names]);
         } finally {
           setAnalyzingNames((names) => names.filter((name) => name !== file.name));
+          setAnalyzingStages((stages) => {
+            const { [file.name]: _done, ...rest } = stages;
+            return rest;
+          });
         }
       }
     },
@@ -204,6 +219,7 @@ export function useAnalyzer(onResult?: (result: AnalysisResult) => void) {
   const clearResults = useCallback(() => {
     clearDecodeCache();
     setResults([]);
+    setAnalyzingStages({});
     setCurrent(null);
     setCurrentFile(null);
     setWaveformBars([]);
@@ -220,6 +236,7 @@ export function useAnalyzer(onResult?: (result: AnalysisResult) => void) {
   return {
     results,
     analyzingNames,
+    analyzingStages,
     failedNames,
     oversizedNames,
     current,

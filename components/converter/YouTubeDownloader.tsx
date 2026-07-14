@@ -266,7 +266,12 @@ export function YouTubeDownloader() {
   // Wakes a sleeping Render free-tier remote downloader as soon as this card
   // is visible, so it's warm by the time the user submits a link. No-op if
   // no remote downloader is configured (the route returns 204 either way).
+  // The ref keeps this to one ping per mount — without it, StrictMode's
+  // double-invoked effect fires it twice on every dev mount.
+  const wakePingedRef = useRef(false);
   useEffect(() => {
+    if (wakePingedRef.current) return;
+    wakePingedRef.current = true;
     void fetch("/api/youtube/wake").catch(() => {});
   }, []);
 
@@ -464,6 +469,11 @@ export function YouTubeDownloader() {
         </div>
       ) : state.phase === "setup" ? (
         <SetupNotice code={state.code} />
+      ) : state.phase === "waking" ? (
+        <div className="status-box" data-tone="warning" role="status">
+          <strong>{t("ytDownloader.serverWakingTitle")}</strong>
+          <span>{t("ytDownloader.serverWaking")}</span>
+        </div>
       ) : (
         <div className="status-box" data-tone="warning" role="status">
           <strong>{t("ytDownloader.downloadFailedTitle")}</strong>

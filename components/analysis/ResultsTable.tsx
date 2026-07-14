@@ -1,17 +1,29 @@
 "use client";
 
 import type { AnalysisResult } from "@/types/analysis";
+import type { AnalyzeStage } from "@/hooks/useAnalyzer";
 import { formatTime } from "@/lib/format";
 import { useI18n } from "@/lib/i18n";
+import type { DictKey } from "@/lib/i18n/locales/en";
+
+// Row text per phase. "analyzing" reuses the original string, so a caller that
+// passes no stages still reads exactly as it did before.
+const STAGE_ROW_LABELS: Record<AnalyzeStage, DictKey> = {
+  decoding: "analysis.stageDecoding",
+  resampling: "analysis.stageResampling",
+  analyzing: "analysis.analyzing",
+};
 
 export function ResultsTable({
   results,
   analyzingNames,
+  analyzingStages,
   failedNames,
   oversizedNames = [],
 }: {
   results: AnalysisResult[];
   analyzingNames: string[];
+  analyzingStages?: Record<string, AnalyzeStage>;
   failedNames: string[];
   oversizedNames?: string[];
 }) {
@@ -49,7 +61,7 @@ export function ResultsTable({
             <>
               {analyzingNames.map((name) => (
                 <tr key={`loading-${name}`}>
-                  <td colSpan={7}>{t("analysis.analyzing", { name })}</td>
+                  <td colSpan={7}>{t(STAGE_ROW_LABELS[analyzingStages?.[name] ?? "analyzing"], { name })}</td>
                 </tr>
               ))}
               {failedNames.map((name) => (

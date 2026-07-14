@@ -9,6 +9,7 @@
 import { pickBackend } from "@/lib/server/backends";
 import { enumeratePlaylist } from "@/lib/server/ytdlp";
 import { homeDownloaderUrl, homeDownloaderKey, remoteDownloaderUrl, remoteDownloaderKey } from "@/lib/runtime";
+import en from "@/lib/i18n/locales/en";
 
 export interface YouTubeTracklistItem {
   id: string;
@@ -29,8 +30,13 @@ export async function fetchYouTubeTracklist(canonicalPlaylistUrl: string): Promi
   const remoteConfigured = Boolean(remoteDownloaderUrl && remoteDownloaderKey);
 
   if (homeConfigured || remoteConfigured) {
-    const backend = await pickBackend();
-    if (!backend) return { ok: false, status: 502, error: "Could not read that playlist." };
+    const pick = await pickBackend();
+    if (pick.status === "none") return { ok: false, status: 502, error: "Could not read that playlist." };
+    // Remote is cold-starting (~50s) — reading the playlist would time out and
+    // read as a generic failure. pickBackend's health check started the
+    // spin-up; tell the caller to retry into a warm server.
+    if (pick.status === "waking") return { ok: false, status: 503, error: en["ytDownloader.serverWaking"] };
+    const backend = pick.backend;
 
     try {
       const upstream = await fetch(`${backend.base}/playlist`, {

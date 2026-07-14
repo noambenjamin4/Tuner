@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { I18nProvider } from "@/lib/i18n";
 import { Footer } from "@/components/layout/Footer";
 import { ToolPageNav } from "@/components/layout/ToolPageNav";
+import { PageDropGuard } from "@/components/files/PageDropGuard";
 import { SITE_URL } from "@/lib/site";
 import { breadcrumbJsonLd } from "@/lib/seo/jsonld";
 
@@ -29,6 +30,9 @@ export function ToolPageShell({
   return (
     <div className="app-shell">
       <I18nProvider>
+        {/* Every tool here hides its drop zone once a file is loaded, so without
+            this a stray drop would navigate away and destroy the session. */}
+        <PageDropGuard />
         <ToolPageNav />
         <main>
           <div className="tool-page">{children}</div>

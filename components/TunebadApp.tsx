@@ -285,6 +285,13 @@ export function TunebadApp({
 // and the "drop anywhere" overlay invites exactly that.
 const VIEWS_WITH_OWN_INTAKE = new Set<ViewName>(["analysis", "converter", "loudness", "remix", "cutter"]);
 
+// Of those, the tools that actually consume the pendingFiles handoff (each has
+// a pendingTarget effect). The converter is deliberately absent: its file picker
+// never goes away, so it has no "drop zone is gone" hole to plug, and nothing
+// there reads a handoff — routing to it would strand the file in pendingFiles.
+// A stray drop on the converter is still guarded against navigating away.
+const VIEWS_ACCEPTING_HANDOFF = new Set<ViewName>(["analysis", "loudness", "remix", "cutter"]);
+
 // The SPA's single window-level drag/drop owner. Two jobs:
 //
 //  1. Navigation guard (ALWAYS on, every view). Each tool removes its drop zone
@@ -346,12 +353,13 @@ function GlobalDropCatcher({ view }: { view: ViewName }) {
       );
       if (!files.length) return;
       const current = viewRef.current;
-      if (VIEWS_WITH_OWN_INTAKE.has(current)) {
+      if (!VIEWS_WITH_OWN_INTAKE.has(current)) {
+        requestAnalysis(files);
+      } else if (VIEWS_ACCEPTING_HANDOFF.has(current)) {
         // Already on that tool, so don't switch: showView would scroll to top.
         sendFilesToTool(files, current, { switchView: false });
-      } else {
-        requestAnalysis(files);
       }
+      // Anything else (the converter) is guarded above and keeps its own intake.
     };
     window.addEventListener("dragenter", onEnter);
     window.addEventListener("dragleave", onLeave);

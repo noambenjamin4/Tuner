@@ -4,6 +4,7 @@ import { countSongsByKey, readSongsByKey } from "@/lib/server/link-analysis";
 import { keyToSlug, slugToKey, compatibleCodes, relationLabel } from "@/lib/audio/harmonic";
 import { camelot } from "@/lib/audio/constants";
 import { MinimalFooter } from "@/components/layout/MinimalFooter";
+import { HUB_PAGE_SIZE, HubPagination, hubHref } from "@/components/songs/HubPagination";
 import { SITE_URL } from "@/lib/site";
 
 // Shared renderer for /songs/key/<slug> (page 1) and /songs/key/<slug>/page/<n>.
@@ -15,11 +16,11 @@ import { SITE_URL } from "@/lib/site";
 // Walking the whole set with offset pages is what makes them reachable: ~5k
 // songs per key / PAGE_SIZE ≈ 17 pages per key, 24 keys ≈ 400 hub pages that
 // together link every song.
-export const PAGE_SIZE = 300;
+export const PAGE_SIZE = HUB_PAGE_SIZE;
 
 /** Page 1 lives at the bare hub URL; page N at /page/N. */
 export function keyHubHref(slug: string, page: number): string {
-  return page <= 1 ? `/songs/key/${slug}` : `/songs/key/${slug}/page/${page}`;
+  return hubHref(`/songs/key/${slug}`, page);
 }
 
 export function keyHubMeta(slug: string, page: number) {
@@ -74,13 +75,6 @@ export async function KeyHubPage({ slug, page }: { slug: string; page: number })
       name: s.artist ? `${s.title} by ${s.artist}` : s.title,
     })),
   };
-
-  // A compact window of numbered links so a crawler can reach every page of a
-  // key without walking next/next/next 17 times.
-  const windowed: number[] = [];
-  for (let p = Math.max(1, page - 2); p <= Math.min(totalPages, page + 2); p += 1) windowed.push(p);
-  if (!windowed.includes(1)) windowed.unshift(1);
-  if (!windowed.includes(totalPages)) windowed.push(totalPages);
 
   return (
     <div className="app-shell">
@@ -147,33 +141,12 @@ export async function KeyHubPage({ slug, page }: { slug: string; page: number })
             </ul>
           </section>
 
-          {totalPages > 1 && (
-            <nav className="song-pagination" aria-label={`Songs in ${key}, pagination`}>
-              {page > 1 && (
-                <Link href={keyHubHref(slug, page - 1)} rel="prev" className="song-page-link">
-                  ← Previous
-                </Link>
-              )}
-              <span className="song-page-numbers">
-                {windowed.map((p) =>
-                  p === page ? (
-                    <span key={p} className="song-page-num active" aria-current="page">
-                      {p}
-                    </span>
-                  ) : (
-                    <Link key={p} href={keyHubHref(slug, p)} className="song-page-num">
-                      {p}
-                    </Link>
-                  ),
-                )}
-              </span>
-              {page < totalPages && (
-                <Link href={keyHubHref(slug, page + 1)} rel="next" className="song-page-link">
-                  Next →
-                </Link>
-              )}
-            </nav>
-          )}
+          <HubPagination
+            base={`/songs/key/${slug}`}
+            page={page}
+            totalPages={totalPages}
+            label={`Songs in ${key}, pagination`}
+          />
 
           <p className="song-note">
             Keys are measured from official 30-second previews with TuneBad&rsquo;s in-browser engine.

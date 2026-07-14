@@ -162,6 +162,17 @@ async function SongPageInner({ params }: { params: Promise<{ slug: string }> }) 
       ? []
       : (await readAllSongs(40)).filter((s) => s.slug !== song.slug).slice(0, 8);
 
+  // The whole reason this page exists — the key — was missing from the
+  // machine-readable layer; it lived only in the h1/lede/description. musicalKey
+  // is a real schema.org property, but it belongs to MusicComposition, reached
+  // from a recording via recordingOf.
+  //   Calibrate the expectation: Google ships NO rich result for MusicRecording,
+  // so this will not change how the SERP looks. The payoff is AI/LLM citation —
+  // /song/* is the surface answering "what key is X in", and extraction
+  // pipelines lean on JSON-LD.
+  //   BPM is deliberately absent: schema.org has no tempo property in
+  // MusicRecording's domain, and an invented/invalid property is worse than a
+  // missing one.
   const musicJsonLd = {
     "@context": "https://schema.org",
     "@type": "MusicRecording",
@@ -169,6 +180,9 @@ async function SongPageInner({ params }: { params: Promise<{ slug: string }> }) 
     ...(song.artist ? { byArtist: { "@type": "MusicGroup", name: song.artist } } : {}),
     url: `${SITE_URL}/song/${song.slug}`,
     ...(song.duration_s ? { duration: `PT${Math.round(song.duration_s)}S` } : {}),
+    ...(song.key
+      ? { recordingOf: { "@type": "MusicComposition", name: song.title, musicalKey: song.key } }
+      : {}),
   };
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",

@@ -144,11 +144,11 @@ export async function readSongsByKey(key: string, limit = 300, offset = 0): Prom
 
 /** Cached songs whose Camelot code matches, case-insensitively — backs the
  *  /songs/camelot/<code> hub pages. */
-export async function readSongsByCamelotCode(code: string, limit = 300): Promise<CachedAnalysis[]> {
+export async function readSongsByCamelotCode(code: string, limit = 300, offset = 0): Promise<CachedAnalysis[]> {
   if (!isLinkAnalysisConfigured) return [];
   try {
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/link_analysis?camelot=ilike.${encodeURIComponent(code)}&order=created_at.desc&limit=${limit}`,
+      `${SUPABASE_URL}/rest/v1/link_analysis?camelot=ilike.${encodeURIComponent(code)}&order=bpm.asc,created_at.desc&limit=${limit}&offset=${offset}`,
       { headers: restHeaders(), signal: AbortSignal.timeout(FETCH_TIMEOUT_MS), next: { revalidate: 3600 } },
     );
     if (!res.ok) return [];
@@ -159,11 +159,11 @@ export async function readSongsByCamelotCode(code: string, limit = 300): Promise
 }
 
 /** Cached songs within a BPM window — backs the /songs/bpm/<n> hub pages. */
-export async function readSongsByBpmRange(min: number, max: number, limit = 300): Promise<CachedAnalysis[]> {
+export async function readSongsByBpmRange(min: number, max: number, limit = 300, offset = 0): Promise<CachedAnalysis[]> {
   if (!isLinkAnalysisConfigured) return [];
   try {
     const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/link_analysis?bpm=gte.${min}&bpm=lte.${max}&order=created_at.desc&limit=${limit}`,
+      `${SUPABASE_URL}/rest/v1/link_analysis?bpm=gte.${min}&bpm=lte.${max}&order=created_at.desc&limit=${limit}&offset=${offset}`,
       { headers: restHeaders(), signal: AbortSignal.timeout(FETCH_TIMEOUT_MS), next: { revalidate: 3600 } },
     );
     if (!res.ok) return [];
@@ -309,19 +309,30 @@ export async function readAllSongs(limit = 10000): Promise<CachedAnalysis[]> {
 /** Total number of analyzed songs, without fetching rows (PostgREST exact count). */
 /** Exact number of songs in one key — header-only, drives hub pagination. */
 export async function countSongsByKey(key: string): Promise<number> {
+  return countWithFilter(`key=eq.${encodeURIComponent(key)}`);
+}
+
+/** Exact song count for one Camelot code — drives camelot hub pagination. */
+export async function countSongsByCamelotCode(code: string): Promise<number> {
+  return countWithFilter(`camelot=ilike.${encodeURIComponent(code)}`);
+}
+
+/** Exact song count in a BPM window — drives bpm hub pagination. */
+export async function countSongsByBpmRange(min: number, max: number): Promise<number> {
+  return countWithFilter(`bpm=gte.${min}&bpm=lte.${max}`);
+}
+
+/** Shared header-only exact count for an arbitrary PostgREST filter. */
+async function countWithFilter(filter: string): Promise<number> {
   if (!isLinkAnalysisConfigured) return 0;
   try {
-    const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/link_analysis?select=id&key=eq.${encodeURIComponent(key)}&limit=1`,
-      {
-        headers: { ...restHeaders(), Prefer: "count=exact", Range: "0-0" },
-        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-        next: { revalidate: 3600 },
-      },
-    );
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/link_analysis?select=id&${filter}&limit=1`, {
+      headers: { ...restHeaders(), Prefer: "count=exact", Range: "0-0" },
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      next: { revalidate: 3600 },
+    });
     if (!res.ok) return 0;
-    const range = res.headers.get("content-range");
-    const total = range?.split("/")[1];
+    const total = res.headers.get("content-range")?.split("/")[1];
     return total && total !== "*" ? Number(total) : 0;
   } catch {
     return 0;

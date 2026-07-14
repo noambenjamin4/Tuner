@@ -25,6 +25,7 @@ const zh: Record<keyof typeof en, string> = {
   "analysis.title": "文件分析工具",
   "analysis.subtitle": "上传音频文件以查看波形并分析关键音乐数据。",
   "analysis.history": "历史记录",
+  "analysis.sendTo": "发送到",
   "analysis.clear": "清除",
   "analysis.dropHint": "支持WAV、MP3、M4A、FLAC、OGG，最大200MB",
   "analysis.resultsHeading": "分析结果",

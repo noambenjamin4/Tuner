@@ -4458,3 +4458,29 @@ tbody tr:last-child td {
 .cw-panel-links {
   margin: 0;
 }
+
+/* Hand the analyzed track to another tool. Direct child of the
+   overflow-hidden .hero-tool panel, so it carries its own inset (the
+   same pattern .link-analyze / .utility-card use). */
+.handoff-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 0 clamp(20px, 4vw, 40px) 12px;
+}
+
+.handoff-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+}
+
+.handoff-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}

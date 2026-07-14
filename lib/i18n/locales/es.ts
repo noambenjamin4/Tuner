@@ -25,6 +25,7 @@ const es: Record<keyof typeof en, string> = {
   "analysis.title": "Herramienta de análisis de archivo",
   "analysis.subtitle": "Sube un archivo de audio para ver la forma de onda y analizar sus datos musicales.",
   "analysis.history": "Historial",
+  "analysis.sendTo": "Enviar a",
   "analysis.clear": "Borrar",
   "analysis.dropHint": "WAV, MP3, M4A, FLAC, OGG hasta 200MB",
   "analysis.resultsHeading": "Resultados del análisis",

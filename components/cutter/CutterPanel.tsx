@@ -2,13 +2,14 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useFileDrop } from "@/hooks/useFileDrop";
-import { decodeAudioFileCached } from "@/lib/audio/decode-cache";
+import { clearDecodeCache, decodeAudioFileCached } from "@/lib/audio/decode-cache";
 import { computeWaveformBars } from "@/lib/audio/waveform";
 import { encodeMp3FromChannels, encodeWavFromChannels } from "@/lib/audio/mp3-encoder";
 import { downloadBlob } from "@/lib/files/download";
 import { FADE_SECONDS, fadeEnvelopeGain } from "@/lib/audio/fade";
 import { TrimWaveform } from "./TrimWaveform";
 import type { OutputFormat } from "@/components/converter/QualityPicker";
+import { useTunebad } from "../TunebadApp";
 import { useI18n } from "@/lib/i18n";
 import { WaveformIcon } from "@/components/ui/icons";
 import { setNowPlaying } from "@/lib/audio/now-playing";
@@ -49,6 +50,7 @@ function applyFades(channels: Float32Array[], sampleRate: number, fadeIn: boolea
 
 export function CutterPanel() {
   const { t } = useI18n();
+  const { pendingFiles, pendingTarget, clearPendingFiles } = useTunebad();
   const [file, setFile] = useState<File | null>(null);
   const [buffer, setBuffer] = useState<AudioBuffer | null>(null);
 
@@ -165,6 +167,7 @@ export function CutterPanel() {
   }, [playing, start, end, fadeIn, fadeOut]);
 
   const resetAll = useCallback(() => {
+    clearDecodeCache();
     if (audioRef.current) audioRef.current.pause();
     if (previewUrlRef.current) {
       URL.revokeObjectURL(previewUrlRef.current);
@@ -213,6 +216,15 @@ export function CutterPanel() {
     },
     [t],
   );
+
+  // A track handed over from another tool (e.g. "Send to" on the analyzer)
+  // loads here without a re-pick. Guarded by pendingTarget: every panel is
+  // mounted at once, so an unaddressed read would steal another tool's file.
+  useEffect(() => {
+    if (!pendingFiles?.length || pendingTarget !== "cutter") return;
+    void handleFiles(pendingFiles);
+    clearPendingFiles();
+  }, [pendingFiles, pendingTarget, clearPendingFiles, handleFiles]);
 
   const { dragging, dropZoneProps, inputProps, openPicker } = useFileDrop({
     onFiles: (files) => void handleFiles(files),

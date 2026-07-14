@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { AnalysisResult, WorkerRequest, WorkerResponse } from "@/types/analysis";
 import { describeBitDepth, monoSamples, resampleMono } from "@/lib/audio/decode";
-import { decodeAudioFileCached } from "@/lib/audio/decode-cache";
+import { clearDecodeCache, decodeAudioFileCached } from "@/lib/audio/decode-cache";
 import { estimateBpm, estimateKey } from "@/lib/audio/fallback-analysis";
 import { camelotLabel } from "@/lib/audio/constants";
 import { computeWaveformBars } from "@/lib/audio/waveform";
@@ -32,6 +32,9 @@ export function useAnalyzer(onResult?: (result: AnalysisResult) => void) {
   const [current, setCurrent] = useState<AnalysisResult | null>(null);
   const [waveformBars, setWaveformBars] = useState<number[]>([]);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  // The File behind `current`, kept so the analyzer can hand the exact same
+  // decoded track to another tool (cut / slow / loudness) without a re-pick.
+  const [currentFile, setCurrentFile] = useState<File | null>(null);
   const [previewDuration, setPreviewDuration] = useState(0);
 
   const workerRef = useRef<Worker | null>(null);
@@ -180,6 +183,7 @@ export function useAnalyzer(onResult?: (result: AnalysisResult) => void) {
 
           setResults((current) => [result, ...current]);
           setCurrent(result);
+          setCurrentFile(file);
           setWaveformBars(bars);
           setPreviewDuration(buffer.duration);
           if (previewUrlRef.current) URL.revokeObjectURL(previewUrlRef.current);
@@ -198,8 +202,10 @@ export function useAnalyzer(onResult?: (result: AnalysisResult) => void) {
   );
 
   const clearResults = useCallback(() => {
+    clearDecodeCache();
     setResults([]);
     setCurrent(null);
+    setCurrentFile(null);
     setWaveformBars([]);
     setFailedNames([]);
     setOversizedNames([]);
@@ -217,6 +223,7 @@ export function useAnalyzer(onResult?: (result: AnalysisResult) => void) {
     failedNames,
     oversizedNames,
     current,
+    currentFile,
     waveformBars,
     previewUrl,
     previewDuration,

@@ -230,8 +230,8 @@
     "semantic_hash": ""
   },
   "components/TunebadApp.tsx": {
-    "mtime": 1784044466.8051634,
-    "ast_hash": "407232ec3c0f76d7a5aa5fb81a505d7d",
+    "mtime": 1784055014.4974635,
+    "ast_hash": "034422e95c3622a29ee46d1fd940463f",
     "semantic_hash": ""
   },
   "components/analysis/AnalysisSummary.tsx": {
@@ -240,8 +240,8 @@
     "semantic_hash": ""
   },
   "components/analysis/AnalyzerPanel.tsx": {
-    "mtime": 1783891226.9282575,
-    "ast_hash": "fe3d6b81908d72d810746fd0e03c58c6",
+    "mtime": 1784055071.0684347,
+    "ast_hash": "57e2a0915354388f13559418b4036d91",
     "semantic_hash": ""
   },
   "components/analysis/DropZone.tsx": {
@@ -320,8 +320,8 @@
     "semantic_hash": ""
   },
   "components/cutter/CutterPanel.tsx": {
-    "mtime": 1784054074.0591369,
-    "ast_hash": "6d651e1536751865e8cfd08b28448dd7",
+    "mtime": 1784055145.683453,
+    "ast_hash": "1a045168deab5fde2372cc8d229c3c2c",
     "semantic_hash": ""
   },
   "components/cutter/TrimWaveform.tsx": {
@@ -405,8 +405,8 @@
     "semantic_hash": ""
   },
   "components/loudness/LoudnessPanel.tsx": {
-    "mtime": 1784054074.0587616,
-    "ast_hash": "918d9f00758839d39f96dc101ad222c5",
+    "mtime": 1784055055.0026,
+    "ast_hash": "92ad733784f77c590c536c998c0c73be",
     "semantic_hash": ""
   },
   "components/pitch/PitchConverter.tsx": {
@@ -420,8 +420,8 @@
     "semantic_hash": ""
   },
   "components/remix/RemixStudio.tsx": {
-    "mtime": 1784054074.0649693,
-    "ast_hash": "9b521398a230fafbf742b6b8126ffbf3",
+    "mtime": 1784055145.6830912,
+    "ast_hash": "f48cb42002c2a0d12e026847592cab26",
     "semantic_hash": ""
   },
   "components/remix/ReverbEq.tsx": {
@@ -460,8 +460,8 @@
     "semantic_hash": ""
   },
   "hooks/useAnalyzer.ts": {
-    "mtime": 1783285306.9506216,
-    "ast_hash": "08ccf89a317bd6d6183e0a7faf833a01",
+    "mtime": 1784055145.683842,
+    "ast_hash": "846bf8ff3d6ddffade7e22e8298b6cd5",
     "semantic_hash": ""
   },
   "hooks/useHistory.ts": {
@@ -500,8 +500,8 @@
     "semantic_hash": ""
   },
   "lib/audio/decode-cache.ts": {
-    "mtime": 1783135345.19875,
-    "ast_hash": "f85c26f27c8237f8bb30f2a728feade0",
+    "mtime": 1784055101.6420112,
+    "ast_hash": "3bdf9b32deb1a4f10a669f87a6290375",
     "semantic_hash": ""
   },
   "lib/audio/decode.ts": {
@@ -590,43 +590,43 @@
     "semantic_hash": ""
   },
   "lib/i18n/locales/de.ts": {
-    "mtime": 1784052481.7395542,
-    "ast_hash": "66a3e1dbc5ebd0317cea6c0d4e45984f",
+    "mtime": 1784055081.777192,
+    "ast_hash": "33a878b8185a2da5e24e40a4af8bddcd",
     "semantic_hash": ""
   },
   "lib/i18n/locales/en.ts": {
-    "mtime": 1784052481.7406046,
-    "ast_hash": "093367b45939c31142c77fef661fe585",
+    "mtime": 1784055081.7774749,
+    "ast_hash": "5fc9bae02f9fe37799681ca8e66124f7",
     "semantic_hash": ""
   },
   "lib/i18n/locales/es.ts": {
-    "mtime": 1784052481.7416818,
-    "ast_hash": "4ae2b687471f3e824ae13409f98757fc",
+    "mtime": 1784055081.7779403,
+    "ast_hash": "26fc3b3cd0121cd16ff50ba7dfab65b0",
     "semantic_hash": ""
   },
   "lib/i18n/locales/fr.ts": {
-    "mtime": 1784052481.7426426,
-    "ast_hash": "0c25deb90671ddfb661f2e5ddfe8e1b5",
+    "mtime": 1784055081.7781715,
+    "ast_hash": "1194b3bfe350967099ced1fc9048319f",
     "semantic_hash": ""
   },
   "lib/i18n/locales/it.ts": {
-    "mtime": 1784052481.743748,
-    "ast_hash": "7b44d500a06bf20fcfd7d7abb9afd002",
+    "mtime": 1784055081.778333,
+    "ast_hash": "1c3d2c3ba509d1c6768772df02f86fde",
     "semantic_hash": ""
   },
   "lib/i18n/locales/ja.ts": {
-    "mtime": 1784052481.7448237,
-    "ast_hash": "bd690de54160e6e107dd2f5e956d30c2",
+    "mtime": 1784055081.7786784,
+    "ast_hash": "2d0747c8dbacc20368b4b74ae56819ad",
     "semantic_hash": ""
   },
   "lib/i18n/locales/pt.ts": {
-    "mtime": 1784052481.7463038,
-    "ast_hash": "f2597c6ca1ec7ad6d10d314a7f21df03",
+    "mtime": 1784055081.7788768,
+    "ast_hash": "c4c1be42dbb76be797f9a910f0f68bf7",
     "semantic_hash": ""
   },
   "lib/i18n/locales/zh.ts": {
-    "mtime": 1784052481.7470922,
-    "ast_hash": "add20486bd92b19a700c1c45e981917d",
+    "mtime": 1784055081.779058,
+    "ast_hash": "140c594158dd5a71ef6d0b041afb89d0",
     "semantic_hash": ""
   },
   "lib/media-url.ts": {

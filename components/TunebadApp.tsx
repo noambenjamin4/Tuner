@@ -58,7 +58,12 @@ interface TunebadContextValue {
   rememberResult(result: AnalysisResult): void;
   clearHistory(): void;
   pendingFiles: File[] | null;
+  // Which tool the pending files are FOR. Every panel is mounted at once in
+  // this SPA, so files must be addressed to one view or the analyzer would
+  // swallow a handoff meant for the cutter.
+  pendingTarget: ViewName | null;
   requestAnalysis(files: File[], options?: { switchView?: boolean }): void;
+  sendFilesToTool(files: File[], target: ViewName): void;
   clearPendingFiles(): void;
 }
 
@@ -80,6 +85,7 @@ export function TunebadApp({
   const [lastAnalyzedBpm, setLastAnalyzedBpm] = useState<number | null>(null);
   const [lastAnalysis, setLastAnalysis] = useState<AnalysisResult | null>(null);
   const [pendingFiles, setPendingFiles] = useState<File[] | null>(null);
+  const [pendingTarget, setPendingTarget] = useState<ViewName | null>(null);
   const { items: history, rememberResult, clearHistory } = useHistory();
 
   useEffect(() => {
@@ -122,12 +128,26 @@ export function TunebadApp({
   const requestAnalysis = useCallback(
     (files: File[], options?: { switchView?: boolean }) => {
       setPendingFiles(files);
+      setPendingTarget("analysis");
       if (options?.switchView !== false) showView("analysis");
     },
     [showView],
   );
 
-  const clearPendingFiles = useCallback(() => setPendingFiles(null), []);
+  // Hand an already-loaded file straight to another tool and go there.
+  const sendFilesToTool = useCallback(
+    (files: File[], target: ViewName) => {
+      setPendingFiles(files);
+      setPendingTarget(target);
+      showView(target);
+    },
+    [showView],
+  );
+
+  const clearPendingFiles = useCallback(() => {
+    setPendingFiles(null);
+    setPendingTarget(null);
+  }, []);
 
   const contextValue = useMemo<TunebadContextValue>(
     () => ({
@@ -146,7 +166,9 @@ export function TunebadApp({
       rememberResult,
       clearHistory,
       pendingFiles,
+      pendingTarget,
       requestAnalysis,
+      sendFilesToTool,
       clearPendingFiles,
     }),
     [
@@ -163,7 +185,9 @@ export function TunebadApp({
       rememberResult,
       clearHistory,
       pendingFiles,
+      pendingTarget,
       requestAnalysis,
+      sendFilesToTool,
       clearPendingFiles,
     ],
   );

@@ -25,6 +25,7 @@ const de: Record<keyof typeof en, string> = {
   "analysis.title": "Dateianalyse-Tool",
   "analysis.subtitle": "Lade eine Audiodatei hoch, um die Wellenform anzuzeigen und die Musikdaten zu analysieren.",
   "analysis.history": "Verlauf",
+  "analysis.sendTo": "Senden an",
   "analysis.clear": "Löschen",
   "analysis.dropHint": "WAV, MP3, M4A, FLAC, OGG bis zu 200MB",
   "analysis.resultsHeading": "Analyseergebnisse",

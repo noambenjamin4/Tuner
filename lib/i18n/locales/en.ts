@@ -26,6 +26,7 @@ const en = {
   "analysis.title": "File Analysis Tool",
   "analysis.subtitle": "Upload an audio file to view waveform and analyze key musical data.",
   "analysis.history": "History",
+  "analysis.sendTo": "Send to",
   "analysis.clear": "Clear",
   "analysis.dropHint": "WAV, MP3, M4A, FLAC, OGG up to 200MB",
   "analysis.resultsHeading": "Analysis Results",

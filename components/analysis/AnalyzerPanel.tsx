@@ -17,8 +17,17 @@ import type { AnalysisResult } from "@/types/analysis";
 import { WaveformIcon } from "@/components/ui/icons";
 
 export function AnalyzerPanel() {
-  const { showView, setMainBpm, setLastAnalyzedBpm, setLastAnalysis, rememberResult, pendingFiles, clearPendingFiles } =
-    useTunebad();
+  const {
+    showView,
+    setMainBpm,
+    setLastAnalyzedBpm,
+    setLastAnalysis,
+    rememberResult,
+    pendingFiles,
+    pendingTarget,
+    sendFilesToTool,
+    clearPendingFiles,
+  } = useTunebad();
   const { t } = useI18n();
 
   // Set while a link-analysis preview file is in flight, so the matching
@@ -73,6 +82,7 @@ export function AnalyzerPanel() {
     failedNames,
     oversizedNames,
     current,
+    currentFile,
     waveformBars,
     previewUrl,
     previewDuration,
@@ -80,12 +90,14 @@ export function AnalyzerPanel() {
     clearResults,
   } = useAnalyzer(onResult);
 
-  // Files handed off from the converter ("Analyze this track")
+  // Files handed off from the converter ("Analyze this track"). Only claim
+  // them when they're addressed here — every panel is mounted at once, so an
+  // unguarded read would swallow a file meant for the cutter/remix/loudness.
   useEffect(() => {
-    if (!pendingFiles?.length) return;
+    if (!pendingFiles?.length || pendingTarget !== "analysis") return;
     void analyzeFiles(pendingFiles);
     clearPendingFiles();
-  }, [pendingFiles, clearPendingFiles, analyzeFiles]);
+  }, [pendingFiles, pendingTarget, clearPendingFiles, analyzeFiles]);
 
   return (
     <article className="panel hero-tool analyzer-panel" id="file-analyzer">
@@ -121,6 +133,37 @@ export function AnalyzerPanel() {
           <WaveformPreview bars={waveformBars} previewUrl={previewUrl} duration={previewDuration} />
           <FileMetaPill result={current} onRemove={clearResults} />
           <AnalysisSummary result={current} />
+          {/* The analyzed track is already decoded and in hand — offer the
+              obvious next steps instead of making the user re-pick the file
+              in another tool. Only for real files (a link preview has none). */}
+          {currentFile ? (
+            <div className="handoff-row">
+              <span className="handoff-label">{t("analysis.sendTo")}</span>
+              <div className="handoff-actions">
+                <button
+                  className="secondary-button"
+                  type="button"
+                  onClick={() => sendFilesToTool([currentFile], "cutter")}
+                >
+                  {t("nav.cutter")}
+                </button>
+                <button
+                  className="secondary-button"
+                  type="button"
+                  onClick={() => sendFilesToTool([currentFile], "remix")}
+                >
+                  {t("nav.remix")}
+                </button>
+                <button
+                  className="secondary-button"
+                  type="button"
+                  onClick={() => sendFilesToTool([currentFile], "loudness")}
+                >
+                  {t("nav.loudness")}
+                </button>
+              </div>
+            </div>
+          ) : null}
           <SimilarSongs result={current} />
         </>
       ) : null}

@@ -3,10 +3,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useFileDrop } from "@/hooks/useFileDrop";
 import { getAudioContextClass } from "@/lib/audio/decode";
-import { decodeAudioFileCached } from "@/lib/audio/decode-cache";
+import { clearDecodeCache, decodeAudioFileCached } from "@/lib/audio/decode-cache";
 import { encodeMp3FromChannels, encodeWavFromChannels } from "@/lib/audio/mp3-encoder";
 import { downloadBlob } from "@/lib/files/download";
 import { FormatPicker, type OutputFormat } from "@/components/converter/QualityPicker";
+import { useTunebad } from "../TunebadApp";
 import { useI18n } from "@/lib/i18n";
 import { CheckRow } from "@/components/ui/CheckRow";
 import { SeekableWaveform } from "@/components/ui/SeekableWaveform";
@@ -63,6 +64,7 @@ function formatSemitones(value: number): string {
 
 export function RemixStudio() {
   const { t } = useI18n();
+  const { pendingFiles, pendingTarget, clearPendingFiles } = useTunebad();
   const [file, setFile] = useState<File | null>(null);
   const [buffer, setBuffer] = useState<AudioBuffer | null>(null);
 
@@ -143,6 +145,7 @@ export function RemixStudio() {
 
   const resetAll = useCallback(() => {
     stopPreview();
+    clearDecodeCache();
     if (previewUrlRef.current) {
       URL.revokeObjectURL(previewUrlRef.current);
       previewUrlRef.current = null;
@@ -206,6 +209,15 @@ export function RemixStudio() {
     },
     [stopPreview, t],
   );
+
+  // A track handed over from another tool (e.g. "Send to" on the analyzer)
+  // loads here without a re-pick. Guarded by pendingTarget: every panel is
+  // mounted at once, so an unaddressed read would steal another tool's file.
+  useEffect(() => {
+    if (!pendingFiles?.length || pendingTarget !== "remix") return;
+    void handleFiles(pendingFiles);
+    clearPendingFiles();
+  }, [pendingFiles, pendingTarget, clearPendingFiles, handleFiles]);
 
   const { dragging, dropZoneProps, inputProps, openPicker } = useFileDrop({
     onFiles: (files) => void handleFiles(files),

@@ -25,6 +25,7 @@ const ja: Record<keyof typeof en, string> = {
   "analysis.title": "ファイル解析ツール",
   "analysis.subtitle": "音声ファイルをアップロードして波形表示と音楽データの解析を行います。",
   "analysis.history": "履歴",
+  "analysis.sendTo": "送る",
   "analysis.clear": "クリア",
   "analysis.dropHint": "WAV, MP3, M4A, FLAC, OGG（200MBまで）",
   "analysis.resultsHeading": "解析結果",

@@ -3782,3 +3782,84 @@
 [graphify] backed up curated graph (4 files) -> 2026-07-14/
 [graphify watch] Rebuilt: 1361 nodes, 3207 edges, 77 communities
 [graphify watch] graph.json, graph.html and GRAPH_REPORT.md updated in /Users/noambenjamin/Code/Tunebad/graphify-out
+
+[graphify watch] 1 file(s) changed
+  AST extraction: 100/220 uncached files (45%) [12 workers]
+  AST extraction: 200/220 uncached files (90%) [12 workers]
+  AST extraction: 220/220 uncached files (100%) [12 workers]
+  warning: 1 source file(s) produced zero nodes and are absent from the graph: launch.json. A re-run will retry them (empties are no longer cached); if it persists, please report the file(s) (#1666).
+[graphify] backed up curated graph (4 files) -> 2026-07-14/
+[graphify watch] Rebuilt: 1361 nodes, 3207 edges, 77 communities
+[graphify watch] graph.json, graph.html and GRAPH_REPORT.md updated in /Users/noambenjamin/Code/Tunebad/graphify-out
+
+[graphify watch] 1 file(s) changed
+  AST extraction: 100/220 uncached files (45%) [12 workers]
+  AST extraction: 200/220 uncached files (90%) [12 workers]
+  AST extraction: 220/220 uncached files (100%) [12 workers]
+  warning: 1 source file(s) produced zero nodes and are absent from the graph: launch.json. A re-run will retry them (empties are no longer cached); if it persists, please report the file(s) (#1666).
+[graphify] backed up curated graph (4 files) -> 2026-07-14/
+[graphify watch] Rebuilt: 1362 nodes, 3208 edges, 72 communities
+[graphify watch] graph.json, graph.html and GRAPH_REPORT.md updated in /Users/noambenjamin/Code/Tunebad/graphify-out
+
+[graphify watch] 4 file(s) changed
+  AST extraction: 100/220 uncached files (45%) [12 workers]
+  AST extraction: 200/220 uncached files (90%) [12 workers]
+  AST extraction: 220/220 uncached files (100%) [12 workers]
+  warning: 1 source file(s) produced zero nodes and are absent from the graph: launch.json. A re-run will retry them (empties are no longer cached); if it persists, please report the file(s) (#1666).
+[graphify] backed up curated graph (4 files) -> 2026-07-14/
+[graphify watch] Rebuilt: 1362 nodes, 3214 edges, 75 communities
+[graphify watch] graph.json, graph.html and GRAPH_REPORT.md updated in /Users/noambenjamin/Code/Tunebad/graphify-out
+
+[graphify watch] 3 file(s) changed
+  AST extraction: 100/220 uncached files (45%) [12 workers]
+  AST extraction: 200/220 uncached files (90%) [12 workers]
+  AST extraction: 220/220 uncached files (100%) [12 workers]
+  warning: 1 source file(s) produced zero nodes and are absent from the graph: launch.json. A re-run will retry them (empties are no longer cached); if it persists, please report the file(s) (#1666).
+[graphify] backed up curated graph (4 files) -> 2026-07-14/
+[graphify watch] Rebuilt: 1362 nodes, 3217 edges, 80 communities
+[graphify watch] graph.json, graph.html and GRAPH_REPORT.md updated in /Users/noambenjamin/Code/Tunebad/graphify-out
+
+[graphify watch] 1 file(s) changed
+  AST extraction: 100/220 uncached files (45%) [12 workers]
+  AST extraction: 200/220 uncached files (90%) [12 workers]
+  AST extraction: 220/220 uncached files (100%) [12 workers]
+  warning: 1 source file(s) produced zero nodes and are absent from the graph: launch.json. A re-run will retry them (empties are no longer cached); if it persists, please report the file(s) (#1666).
+[graphify] backed up curated graph (4 files) -> 2026-07-14/
+[graphify watch] Rebuilt: 1362 nodes, 3218 edges, 78 communities
+[graphify watch] graph.json, graph.html and GRAPH_REPORT.md updated in /Users/noambenjamin/Code/Tunebad/graphify-out
+
+[graphify watch] 8 file(s) changed
+  AST extraction: 100/220 uncached files (45%) [12 workers]
+  AST extraction: 200/220 uncached files (90%) [12 workers]
+  AST extraction: 220/220 uncached files (100%) [12 workers]
+  warning: 1 source file(s) produced zero nodes and are absent from the graph: launch.json. A re-run will retry them (empties are no longer cached); if it persists, please report the file(s) (#1666).
+[graphify] backed up curated graph (4 files) -> 2026-07-14/
+[graphify watch] Rebuilt: 1362 nodes, 3218 edges, 78 communities
+[graphify watch] graph.json, graph.html and GRAPH_REPORT.md updated in /Users/noambenjamin/Code/Tunebad/graphify-out
+
+[graphify watch] 1 file(s) changed
+  AST extraction: 100/220 uncached files (45%) [12 workers]
+  AST extraction: 200/220 uncached files (90%) [12 workers]
+  AST extraction: 220/220 uncached files (100%) [12 workers]
+  warning: 1 source file(s) produced zero nodes and are absent from the graph: launch.json. A re-run will retry them (empties are no longer cached); if it persists, please report the file(s) (#1666).
+[graphify] backed up curated graph (4 files) -> 2026-07-14/
+[graphify watch] Rebuilt: 1364 nodes, 3220 edges, 77 communities
+[graphify watch] graph.json, graph.html and GRAPH_REPORT.md updated in /Users/noambenjamin/Code/Tunebad/graphify-out
+
+[graphify watch] 1 file(s) changed
+  AST extraction: 100/220 uncached files (45%) [12 workers]
+  AST extraction: 200/220 uncached files (90%) [12 workers]
+  AST extraction: 220/220 uncached files (100%) [12 workers]
+  warning: 1 source file(s) produced zero nodes and are absent from the graph: launch.json. A re-run will retry them (empties are no longer cached); if it persists, please report the file(s) (#1666).
+[graphify] backed up curated graph (4 files) -> 2026-07-14/
+[graphify watch] Rebuilt: 1364 nodes, 3222 edges, 72 communities
+[graphify watch] graph.json, graph.html and GRAPH_REPORT.md updated in /Users/noambenjamin/Code/Tunebad/graphify-out
+
+[graphify watch] 3 file(s) changed
+  AST extraction: 100/220 uncached files (45%) [12 workers]
+  AST extraction: 200/220 uncached files (90%) [12 workers]
+  AST extraction: 220/220 uncached files (100%) [12 workers]
+  warning: 1 source file(s) produced zero nodes and are absent from the graph: launch.json. A re-run will retry them (empties are no longer cached); if it persists, please report the file(s) (#1666).
+[graphify] backed up curated graph (4 files) -> 2026-07-14/
+[graphify watch] Rebuilt: 1364 nodes, 3228 edges, 72 communities
+[graphify watch] graph.json, graph.html and GRAPH_REPORT.md updated in /Users/noambenjamin/Code/Tunebad/graphify-out

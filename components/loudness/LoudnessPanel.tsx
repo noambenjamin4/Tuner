@@ -7,6 +7,7 @@ import { decodeAudioFileCached } from "@/lib/audio/decode-cache";
 import { PLATFORM_TARGETS } from "@/lib/audio/lufs";
 import { encodeMp3FromChannels, encodeWavFromChannels } from "@/lib/audio/mp3-encoder";
 import { downloadBlob } from "@/lib/files/download";
+import { useTunebad } from "../TunebadApp";
 import { useI18n } from "@/lib/i18n";
 import { GaugeIcon } from "@/components/ui/icons";
 import { setNowPlaying } from "@/lib/audio/now-playing";
@@ -70,6 +71,7 @@ async function resampleTo48k(channels: Float32Array[], sampleRate: number): Prom
 
 export function LoudnessPanel() {
   const { t } = useI18n();
+  const { pendingFiles, pendingTarget, clearPendingFiles } = useTunebad();
   const [file, setFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [measuring, setMeasuring] = useState(false);
@@ -201,6 +203,15 @@ export function LoudnessPanel() {
     },
     [measure, reset, t],
   );
+
+  // A track handed over from another tool (e.g. "Send to" on the analyzer)
+  // loads here without a re-pick. Guarded by pendingTarget: every panel is
+  // mounted at once, so an unaddressed read would steal another tool's file.
+  useEffect(() => {
+    if (!pendingFiles?.length || pendingTarget !== "loudness") return;
+    void handleFiles(pendingFiles);
+    clearPendingFiles();
+  }, [pendingFiles, pendingTarget, clearPendingFiles, handleFiles]);
 
   const { dragging, dropZoneProps, inputProps, openPicker } = useFileDrop({
     onFiles: (files) => void handleFiles(files),

@@ -98,7 +98,9 @@ export function TunebadApp({
   const showView = useCallback((next: ViewName) => {
     setView(next);
     window.history.replaceState(null, "", VIEW_TO_PATH[next]);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // Jump, don't glide: a smooth scroll animates for ~400ms on every tab
+    // switch, which reads as the whole switch being slow.
+    window.scrollTo({ top: 0, behavior: "auto" });
   }, []);
 
   const setDelayBpmInput = useCallback((value: string) => {

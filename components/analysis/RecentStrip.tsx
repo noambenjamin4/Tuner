@@ -44,7 +44,7 @@ export function RecentStrip() {
               onClick={() => {
                 window.history.replaceState(null, "", `/key-bpm-finder?song=${encodeURIComponent(r.id)}`);
                 window.dispatchEvent(new CustomEvent(SHOW_SONG_EVENT, { detail: r }));
-                window.scrollTo({ top: 0, behavior: "smooth" });
+                window.scrollTo({ top: 0, behavior: "auto" });
               }}
             >
               <span className="link-analyze-recent-title">

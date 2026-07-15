@@ -18,7 +18,37 @@
 // against the real truth set before shipping. This measures the estimator, not
 // the world.
 //
-//   node scripts/octave-map.mjs
+//   node scripts/octave-map.mjs                 (16k, the old shipped rate)
+//   RATE=44100 node scripts/octave-map.mjs       (44.1k, what ships now)
+//   RATE=44100 ESTIMATOR=beattracker node scripts/octave-map.mjs
+//
+// ======================= RESULT: THE CEILING IS ALGORITHMIC ==================
+// Percival halves EVERY tempo >= 136 — and does so IDENTICALLY at 16 kHz and at
+// 44.1 kHz, and identically across all four drum patterns:
+//     16k    ok=17/31   halves at 136,140,144,...,180
+//     44.1k  ok=17/31   halves at 136,140,144,...,180   <- byte-for-byte same
+//
+// THIS IS THE IMPORTANT PART: the ceiling does NOT move with sample rate, frame
+// size, or onset density. It is not a mis-tuned parameter — it is Percival's
+// internal tempo prior. It will never report above ~134, so it DELETES the
+// octave of every fast track before you ever see the number.
+//
+// That single fact retroactively explains every failed experiment:
+//   - onset density / danceability / beat salience / LoopBpmConfidence all
+//     failed because they tried to recover information the algorithm destroys.
+//   - the old [105,210) fold "worked" on EDM only by accident: it doubled
+//     everything under 105, undoing the halving while wrecking slow songs.
+//   - 44.1k helps (+4 fast) by improving the ESTIMATE, not by lifting the
+//     ceiling. A true 171 track still reports 86.
+//
+// DO NOT tune Percival's parameters hoping to fix fast tempos. The only routes
+// left are (a) a different estimator for fast material — BeatTrackerMultiFeature
+// scores 28/31 here vs Percival's 17/31, with no ceiling — or (b) a per-song
+// discriminator to choose between them. Note the two have OPPOSITE biases:
+// Percival halves fast tracks, BeatTracker doubles slow ones (real-music bands:
+// Percival slow 74%/fast 14%, BeatTracker slow 49%/fast 19%). That opposition is
+// the most promising thing left and needs the fast truth set to grow further.
+// =============================================================================
 
 import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";

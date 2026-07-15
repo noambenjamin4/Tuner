@@ -2,7 +2,7 @@
 //
 // For each popular track from Deezer's public charts it downloads the free 30s
 // preview, decodes it with the bundled ffmpeg, and runs the SAME essentia
-// analysis the browser worker uses (identical PercivalBpmEstimator + KeyExtractor
+// analysis the browser worker uses (same PercivalBpmEstimator at 44.1k + KeyExtractor at 16k
 // params and the same [105,210) BPM fold), then upserts a row into the Supabase
 // `link_analysis` table — the exact table the live "analyze from link" feature
 // writes to. The DB trigger fills the SEO slug. Results are labeled source
@@ -47,6 +47,13 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY) throw new Error("Missing Supabase creds
 
 // ---- analysis constants (mirror workers/analysis.worker.ts) ----------------
 const ANALYSIS_RATE = 16000;
+// Tempo runs at the rate essentia's Percival defaults were specified for. The
+// browser worker was moved to this in 02fe16d (61% -> 64% exact, better on
+// EVERY band); the seeder was left behind at 16k, so the CATALOG was being
+// written by a measurably worse analyzer than the one visitors run. Same
+// engine, same rates, or the two silently drift — which is exactly what
+// happened.
+const BPM_RATE = 44100;
 // Fold window. Percival reports the perceptual pulse, which for most records is
 // the true tempo — so the window's job is only to reject genuine outliers, NOT
 // to force everything up into dance territory.
@@ -99,12 +106,19 @@ function rms(s) {
   return Math.sqrt(sum / Math.max(1, s.length));
 }
 
-function analyze(es, samples) {
+function analyze(es, samples, bpmSamples) {
   const cleanup = [];
   try {
     const signal = es.arrayToVector(samples);
     cleanup.push(signal);
-    const rawBpm = es.PercivalBpmEstimator(signal, 1024, 2048, 128, 128, 210, 50, ANALYSIS_RATE).bpm;
+    // TEMPO on the 44.1k signal, KEY on the 16k one below — the same split the
+    // browser worker uses. Key measured BETTER at 16k (47% vs 45%), tempo
+    // measures better at 44.1k, so they genuinely want different rates.
+    const bpmSignal = bpmSamples ? es.arrayToVector(bpmSamples) : signal;
+    if (bpmSamples) cleanup.push(bpmSignal);
+    const rawBpm = es.PercivalBpmEstimator(
+      bpmSignal, 1024, 2048, 128, 128, 210, 50, bpmSamples ? BPM_RATE : ANALYSIS_RATE,
+    ).bpm;
     const k = es.KeyExtractor(signal, true, 4096, 4096, 12, 3500, 60, 25, 0.2, "bgate", ANALYSIS_RATE, 0.0001, 440, "cosine", "hann");
     const dance = es.Danceability(signal, 8800, 310, ANALYSIS_RATE);
     if (dance.dfa) cleanup.push(dance.dfa);
@@ -127,9 +141,9 @@ function analyze(es, samples) {
 }
 
 // ---- ffmpeg decode: mp3 buffer -> 16kHz mono Float32Array -------------------
-function decode(mp3) {
+function decode(mp3, rate = ANALYSIS_RATE) {
   return new Promise((res, rej) => {
-    const ff = spawn(FFMPEG, ["-hide_banner", "-loglevel", "error", "-i", "pipe:0", "-ac", "1", "-ar", String(ANALYSIS_RATE), "-f", "f32le", "pipe:1"]);
+    const ff = spawn(FFMPEG, ["-hide_banner", "-loglevel", "error", "-i", "pipe:0", "-ac", "1", "-ar", String(rate), "-f", "f32le", "pipe:1"]);
     const out = [];
     ff.stdout.on("data", (d) => out.push(d));
     ff.on("error", rej);
@@ -330,9 +344,13 @@ for (const [i, t] of tracks.entries()) {
     const resp = await fetch(previewUrl, { signal: AbortSignal.timeout(15000) });
     if (!resp.ok) throw new Error("preview " + resp.status);
     const mp3 = Buffer.from(await resp.arrayBuffer());
-    const samples = await decode(mp3);
+    // Two decodes of the same mp3: 16k for key/danceability/loudness, 44.1k
+    // for tempo. Costs one extra ffmpeg pass per song; the seeder is bound by
+    // Deezer's rate limit (250ms spacing), not by decode, so throughput is
+    // unaffected.
+    const [samples, bpmSamples] = await Promise.all([decode(mp3), decode(mp3, BPM_RATE)]);
     if (samples.length < ANALYSIS_RATE * 5) throw new Error("too short");
-    const a = analyze(es, samples);
+    const a = analyze(es, samples, bpmSamples);
     const row = {
       id: `dz:${t.id}`,
       title: t.title.slice(0, 200),

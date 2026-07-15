@@ -270,6 +270,7 @@ const ja: Record<keyof typeof en, string> = {
   "remix.effectNone": "なし",
   "remix.effectUnderwater": "水中",
   "remix.effectPhone": "電話",
+  "remix.effectLofi": "ローファイ",
   "remix.recordExplainer":
     "録音は、曲を再生しながら操作したすべての変化とそのタイミングを記録します。書き出すと、その操作がファイルに再現されます。録音は再生ヘッドのある位置から始まり、各パスはテイクとして個別に保存されます。",
   "remix.takesLegend": "テイク",

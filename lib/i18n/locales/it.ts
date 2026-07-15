@@ -270,6 +270,7 @@ const it: Record<keyof typeof en, string> = {
   "remix.effectNone": "Nessuno",
   "remix.effectUnderwater": "Sott'acqua",
   "remix.effectPhone": "Telefono",
+  "remix.effectLofi": "Lo-Fi",
   "remix.recordExplainer":
     "La registrazione cattura ogni cambio di controllo e il momento in cui l'hai fatto, mentre il brano suona. L'export riproduce quelle mosse nel file. La registrazione parte da dove si trova la testina, e ogni passaggio resta come una take a sé.",
   "remix.takesLegend": "Take",

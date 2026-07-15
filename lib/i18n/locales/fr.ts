@@ -270,6 +270,7 @@ const fr: Record<keyof typeof en, string> = {
   "remix.effectNone": "Aucun",
   "remix.effectUnderwater": "Sous l'eau",
   "remix.effectPhone": "Téléphone",
+  "remix.effectLofi": "Lo-Fi",
   "remix.recordExplainer":
     "L'enregistrement capte chaque changement de réglage et le moment où vous l'avez fait, pendant que le morceau joue. L'export rejoue ces gestes dans le fichier. L'enregistrement démarre là où se trouve la tête de lecture, et chaque passage est gardé comme une prise.",
   "remix.takesLegend": "Prises",

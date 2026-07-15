@@ -269,6 +269,7 @@ const zh: Record<keyof typeof en, string> = {
   "remix.effectNone": "无",
   "remix.effectUnderwater": "水下",
   "remix.effectPhone": "电话",
+  "remix.effectLofi": "低保真",
   "remix.recordExplainer":
     "录制会在音轨播放时记录你的每一次控件改动以及改动的时间点。导出时，这些操作会按原样写入文件。录制从播放头所在的位置开始，每一次录制都会单独保存为一个片段。",
   "remix.takesLegend": "片段",

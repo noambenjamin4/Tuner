@@ -270,6 +270,7 @@ const de: Record<keyof typeof en, string> = {
   "remix.effectNone": "Kein",
   "remix.effectUnderwater": "Unter Wasser",
   "remix.effectPhone": "Telefon",
+  "remix.effectLofi": "Lo-Fi",
   "remix.recordExplainer":
     "Die Aufnahme erfasst jede Regleränderung und den Moment, in dem du sie gemacht hast, während der Track läuft. Der Export spielt diese Bewegungen in die Datei. Die Aufnahme startet dort, wo der Abspielkopf steht, und jeder Durchgang bleibt als eigener Take erhalten.",
   "remix.takesLegend": "Takes",

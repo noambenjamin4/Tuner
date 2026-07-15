@@ -270,6 +270,7 @@ const pt: Record<keyof typeof en, string> = {
   "remix.effectNone": "Nenhum",
   "remix.effectUnderwater": "Debaixo de água",
   "remix.effectPhone": "Telefone",
+  "remix.effectLofi": "Lo-Fi",
   "remix.recordExplainer":
     "A gravação capta cada mudança de controlo e o momento em que a fizeste, enquanto a faixa toca. A exportação repete esses movimentos no ficheiro. A gravação começa onde estiver o cursor, e cada passagem fica guardada como a sua própria take.",
   "remix.takesLegend": "Takes",

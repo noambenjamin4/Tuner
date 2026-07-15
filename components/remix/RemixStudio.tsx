@@ -38,11 +38,14 @@ const NOW_PLAYING_SOURCE = "remix-preview";
 
 type Status = { title: string; message: string; tone: "neutral" | "success" | "warning" };
 
-type Preset = { name: string; speed: number; reverb: number; bassBoostDb: number };
+type Preset = { name: string; speed: number; reverb: number; bassBoostDb: number; effect: EffectId };
 
 const PRESETS: Preset[] = [
-  { name: "Slowed + Reverb", speed: 0.8, reverb: 40, bassBoostDb: 0 },
-  { name: "Nightcore", speed: 1.25, reverb: 0, bassBoostDb: 0 },
+  { name: "Slowed + Reverb", speed: 0.8, reverb: 40, bassBoostDb: 0, effect: "none" },
+  { name: "Nightcore", speed: 1.25, reverb: 0, bassBoostDb: 0, effect: "none" },
+  // Lo-Fi is the whole look in one click: slowed a touch, a small room rather
+  // than a hall, a little low end back, and the tape/vinyl filter over it.
+  { name: "Lo-Fi", speed: 0.85, reverb: 22, bassBoostDb: 3, effect: "lofi" },
 ];
 
 const DEBOUNCE_MS = 400;
@@ -62,6 +65,7 @@ const EFFECT_OPTIONS = [
   { effect: "none", labelKey: "remix.effectNone" },
   { effect: "underwater", labelKey: "remix.effectUnderwater" },
   { effect: "phone", labelKey: "remix.effectPhone" },
+  { effect: "lofi", labelKey: "remix.effectLofi" },
 ] as const;
 
 /**
@@ -85,8 +89,19 @@ interface RemixTake {
 type DistributiveOmit<T, K extends PropertyKey> = T extends unknown ? Omit<T, K> : never;
 type AutomationMove = DistributiveOmit<AutomationEvent, "t">;
 
-function matchesPreset(preset: Preset, speed: number, reverb: number, bassBoostDb: number): boolean {
-  return Math.abs(preset.speed - speed) < 0.005 && preset.reverb === reverb && preset.bassBoostDb === bassBoostDb;
+function matchesPreset(
+  preset: Preset,
+  speed: number,
+  reverb: number,
+  bassBoostDb: number,
+  effect: EffectId,
+): boolean {
+  return (
+    Math.abs(preset.speed - speed) < 0.005 &&
+    preset.reverb === reverb &&
+    preset.bassBoostDb === bassBoostDb &&
+    preset.effect === effect
+  );
 }
 
 function formatSemitones(value: number): string {
@@ -141,6 +156,9 @@ export function RemixStudio() {
   const stretchedBufferRef = useRef<AudioBuffer | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const stretchTokenRef = useRef(0);
+  // Distinguishes a lock-pitch TOGGLE from a speed/pitch drag, so only the
+  // drag pays the debounce.
+  const prevLockRef = useRef(lockPitch);
   const startedAtRef = useRef(0);
   const startOffsetRef = useRef(0);
   const bufferDurationRef = useRef(0);
@@ -329,8 +347,27 @@ export function RemixStudio() {
   // stretch per frame.
   useEffect(() => {
     if (!buffer) return;
+    // A checkbox toggle is a discrete action; a slider drag is a stream of
+    // them. Only the drag deserves a debounce — waiting one out after a click
+    // is what makes the toggle feel dead.
+    const lockJustToggled = prevLockRef.current !== lockPitch;
+    prevLockRef.current = lockPitch;
+
     if (!lockPitch) {
       stretchedBufferRef.current = null;
+      // Turning lock pitch OFF also needs the graph rebuilt: it is still
+      // playing the STRETCHED buffer, so without this the toggle changed
+      // nothing you could hear. Nothing to re-render first — the original
+      // buffer is already in hand, so this is immediate.
+      if (lockJustToggled && graphRef.current && audioCtxRef.current) {
+        const prevDuration = bufferDurationRef.current;
+        const elapsed = getElapsed();
+        const fraction = prevDuration > 0 ? Math.min(1, elapsed / prevDuration) : 0;
+        recordBaseRef.current = getOutputTime();
+        stopPreview();
+        // Back onto the ORIGINAL buffer, so map the fraction onto its length.
+        startAt(fraction * buffer.duration);
+      }
       return;
     }
     if (debounceRef.current) clearTimeout(debounceRef.current);
@@ -369,7 +406,7 @@ export function RemixStudio() {
           if (stretchTokenRef.current === token) setReprocessing(false);
         }
       })();
-    }, DEBOUNCE_MS);
+    }, lockJustToggled ? 0 : DEBOUNCE_MS);
     return () => {
       if (debounceRef.current) clearTimeout(debounceRef.current);
     };
@@ -453,9 +490,14 @@ export function RemixStudio() {
     setSpeed(preset.speed);
     setReverb(preset.reverb);
     setBassBoostDb(preset.bassBoostDb);
+    setEffect(preset.effect);
+    // The character applies live to the playing graph, exactly as clicking the
+    // pill would — otherwise a preset would set the value but not the sound.
+    if (graphRef.current) applyEffectParams(graphRef.current.effect, preset.effect);
     recordMove({ kind: "speed", value: preset.speed });
     recordMove({ kind: "reverb", value: preset.reverb });
     recordMove({ kind: "bassBoostDb", value: preset.bassBoostDb });
+    recordMove({ kind: "effect", value: preset.effect });
   };
 
   // Starts (or restarts) playback at `offset` seconds into the source
@@ -702,7 +744,7 @@ export function RemixStudio() {
   const pitchReadout = lockPitch
     ? t("remix.pitchLocked")
     : t("remix.pitchReadout", { value: formatSemitones(coupledSemitones(speed)) });
-  const activePreset = PRESETS.find((preset) => matchesPreset(preset, speed, reverb, bassBoostDb));
+  const activePreset = PRESETS.find((preset) => matchesPreset(preset, speed, reverb, bassBoostDb, effect));
 
   return (
     <article className="panel hero-tool remix-panel">

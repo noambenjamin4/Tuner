@@ -282,6 +282,7 @@ const en = {
   "remix.effectNone": "None",
   "remix.effectUnderwater": "Underwater",
   "remix.effectPhone": "Phone",
+  "remix.effectLofi": "Lo-Fi",
   "remix.recordExplainer":
     "Record captures every control change and the moment you made it, while the track plays. Export replays those moves into the file. Recording starts from wherever the playhead is, and each pass is kept as its own take.",
   "remix.takesLegend": "Takes",

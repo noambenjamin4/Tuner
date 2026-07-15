@@ -90,7 +90,7 @@ export const NEUTRAL_REVERB_EQ: ReverbEqParams = {
 // `level` is post-shaper makeup: the shared tanh curve has a small-signal gain
 // of ~3x, and each preset's bandpass throws away a different amount of energy,
 // so the levels below are tuned per preset to land near the clean path's RMS.
-export type EffectId = "none" | "underwater" | "phone";
+export type EffectId = "none" | "underwater" | "phone" | "lofi";
 
 export interface EffectPreset {
   highpassHz: number;
@@ -115,6 +115,11 @@ export const EFFECTS: Record<EffectId, EffectPreset> = {
   none: { highpassHz: 20, lowpassHz: 20000, drive: 1, level: 0 },
   underwater: { highpassHz: 20, lowpassHz: 500, drive: 1, level: 0.42 },
   phone: { highpassHz: 400, lowpassHz: 3000, drive: 1.5, level: 0.36 },
+  // Lo-fi: the tape/vinyl character — roll the sub off so it stops thumping,
+  // roll the air off so it stops sparkling, and drive it enough to round the
+  // transients. Deliberately gentler bounds than `phone`: lo-fi should still
+  // sound like the song, just older and softer, where phone is a caricature.
+  lofi: { highpassHz: 120, lowpassHz: 3800, drive: 2.2, level: 0.38 },
 };
 
 export interface RemixParams {

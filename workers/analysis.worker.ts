@@ -162,29 +162,46 @@ function basicAnalysis(samples: Float32Array, sampleRate: number): Omit<WorkerRe
   };
 }
 
-function percivalBpm(essentia: EssentiaLike, signal: unknown): number {
-  return essentia.PercivalBpmEstimator(signal, 1024, 2048, 128, 128, 210, 50, ANALYSIS_RATE).bpm;
+function percivalBpm(essentia: EssentiaLike, signal: unknown, rate: number = ANALYSIS_RATE): number {
+  // The 1024/2048/128/128 defaults are essentia's, and essentia specifies them
+  // at 44.1 kHz. Frame sizes are in SAMPLES, so the rate passed here must match
+  // the signal or every window covers the wrong amount of TIME.
+  return essentia.PercivalBpmEstimator(signal, 1024, 2048, 128, 128, 210, 50, rate).bpm;
 }
 
-function essentiaAnalysis(essentia: EssentiaLike, samples: Float32Array, sampleRate: number): Omit<WorkerResponse, "id"> {
+function essentiaAnalysis(
+  essentia: EssentiaLike,
+  samples: Float32Array,
+  sampleRate: number,
+  bpmInput?: { samples: Float32Array; sampleRate: number },
+): Omit<WorkerResponse, "id"> {
   const windowed = centeredWindow(samples, sampleRate, 150);
   const cleanup: { delete?: () => void }[] = [];
   try {
     const signal = essentia.arrayToVector(windowed) as { delete?: () => void };
     cleanup.push(signal);
 
-    const rawBpm = percivalBpm(essentia, signal);
+    // TEMPO on the original-rate audio when we have it (essentia's Percival
+    // defaults are specified at 44.1k), KEY on the 16k `signal` below, where it
+    // measured better. Two windows, two rates, on purpose.
+    const bpmWindow = bpmInput ? centeredWindow(bpmInput.samples, bpmInput.sampleRate, 150) : windowed;
+    const bpmRate = bpmInput ? bpmInput.sampleRate : sampleRate;
+    const bpmSignal = bpmInput
+      ? (essentia.arrayToVector(bpmWindow) as { delete?: () => void })
+      : signal;
+    if (bpmInput) cleanup.push(bpmSignal);
+    const rawBpm = percivalBpm(essentia, bpmSignal, bpmRate);
 
     // Percival reports no confidence, so estimate one: run it on each half of
     // the track and score how closely the two estimates agree.
     let bpmConfidence = 75;
     try {
-      const half = Math.floor(windowed.length / 2);
-      const firstHalf = essentia.arrayToVector(windowed.subarray(0, half)) as { delete?: () => void };
-      const secondHalf = essentia.arrayToVector(windowed.subarray(half)) as { delete?: () => void };
+      const half = Math.floor(bpmWindow.length / 2);
+      const firstHalf = essentia.arrayToVector(bpmWindow.subarray(0, half)) as { delete?: () => void };
+      const secondHalf = essentia.arrayToVector(bpmWindow.subarray(half)) as { delete?: () => void };
       cleanup.push(firstHalf, secondHalf);
-      const a = foldBpm(percivalBpm(essentia, firstHalf)).bpm;
-      const b = foldBpm(percivalBpm(essentia, secondHalf)).bpm;
+      const a = foldBpm(percivalBpm(essentia, firstHalf, bpmRate)).bpm;
+      const b = foldBpm(percivalBpm(essentia, secondHalf, bpmRate)).bpm;
       const diff = Math.abs(a - b) / Math.max(1, (a + b) / 2);
       bpmConfidence = Math.max(45, Math.min(97, Math.round(97 - diff * 400)));
     } catch {
@@ -257,11 +274,15 @@ self.onmessage = async (event: MessageEvent<WorkerRequest | { warmup: true }>) =
     }
     return;
   }
-  const { id, samples, sampleRate } = event.data;
+  const { id, samples, sampleRate, bpmSamples, bpmSampleRate } = event.data;
   let payload: Omit<WorkerResponse, "id">;
   try {
     const essentia = await loadEssentia();
-    payload = essentia ? essentiaAnalysis(essentia, samples, sampleRate) : basicAnalysis(samples, sampleRate);
+    const bpmInput =
+      bpmSamples && bpmSampleRate ? { samples: bpmSamples, sampleRate: bpmSampleRate } : undefined;
+    payload = essentia
+      ? essentiaAnalysis(essentia, samples, sampleRate, bpmInput)
+      : basicAnalysis(samples, sampleRate);
   } catch (error) {
     console.warn("essentia analysis failed; using basic analysis.", error);
     payload = basicAnalysis(samples, sampleRate);

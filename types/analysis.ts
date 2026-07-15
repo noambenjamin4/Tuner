@@ -35,8 +35,18 @@ export interface HistoryEntry {
 
 export interface WorkerRequest {
   id: number;
+  /** 16 kHz mono. Drives the KEY detector, which measured BETTER at 16k than
+   *  at 44.1k (47% vs 45% exact on a 49-song truth set). */
   samples: Float32Array;
   sampleRate: number;
+  /** The track at its ORIGINAL rate, for the tempo estimator only.
+   *  PercivalBpmEstimator's frame/hop defaults (1024/2048/128/128) are
+   *  specified for 44.1 kHz; feeding them 16 kHz stretches every window ~2.76x
+   *  in TIME, which measurably costs accuracy on EVERY band (see
+   *  scripts/rate-experiment.mjs: 61% -> 64% exact, slow 70% -> 74%, fast
+   *  10% -> 14%). Optional so a caller that only has 16 kHz still works. */
+  bpmSamples?: Float32Array;
+  bpmSampleRate?: number;
 }
 
 export interface WorkerResponse {

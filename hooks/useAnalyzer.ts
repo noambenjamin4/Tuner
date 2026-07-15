@@ -114,14 +114,29 @@ export function useAnalyzer(onResult?: (result: AnalysisResult) => void) {
   }, [getWorker]);
 
   const analyzeSamples = useCallback(
-    async (samples: Float32Array, sampleRate: number): Promise<Omit<WorkerResponse, "id">> => {
+    async (
+      samples: Float32Array,
+      sampleRate: number,
+      bpmInput?: { samples: Float32Array; sampleRate: number },
+    ): Promise<Omit<WorkerResponse, "id">> => {
       const worker = getWorker();
       if (worker) {
         try {
           return await new Promise<WorkerResponse>((resolve, reject) => {
             const id = ++requestIdRef.current;
             pendingRef.current.set(id, { resolve, reject });
-            const request: WorkerRequest = { id, samples, sampleRate };
+            const request: WorkerRequest = {
+              id,
+              samples,
+              sampleRate,
+              bpmSamples: bpmInput?.samples,
+              bpmSampleRate: bpmInput?.sampleRate,
+            };
+            // Only `samples` is transferred. bpmSamples is left to be
+            // structured-cloned on purpose: the worker path falls back to a
+            // main-thread basicAnalysis on failure, and a transferred buffer is
+            // DETACHED — the fallback would then read an empty array. The clone
+            // costs one copy; a detached buffer costs a wrong answer.
             worker.postMessage(request, [samples.buffer]);
           });
         } catch {
@@ -170,7 +185,16 @@ export function useAnalyzer(onResult?: (result: AnalysisResult) => void) {
           const mono = monoSamples(buffer);
           const analysisInput = await resampleMono(mono, buffer.sampleRate, ANALYSIS_SAMPLE_RATE);
           setStage("analyzing");
-          const analysis = await analyzeSamples(analysisInput, ANALYSIS_SAMPLE_RATE);
+          // Tempo gets the ORIGINAL-rate audio; key gets the 16k resample.
+          // Percival's frame/hop defaults are specified at 44.1k, so running it
+          // at 16k stretched every window ~2.76x in time and cost accuracy on
+          // every band (measured: 61%->64% exact, slow 70%->74%, fast 10%->14%,
+          // for +167ms). The key detector is the opposite — it measured better
+          // at 16k (47% vs 45%) — so each estimator now gets the rate it wants.
+          const analysis = await analyzeSamples(analysisInput, ANALYSIS_SAMPLE_RATE, {
+            samples: mono,
+            sampleRate: buffer.sampleRate,
+          });
 
           const result: AnalysisResult = {
             name: file.name,

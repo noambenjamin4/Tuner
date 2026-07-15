@@ -9,6 +9,19 @@ import { useEffect } from "react";
 // keepalive so a report survives the tab closing right after the crash.
 const MAX_PER_PAGE = 5;
 
+// Production only. Without this, a dev server writes into the SAME Supabase
+// table as real visitors — and every mid-edit HMR ReferenceError lands there
+// looking exactly like a live crash. The first errors this reporter ever
+// collected were 12 of those, from localhost, and they'd have buried a real
+// user's report. Dev errors belong in the console, where you're already looking.
+function isReportable(): boolean {
+  if (process.env.NODE_ENV !== "production") return false;
+  // A production BUILD can still run locally (next start) — only report from
+  // the real origin.
+  const host = window.location.hostname;
+  return host !== "localhost" && host !== "127.0.0.1" && host !== "[::1]";
+}
+
 function report(source: "onerror" | "unhandledrejection", message: string, stack?: string) {
   try {
     void fetch("/api/client-error", {
@@ -29,6 +42,7 @@ function report(source: "onerror" | "unhandledrejection", message: string, stack
 
 export function ClientErrorReporter() {
   useEffect(() => {
+    if (!isReportable()) return;
     let sent = 0;
     const onError = (event: ErrorEvent) => {
       if (sent >= MAX_PER_PAGE) return;

@@ -44,8 +44,10 @@ const PRESETS: Preset[] = [
   { name: "Slowed + Reverb", speed: 0.8, reverb: 40, bassBoostDb: 0, effect: "none" },
   { name: "Nightcore", speed: 1.25, reverb: 0, bassBoostDb: 0, effect: "none" },
   // Lo-Fi is the whole look in one click: slowed a touch, a small room rather
-  // than a hall, a little low end back, and the tape/vinyl filter over it.
-  { name: "Lo-Fi", speed: 0.85, reverb: 22, bassBoostDb: 3, effect: "lofi" },
+  // than a hall, and the tape/vinyl filter over it. Bass is left ALONE — the
+  // preset used to add +3dB, which changed the low end rather than the
+  // character, so lo-fi didn't sound like the same song any more.
+  { name: "Lo-Fi", speed: 0.85, reverb: 22, bassBoostDb: 0, effect: "lofi" },
 ];
 
 const DEBOUNCE_MS = 400;

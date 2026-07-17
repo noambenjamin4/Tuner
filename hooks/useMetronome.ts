@@ -87,10 +87,20 @@ export function useMetronome(bpm: number) {
 
   // Unconditional stop, for when something else takes over the speakers (see
   // lib/audio/now-playing.ts). `toggle` can't serve: it would START a stopped
-  // metronome. Clicks already scheduled inside the lookahead window still play
-  // — a tail of up to SCHEDULE_AHEAD_SECONDS that would only be avoidable by
-  // tracking every oscillator, which is not worth it for a 100ms click.
-  const stop = useCallback(() => setRunning(false), []);
+  // metronome.
+  //
+  // The registry contract requires the stopper to silence SYNCHRONOUSLY —
+  // `setRunning(false)` alone only schedules the scheduler teardown for the
+  // next React commit, so the 25ms lookahead loop keeps queuing clicks and the
+  // ones already scheduled still fire: a burst of clicks OVER the song that
+  // just started, which is exactly the overlap this system exists to kill.
+  // Suspending the context halts the audio clock immediately, so even
+  // already-scheduled oscillators never sound. The start effect resumes the
+  // context on the next toggle (see ctx.state === "suspended" above).
+  const stop = useCallback(() => {
+    audioContextRef.current?.suspend().catch(() => {});
+    setRunning(false);
+  }, []);
 
   return { running, beat, lightOn, toggle, stop };
 }

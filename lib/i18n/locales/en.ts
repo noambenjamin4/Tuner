@@ -289,6 +289,7 @@ const en = {
   "remix.takeLabel": "Take {n}",
   "remix.takeSummary": "{time} · {count} moves · from {start}",
   "remix.deleteTake": "Delete",
+  "remix.resetConfirm": "Delete all recorded takes and start over?",
   "remix.exportTakeFormat": "Export {take} {format}",
   "remix.record": "Record",
   "remix.stopRecording": "Stop recording",

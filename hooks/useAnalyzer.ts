@@ -132,12 +132,17 @@ export function useAnalyzer(onResult?: (result: AnalysisResult) => void) {
               bpmSamples: bpmInput?.samples,
               bpmSampleRate: bpmInput?.sampleRate,
             };
-            // Only `samples` is transferred. bpmSamples is left to be
-            // structured-cloned on purpose: the worker path falls back to a
-            // main-thread basicAnalysis on failure, and a transferred buffer is
-            // DETACHED — the fallback would then read an empty array. The clone
-            // costs one copy; a detached buffer costs a wrong answer.
-            worker.postMessage(request, [samples.buffer]);
+            // Structured-clone everything; transfer nothing. Transferring a
+            // buffer DETACHES it on the main thread, and the fallback below
+            // (used when the worker errors — e.g. essentia WASM fails to load)
+            // reads `samples` directly. An earlier version transferred
+            // `samples.buffer` and left only `bpmSamples` intact, but the
+            // fallback never reads bpmSamples — so a worker crash produced
+            // "0 BPM, C Major" from a zero-length array instead of a real
+            // estimate. The clone costs one copy of a 16 kHz mono buffer on a
+            // once-per-file, user-initiated path; a detached buffer costs a
+            // wrong answer. Correctness wins that trade.
+            worker.postMessage(request);
           });
         } catch {
           // fall through to the main-thread fallback

@@ -2739,6 +2739,17 @@ tbody tr:last-child td {
   background: var(--hover);
 }
 
+/* Touch devices only: the 24x16 glyph is a fine mouse target but a poor
+   finger one, and the two arrows sit adjacent so a fat-finger tap easily hits
+   the wrong direction. Grow the tappable area (not the glyph) toward the ~44px
+   guideline on coarse pointers; desktop keeps its compact stepper. */
+@media (pointer: coarse) {
+  .cutter-stepper-arrows button {
+    width: 44px;
+    height: 36px;
+  }
+}
+
 /* "Set to playhead" helpers live right under their stepper. */
 .cutter-set-btn {
   min-height: 30px;

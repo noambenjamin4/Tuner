@@ -277,6 +277,7 @@ const fr: Record<keyof typeof en, string> = {
   "remix.takeLabel": "Prise {n}",
   "remix.takeSummary": "{time} · {count} gestes · depuis {start}",
   "remix.deleteTake": "Supprimer",
+  "remix.resetConfirm": "Supprimer tous les enregistrements et recommencer ?",
   "remix.exportTakeFormat": "Exporter {take} {format}",
   "remix.record": "Enregistrer",
   "remix.stopRecording": "Arrêter l'enregistrement",

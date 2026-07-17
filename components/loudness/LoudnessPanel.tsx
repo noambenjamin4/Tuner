@@ -352,7 +352,11 @@ export function LoudnessPanel() {
 
       {!file && (
         <div className={`drop-zone${dragging ? " dragging" : ""}`} {...dropZoneProps}>
-          <input {...inputProps} accept="audio/*,.mp3,.wav,.m4a,.ogg,.flac" />
+          <input
+            {...inputProps}
+            accept="audio/*,.mp3,.wav,.m4a,.ogg,.flac"
+            aria-label={t("common.browseFiles")}
+          />
           <div className="upload-copy">
             <small>{t("common.dropAudioFile")}</small>
             <span>{t("loudness.dropHint")}</span>

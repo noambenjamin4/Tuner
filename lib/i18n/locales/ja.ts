@@ -277,6 +277,7 @@ const ja: Record<keyof typeof en, string> = {
   "remix.takeLabel": "テイク {n}",
   "remix.takeSummary": "{time} · {count} 操作 · {start} から",
   "remix.deleteTake": "削除",
+  "remix.resetConfirm": "録音したテイクをすべて削除してやり直しますか？",
   "remix.exportTakeFormat": "{take} を {format} で書き出す",
   "remix.record": "録音",
   "remix.stopRecording": "録音を停止",

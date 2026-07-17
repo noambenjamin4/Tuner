@@ -276,6 +276,7 @@ const zh: Record<keyof typeof en, string> = {
   "remix.takeLabel": "片段 {n}",
   "remix.takeSummary": "{time} · {count} 次操作 · 从 {start} 开始",
   "remix.deleteTake": "删除",
+  "remix.resetConfirm": "删除所有已录制的片段并重新开始？",
   "remix.exportTakeFormat": "导出{take} {format}",
   "remix.record": "录制",
   "remix.stopRecording": "停止录制",

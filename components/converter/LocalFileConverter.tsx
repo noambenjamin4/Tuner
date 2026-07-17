@@ -59,7 +59,10 @@ export function LocalFileConverter() {
       console.error(error);
       setStatus({
         title: t("localConverter.failedTitle"),
-        message: error instanceof Error ? error.message : t("localConverter.failedFallback"),
+        // Never surface the raw exception: it is hardcoded English (decode.ts,
+        // mp3-encoder.ts) or a browser-native DOMException, both untranslated
+        // in the 7 non-English locales. The real error is logged above.
+        message: t("localConverter.failedFallback"),
         tone: "warning",
       });
     } finally {

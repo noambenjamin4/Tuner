@@ -30,7 +30,7 @@ export function ResultsTable({
   const { t } = useI18n();
   const empty = !results.length && !analyzingNames.length && !failedNames.length && !oversizedNames.length;
   return (
-    <div className="table-wrap">
+    <div className="table-wrap" aria-live="polite">
       {empty ? (
         <svg className="empty-vinyl-motif" viewBox="0 0 160 160" aria-hidden="true">
           <circle cx="80" cy="80" r="78" fill="none" stroke="currentColor" strokeWidth="1" />

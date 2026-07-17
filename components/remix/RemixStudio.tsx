@@ -253,6 +253,13 @@ export function RemixStudio() {
   }, []);
 
   const resetAll = useCallback(() => {
+    // Recorded takes are unrecoverable work — unlike a loaded file, which is
+    // just re-dropped. Guard the wipe so one misclick on the header reset
+    // cannot silently erase every take. Only prompt when there is something to
+    // lose; an empty-takes reset stays a single click.
+    if (takes.length > 0 && !window.confirm(t("remix.resetConfirm"))) {
+      return;
+    }
     stopPreview();
     clearDecodeCache();
     if (previewUrlRef.current) {
@@ -284,7 +291,7 @@ export function RemixStudio() {
     setTakes([]);
     setSelectedTakeId(null);
     setRecordElapsed(0);
-  }, [stopPreview]);
+  }, [stopPreview, takes, t]);
 
   // Cleanup on unmount.
   useEffect(() => stopPreview, [stopPreview]);
@@ -768,7 +775,11 @@ export function RemixStudio() {
 
       {!file && (
         <div className={`drop-zone${dragging ? " dragging" : ""}`} {...dropZoneProps}>
-          <input {...inputProps} accept="audio/*,.mp3,.wav,.m4a,.ogg,.flac" />
+          <input
+            {...inputProps}
+            accept="audio/*,.mp3,.wav,.m4a,.ogg,.flac"
+            aria-label={t("common.browseFiles")}
+          />
           <div className="upload-copy">
             <small>{t("common.dropAudioFile")}</small>
             <span>{t("remix.dropHint")}</span>

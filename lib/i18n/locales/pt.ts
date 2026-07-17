@@ -277,6 +277,7 @@ const pt: Record<keyof typeof en, string> = {
   "remix.takeLabel": "Take {n}",
   "remix.takeSummary": "{time} · {count} movimentos · desde {start}",
   "remix.deleteTake": "Eliminar",
+  "remix.resetConfirm": "Excluir todas as gravações e começar de novo?",
   "remix.exportTakeFormat": "Exportar {take} {format}",
   "remix.record": "Gravar",
   "remix.stopRecording": "Parar gravação",

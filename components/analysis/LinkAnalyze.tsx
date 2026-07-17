@@ -190,7 +190,11 @@ export function LinkAnalyze({ onPreviewFile }: { onPreviewFile: (file: File, met
         </div>
       </form>
 
-      {error ? <p className="link-analyze-note link-analyze-error">{error}</p> : null}
+      {error ? (
+        <p className="link-analyze-note link-analyze-error" role="alert">
+          {error}
+        </p>
+      ) : null}
 
       {match && !error && !cached ? (
         <p className="link-analyze-note link-analyze-match" role="status">

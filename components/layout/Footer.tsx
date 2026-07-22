@@ -83,6 +83,8 @@ export function Footer() {
         <p className="site-footer-copyright">{t("footer.copyright")}</p>
         <p className="site-footer-legal">
           <Link href="/copyright">{t("footer.copyrightLink")}</Link>
+          {" · "}
+          <Link href="/privacy">{t("footer.privacyLink")}</Link>
         </p>
       </div>
     </footer>

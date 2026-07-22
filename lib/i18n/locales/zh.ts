@@ -307,6 +307,7 @@ const zh: Record<keyof typeof en, string> = {
   "footer.tagline": "分析。转换。创作。",
   "footer.copyright": "© 2026 TuneBad",
   "footer.copyrightLink": "版权声明",
+  "footer.privacyLink": "隐私政策",
   "footer.guides": "指南",
 
   // Homepage landing / FAQ section

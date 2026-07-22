@@ -309,6 +309,7 @@ const fr: Record<keyof typeof en, string> = {
   "footer.tagline": "Analyser. Convertir. Créer.",
   "footer.copyright": "© 2026 TuneBad",
   "footer.copyrightLink": "Avis de droit d’auteur",
+  "footer.privacyLink": "Politique de confidentialité",
   "footer.guides": "Guides",
 
   // Homepage landing / FAQ section

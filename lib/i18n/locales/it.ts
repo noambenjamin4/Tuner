@@ -309,6 +309,7 @@ const it: Record<keyof typeof en, string> = {
   "footer.tagline": "Analizza. Converti. Crea.",
   "footer.copyright": "© 2026 TuneBad",
   "footer.copyrightLink": "Avviso sul copyright",
+  "footer.privacyLink": "Informativa sulla privacy",
   "footer.guides": "Guide",
 
   // Homepage landing / FAQ section

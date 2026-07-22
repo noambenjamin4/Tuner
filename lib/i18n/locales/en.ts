@@ -324,6 +324,7 @@ const en = {
   "footer.tagline": "Analyze. Convert. Create.",
   "footer.copyright": "© 2026 TuneBad",
   "footer.copyrightLink": "Copyright Disclaimer",
+  "footer.privacyLink": "Privacy Policy",
   "footer.guides": "Guides",
 
   // Homepage landing / FAQ section
